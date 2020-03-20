@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 
 class SimpleDynamicForm extends StatefulWidget {
   final List<GroupElement> groupElements;
+  final EdgeInsets padding;
 
-  SimpleDynamicForm({@required this.groupElements});
+  SimpleDynamicForm({
+    @required this.groupElements,
+    this.padding,
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -33,48 +37,56 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: <Widget>[
-          for (var gelement in widget.groupElements) ...[
-            if (gelement.directionGroup == DirectionGroup.Horizontal) ...[
-              Table(
-                columnWidths: {
-                  for (var v in gelement.sizeElements)
-                    gelement.sizeElements.indexOf(v):
-                        FixedColumnWidth(v.toDouble())
-                },
-                children: [
-                  TableRow(
-                    children: [
-                      for (var element in gelement.textElements) ...[
-                        generateTextField(element, gelement),
-                      ],
+    return Padding(
+      padding: widget.padding??EdgeInsets.all(5.0),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            for (var gelement in widget.groupElements) ...[
+              if (gelement.directionGroup == DirectionGroup.Horizontal) ...[
+                Row(
+                  children: <Widget>[
+                    for (var element in gelement.textElements) ...[
+                      Flexible(
+                          flex: (gelement.sizeElements[
+                                      widget.groupElements.indexOf(gelement)] *
+                                  10)
+                              .toInt(),
+                          child: Container(
+                            child: generateTextField(
+                              element,
+                              gelement,
+                            ),
+                          )),
                     ],
-                  ),
-                ],
-              ),
-            ],
-            if (gelement.directionGroup == DirectionGroup.Vertical) ...[
-              for (var element in gelement.textElements) ...[
-                generateTextField(element, gelement),
+                  ],
+                ),
               ],
-            ]
+              if (gelement.directionGroup == DirectionGroup.Vertical) ...[
+                for (var element in gelement.textElements) ...[
+                  generateTextField(element, gelement),
+                ],
+              ]
+            ],
           ],
-        ],
+        ),
       ),
     );
   }
 
   Widget generateTextField(TextElement element, GroupElement gelement) {
-    return TextFormField(
-      controller: _listGTextControler[widget.groupElements.indexOf(gelement)]
-          [gelement.textElements.indexOf(element)],
-      validator: element.validator,
-      keyboardType: getInput(element.typeInput),
-      decoration: InputDecoration(
-        labelText: element.label,
+    return Padding(
+      padding: element.padding,
+      child: TextFormField(
+        controller: _listGTextControler[widget.groupElements.indexOf(gelement)]
+        [gelement.textElements.indexOf(element)],
+        validator: element.validator,
+        keyboardType: getInput(element.typeInput),
+        decoration: InputDecoration(
+          labelText: element.label,
+        ),
       ),
     );
   }

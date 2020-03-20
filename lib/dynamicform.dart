@@ -1,7 +1,6 @@
 library dynamicform;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'src/simple_dynamic_form.dart';
+export 'src/element.dart';
+export 'src/group_elements.dart';
+export 'src/decoration_element.dart';
