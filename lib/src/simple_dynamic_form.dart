@@ -1,5 +1,5 @@
-import 'package:dynamicform/src/element.dart';
-import 'package:dynamicform/src/group_elements.dart';
+import 'package:dynamicForm/src/element.dart';
+import 'package:dynamicForm/src/group_elements.dart';
 import 'package:flutter/material.dart';
 
 class SimpleDynamicForm extends StatefulWidget {

@@ -1,8 +1,7 @@
-name: dynamicform
+name: dynamicForm
 description: create your form with easier way
-version: 0.0.1
-author:
-homepage:
+version: 0.1.0
+homepage: https://github.com/liodali/DynamicFormFlutter
 
 environment:
   sdk: ">=2.3.0 <3.0.0"

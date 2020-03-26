@@ -1,3 +1,4 @@
-## [0.0.1] - TODO: Add release date.
-
-* TODO: Describe initial release.
+## [0.1.0] - version alpha:
+ * generate simple form
+ * recuperate all values
+ * validate form
