@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamicForm: ^0.1.0
+		dynamic_form: ^0.1.0
 
 
 

@@ -1,4 +1,4 @@
-library dynamicForm;
+library dynamic_form;
 
 export 'src/simple_dynamic_form.dart';
 export 'src/element.dart';

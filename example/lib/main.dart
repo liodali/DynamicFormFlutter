@@ -1,4 +1,4 @@
-import 'package:dynamicForm/dynamicform.dart';
+import 'package:dynamic_form/dynamicform.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
