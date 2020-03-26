@@ -150,6 +150,10 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
       case TypeInput.Phone:
         return TextInputType.phone;
         break;
+      default:
+        return TextInputType.text;
+        break;
+
     }
   }
 }

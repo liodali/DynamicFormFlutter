@@ -1,4 +1,4 @@
-name: checkbox_grouped
+name: dynamic_form
 on:
   push:
     branches:

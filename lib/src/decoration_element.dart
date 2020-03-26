@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-class DecorationElemen{
-
+class DecorationElemen {
   InputBorder inputBorder;
   Color filledColor;
   Widget prefix;
   Widget suffix;
-
 }
