@@ -21,42 +21,53 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-class MyHomePage extends StatelessWidget{
+
+class MyHomePage extends StatelessWidget {
+  GlobalKey<SimpleDynamicFormState> _globalKey;
+
   @override
   Widget build(BuildContext context) {
+    _globalKey = GlobalKey<SimpleDynamicFormState>();
     return Center(
-      child: SimpleDynamicForm(
-        groupElements: [
-          GroupElement(
-            directionGroup: DirectionGroup.Horizontal,
-            sizeElements: [0.3,0.1,0.2],
-            textElements: [
-              TextElement(
-                label: "first name"
+      child: Column(
+        children: <Widget>[
+          SimpleDynamicForm(
+            key: _globalKey,
+            groupElements: [
+              GroupElement(
+                directionGroup: DirectionGroup.Horizontal,
+                sizeElements: [0.3],
+                textElements: [
+                  TextElement(
+                      label: "first name",
+                      hint: "first name",
+                      validator: (v) {
+                        if (v.isEmpty) {
+                          return "err";
+                        }
+                        return null;
+                      }),
+                  TextElement(label: "last name"),
+                ],
               ),
-              TextElement(
-                label: "last name"
-              ),
-              TextElement(
-                  label: "pseudo name"
-              )
-            ]
+              GroupElement(
+                  directionGroup: DirectionGroup.Vertical,
+                  textElements: [
+                    TextElement(label: "name"),
+                    TextElement(
+                        label: "password", typeInput: TypeInput.Password)
+                  ])
+            ],
           ),
-          GroupElement(
-              directionGroup: DirectionGroup.Vertical,
-              textElements: [
-                TextElement(
-                    label: "name"
-                ),
-                TextElement(
-                    label: "password",
-                    typeInput: TypeInput.Password
-                )
-              ]
+          RaisedButton(
+            onPressed: () {
+              print(_globalKey.currentState.validate());
+              print(_globalKey.currentState.recuperateAllValues());
+            },
+            child: Text("Validate"),
           )
         ],
       ),
     );
   }
-
 }
