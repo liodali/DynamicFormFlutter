@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.1.1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.3.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.1.1
+		dynamic_form: ^0.3.0
 
 
 
@@ -21,16 +21,17 @@ Add the following to your `pubspec.yaml` file:
 #### Creating a basic `SimpleDynamicForm`
 
     SimpleDynamicForm(
-                    key: dynamicFormKey,
-                    groupElements: [
-                                  GroupElement(
-                                      directionGroup: DirectionGroup.Vertical,
-                                      textElements: [
-                                        TextElement(label: "name"),
-                                        TextElement(
-                                            label: "password", typeInput: TypeInput.Password)
-                                      ])
-                                ],
+          key: dynamicFormKey,
+          groupElements: [
+                  GroupElement(
+                                directionGroup: DirectionGroup.Vertical,
+                                textElements: [
+                                TextElement(label: "name"),
+                                TextElement(
+                                     label: "password", typeInput: TypeInput.Password)
+                                  ],
+                                 )
+                      ],
                   );
 
 
@@ -56,6 +57,10 @@ Add the following to your `pubspec.yaml` file:
 | `directionGroup`     |  Direction of form (Vertical/Horizontal)           |
 | `sizeElements`       |  size of each textElement  of form When direction Horizontal,sum of values should be egal a 1           |
 | `textElements`       |  group of textElement.              |
+| `padding`            |  padding of groups.                 |
+| `decoration`         |  decoration  of container groups.   |
+| `backgroundColor`    |  color of the container groups.     |
+
 
 ####  `textElement`
 | Properties           | Description                         |
@@ -70,6 +75,19 @@ Add the following to your `pubspec.yaml` file:
 | `readOnly`           |  enable TextField uneditable         |
 | `validator`          |  callback validation of TextField    |
 | `padding`            |  padding of TextField                |
+
+### `EmailElement`
+
+> Pre-exsiting element with check validation of email
+> Pre-initialized values
+
+
+### `PasswordElement`
+
+
+> Pre-exsiting element with check validation of passwed
+> Pre-initialized values
+> show/hide password
 
 
 

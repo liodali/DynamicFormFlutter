@@ -35,10 +35,12 @@ class MyHomePage extends StatelessWidget {
             key: _globalKey,
             groupElements: [
               GroupElement(
+                margin: EdgeInsets.only(bottom: 5.0),
                 directionGroup: DirectionGroup.Horizontal,
                 sizeElements: [0.3],
                 textElements: [
                   TextElement(
+                    initValue: "dali hamza",
                       label: "first name",
                       hint: "first name",
                       validator: (v) {
@@ -54,8 +56,7 @@ class MyHomePage extends StatelessWidget {
                   directionGroup: DirectionGroup.Vertical,
                   textElements: [
                     TextElement(label: "name"),
-                    TextElement(
-                        label: "password", typeInput: TypeInput.Password)
+                    PasswordElement(),
                   ])
             ],
           ),

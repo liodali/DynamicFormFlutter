@@ -1,5 +1,6 @@
 import 'package:dynamic_form/src/element.dart';
 import 'package:dynamic_form/src/group_elements.dart';
+import 'package:dynamic_form/src/password_text_field.dart';
 import 'package:flutter/material.dart';
 
 class SimpleDynamicForm extends StatefulWidget {
@@ -57,7 +58,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     widget.groupElements.forEach((g) {
       List<TextEditingController> _list = [];
       g.textElements.forEach((e) {
-        _list.add(TextEditingController());
+        _list.add(TextEditingController(text: e.initValue));
       });
       _listGTextControler.add(_list);
     });
@@ -76,27 +77,42 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            for (var gelement in widget.groupElements) ...[
+            for (GroupElement gelement in widget.groupElements) ...[
               if (gelement.directionGroup == DirectionGroup.Horizontal) ...[
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    for (var element in gelement.textElements) ...[
-                      Flexible(
-                        flex: getFlex(gelement.textElements, element, gelement.sizeElements),
-                        child: generateTextField(
-                          element,
-                          gelement,
+                Container(
+                  padding: gelement.padding ?? EdgeInsets.all(2.0),
+                  margin: gelement.margin ?? EdgeInsets.all(2.0),
+                  color: gelement.backgroundColor,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      for (var element in gelement.textElements) ...[
+                        Flexible(
+                          flex: getFlex(gelement.textElements, element,
+                              gelement.sizeElements),
+                          child: generateTextField(
+                            element,
+                            gelement,
+                          ),
                         ),
-                      ),
+                      ],
                     ],
-                  ],
+                  ),
                 ),
               ],
               if (gelement.directionGroup == DirectionGroup.Vertical) ...[
-                for (var element in gelement.textElements) ...[
-                  generateTextField(element, gelement),
-                ],
+                Container(
+                  padding: gelement.padding ?? EdgeInsets.all(2.0),
+                  margin: gelement.margin ?? EdgeInsets.all(2.0),
+                  color: gelement.backgroundColor,
+                  child: Column(
+                    children: <Widget>[
+                      for (var element in gelement.textElements) ...[
+                        generateTextField(element, gelement),
+                      ],
+                    ],
+                  ),
+                ),
               ]
             ],
           ],
@@ -105,9 +121,10 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     );
   }
 
-  int getFlex(List<TextElement> textElements, element, List<double> sizeElements) {
+  int getFlex(
+      List<TextElement> textElements, element, List<double> sizeElements) {
     int flex = 0;
-    if (textElements.indexOf(element) <sizeElements.length)
+    if (textElements.indexOf(element) < sizeElements.length)
       flex = (sizeElements[textElements.indexOf(element)] * 10).toInt();
     else {
       flex = ((1 - sizeElements.reduce((a, b) => a + b)) * 10).toInt();
@@ -116,6 +133,21 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
   }
 
   Widget generateTextField(TextElement element, GroupElement gelement) {
+    if (element is PasswordElement) {
+      return Padding(
+        padding: element.padding,
+        child: PasswordTextField(
+          textEditingController:
+              _listGTextControler[widget.groupElements.indexOf(gelement)]
+                  [gelement.textElements.indexOf(element as TextElement)],
+          validator: element.validator,
+          isEnabledToShowPassword:
+              (element as PasswordElement).enableShowPassword,
+          textElement: element,
+          textInputType: getInput(element.typeInput),
+        ),
+      );
+    }
     return Padding(
       padding: element.padding,
       child: TextFormField(
@@ -125,9 +157,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         keyboardType: getInput(element.typeInput),
         readOnly: element.readOnly,
         decoration: InputDecoration(
-          labelText: element.label,
-          hintText: element.hint,
-        ),
+            labelText: element.label, hintText: element.hint, suffixIcon: null),
       ),
     );
   }
@@ -153,7 +183,6 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
       default:
         return TextInputType.text;
         break;
-
     }
   }
 }
