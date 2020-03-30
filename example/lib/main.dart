@@ -57,6 +57,7 @@ class MyHomePage extends StatelessWidget {
                 directionGroup: DirectionGroup.Vertical,
                 textElements: [
                   TextElement(label: "name"),
+                  EmailElement(label: "name"),
                   PasswordElement(),
                 ],
               ),
