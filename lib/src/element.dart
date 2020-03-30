@@ -34,6 +34,7 @@ abstract class FormElement {
 class TextElement extends FormElement {
   final TypeInput typeInput;
   final String initValue;
+  final Function onTap;
   final String label;
   final String hint;
   final String error;
@@ -48,6 +49,7 @@ class TextElement extends FormElement {
   TextElement({
     this.typeInput = TypeInput.Text,
     this.initValue,
+    this.onTap,
     this.label = "",
     this.hint = "",
     this.error = "",
@@ -93,7 +95,7 @@ class EmailElement extends TextElement {
     this.hintStyle,
     this.errorStyle,
     this.readOnly = false,
-    this.padding,
+    this.padding = const EdgeInsets.all(2.0),
 
   }) : super(
           initValue: initValue,
@@ -127,6 +129,7 @@ class PasswordElement extends TextElement {
   final TextStyle errorStyle;
   final TextStyle hintStyle;
   final TextStyle labelStyle;
+  final EdgeInsets padding;
   final bool readOnly;
 
   //final List<String> suffix;
@@ -140,10 +143,12 @@ class PasswordElement extends TextElement {
     this.errorStyle,
     this.enableShowPassword = true,
     this.readOnly = false,
+    this.padding = const EdgeInsets.all(2.0),
   }) : super(
           initValue: initValue,
           label: label,
           hint: hint,
+          onTap: null,
           readOnly: readOnly,
           typeInput: TypeInput.Password,
           validator: (password) {
@@ -163,10 +168,12 @@ class NumberElement extends TextElement{
   final String label;
   final String hint;
   final String errorMsg;
+  final TextStyle textStyle;
   final TextStyle errorStyle;
   final TextStyle hintStyle;
   final TextStyle labelStyle;
   final bool isDigits;
+  final EdgeInsets padding;
   final bool readOnly;
 
   //final List<String> suffix;
@@ -176,9 +183,11 @@ class NumberElement extends TextElement{
     this.hint = "",
     this.isDigits=false,
     this.errorMsg,
+    this.textStyle,
     this.labelStyle,
     this.hintStyle,
     this.errorStyle,
+    this.padding = const EdgeInsets.all(2.0),
     this.readOnly = false,
   }) : super(
     initValue: initValue,

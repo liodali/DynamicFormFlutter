@@ -153,6 +153,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         child: TextFormField(
           controller: controller,
           validator: element.validator,
+          onTap: element.onTap,
           inputFormatters: element.isDigits
               ? [WhitelistingTextInputFormatter.digitsOnly]
               : [],
@@ -173,6 +174,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         validator: element.validator,
         keyboardType: getInput(element.typeInput),
         readOnly: element.readOnly,
+        onTap: element.onTap,
         decoration: InputDecoration(
             labelText: element.label, hintText: element.hint, suffixIcon: null),
       ),

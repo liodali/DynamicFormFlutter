@@ -1,3 +1,4 @@
+## [0.3.2] - version alpha:
 ## [0.3.1+1] - version alpha:
 * fix error
 * add numberElement into readme file

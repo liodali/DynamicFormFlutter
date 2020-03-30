@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.3.1%2B1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.3.2-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.3.1+1
+		dynamic_form: ^0.3.2
 
 
 
@@ -67,6 +67,7 @@ Add the following to your `pubspec.yaml` file:
 | -------------------- | ----------------------------------- |
 | `typeInput`          |  Enumerate to specifie type of TextField.  |
 | `label`              |  text label of TextField.            |
+| `onTap`              |  callback when you click on TextField .                |
 | `hint`               |  text hint of textField.             |
 | `errorMsg`           |  message to show when TextField isn't validate.       |
 | `labelStyle`         |  style of label TextField            |
@@ -81,6 +82,8 @@ Add the following to your `pubspec.yaml` file:
 > Pre-exsiting element with check validation of email
 
 > Pre-initialized values
+
+> extends from TextElement
 
 | Properties           | Description                         |
 | -------------------- | ----------------------------------- |
@@ -102,6 +105,8 @@ Add the following to your `pubspec.yaml` file:
 
 > show/hide password
 
+> extends from TextElement
+
 | Properties           | Description                         |
 | -------------------- | ----------------------------------- |
 | `label`              |  text label of TextField.            |
@@ -122,6 +127,8 @@ Add the following to your `pubspec.yaml` file:
 > Pre-initialized values
 
 > enabled digitsOnly
+
+> extends from TextElement
 
 | Properties           | Description                         |
 | -------------------- | ----------------------------------- |
