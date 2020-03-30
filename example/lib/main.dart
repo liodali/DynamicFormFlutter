@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
       title: 'Dynamic Form Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        backgroundColor: Colors.grey[300],
       ),
       home: Scaffold(
         appBar: AppBar(
@@ -40,7 +41,7 @@ class MyHomePage extends StatelessWidget {
                 sizeElements: [0.3],
                 textElements: [
                   TextElement(
-                    initValue: "dali hamza",
+                      initValue: "dali hamza",
                       label: "first name",
                       hint: "first name",
                       validator: (v) {
@@ -53,11 +54,12 @@ class MyHomePage extends StatelessWidget {
                 ],
               ),
               GroupElement(
-                  directionGroup: DirectionGroup.Vertical,
-                  textElements: [
-                    TextElement(label: "name"),
-                    PasswordElement(),
-                  ])
+                directionGroup: DirectionGroup.Vertical,
+                textElements: [
+                  TextElement(label: "name"),
+                  PasswordElement(),
+                ],
+              ),
             ],
           ),
           RaisedButton(

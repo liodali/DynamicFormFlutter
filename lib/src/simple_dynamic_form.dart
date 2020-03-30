@@ -1,7 +1,9 @@
+import 'package:dynamic_form/src/country_text_field.dart';
 import 'package:dynamic_form/src/element.dart';
 import 'package:dynamic_form/src/group_elements.dart';
 import 'package:dynamic_form/src/password_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SimpleDynamicForm extends StatefulWidget {
   final List<GroupElement> groupElements;
@@ -132,27 +134,43 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     return flex;
   }
 
-  Widget generateTextField(TextElement element, GroupElement gelement) {
+  Widget generateTextField(TextElement element, GroupElement gElement) {
+    var controller = _listGTextControler[widget.groupElements.indexOf(gElement)]
+        [gElement.textElements.indexOf(element)];
     if (element is PasswordElement) {
       return Padding(
         padding: element.padding,
         child: PasswordTextField(
-          textEditingController:
-              _listGTextControler[widget.groupElements.indexOf(gelement)]
-                  [gelement.textElements.indexOf(element as TextElement)],
+          textEditingController: controller,
           validator: element.validator,
-          isEnabledToShowPassword:
-              (element as PasswordElement).enableShowPassword,
+          isEnabledToShowPassword: element.enableShowPassword,
           textElement: element,
           textInputType: getInput(element.typeInput),
+        ),
+      );
+    }  else if (element is NumberElement) {
+      return Padding(
+        padding: element.padding,
+        child: TextFormField(
+          controller: controller,
+          validator: element.validator,
+          inputFormatters: element.isDigits
+              ? [WhitelistingTextInputFormatter.digitsOnly]
+              : [],
+          keyboardType: getInput(element.typeInput),
+          readOnly: element.readOnly,
+          decoration: InputDecoration(
+            labelText: element.label,
+            hintText: element.hint,
+            suffixIcon: null,
+          ),
         ),
       );
     }
     return Padding(
       padding: element.padding,
       child: TextFormField(
-        controller: _listGTextControler[widget.groupElements.indexOf(gelement)]
-            [gelement.textElements.indexOf(element)],
+        controller: controller,
         validator: element.validator,
         keyboardType: getInput(element.typeInput),
         readOnly: element.readOnly,
