@@ -96,13 +96,12 @@ class EmailElement extends TextElement {
     this.errorStyle,
     this.readOnly = false,
     this.padding = const EdgeInsets.all(2.0),
-
   }) : super(
           initValue: initValue,
           label: label,
           typeInput: TypeInput.Email,
           hint: hint,
-          padding:padding,
+          padding: padding,
           readOnly: readOnly,
           validator: (email) {
             if (email.isNotEmpty) {
@@ -163,9 +162,11 @@ class PasswordElement extends TextElement {
           },
         );
 }
-class NumberElement extends TextElement{
+
+class NumberElement extends TextElement {
   final String initValue;
   final String label;
+  final validation validator;
   final String hint;
   final String errorMsg;
   final TextStyle textStyle;
@@ -181,30 +182,20 @@ class NumberElement extends TextElement{
     this.initValue,
     this.label = "",
     this.hint = "",
-    this.isDigits=false,
+    this.isDigits = false,
     this.errorMsg,
     this.textStyle,
     this.labelStyle,
     this.hintStyle,
     this.errorStyle,
     this.padding = const EdgeInsets.all(2.0),
+    this.validator,
     this.readOnly = false,
   }) : super(
-    initValue: initValue,
-    label: label,
-    hint: hint,
-    readOnly: readOnly,
-    typeInput: TypeInput.Numeric,
-    validator: (password) {
-      if (password.isNotEmpty) {
-        if (password.length < 6) {
-          return "weak password";
-        }
-      } else {
-        return errorMsg;
-      }
-      return null;
-    },
-  );
+          initValue: initValue,
+          label: label,
+          hint: hint,
+          readOnly: readOnly,
+          typeInput: TypeInput.Numeric,
+        );
 }
-
