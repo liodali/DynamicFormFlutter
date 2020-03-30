@@ -56,7 +56,12 @@ class MyHomePage extends StatelessWidget {
               GroupElement(
                 directionGroup: DirectionGroup.Vertical,
                 textElements: [
-                  TextElement(label: "name"),
+                  NumberElement(label: "phone",validator: (v){
+                    if(v.isEmpty){
+                      return "err";
+                    }
+                    return null;
+                  }),
                   EmailElement(label: "name"),
                   PasswordElement(),
                 ],
