@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.3.1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.3.1%2B1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.3.1
+		dynamic_form: ^0.3.1+1
 
 
 
@@ -82,15 +82,57 @@ Add the following to your `pubspec.yaml` file:
 
 > Pre-initialized values
 
+| Properties           | Description                         |
+| -------------------- | ----------------------------------- |
+| `label`              |  text label of TextField.            |
+| `hint`               |  text hint of textField.             |
+| `errorMsg`           |  message to show when TextField isn't validate.       |
+| `labelStyle`         |  style of label TextField            |
+| `errorStyle`         |  style of error message TextField    |
+| `hintStyle`          |  style of hint TextFieldcolor        |
+| `readOnly`           |  enable TextField uneditable         |
+| `padding`            |  padding of TextField                |
 
 ### `PasswordElement`
 
 
-> Pre-exsiting element with check validation of passwed
+> Pre-exsiting element with check validation of password
 
 > Pre-initialized values
 
 > show/hide password
 
+| Properties           | Description                         |
+| -------------------- | ----------------------------------- |
+| `label`              |  text label of TextField.            |
+| `hint`               |  text hint of textField.             |
+| `errorMsg`           |  message to show when TextField isn't validate.       |
+| `labelStyle`         |  style of label TextField            |
+| `errorStyle`         |  style of error message TextField    |
+| `hintStyle`          |  style of hint TextFieldcolor        |
+| `readOnly`           |  enable TextField uneditable         |
+| `padding`            |  padding of TextField                |
+| `enableShowPassword` |  enable eye icon,make password text visible                |
+
+### `NumberElement`
+
+
+> Pre-exsiting element for Number input
+
+> Pre-initialized values
+
+> enabled digitsOnly
+
+| Properties           | Description                         |
+| -------------------- | ----------------------------------- |
+| `label`              |  text label of TextField.            |
+| `hint`               |  text hint of textField.             |
+| `errorMsg`           |  message to show when TextField isn't validate.       |
+| `labelStyle`         |  style of label TextField            |
+| `errorStyle`         |  style of error message TextField    |
+| `hintStyle`          |  style of hint TextFieldcolor        |
+| `readOnly`           |  enable TextField uneditable         |
+| `padding`            |  padding of TextField                |
+| `isDigits`           |  enable only digit number            |
 
 

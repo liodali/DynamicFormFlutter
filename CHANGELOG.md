@@ -1,3 +1,6 @@
+## [0.3.1+1] - version alpha:
+* fix error
+* add numberElement into readme file
 ## [0.3.1] - version alpha:
 * add NumberElement
 * create pre-existing number textfield
