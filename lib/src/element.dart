@@ -11,18 +11,22 @@ abstract class FormElement {
   final String hint;
   final String error;
   final TextStyle labelStyle;
+  final TextStyle textStyle;
   final TextStyle errorStyle;
   final TextStyle hintStyle;
+  final bool readOnly;
 
   FormElement({
     this.typeInput,
-    this.initValue="",
+    this.initValue = "",
     this.label = "",
     this.hint = "",
     this.error = "",
     this.labelStyle,
     this.hintStyle,
     this.errorStyle,
+    this.textStyle,
+    this.readOnly,
   });
 }
 
@@ -36,6 +40,7 @@ class TextElement extends FormElement {
   final TextStyle labelStyle;
   final TextStyle errorStyle;
   final TextStyle hintStyle;
+  final TextStyle textStyle;
   final validation validator;
   final EdgeInsets padding;
   final bool readOnly;
@@ -49,18 +54,21 @@ class TextElement extends FormElement {
     this.labelStyle,
     this.hintStyle,
     this.errorStyle,
+    this.textStyle,
     this.validator,
     this.readOnly = false,
     this.padding = const EdgeInsets.all(2.0),
   }) : super(
           typeInput: typeInput,
-          initValue:initValue,
+          initValue: initValue,
           label: label,
           hint: hint,
           error: error,
+          textStyle: textStyle,
           labelStyle: labelStyle,
           errorStyle: errorStyle,
           hintStyle: hintStyle,
+          readOnly: readOnly,
         );
 }
 
@@ -72,6 +80,7 @@ class EmailElement extends TextElement {
   final TextStyle errorStyle;
   final TextStyle hintStyle;
   final TextStyle labelStyle;
+  final EdgeInsets padding;
   final bool readOnly;
 
   //final List<String> suffix;
@@ -84,11 +93,14 @@ class EmailElement extends TextElement {
     this.hintStyle,
     this.errorStyle,
     this.readOnly = false,
+    this.padding,
+
   }) : super(
-          initValue:initValue,
+          initValue: initValue,
           label: label,
-          typeInput:TypeInput.Email,
+          typeInput: TypeInput.Email,
           hint: hint,
+          padding:padding,
           readOnly: readOnly,
           validator: (email) {
             if (email.isNotEmpty) {
@@ -105,6 +117,7 @@ class EmailElement extends TextElement {
           },
         );
 }
+
 class PasswordElement extends TextElement {
   final String initValue;
   final String label;
@@ -119,7 +132,7 @@ class PasswordElement extends TextElement {
   //final List<String> suffix;
   PasswordElement({
     this.initValue,
-    this.label =" Password ",
+    this.label = " Password ",
     this.hint = "password",
     this.errorMsg,
     this.labelStyle,
@@ -128,14 +141,54 @@ class PasswordElement extends TextElement {
     this.enableShowPassword = true,
     this.readOnly = false,
   }) : super(
-    initValue:initValue,
+          initValue: initValue,
+          label: label,
+          hint: hint,
+          readOnly: readOnly,
+          typeInput: TypeInput.Password,
+          validator: (password) {
+            if (password.isNotEmpty) {
+              if (password.length < 6) {
+                return "weak password";
+              }
+            } else {
+              return errorMsg;
+            }
+            return null;
+          },
+        );
+}
+class NumberElement extends TextElement{
+  final String initValue;
+  final String label;
+  final String hint;
+  final String errorMsg;
+  final TextStyle errorStyle;
+  final TextStyle hintStyle;
+  final TextStyle labelStyle;
+  final bool isDigits;
+  final bool readOnly;
+
+  //final List<String> suffix;
+  NumberElement({
+    this.initValue,
+    this.label = "",
+    this.hint = "",
+    this.isDigits=false,
+    this.errorMsg,
+    this.labelStyle,
+    this.hintStyle,
+    this.errorStyle,
+    this.readOnly = false,
+  }) : super(
+    initValue: initValue,
     label: label,
     hint: hint,
     readOnly: readOnly,
-    typeInput:TypeInput.Password,
+    typeInput: TypeInput.Numeric,
     validator: (password) {
       if (password.isNotEmpty) {
-        if (password.length<6) {
+        if (password.length < 6) {
           return "weak password";
         }
       } else {
@@ -145,3 +198,4 @@ class PasswordElement extends TextElement {
     },
   );
 }
+

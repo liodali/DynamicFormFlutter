@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.3.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.3.1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.3.0
+		dynamic_form: ^0.3.1
 
 
 
@@ -79,6 +79,7 @@ Add the following to your `pubspec.yaml` file:
 ### `EmailElement`
 
 > Pre-exsiting element with check validation of email
+
 > Pre-initialized values
 
 
@@ -86,7 +87,9 @@ Add the following to your `pubspec.yaml` file:
 
 
 > Pre-exsiting element with check validation of passwed
+
 > Pre-initialized values
+
 > show/hide password
 
 

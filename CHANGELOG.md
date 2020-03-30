@@ -1,3 +1,6 @@
+## [0.3.1] - version alpha:
+* add NumberElement
+* create pre-existing number textfield
 ## [0.3.0] - version alpha:
 * add PasswordElement
 * make groupelement inside container
