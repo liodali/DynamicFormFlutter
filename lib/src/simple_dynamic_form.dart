@@ -1,3 +1,4 @@
+import 'package:dynamic_form/src/country_text_field.dart';
 import 'package:dynamic_form/src/element.dart';
 import 'package:dynamic_form/src/group_elements.dart';
 import 'package:dynamic_form/src/password_text_field.dart';
@@ -148,6 +149,37 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         ),
       );
     }  else if (element is NumberElement) {
+      return Padding(
+        padding: element.padding,
+        child: TextFormField(
+          controller: controller,
+          validator: element.validator,
+          inputFormatters: element.isDigits
+              ? [WhitelistingTextInputFormatter.digitsOnly]
+              : [],
+          keyboardType: getInput(element.typeInput),
+          readOnly: element.readOnly,
+          decoration: InputDecoration(
+            labelText: element.label,
+            hintText: element.hint,
+            suffixIcon: null,
+          ),
+        ),
+      );
+    } else if (element is CountryElement) {
+      return Padding(
+        padding: element.padding,
+        child: CountryTextField(
+          textEditingController: controller,
+          label: element.label,
+          labelModalSheet: element.labelModalSheet,
+          labelSearchModalSheet: element.labelSearchModalSheet,
+          initValue: element.initValue,
+          countryTextResult: element.countryTextResult,
+          showFlag: element.showFlag,
+        ),
+      );
+    } else if (element is NumberElement) {
       return Padding(
         padding: element.padding,
         child: TextFormField(

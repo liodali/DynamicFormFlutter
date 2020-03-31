@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 enum TypeInput { Text, Email, Password, Phone, Numeric, Address }
+enum CountryTextResult {
+  FullName,
+  countryCode,
+}
 
 typedef validation = String Function(String);
 
@@ -198,4 +202,27 @@ class NumberElement extends TextElement {
           readOnly: readOnly,
           typeInput: TypeInput.Numeric,
         );
+}
+
+class CountryElement extends TextElement {
+  final String initValue;
+  final String label;
+  final String labelModalSheet;
+  final String labelSearchModalSheet;
+  final CountryTextResult countryTextResult;
+  final bool showFlag;
+  final EdgeInsets padding;
+
+  CountryElement({
+    this.initValue,
+    this.label,
+    this.labelModalSheet,
+    this.labelSearchModalSheet,
+    this.countryTextResult = CountryTextResult.FullName,
+    this.showFlag = false,
+    this.padding = const EdgeInsets.all(2.0)
+  })  : assert((countryTextResult == CountryTextResult.countryCode &&
+                (initValue.isEmpty || initValue.length == 3)) ||
+            (countryTextResult == CountryTextResult.FullName)),
+        super(initValue: initValue, label: label, readOnly: true,padding:padding);
 }

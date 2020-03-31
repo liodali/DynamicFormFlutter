@@ -29,7 +29,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _globalKey = GlobalKey<SimpleDynamicFormState>();
-    return Center(
+    return SingleChildScrollView(
       child: Column(
         children: <Widget>[
           SimpleDynamicForm(
@@ -41,7 +41,7 @@ class MyHomePage extends StatelessWidget {
                 sizeElements: [0.3],
                 textElements: [
                   TextElement(
-                      initValue: "dali hamza",
+                      initValue: "",
                       label: "first name",
                       hint: "first name",
                       validator: (v) {
@@ -56,14 +56,29 @@ class MyHomePage extends StatelessWidget {
               GroupElement(
                 directionGroup: DirectionGroup.Vertical,
                 textElements: [
-                  NumberElement(label: "phone",validator: (v){
-                    if(v.isEmpty){
-                      return "err";
-                    }
-                    return null;
-                  }),
+                  NumberElement(
+                      label: "phone",
+                      validator: (v) {
+                        if (v.isEmpty) {
+                          return "err";
+                        }
+                        return null;
+                      }),
                   EmailElement(label: "name"),
                   PasswordElement(),
+                ],
+              ),
+              GroupElement(
+                directionGroup: DirectionGroup.Vertical,
+                textElements: [
+                  CountryElement(
+                    label: "Pays",
+                    labelModalSheet: "Pays",
+                    labelSearchModalSheet: "search",
+                    initValue: "TUN",
+                    countryTextResult: CountryTextResult.countryCode,
+                    showFlag: false,
+                  ),
                 ],
               ),
             ],
