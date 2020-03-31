@@ -1,3 +1,5 @@
+## [0.3.4+2] - version alpha:
+* fix error
 ## [0.3.4+1] - version alpha:
 * remove duplicated code
 * fix error

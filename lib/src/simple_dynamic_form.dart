@@ -137,6 +137,9 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
   Widget generateTextField(TextElement element, GroupElement gElement) {
     var controller = _listGTextControler[widget.groupElements.indexOf(gElement)]
         [gElement.textElements.indexOf(element)];
+    if(element.initValue!=null && element.initValue.isNotEmpty){
+      controller.text=element.initValue;
+    }
     if (element is PasswordElement) {
       return Padding(
         padding: element.padding,
@@ -180,6 +183,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         ),
       );
     }
+
     return Padding(
       padding: element.padding,
       child: TextFormField(
@@ -187,11 +191,12 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         validator: element.validator,
         keyboardType: getInput(element.typeInput),
         readOnly: element.readOnly,
+        enabled: true,
         onTap: element.onTap,
         decoration: InputDecoration(
           labelText: element.label,
           hintText: element.hint,
-          errorText: element.error,
+          enabled: true,
           suffixIcon: null,
         ),
       ),

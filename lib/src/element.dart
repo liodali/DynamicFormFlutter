@@ -115,11 +115,12 @@ class EmailElement extends TextElement {
                   .hasMatch(email);
               if (!emailValid) {
                 return errorMsg;
+              }else{
+                return null;
               }
             } else {
               return errorMsg;
             }
-            return null;
           },
         );
 }
