@@ -1,3 +1,6 @@
+## [0.3.4] - version alpha:
+* add Country TextField
+* add CountryElement
 ## [0.3.2+1] - version alpha:
 * fix error in NumberElement- change validator
 ## [0.3.2] - version alpha:
