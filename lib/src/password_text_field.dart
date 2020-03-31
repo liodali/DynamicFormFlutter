@@ -8,12 +8,13 @@ class PasswordTextField extends StatefulWidget {
   final TextElement textElement;
   final bool isEnabledToShowPassword;
 
-  PasswordTextField(
-      {this.textEditingController,
-      this.isEnabledToShowPassword,
-      this.validator,
-      this.textInputType,
-      this.textElement});
+  PasswordTextField({
+    this.textEditingController,
+    this.isEnabledToShowPassword,
+    this.validator,
+    this.textInputType,
+    this.textElement,
+  });
 
   @override
   _PasswordTextFieldState createState() => _PasswordTextFieldState();
@@ -39,7 +40,6 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       decoration: InputDecoration(
         labelText: widget.textElement.label,
         hintText: widget.textElement.hint,
-        errorText: widget.textElement.error,
         suffixIcon: widget.isEnabledToShowPassword
             ? GestureDetector(
                 onTap: () {

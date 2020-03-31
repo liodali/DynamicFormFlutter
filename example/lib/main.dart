@@ -63,7 +63,7 @@ class MyHomePage extends StatelessWidget {
                         }
                         return null;
                       }),
-                  EmailElement(label: "name"),
+                  EmailElement(label: "name",initValue: "example@mail.com"),
                   PasswordElement(),
                 ],
               ),
