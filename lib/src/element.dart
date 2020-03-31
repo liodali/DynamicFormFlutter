@@ -94,7 +94,7 @@ class EmailElement extends TextElement {
     this.initValue,
     this.label,
     this.hint = "example@mail.com",
-    this.errorMsg,
+    this.errorMsg = "invalid email",
     this.labelStyle,
     this.hintStyle,
     this.errorStyle,
@@ -107,6 +107,7 @@ class EmailElement extends TextElement {
           hint: hint,
           padding: padding,
           readOnly: readOnly,
+          error: errorMsg,
           validator: (email) {
             if (email.isNotEmpty) {
               bool emailValid = RegExp(
@@ -207,6 +208,7 @@ class NumberElement extends TextElement {
 class CountryElement extends TextElement {
   final String initValue;
   final String label;
+  final String errorMsg;
   final String labelModalSheet;
   final String labelSearchModalSheet;
   final CountryTextResult countryTextResult;
@@ -216,13 +218,20 @@ class CountryElement extends TextElement {
   CountryElement({
     this.initValue,
     this.label,
+    this.errorMsg = "invalid Country",
     this.labelModalSheet,
     this.labelSearchModalSheet,
     this.countryTextResult = CountryTextResult.FullName,
     this.showFlag = false,
-    this.padding = const EdgeInsets.all(2.0)
+    this.padding = const EdgeInsets.all(2.0),
   })  : assert((countryTextResult == CountryTextResult.countryCode &&
                 (initValue.isEmpty || initValue.length == 3)) ||
             (countryTextResult == CountryTextResult.FullName)),
-        super(initValue: initValue, label: label, readOnly: true,padding:padding);
+        super(
+          initValue: initValue,
+          label: label,
+          readOnly: true,
+          padding: padding,
+          error: errorMsg,
+        );
 }

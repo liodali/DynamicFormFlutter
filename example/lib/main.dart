@@ -24,11 +24,10 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  GlobalKey<SimpleDynamicFormState> _globalKey;
-
   @override
   Widget build(BuildContext context) {
-    _globalKey = GlobalKey<SimpleDynamicFormState>();
+    GlobalKey<SimpleDynamicFormState> _globalKey =
+        GlobalKey<SimpleDynamicFormState>();
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
