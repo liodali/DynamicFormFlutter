@@ -148,7 +148,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
           textInputType: getInput(element.typeInput),
         ),
       );
-    }  else if (element is NumberElement) {
+    } else if (element is NumberElement) {
       return Padding(
         padding: element.padding,
         child: TextFormField(
@@ -179,25 +179,6 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
           showFlag: element.showFlag,
         ),
       );
-    } else if (element is NumberElement) {
-      return Padding(
-        padding: element.padding,
-        child: TextFormField(
-          controller: controller,
-          validator: element.validator,
-          onTap: element.onTap,
-          inputFormatters: element.isDigits
-              ? [WhitelistingTextInputFormatter.digitsOnly]
-              : [],
-          keyboardType: getInput(element.typeInput),
-          readOnly: element.readOnly,
-          decoration: InputDecoration(
-            labelText: element.label,
-            hintText: element.hint,
-            suffixIcon: null,
-          ),
-        ),
-      );
     }
     return Padding(
       padding: element.padding,
@@ -208,7 +189,11 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         readOnly: element.readOnly,
         onTap: element.onTap,
         decoration: InputDecoration(
-            labelText: element.label, hintText: element.hint, suffixIcon: null),
+          labelText: element.label,
+          hintText: element.hint,
+          errorText: element.error,
+          suffixIcon: null,
+        ),
       ),
     );
   }

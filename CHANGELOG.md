@@ -1,3 +1,6 @@
+## [0.3.4+1] - version alpha:
+* remove duplicated code
+* fix error
 ## [0.3.4] - version alpha:
 * add Country TextField
 * add CountryElement

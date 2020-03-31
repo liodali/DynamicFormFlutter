@@ -17,6 +17,11 @@ class _Country {
         this.flag = map["flag"];
 
   @override
+  int get hashCode {
+    return this.fullName.hashCode^this.countryCode.hashCode;
+  }
+
+  @override
   bool operator ==(other) {
     _Country c = other;
     if (this.fullName == c.fullName && this.countryCode == c.countryCode) {
@@ -30,6 +35,7 @@ class CountryTextField extends StatefulWidget {
   final TextEditingController textEditingController;
   final String initValue;
   final String label;
+  final String errorMsg;
   final String labelModalSheet;
   final String labelSearchModalSheet;
   final bool showFlag;
@@ -38,6 +44,7 @@ class CountryTextField extends StatefulWidget {
   CountryTextField({
     this.textEditingController,
     this.label,
+    this.errorMsg,
     this.initValue="",
     this.labelModalSheet = "Pays",
     this.labelSearchModalSheet = "Recherche",
@@ -68,7 +75,14 @@ class _CountryTextFieldState extends State<CountryTextField> {
         labelText: widget.label,
         labelStyle: TextStyle(color: Colors.black),
         hintText: widget.label,
+        errorText: widget.errorMsg,
       ),
+      validator: (v){
+        if(v.isEmpty){
+          return widget.errorMsg;
+        }
+        return null;
+      },
       readOnly: true,
       onTap: () async {
         var selected = await showModalBottomSheet<_Country>(
