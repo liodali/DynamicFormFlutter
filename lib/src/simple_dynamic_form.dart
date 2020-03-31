@@ -140,7 +140,6 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     if(element.initValue!=null && element.initValue.isNotEmpty){
       controller.text=element.initValue;
     }
-    print(element.runtimeType);
     if (element is PasswordElement) {
       return Padding(
         padding: element.padding,
