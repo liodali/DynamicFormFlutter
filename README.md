@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.3.4%2B2-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.3.5-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.3.4+2
+		dynamic_form: ^0.3.5
 
 
 
@@ -107,17 +107,27 @@ Add the following to your `pubspec.yaml` file:
 
 > extends from TextElement
 
-| Properties           | Description                         |
-| -------------------- | ----------------------------------- |
-| `label`              |  text label of TextField.            |
-| `hint`               |  text hint of textField.             |
-| `errorMsg`           |  message to show when TextField isn't validate.       |
-| `labelStyle`         |  style of label TextField            |
-| `errorStyle`         |  style of error message TextField    |
-| `hintStyle`          |  style of hint TextFieldcolor        |
-| `readOnly`           |  enable TextField uneditable         |
-| `padding`            |  padding of TextField                |
-| `enableShowPassword` |  enable eye icon,make password text visible                |
+| Properties                 | Description                         |
+| -------------------- ------| ----------------------------------- |
+| `label`                    |  text label of TextField.                            |
+| `hint`                     |  text hint of textField.                             |
+| `errorMsg`                 |  message to show when TextField isn't validate.      |
+| `labelStyle`               |  style of label TextField                            |
+| `errorStyle`               |  style of error message TextField                    |
+| `hintStyle`                |  style of hint TextFieldcolor                        |
+| `readOnly`                 |  enable TextField uneditable                         |
+| `padding`                  |  padding of TextField                                |
+| `enableShowPassword`       |  enable eye icon,make password text visible          |
+| `isRequired`               |  make passwordField required                         |
+| `minLength`                |  minimun length accepted by password                 |
+| `hasUppercase`             |  make password contains at least one upperCase character |
+| `hasSpecialCharacter`      |  make password contains at least one special character   |
+| `hasDigits`                |  make password contains at least one digits              |
+| `requiredErrorMsg`         |  message error to show when password is required         |
+| `minLengthErrorMsg`        |  message error to show when password length is less then the specified            |
+| `uppercaseErrorMsg`        |  message error to show when password doesn't contain any upperCase character      |
+| `specialCharacterErrorMsg` |  message error to show when password doesn't contain any special character        |
+
 
 ### `NumberElement`
 
