@@ -1,3 +1,5 @@
+## [0.3.5+1] - version alpha:
+* fix error in readme file
 ## [0.3.5] - version alpha:
 * add validation to passwordTextField
 ## [0.3.4+2] - version alpha:
