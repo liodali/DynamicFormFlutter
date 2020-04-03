@@ -34,7 +34,6 @@ abstract class FormElement {
   });
 }
 
-@immutable
 class TextElement extends FormElement {
   final TypeInput typeInput;
   final String initValue;
@@ -48,6 +47,7 @@ class TextElement extends FormElement {
   final TextStyle textStyle;
   final validation validator;
   final EdgeInsets padding;
+  final bool isRequired;
   final bool readOnly;
 
   TextElement({
@@ -62,6 +62,7 @@ class TextElement extends FormElement {
     this.errorStyle,
     this.textStyle,
     this.validator,
+    this.isRequired = false,
     this.readOnly = false,
     this.padding = const EdgeInsets.all(2.0),
   }) : super(
@@ -87,6 +88,7 @@ class EmailElement extends TextElement {
   final TextStyle hintStyle;
   final TextStyle labelStyle;
   final EdgeInsets padding;
+  final bool isRequired;
   final bool readOnly;
 
   //final List<String> suffix;
@@ -98,6 +100,7 @@ class EmailElement extends TextElement {
     this.labelStyle,
     this.hintStyle,
     this.errorStyle,
+    this.isRequired = false,
     this.readOnly = false,
     this.padding = const EdgeInsets.all(2.0),
   }) : super(
@@ -109,13 +112,18 @@ class EmailElement extends TextElement {
           readOnly: readOnly,
           error: errorMsg,
           validator: (email) {
+            if (isRequired) {
+              if (email.isEmpty) {
+                return errorMsg;
+              }
+            }
             if (email.isNotEmpty) {
               bool emailValid = RegExp(
                       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                   .hasMatch(email);
               if (!emailValid) {
                 return errorMsg;
-              }else{
+              } else {
                 return null;
               }
             } else {
@@ -130,11 +138,21 @@ class PasswordElement extends TextElement {
   final String label;
   final String hint;
   final String errorMsg;
-  final enableShowPassword;
+  final bool enableShowPassword;
   final TextStyle errorStyle;
   final TextStyle hintStyle;
   final TextStyle labelStyle;
   final EdgeInsets padding;
+  final bool isRequired;
+  final int minLength;
+  final bool hasUppercase;
+  final bool hasSpecialCharacter;
+  final bool hasDigits;
+  final String requiredErrorMsg;
+  final String minLengthErrorMsg;
+  final String uppercaseErrorMsg;
+  final String specialCharacterErrorMsg;
+  final String digitsErrorMsg;
   final bool readOnly;
 
   //final List<String> suffix;
@@ -147,6 +165,16 @@ class PasswordElement extends TextElement {
     this.hintStyle,
     this.errorStyle,
     this.enableShowPassword = true,
+    this.isRequired,
+    this.minLength =  6,
+    this.hasUppercase,
+    this.hasSpecialCharacter,
+    this.hasDigits,
+    this.requiredErrorMsg="Password is required",
+    this.minLengthErrorMsg="",
+    this.uppercaseErrorMsg="Password must include at least one uppercase letter ",
+    this.specialCharacterErrorMsg="Password must include at least one special character",
+    this.digitsErrorMsg="Password must include at least one digit from 0 to 9",
     this.readOnly = false,
     this.padding = const EdgeInsets.all(2.0),
   }) : super(
@@ -158,11 +186,17 @@ class PasswordElement extends TextElement {
           typeInput: TypeInput.Password,
           validator: (password) {
             if (password.isNotEmpty) {
-              if (password.length < 6) {
-                return "weak password";
+              if (password.length < minLength) {
+                return minLengthErrorMsg;
+              }else if(RegExp("[A-Z]+").stringMatch(password)==null && hasUppercase){
+                return uppercaseErrorMsg;
+              }else if(RegExp("[!@#\$%^&*_]+").stringMatch(password)==null && hasSpecialCharacter){
+                return specialCharacterErrorMsg;
+              }else if(RegExp(r"\d+").stringMatch(password)==null && hasDigits){
+                return digitsErrorMsg;
               }
-            } else {
-              return errorMsg;
+            } else if(isRequired){
+              return requiredErrorMsg;
             }
             return null;
           },
