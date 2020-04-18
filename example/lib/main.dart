@@ -63,15 +63,19 @@ class MyHomePage extends StatelessWidget {
                         }
                         return null;
                       }),
-                  EmailElement(label: "name",initValue: "example@mail.com"),
-                  PasswordElement(
-                    minLength: 8,
-                    hasDigits: false,
-                    hasSpecialCharacter: true,
-                    hasUppercase: true,
+                  EmailElement(
+                    label: "name",
+                    initValue: "example@mail.com",
                     isRequired: true,
-                    minLengthErrorMsg: "Password must include at least 8 characters"
                   ),
+                  PasswordElement(
+                      minLength: 8,
+                      hasDigits: false,
+                      hasSpecialCharacter: true,
+                      hasUppercase: true,
+                      isRequired: true,
+                      minLengthErrorMsg:
+                          "Password must include at least 8 characters"),
                 ],
               ),
               GroupElement(
