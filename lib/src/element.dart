@@ -83,7 +83,8 @@ class EmailElement extends TextElement {
   final String initValue;
   final String label;
   final String hint;
-  final String errorMsg;
+  final String errorEmailPattern;
+  final String errorEmailIsRequired;
   final TextStyle errorStyle;
   final TextStyle hintStyle;
   final TextStyle labelStyle;
@@ -94,9 +95,10 @@ class EmailElement extends TextElement {
   //final List<String> suffix;
   EmailElement({
     this.initValue,
-    this.label,
+    this.label = "Email",
     this.hint = "example@mail.com",
-    this.errorMsg = "invalid email",
+    this.errorEmailPattern = "invalid email",
+    this.errorEmailIsRequired = "email is empty",
     this.labelStyle,
     this.hintStyle,
     this.errorStyle,
@@ -110,25 +112,21 @@ class EmailElement extends TextElement {
           hint: hint,
           padding: padding,
           readOnly: readOnly,
-          error: errorMsg,
           validator: (email) {
             if (isRequired) {
               if (email.isEmpty) {
-                return errorMsg;
+                return errorEmailIsRequired;
               }
             }
             if (email.isNotEmpty) {
               bool emailValid = RegExp(
-                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                   .hasMatch(email);
               if (!emailValid) {
-                return errorMsg;
-              } else {
-                return null;
+                return errorEmailPattern;
               }
-            } else {
-              return errorMsg;
             }
+            return null;
           },
         );
 }
@@ -166,15 +164,18 @@ class PasswordElement extends TextElement {
     this.errorStyle,
     this.enableShowPassword = true,
     this.isRequired,
-    this.minLength =  6,
+    this.minLength = 6,
     this.hasUppercase,
     this.hasSpecialCharacter,
     this.hasDigits,
-    this.requiredErrorMsg="Password is required",
-    this.minLengthErrorMsg="",
-    this.uppercaseErrorMsg="Password must include at least one uppercase letter ",
-    this.specialCharacterErrorMsg="Password must include at least one special character",
-    this.digitsErrorMsg="Password must include at least one digit from 0 to 9",
+    this.requiredErrorMsg = "Password is required",
+    this.minLengthErrorMsg = "",
+    this.uppercaseErrorMsg =
+        "Password must include at least one uppercase letter ",
+    this.specialCharacterErrorMsg =
+        "Password must include at least one special character",
+    this.digitsErrorMsg =
+        "Password must include at least one digit from 0 to 9",
     this.readOnly = false,
     this.padding = const EdgeInsets.all(2.0),
   }) : super(
@@ -188,14 +189,18 @@ class PasswordElement extends TextElement {
             if (password.isNotEmpty) {
               if (password.length < minLength) {
                 return minLengthErrorMsg;
-              }else if(RegExp("[A-Z]+").stringMatch(password)==null && hasUppercase){
+              } else if (RegExp("[A-Z]+").stringMatch(password) == null &&
+                  hasUppercase) {
                 return uppercaseErrorMsg;
-              }else if(RegExp("[!@#\$%^&*_]+").stringMatch(password)==null && hasSpecialCharacter){
+              } else if (RegExp("[!@#\$%^&*_]+").stringMatch(password) ==
+                      null &&
+                  hasSpecialCharacter) {
                 return specialCharacterErrorMsg;
-              }else if(RegExp(r"\d+").stringMatch(password)==null && hasDigits){
+              } else if (RegExp(r"\d+").stringMatch(password) == null &&
+                  hasDigits) {
                 return digitsErrorMsg;
               }
-            } else if(isRequired){
+            } else if (isRequired) {
               return requiredErrorMsg;
             }
             return null;

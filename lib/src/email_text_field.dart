@@ -1,0 +1,24 @@
+import 'package:dynamic_form/dynamic_form.dart';
+import 'package:flutter/material.dart';
+
+class EmailTextField extends StatelessWidget {
+  final EmailElement emailElement;
+  final TextEditingController textEditingController;
+  EmailTextField({this.emailElement,this.textEditingController});
+
+  @override
+  Widget build(BuildContext context) {
+    this.textEditingController.text=emailElement.initValue;
+    return TextFormField(
+      controller: textEditingController,
+      validator: emailElement.validator,
+      readOnly: emailElement.readOnly,
+      decoration: InputDecoration(
+        labelStyle: emailElement.textStyle??Theme.of(context).inputDecorationTheme.labelStyle,
+        errorStyle: emailElement.errorStyle??Theme.of(context).inputDecorationTheme.labelStyle,
+        hintText: emailElement.hint,
+        labelText: emailElement.label,
+      ),
+    );
+  }
+}

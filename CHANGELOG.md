@@ -1,3 +1,6 @@
+## [0.3.5+2] - version alpha:
+* add email validation
+* create specifique emailTextField
 ## [0.3.5+1] - version alpha:
 * fix error in readme file
 ## [0.3.5] - version alpha:

@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.3.5%2B1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.3.5%2B2-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.3.5+1
+		dynamic_form: ^0.3.5+2
 
 
 
@@ -85,16 +85,19 @@ Add the following to your `pubspec.yaml` file:
 
 > extends from TextElement
 
-| Properties           | Description                         |
-| -------------------- | ----------------------------------- |
-| `label`              |  text label of TextField.            |
-| `hint`               |  text hint of textField.             |
-| `errorMsg`           |  message to show when TextField isn't validate.       |
-| `labelStyle`         |  style of label TextField            |
-| `errorStyle`         |  style of error message TextField    |
-| `hintStyle`          |  style of hint TextFieldcolor        |
-| `readOnly`           |  enable TextField uneditable         |
-| `padding`            |  padding of TextField                |
+| Properties             | Description                             |
+| -----------------------| ----------------------------------------|
+| `label`                |  text label of TextField.               |
+| `hint`                 |  text hint of textField.                |
+| `isRequired`           |  make textField required in validation  |
+| `errorEmailIsRequired` |  error message for textField when it's required  |
+| `errorEmailPattern`    |  error message for textField input when it's not email in validation |
+| `errorMsg`             |  message to show when TextField isn't validate.       |
+| `labelStyle`           |  style of label TextField               |
+| `errorStyle`           |  style of error message TextField       |
+| `hintStyle`            |  style of hint TextFieldcolor           |
+| `readOnly`             |  enable TextField uneditable            |
+| `padding`              |  padding of TextField                   |
 
 ### `PasswordElement`
 

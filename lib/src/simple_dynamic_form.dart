@@ -1,5 +1,6 @@
 import 'package:dynamic_form/src/country_text_field.dart';
 import 'package:dynamic_form/src/element.dart';
+import 'package:dynamic_form/src/email_text_field.dart';
 import 'package:dynamic_form/src/group_elements.dart';
 import 'package:dynamic_form/src/password_text_field.dart';
 import 'package:flutter/material.dart';
@@ -92,9 +93,12 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
                         Flexible(
                           flex: getFlex(gelement.textElements, element,
                               gelement.sizeElements),
-                          child: generateTextField(
-                            element,
-                            gelement,
+                          child: Padding(
+                            padding: element.padding,
+                            child: generateTextField(
+                              element,
+                              gelement,
+                            ),
                           ),
                         ),
                       ],
@@ -110,7 +114,10 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
                   child: Column(
                     children: <Widget>[
                       for (var element in gelement.textElements) ...[
-                        generateTextField(element, gelement),
+                        Padding(
+                          padding: element.padding,
+                          child: generateTextField(element, gelement),
+                        ),
                       ],
                     ],
                   ),
@@ -137,68 +144,60 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
   Widget generateTextField(TextElement element, GroupElement gElement) {
     var controller = _listGTextControler[widget.groupElements.indexOf(gElement)]
         [gElement.textElements.indexOf(element)];
-    if(element.initValue!=null && element.initValue.isNotEmpty){
-      controller.text=element.initValue;
+    if (element.initValue != null && element.initValue.isNotEmpty) {
+      controller.text = element.initValue;
     }
     if (element is PasswordElement) {
-      return Padding(
-        padding: element.padding,
-        child: PasswordTextField(
-          textEditingController: controller,
-          validator: element.validator,
-          isEnabledToShowPassword: element.enableShowPassword,
-          textElement: element,
-          textInputType: getInput(element.typeInput),
-        ),
+      return PasswordTextField(
+        textEditingController: controller,
+        validator: element.validator,
+        isEnabledToShowPassword: element.enableShowPassword,
+        textElement: element,
+        textInputType: getInput(element.typeInput),
       );
     } else if (element is NumberElement) {
-      return Padding(
-        padding: element.padding,
-        child: TextFormField(
-          controller: controller,
-          validator: element.validator,
-          inputFormatters: element.isDigits
-              ? [WhitelistingTextInputFormatter.digitsOnly]
-              : [],
-          keyboardType: getInput(element.typeInput),
-          readOnly: element.readOnly,
-          decoration: InputDecoration(
-            labelText: element.label,
-            hintText: element.hint,
-            suffixIcon: null,
-          ),
-        ),
-      );
-    } else if (element is CountryElement) {
-      return Padding(
-        padding: element.padding,
-        child: CountryTextField(
-          textEditingController: controller,
-          label: element.label,
-          labelModalSheet: element.labelModalSheet,
-          labelSearchModalSheet: element.labelSearchModalSheet,
-          initValue: element.initValue,
-          countryTextResult: element.countryTextResult,
-          showFlag: element.showFlag,
-        ),
-      );
-    }
-
-    return Padding(
-      padding: element.padding,
-      child: TextFormField(
+      return TextFormField(
         controller: controller,
         validator: element.validator,
+        inputFormatters:
+            element.isDigits ? [WhitelistingTextInputFormatter.digitsOnly] : [],
         keyboardType: getInput(element.typeInput),
         readOnly: element.readOnly,
-        enabled: true,
-        onTap: element.onTap,
         decoration: InputDecoration(
           labelText: element.label,
           hintText: element.hint,
-          enabled: true,
           suffixIcon: null,
         ),
+      );
+    } else if (element is CountryElement) {
+      return CountryTextField(
+        textEditingController: controller,
+        label: element.label,
+        labelModalSheet: element.labelModalSheet,
+        labelSearchModalSheet: element.labelSearchModalSheet,
+        initValue: element.initValue,
+        countryTextResult: element.countryTextResult,
+        showFlag: element.showFlag,
+      );
+    } else if (element is EmailElement) {
+      return EmailTextField(
+        textEditingController: controller,
+        emailElement: element,
+      );
+    }
+
+    return TextFormField(
+      controller: controller,
+      validator: element.validator,
+      keyboardType: getInput(element.typeInput),
+      readOnly: element.readOnly,
+      enabled: true,
+      onTap: element.onTap,
+      decoration: InputDecoration(
+        labelText: element.label,
+        hintText: element.hint,
+        enabled: true,
+        suffixIcon: null,
       ),
     );
   }
