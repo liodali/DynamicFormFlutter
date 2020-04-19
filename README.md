@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.3.5%2B2-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.3.6-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.3.5+2
+		dynamic_form: ^0.3.6
 
 
 
@@ -67,9 +67,10 @@ Add the following to your `pubspec.yaml` file:
 | -------------------- | ----------------------------------- |
 | `typeInput`          |  Enumerate to specifie type of TextField.  |
 | `label`              |  text label of TextField.            |
-| `onTap`              |  callback when you click on TextField .                |
+| `DecorationElement`  |  input decoration of TextField.            |
+| `onTap`              |  callback when you click on TextField .  |
 | `hint`               |  text hint of textField.             |
-| `errorMsg`           |  message to show when TextField isn't validate.       |
+| `errorMsg`           |  message to show when TextField isn't validate. |
 | `labelStyle`         |  style of label TextField            |
 | `errorStyle`         |  style of error message TextField    |
 | `hintStyle`          |  style of hint TextFieldcolor        |
@@ -177,3 +178,36 @@ Add the following to your `pubspec.yaml` file:
 | `countryTextResult`       |  enumeration get result of selection countries |
 | `showFlag`                |  show flag of countris in modalsheet        |
 | `padding`                 |  padding of TextField                |
+
+### `DecorationElement`
+
+> abstract class
+
+> Pre-exsiting inputDecoration for  TextFormField
+
+> Pre-initialized values
+
+> Typically one of `UnderlineDecorationElement` or `OutlineDecorationElement` or `RoundedDecorationElement` can be used.
+
+### `UnderlineDecorationElement` and `OutlineDecorationElement`
+
+
+| Properties                | Description                         |
+| --------------------------| ----------------------------------- |
+| `borderColor`             |  The border Color to display when the InputDecorator does not have the focus.            |
+| `errorBorderColor`        |  The borwidthLineder Color to display when the InputDecorator does have the error.    |
+| `focusBorderColor`        |  The border Color to display when the InputDecorator does  have the focus.                 |
+| `disabledBorderColor`     |  The border Color to display when the InputDecorator is disabled. |
+| `radius`                  |  radius of the border.               |
+| `widthSide`               |  The width of this line of the border|
+| `filledColor`             |  base fill color of the decoration   |
+| `focusColor`              |  focused fill color of the decoration|
+
+
+### `RoundedDecorationElement`
+
+| Properties                | Description                         |
+| --------------------------| ----------------------------------- |
+| `radius`                  |  radius of the border.               |
+| `filledColor`             |  base fill color of the decoration   |
+| `focusColor`              |  focused fill color of the decoration|

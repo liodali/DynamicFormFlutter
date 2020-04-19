@@ -8,7 +8,7 @@ class UnderlineDecorationElement extends DecorationElement {
   final Color focusBorderColor;
   final Color disabledBorderColor;
   final BorderRadius radius;
-  final double widthLine;
+  final double widthSide;
   final Color filledColor;
   final Color focusColor;
 
@@ -18,7 +18,7 @@ class UnderlineDecorationElement extends DecorationElement {
     this.focusBorderColor,
     this.disabledBorderColor,
     this.radius=const BorderRadius.all(Radius.circular(0.0)),
-    this.widthLine,
+    this.widthSide=1.0,
     this.filledColor,
     this.focusColor,
   });
@@ -30,7 +30,7 @@ class OutlineDecorationElement extends DecorationElement {
   final Color focusBorderColor;
   final Color disabledBorderColor;
   final BorderRadius radius;
-  final double widthLine;
+  final double widthSide;
   final Color filledColor;
   final Color focusColor;
 
@@ -40,7 +40,7 @@ class OutlineDecorationElement extends DecorationElement {
     this.focusBorderColor,
     this.disabledBorderColor,
     this.radius=const BorderRadius.all(Radius.circular(0.0)),
-    this.widthLine,
+    this.widthSide=1.0,
     this.filledColor,
     this.focusColor,
   });

@@ -241,21 +241,22 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
           borderRadius: decorationElement.radius,
           borderSide: BorderSide(
             color: decorationElement.borderColor ?? Colors.grey,
-            width: decorationElement.widthLine,
+            width: decorationElement.widthSide,
           ),
         ),
         errorBorder: UnderlineInputBorder(
           borderRadius: decorationElement.radius,
           borderSide: BorderSide(
             color: decorationElement.errorBorderColor,
-            width: decorationElement.widthLine,
+            width: decorationElement.widthSide,
           ),
         ),
         focusedBorder: UnderlineInputBorder(
           borderRadius: decorationElement.radius,
           borderSide: BorderSide(
-            color: decorationElement.focusBorderColor??Theme.of(context).primaryColor,
-            width: decorationElement.widthLine,
+            color: decorationElement.focusBorderColor ??
+                Theme.of(context).primaryColor,
+            width: decorationElement.widthSide,
           ),
         ),
         fillColor: decorationElement.filledColor,
@@ -267,7 +268,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
           borderRadius: decorationElement.radius,
           borderSide: BorderSide(
             color: decorationElement.borderColor ?? Colors.grey,
-            width: decorationElement.widthLine,
+            width: decorationElement.widthSide,
           ),
         ),
         focusedBorder: OutlineInputBorder(
@@ -275,14 +276,14 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
           borderSide: BorderSide(
             color: decorationElement.focusBorderColor ??
                 Theme.of(context).primaryColor,
-            width: decorationElement.widthLine,
+            width: decorationElement.widthSide,
           ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: decorationElement.radius,
           borderSide: BorderSide(
             color: decorationElement.errorBorderColor,
-            width: decorationElement.widthLine,
+            width: decorationElement.widthSide,
           ),
         ),
         disabledBorder: OutlineInputBorder(
@@ -290,7 +291,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
           borderSide: BorderSide(
             color: decorationElement.disabledBorderColor ??
                 Theme.of(context).disabledColor,
-            width: decorationElement.widthLine,
+            width: decorationElement.widthSide,
           ),
         ),
         fillColor: decorationElement.filledColor,
