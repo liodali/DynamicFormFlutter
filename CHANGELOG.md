@@ -1,3 +1,5 @@
+## [0.3.6+1] - version alpha:
+* fix readme file
 ## [0.3.6] - version alpha:
 * add decorationElement : UnderlineDecorationElement,OutlineDecorationElement,RoundedDecorationElement
 ## [0.3.5+2] - version alpha:

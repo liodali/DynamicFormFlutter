@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.3.6-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.3.6%2B1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.3.6
+		dynamic_form: ^0.3.6+1
 
 
 
@@ -80,11 +80,14 @@ Add the following to your `pubspec.yaml` file:
 
 ### `EmailElement`
 
-> Pre-exsiting element with check validation of email
+> Pre-exsiting element
+
+> check validation of email
 
 > Pre-initialized values
 
 > extends from TextElement
+
 
 | Properties             | Description                             |
 | -----------------------| ----------------------------------------|
@@ -93,7 +96,6 @@ Add the following to your `pubspec.yaml` file:
 | `isRequired`           |  make textField required in validation  |
 | `errorEmailIsRequired` |  error message for textField when it's required  |
 | `errorEmailPattern`    |  error message for textField input when it's not email in validation |
-| `errorMsg`             |  message to show when TextField isn't validate.       |
 | `labelStyle`           |  style of label TextField               |
 | `errorStyle`           |  style of error message TextField       |
 | `hintStyle`            |  style of hint TextFieldcolor           |
@@ -103,7 +105,9 @@ Add the following to your `pubspec.yaml` file:
 ### `PasswordElement`
 
 
-> Pre-exsiting element with check validation of password
+> Pre-exsiting element
+
+> check validation of password
 
 > Pre-initialized values
 
@@ -189,7 +193,7 @@ Add the following to your `pubspec.yaml` file:
 
 > Typically one of `UnderlineDecorationElement` or `OutlineDecorationElement` or `RoundedDecorationElement` can be used.
 
-### `UnderlineDecorationElement` and `OutlineDecorationElement`
+##### `UnderlineDecorationElement`
 
 
 | Properties                | Description                         |
@@ -204,7 +208,22 @@ Add the following to your `pubspec.yaml` file:
 | `focusColor`              |  focused fill color of the decoration|
 
 
+##### `OutlineDecorationElement`
+
+| Properties                | Description                         |
+| --------------------------| ----------------------------------- |
+| `borderColor`             |  The border Color to display when the InputDecorator does not have the focus.            |
+| `errorBorderColor`        |  The borwidthLineder Color to display when the InputDecorator does have the error.    |
+| `focusBorderColor`        |  The border Color to display when the InputDecorator does  have the focus.                 |
+| `disabledBorderColor`     |  The border Color to display when the InputDecorator is disabled. |
+| `radius`                  |  radius of the border.               |
+| `widthSide`               |  The width of this line of the border|
+| `filledColor`             |  base fill color of the decoration   |
+| `focusColor`              |  focused fill color of the decoration|
+
 ### `RoundedDecorationElement`
+
+> without BorderSide
 
 | Properties                | Description                         |
 | --------------------------| ----------------------------------- |
