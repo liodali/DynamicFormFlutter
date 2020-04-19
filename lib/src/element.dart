@@ -1,3 +1,4 @@
+import 'package:dynamic_form/src/decoration_element.dart';
 import 'package:flutter/material.dart';
 
 enum TypeInput { Text, Email, Password, Phone, Numeric, Address }
@@ -14,6 +15,7 @@ abstract class FormElement {
   final String label;
   final String hint;
   final String error;
+  final DecorationElement decorationElement;
   final TextStyle labelStyle;
   final TextStyle textStyle;
   final TextStyle errorStyle;
@@ -26,6 +28,7 @@ abstract class FormElement {
     this.label = "",
     this.hint = "",
     this.error = "",
+    this.decorationElement,
     this.labelStyle,
     this.hintStyle,
     this.errorStyle,
@@ -38,6 +41,7 @@ class TextElement extends FormElement {
   final TypeInput typeInput;
   final String initValue;
   final Function onTap;
+  final DecorationElement decorationElement;
   final String label;
   final String hint;
   final String error;
@@ -54,6 +58,7 @@ class TextElement extends FormElement {
     this.typeInput = TypeInput.Text,
     this.initValue,
     this.onTap,
+    this.decorationElement,
     this.label = "",
     this.hint = "",
     this.error = "",
@@ -68,6 +73,7 @@ class TextElement extends FormElement {
   }) : super(
           typeInput: typeInput,
           initValue: initValue,
+          decorationElement: decorationElement,
           label: label,
           hint: hint,
           error: error,
@@ -83,6 +89,7 @@ class EmailElement extends TextElement {
   final String initValue;
   final String label;
   final String hint;
+  final DecorationElement decorationElement;
   final String errorEmailPattern;
   final String errorEmailIsRequired;
   final TextStyle errorStyle;
@@ -97,6 +104,7 @@ class EmailElement extends TextElement {
     this.initValue,
     this.label = "Email",
     this.hint = "example@mail.com",
+    this.decorationElement,
     this.errorEmailPattern = "invalid email",
     this.errorEmailIsRequired = "email is empty",
     this.labelStyle,
@@ -110,6 +118,7 @@ class EmailElement extends TextElement {
           label: label,
           typeInput: TypeInput.Email,
           hint: hint,
+          decorationElement: decorationElement,
           padding: padding,
           readOnly: readOnly,
           validator: (email) {
@@ -120,7 +129,7 @@ class EmailElement extends TextElement {
             }
             if (email.isNotEmpty) {
               bool emailValid = RegExp(
-                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                   .hasMatch(email);
               if (!emailValid) {
                 return errorEmailPattern;
@@ -135,6 +144,7 @@ class PasswordElement extends TextElement {
   final String initValue;
   final String label;
   final String hint;
+  final DecorationElement decorationElement;
   final String errorMsg;
   final bool enableShowPassword;
   final TextStyle errorStyle;
@@ -158,6 +168,7 @@ class PasswordElement extends TextElement {
     this.initValue,
     this.label = " Password ",
     this.hint = "password",
+    this.decorationElement,
     this.errorMsg,
     this.labelStyle,
     this.hintStyle,
@@ -183,6 +194,7 @@ class PasswordElement extends TextElement {
           label: label,
           hint: hint,
           onTap: null,
+          decorationElement: decorationElement,
           readOnly: readOnly,
           typeInput: TypeInput.Password,
           validator: (password) {
@@ -212,6 +224,7 @@ class NumberElement extends TextElement {
   final String initValue;
   final String label;
   final validation validator;
+  final DecorationElement decorationElement;
   final String hint;
   final String errorMsg;
   final TextStyle textStyle;
@@ -227,6 +240,7 @@ class NumberElement extends TextElement {
     this.initValue,
     this.label = "",
     this.hint = "",
+    this.decorationElement,
     this.isDigits = false,
     this.errorMsg,
     this.textStyle,
@@ -237,6 +251,7 @@ class NumberElement extends TextElement {
     this.validator,
     this.readOnly = false,
   }) : super(
+          decorationElement: decorationElement,
           initValue: initValue,
           label: label,
           hint: hint,
@@ -247,6 +262,7 @@ class NumberElement extends TextElement {
 
 class CountryElement extends TextElement {
   final String initValue;
+  final DecorationElement decorationElement;
   final String label;
   final String errorMsg;
   final String labelModalSheet;
@@ -257,6 +273,7 @@ class CountryElement extends TextElement {
 
   CountryElement({
     this.initValue,
+    this.decorationElement,
     this.label,
     this.errorMsg = "invalid Country",
     this.labelModalSheet,
@@ -269,6 +286,7 @@ class CountryElement extends TextElement {
             (countryTextResult == CountryTextResult.FullName)),
         super(
           initValue: initValue,
+          decorationElement:decorationElement,
           label: label,
           readOnly: true,
           padding: padding,

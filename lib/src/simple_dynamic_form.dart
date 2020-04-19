@@ -1,3 +1,4 @@
+import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/country_text_field.dart';
 import 'package:dynamic_form/src/element.dart';
 import 'package:dynamic_form/src/email_text_field.dart';
@@ -151,6 +152,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
       return PasswordTextField(
         textEditingController: controller,
         validator: element.validator,
+        inputDecoration: setInputBorder(element.decorationElement),
         isEnabledToShowPassword: element.enableShowPassword,
         textElement: element,
         textInputType: getInput(element.typeInput),
@@ -163,16 +165,21 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
             element.isDigits ? [WhitelistingTextInputFormatter.digitsOnly] : [],
         keyboardType: getInput(element.typeInput),
         readOnly: element.readOnly,
-        decoration: InputDecoration(
+        decoration: setInputBorder(element.decorationElement).copyWith(
           labelText: element.label,
           hintText: element.hint,
-          suffixIcon: null,
         ),
       );
     } else if (element is CountryElement) {
       return CountryTextField(
         textEditingController: controller,
+        inputDecoration: setInputBorder(element.decorationElement).copyWith(
+          labelText: element.label,
+          labelStyle: TextStyle(color: Colors.black),
+          hintText: element.hint,
+        ),
         label: element.label,
+        errorMsg: element.errorMsg,
         labelModalSheet: element.labelModalSheet,
         labelSearchModalSheet: element.labelSearchModalSheet,
         initValue: element.initValue,
@@ -183,6 +190,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
       return EmailTextField(
         textEditingController: controller,
         emailElement: element,
+        inputDecoration: setInputBorder(element.decorationElement),
       );
     }
 
@@ -193,7 +201,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
       readOnly: element.readOnly,
       enabled: true,
       onTap: element.onTap,
-      decoration: InputDecoration(
+      decoration: setInputBorder(element.decorationElement).copyWith(
         labelText: element.label,
         hintText: element.hint,
         enabled: true,
@@ -224,5 +232,127 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         return TextInputType.text;
         break;
     }
+  }
+
+  InputDecoration setInputBorder(DecorationElement decorationElement) {
+    if (decorationElement is UnderlineDecorationElement) {
+      return InputDecoration(
+        border: UnderlineInputBorder(
+          borderRadius: decorationElement.radius,
+          borderSide: BorderSide(
+            color: decorationElement.borderColor ?? Colors.grey,
+            width: decorationElement.widthLine,
+          ),
+        ),
+        errorBorder: UnderlineInputBorder(
+          borderRadius: decorationElement.radius,
+          borderSide: BorderSide(
+            color: decorationElement.errorBorderColor,
+            width: decorationElement.widthLine,
+          ),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderRadius: decorationElement.radius,
+          borderSide: BorderSide(
+            color: decorationElement.focusBorderColor??Theme.of(context).primaryColor,
+            width: decorationElement.widthLine,
+          ),
+        ),
+        fillColor: decorationElement.filledColor,
+        focusColor: decorationElement.focusColor,
+      );
+    } else if (decorationElement is OutlineDecorationElement) {
+      return InputDecoration(
+        border: OutlineInputBorder(
+          borderRadius: decorationElement.radius,
+          borderSide: BorderSide(
+            color: decorationElement.borderColor ?? Colors.grey,
+            width: decorationElement.widthLine,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: decorationElement.radius,
+          borderSide: BorderSide(
+            color: decorationElement.focusBorderColor ??
+                Theme.of(context).primaryColor,
+            width: decorationElement.widthLine,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: decorationElement.radius,
+          borderSide: BorderSide(
+            color: decorationElement.errorBorderColor,
+            width: decorationElement.widthLine,
+          ),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: decorationElement.radius,
+          borderSide: BorderSide(
+            color: decorationElement.disabledBorderColor ??
+                Theme.of(context).disabledColor,
+            width: decorationElement.widthLine,
+          ),
+        ),
+        fillColor: decorationElement.filledColor,
+        focusColor: decorationElement.focusColor,
+      );
+    } else if (decorationElement is RoundedDecorationElement) {
+      return InputDecoration(
+        border: UnderlineInputBorder(
+          borderRadius: decorationElement.radius ??
+              BorderRadius.all(
+                Radius.circular(25.0),
+              ),
+          borderSide: BorderSide(
+            color: Colors.transparent,
+            width: 0,
+          ),
+        ),
+        enabledBorder: UnderlineInputBorder(
+          borderRadius: decorationElement.radius ??
+              BorderRadius.all(
+                Radius.circular(25.0),
+              ),
+          borderSide: BorderSide(
+            color: Colors.transparent,
+            width: 0,
+          ),
+        ),
+        focusedErrorBorder: UnderlineInputBorder(
+          borderRadius: decorationElement.radius ??
+              BorderRadius.all(
+                Radius.circular(25.0),
+              ),
+          borderSide: BorderSide(
+            color: Colors.transparent,
+            width: 0,
+          ),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderRadius: decorationElement.radius ??
+              BorderRadius.all(
+                Radius.circular(25.0),
+              ),
+          borderSide: BorderSide(
+            color: Colors.transparent,
+            width: 0,
+          ),
+        ),
+        errorBorder: UnderlineInputBorder(
+          borderRadius: decorationElement.radius ??
+              BorderRadius.all(
+                Radius.circular(25.0),
+              ),
+          borderSide: BorderSide(
+            color: Colors.transparent,
+            width: 0,
+          ),
+        ),
+        fillColor: decorationElement.filledColor,
+        filled: true,
+        focusColor: decorationElement.focusColor,
+      );
+    }
+    return InputDecoration();
   }
 }
