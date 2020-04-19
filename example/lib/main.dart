@@ -64,9 +64,13 @@ class MyHomePage extends StatelessWidget {
                         return null;
                       }),
                   EmailElement(
-                    label: "name",
+                    //label: "",
                     initValue: "example@mail.com",
                     isRequired: true,
+                    decorationElement: RoundedDecorationElement(
+                      radius: BorderRadius.all(Radius.circular(0.0)),
+                      filledColor: Colors.white
+                    ),
                   ),
                   PasswordElement(
                       minLength: 8,
@@ -85,7 +89,7 @@ class MyHomePage extends StatelessWidget {
                     label: "Pays",
                     labelModalSheet: "Pays",
                     labelSearchModalSheet: "search",
-                    initValue: "TUN",
+                    initValue: "",
                     countryTextResult: CountryTextResult.countryCode,
                     showFlag: false,
                   ),

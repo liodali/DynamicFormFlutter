@@ -18,7 +18,7 @@ class _Country {
 
   @override
   int get hashCode {
-    return this.fullName.hashCode^this.countryCode.hashCode;
+    return this.fullName.hashCode ^ this.countryCode.hashCode;
   }
 
   @override
@@ -33,6 +33,7 @@ class _Country {
 
 class CountryTextField extends StatefulWidget {
   final TextEditingController textEditingController;
+  final InputDecoration inputDecoration;
   final String initValue;
   final String label;
   final String errorMsg;
@@ -43,9 +44,10 @@ class CountryTextField extends StatefulWidget {
 
   CountryTextField({
     this.textEditingController,
+    this.inputDecoration,
     this.label,
     this.errorMsg,
-    this.initValue="",
+    this.initValue = "",
     this.labelModalSheet = "Pays",
     this.labelSearchModalSheet = "Recherche",
     this.countryTextResult = CountryTextResult.FullName,
@@ -71,14 +73,9 @@ class _CountryTextFieldState extends State<CountryTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.textEditingController,
-      decoration: InputDecoration(
-        labelText: widget.label,
-        labelStyle: TextStyle(color: Colors.black),
-        hintText: widget.label,
-        errorText: widget.errorMsg,
-      ),
-      validator: (v){
-        if(v.isEmpty){
+      decoration: widget.inputDecoration,
+      validator: (v) {
+        if (v.isEmpty) {
           return widget.errorMsg;
         }
         return null;
