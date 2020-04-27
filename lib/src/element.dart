@@ -1,4 +1,5 @@
 import 'package:dynamic_form/src/decoration_element.dart';
+import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
 enum TypeInput { Text, Email, Password, Phone, Numeric, Address }
@@ -85,6 +86,9 @@ class TextElement extends FormElement {
         );
 }
 
+/// [initValue]: initialized value of  textFormField
+/// [label]: label text of  textFormField
+/// [hint]: placeholder text of  textFormField
 class EmailElement extends TextElement {
   final String initValue;
   final String label;
@@ -128,9 +132,7 @@ class EmailElement extends TextElement {
               }
             }
             if (email.isNotEmpty) {
-              bool emailValid = RegExp(
-                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                  .hasMatch(email);
+              bool emailValid = RegExp(Constants.emailPattern).hasMatch(email);
               if (!emailValid) {
                 return errorEmailPattern;
               }
@@ -201,14 +203,14 @@ class PasswordElement extends TextElement {
             if (password.isNotEmpty) {
               if (password.length < minLength) {
                 return minLengthErrorMsg;
-              } else if (RegExp("[A-Z]+").stringMatch(password) == null &&
+              } else if (RegExp(Constants.upperAlpha).stringMatch(password) == null &&
                   hasUppercase) {
                 return uppercaseErrorMsg;
-              } else if (RegExp("[!@#\$%^&*_]+").stringMatch(password) ==
+              } else if (RegExp(Constants.specialChar).stringMatch(password) ==
                       null &&
                   hasSpecialCharacter) {
                 return specialCharacterErrorMsg;
-              } else if (RegExp(r"\d+").stringMatch(password) == null &&
+              } else if (RegExp(Constants.digitPattern).stringMatch(password) == null &&
                   hasDigits) {
                 return digitsErrorMsg;
               }
@@ -286,7 +288,7 @@ class CountryElement extends TextElement {
             (countryTextResult == CountryTextResult.FullName)),
         super(
           initValue: initValue,
-          decorationElement:decorationElement,
+          decorationElement: decorationElement,
           label: label,
           readOnly: true,
           padding: padding,

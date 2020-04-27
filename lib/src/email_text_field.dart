@@ -6,8 +6,11 @@ class EmailTextField extends StatelessWidget {
   final TextEditingController textEditingController;
   final InputDecoration inputDecoration;
 
-  EmailTextField(
-      {this.emailElement, this.textEditingController, this.inputDecoration});
+  EmailTextField({
+    this.emailElement,
+    this.textEditingController,
+    this.inputDecoration,
+  });
 
   @override
   Widget build(BuildContext context) {
