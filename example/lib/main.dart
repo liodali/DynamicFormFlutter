@@ -68,18 +68,19 @@ class MyHomePage extends StatelessWidget {
                     initValue: "example@mail.com",
                     isRequired: true,
                     decorationElement: RoundedDecorationElement(
-                      radius: BorderRadius.all(Radius.circular(0.0)),
-                      filledColor: Colors.white
-                    ),
+                        radius: BorderRadius.all(Radius.circular(0.0)),
+                        filledColor: Colors.white),
                   ),
                   PasswordElement(
-                      minLength: 8,
-                      hasDigits: false,
-                      hasSpecialCharacter: true,
-                      hasUppercase: true,
-                      isRequired: true,
-                      minLengthErrorMsg:
-                          "Password must include at least 8 characters"),
+                    minLength: 8,
+                    hasDigits: false,
+                    hasSpecialCharacter: true,
+                    hasUppercase: true,
+                    isRequired: true,
+                    errors: PasswordError(
+                        minLengthErrorMsg:
+                            "Password must include at least 8 characters"),
+                  ),
                 ],
               ),
               GroupElement(

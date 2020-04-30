@@ -154,16 +154,11 @@ class PasswordElement extends TextElement {
   final TextStyle labelStyle;
   final EdgeInsets padding;
   final bool isRequired;
-  final int minLength;
   final bool hasUppercase;
   final bool hasSpecialCharacter;
   final bool hasDigits;
-  final String requiredErrorMsg;
-  final String minLengthErrorMsg;
-  final String uppercaseErrorMsg;
-  final String specialCharacterErrorMsg;
-  final String digitsErrorMsg;
   final bool readOnly;
+  final PasswordError errors;
 
   //final List<String> suffix;
   PasswordElement({
@@ -177,18 +172,11 @@ class PasswordElement extends TextElement {
     this.errorStyle,
     this.enableShowPassword = true,
     this.isRequired,
-    this.minLength = 6,
+    int minLength = 6,
     this.hasUppercase,
     this.hasSpecialCharacter,
     this.hasDigits,
-    this.requiredErrorMsg = "Password is required",
-    this.minLengthErrorMsg = "",
-    this.uppercaseErrorMsg =
-        "Password must include at least one uppercase letter ",
-    this.specialCharacterErrorMsg =
-        "Password must include at least one special character",
-    this.digitsErrorMsg =
-        "Password must include at least one digit from 0 to 9",
+    this.errors,
     this.readOnly = false,
     this.padding = const EdgeInsets.all(2.0),
   }) : super(
@@ -202,20 +190,22 @@ class PasswordElement extends TextElement {
           validator: (password) {
             if (password.isNotEmpty) {
               if (password.length < minLength) {
-                return minLengthErrorMsg;
-              } else if (RegExp(Constants.upperAlpha).stringMatch(password) == null &&
+                return errors.minLengthErrorMsg;
+              } else if (RegExp(Constants.upperAlpha).stringMatch(password) ==
+                      null &&
                   hasUppercase) {
-                return uppercaseErrorMsg;
+                return errors.uppercaseErrorMsg;
               } else if (RegExp(Constants.specialChar).stringMatch(password) ==
                       null &&
                   hasSpecialCharacter) {
-                return specialCharacterErrorMsg;
-              } else if (RegExp(Constants.digitPattern).stringMatch(password) == null &&
+                return errors.specialCharacterErrorMsg;
+              } else if (RegExp(Constants.digitPattern).stringMatch(password) ==
+                      null &&
                   hasDigits) {
-                return digitsErrorMsg;
+                return errors.digitsErrorMsg;
               }
             } else if (isRequired) {
-              return requiredErrorMsg;
+              return errors.requiredErrorMsg;
             }
             return null;
           },
@@ -294,4 +284,68 @@ class CountryElement extends TextElement {
           padding: padding,
           error: errorMsg,
         );
+}
+
+/// [requiredErrorMsg] :  error message to show when password is Empty
+/// [minLengthErrorMsg] : error message to show when password length is less then [minLength]
+/// [uppercaseErrorMsg] : error message to show when password doesn't contain uppercase character
+/// [specialCharacterErrorMsg] : error message to show when password doesn't contain special character
+/// [digitsErrorMsg] : error message to show when password doesn't contain number
+/// [error] : generale error message to show
+class PasswordError extends TextFieldError {
+  final String minLengthErrorMsg;
+  final String uppercaseErrorMsg;
+  final String specialCharacterErrorMsg;
+  final String digitsErrorMsg;
+
+  PasswordError({
+    String requiredErrorMsg = "Password is required",
+    this.minLengthErrorMsg = "",
+    this.uppercaseErrorMsg =
+        "Password must include at least one uppercase letter ",
+    this.specialCharacterErrorMsg =
+        "Password must include at least one special character",
+    this.digitsErrorMsg =
+        "Password must include at least one digit from 0 to 9",
+    String error,
+  }) : super(error: error, requiredErrorMsg: requiredErrorMsg);
+}
+
+/// [requiredErrorMsg] :  error message to show when textField is Empty
+/// [patternErrorMsg] : error message to show when TextField reqExp is not match
+/// [error] : general error message
+abstract class TextFieldError {
+  final String requiredErrorMsg;
+  final String patternErrorMsg;
+  final String error;
+
+  TextFieldError({
+    this.requiredErrorMsg = "",
+    this.patternErrorMsg = "",
+    this.error,
+  });
+}
+
+class EmailError extends TextFieldError {
+  EmailError({
+    String requiredErrorMsg = "Email is required",
+    String patternErrorMsg = "Email is invalid",
+    String error,
+  }) : super(
+          error: error,
+          requiredErrorMsg: requiredErrorMsg,
+          patternErrorMsg: patternErrorMsg,
+        );
+}
+class UsernameEmailError extends TextFieldError {
+  final String patternEmailErrorMsg;
+  final String patternUsernameErrorMsg;
+  UsernameEmailError({
+    String requiredErrorMsg = "Username or Email is required",
+    this.patternEmailErrorMsg = "Email is invalid",
+    this.patternUsernameErrorMsg = "Username is invalid",
+    String error,
+  }) : super(
+    error: error,
+  );
 }

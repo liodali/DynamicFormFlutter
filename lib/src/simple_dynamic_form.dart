@@ -151,10 +151,8 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     if (element is PasswordElement) {
       return PasswordTextField(
         textEditingController: controller,
-        validator: element.validator,
+        element: element,
         inputDecoration: setInputBorder(element.decorationElement),
-        isEnabledToShowPassword: element.enableShowPassword,
-        textElement: element,
         textInputType: getInput(element.typeInput),
       );
     } else if (element is NumberElement) {
