@@ -1,10 +1,22 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
+import 'package:formdynamic/login_page.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _MyAppState();
   // This widget is the root of your application.
+
+}
+class _MyAppState extends State<MyApp> with TickerProviderStateMixin{
+  TabController tabController;
+  @override
+  void initState() {
+    super.initState();
+    tabController=TabController(length: 2,initialIndex: 0,vsync: this);
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -16,8 +28,32 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text("Demo"),
+          bottom: TabBar(
+            controller: tabController,
+            tabs: <Widget>[
+              GestureDetector(
+                onTap: (){
+                  tabController.index=0;
+                },
+                child: Text("Basic Example"),
+              ),
+              GestureDetector(
+                onTap: (){
+                  tabController.index=1;
+                },
+                child: Text("Login form example"),
+              ),
+            ],
+          ),
         ),
-        body: MyHomePage(),
+
+        body: TabBarView(
+          controller: tabController,
+          children: <Widget>[
+            MyHomePage(),
+            LoginPage(),
+          ],
+        ),
       ),
     );
   }
@@ -68,18 +104,19 @@ class MyHomePage extends StatelessWidget {
                     initValue: "example@mail.com",
                     isRequired: true,
                     decorationElement: RoundedDecorationElement(
-                      radius: BorderRadius.all(Radius.circular(0.0)),
-                      filledColor: Colors.white
-                    ),
+                        radius: BorderRadius.all(Radius.circular(0.0)),
+                        filledColor: Colors.white),
                   ),
                   PasswordElement(
-                      minLength: 8,
-                      hasDigits: false,
-                      hasSpecialCharacter: true,
-                      hasUppercase: true,
-                      isRequired: true,
-                      minLengthErrorMsg:
-                          "Password must include at least 8 characters"),
+                    minLength: 8,
+                    hasDigits: false,
+                    hasSpecialCharacter: true,
+                    hasUppercase: true,
+                    isRequired: true,
+                    errors: PasswordError(
+                        minLengthErrorMsg:
+                            "Password must include at least 8 characters"),
+                  ),
                 ],
               ),
               GroupElement(

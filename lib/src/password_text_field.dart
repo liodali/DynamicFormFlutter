@@ -3,19 +3,15 @@ import 'package:flutter/material.dart';
 
 class PasswordTextField extends StatefulWidget {
   final TextEditingController textEditingController;
+  final PasswordElement element;
   final InputDecoration inputDecoration;
-  final Function(String) validator;
   final TextInputType textInputType;
-  final TextElement textElement;
-  final bool isEnabledToShowPassword;
 
   PasswordTextField({
     this.textEditingController,
+    this.element,
     this.inputDecoration,
-    this.isEnabledToShowPassword,
-    this.validator,
     this.textInputType,
-    this.textElement,
   });
 
   @override
@@ -35,14 +31,15 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.textEditingController,
-      validator: widget.validator,
+      validator: widget.element.validator,
       keyboardType: widget.textInputType,
-      readOnly: widget.textElement.readOnly,
+      readOnly: widget.element.readOnly,
       obscureText: isObscure,
+      style: widget.element.decorationElement?.style,
       decoration: widget.inputDecoration.copyWith(
-        labelText: widget.textElement.label,
-        hintText: widget.textElement.hint,
-        suffixIcon: widget.isEnabledToShowPassword
+        labelText: widget.element.label,
+        hintText: widget.element.hint,
+        suffixIcon: widget.element.enableShowPassword
             ? GestureDetector(
                 onTap: () {
                   setState(() {

@@ -1,3 +1,6 @@
+## [0.3.7+1] - version alpha:
+* add new form for login: LoginForm
+* make passwordError,usernameEmailError
 ## [0.3.6+1] - version alpha:
 * fix readme file
 ## [0.3.6] - version alpha:
