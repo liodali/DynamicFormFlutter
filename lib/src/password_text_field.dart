@@ -35,6 +35,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       keyboardType: widget.textInputType,
       readOnly: widget.element.readOnly,
       obscureText: isObscure,
+      style: widget.element.decorationElement?.style,
       decoration: widget.inputDecoration.copyWith(
         labelText: widget.element.label,
         hintText: widget.element.hint,

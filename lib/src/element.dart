@@ -298,7 +298,7 @@ class PasswordError extends TextFieldError {
   final String specialCharacterErrorMsg;
   final String digitsErrorMsg;
 
-  PasswordError({
+  const PasswordError({
     String requiredErrorMsg = "Password is required",
     this.minLengthErrorMsg = "",
     this.uppercaseErrorMsg =
@@ -319,7 +319,7 @@ abstract class TextFieldError {
   final String patternErrorMsg;
   final String error;
 
-  TextFieldError({
+  const TextFieldError({
     this.requiredErrorMsg = "",
     this.patternErrorMsg = "",
     this.error,
@@ -340,12 +340,13 @@ class EmailError extends TextFieldError {
 class UsernameEmailError extends TextFieldError {
   final String patternEmailErrorMsg;
   final String patternUsernameErrorMsg;
-  UsernameEmailError({
+  const UsernameEmailError({
     String requiredErrorMsg = "Username or Email is required",
     this.patternEmailErrorMsg = "Email is invalid",
     this.patternUsernameErrorMsg = "Username is invalid",
     String error,
   }) : super(
     error: error,
+    requiredErrorMsg:requiredErrorMsg
   );
 }

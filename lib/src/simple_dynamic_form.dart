@@ -4,6 +4,7 @@ import 'package:dynamic_form/src/element.dart';
 import 'package:dynamic_form/src/email_text_field.dart';
 import 'package:dynamic_form/src/group_elements.dart';
 import 'package:dynamic_form/src/password_text_field.dart';
+import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -152,18 +153,21 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
       return PasswordTextField(
         textEditingController: controller,
         element: element,
-        inputDecoration: setInputBorder(element.decorationElement),
-        textInputType: getInput(element.typeInput),
+        inputDecoration:
+            Constants.setInputBorder(context, element.decorationElement),
+        textInputType: Constants.getInput(element.typeInput),
       );
     } else if (element is NumberElement) {
       return TextFormField(
         controller: controller,
         validator: element.validator,
+        style: element.decorationElement?.style,
         inputFormatters:
             element.isDigits ? [WhitelistingTextInputFormatter.digitsOnly] : [],
-        keyboardType: getInput(element.typeInput),
+        keyboardType: Constants.getInput(element.typeInput),
         readOnly: element.readOnly,
-        decoration: setInputBorder(element.decorationElement).copyWith(
+        decoration: Constants.setInputBorder(context, element.decorationElement)
+            .copyWith(
           labelText: element.label,
           hintText: element.hint,
         ),
@@ -171,7 +175,9 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     } else if (element is CountryElement) {
       return CountryTextField(
         textEditingController: controller,
-        inputDecoration: setInputBorder(element.decorationElement).copyWith(
+        inputDecoration:
+            Constants.setInputBorder(context, element.decorationElement)
+                .copyWith(
           labelText: element.label,
           labelStyle: TextStyle(color: Colors.black),
           hintText: element.hint,
@@ -188,170 +194,25 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
       return EmailTextField(
         textEditingController: controller,
         emailElement: element,
-        inputDecoration: setInputBorder(element.decorationElement),
+        inputDecoration:
+            Constants.setInputBorder(context, element.decorationElement),
       );
     }
 
     return TextFormField(
       controller: controller,
       validator: element.validator,
-      keyboardType: getInput(element.typeInput),
+      keyboardType: Constants.getInput(element.typeInput),
       readOnly: element.readOnly,
       enabled: true,
       onTap: element.onTap,
-      decoration: setInputBorder(element.decorationElement).copyWith(
+      decoration:
+          Constants.setInputBorder(context, element.decorationElement).copyWith(
         labelText: element.label,
         hintText: element.hint,
         enabled: true,
         suffixIcon: null,
       ),
     );
-  }
-
-  TextInputType getInput(TypeInput typeInput) {
-    switch (typeInput) {
-      case TypeInput.Email:
-        return TextInputType.emailAddress;
-        break;
-      case TypeInput.Numeric:
-        return TextInputType.number;
-        break;
-      case TypeInput.Address:
-        return TextInputType.text;
-        break;
-      case TypeInput.Text:
-      case TypeInput.Password:
-        return TextInputType.text;
-        break;
-      case TypeInput.Phone:
-        return TextInputType.phone;
-        break;
-      default:
-        return TextInputType.text;
-        break;
-    }
-  }
-
-  InputDecoration setInputBorder(DecorationElement decorationElement) {
-    if (decorationElement is UnderlineDecorationElement) {
-      return InputDecoration(
-        border: UnderlineInputBorder(
-          borderRadius: decorationElement.radius,
-          borderSide: BorderSide(
-            color: decorationElement.borderColor ?? Colors.grey,
-            width: decorationElement.widthSide,
-          ),
-        ),
-        errorBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius,
-          borderSide: BorderSide(
-            color: decorationElement.errorBorderColor,
-            width: decorationElement.widthSide,
-          ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius,
-          borderSide: BorderSide(
-            color: decorationElement.focusBorderColor ??
-                Theme.of(context).primaryColor,
-            width: decorationElement.widthSide,
-          ),
-        ),
-        fillColor: decorationElement.filledColor,
-        focusColor: decorationElement.focusColor,
-      );
-    } else if (decorationElement is OutlineDecorationElement) {
-      return InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: decorationElement.radius,
-          borderSide: BorderSide(
-            color: decorationElement.borderColor ?? Colors.grey,
-            width: decorationElement.widthSide,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: decorationElement.radius,
-          borderSide: BorderSide(
-            color: decorationElement.focusBorderColor ??
-                Theme.of(context).primaryColor,
-            width: decorationElement.widthSide,
-          ),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: decorationElement.radius,
-          borderSide: BorderSide(
-            color: decorationElement.errorBorderColor,
-            width: decorationElement.widthSide,
-          ),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: decorationElement.radius,
-          borderSide: BorderSide(
-            color: decorationElement.disabledBorderColor ??
-                Theme.of(context).disabledColor,
-            width: decorationElement.widthSide,
-          ),
-        ),
-        fillColor: decorationElement.filledColor,
-        focusColor: decorationElement.focusColor,
-      );
-    } else if (decorationElement is RoundedDecorationElement) {
-      return InputDecoration(
-        border: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ??
-              BorderRadius.all(
-                Radius.circular(25.0),
-              ),
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ??
-              BorderRadius.all(
-                Radius.circular(25.0),
-              ),
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        focusedErrorBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ??
-              BorderRadius.all(
-                Radius.circular(25.0),
-              ),
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ??
-              BorderRadius.all(
-                Radius.circular(25.0),
-              ),
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        errorBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ??
-              BorderRadius.all(
-                Radius.circular(25.0),
-              ),
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        fillColor: decorationElement.filledColor,
-        filled: true,
-        focusColor: decorationElement.focusColor,
-      );
-    }
-    return InputDecoration();
   }
 }

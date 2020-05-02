@@ -19,6 +19,7 @@ class EmailTextField extends StatelessWidget {
       controller: textEditingController,
       validator: emailElement.validator,
       readOnly: emailElement.readOnly,
+      style: emailElement.decorationElement.style,
       decoration: inputDecoration.copyWith(
         labelStyle: emailElement.textStyle ??
             Theme.of(context).inputDecorationTheme.labelStyle,

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-abstract class DecorationElement {}
+abstract class DecorationElement {
+  final Color filledColor;
+  final Color focusColor;
+  final TextStyle style;
+  DecorationElement({this.filledColor,this.focusColor,this.style});
+}
 
 class UnderlineDecorationElement extends DecorationElement {
   final Color borderColor;
@@ -9,8 +14,6 @@ class UnderlineDecorationElement extends DecorationElement {
   final Color disabledBorderColor;
   final BorderRadius radius;
   final double widthSide;
-  final Color filledColor;
-  final Color focusColor;
 
   UnderlineDecorationElement({
     this.borderColor,
@@ -19,9 +22,10 @@ class UnderlineDecorationElement extends DecorationElement {
     this.disabledBorderColor,
     this.radius=const BorderRadius.all(Radius.circular(0.0)),
     this.widthSide=1.0,
-    this.filledColor,
-    this.focusColor,
-  });
+    Color filledColor,
+    Color focusColor,
+    TextStyle textStyle,
+  }):super(filledColor:filledColor,focusColor:focusColor,style:textStyle?? ThemeData.light().textTheme.subhead);
 }
 
 class OutlineDecorationElement extends DecorationElement {
@@ -31,8 +35,7 @@ class OutlineDecorationElement extends DecorationElement {
   final Color disabledBorderColor;
   final BorderRadius radius;
   final double widthSide;
-  final Color filledColor;
-  final Color focusColor;
+
 
   OutlineDecorationElement({
     this.borderColor,
@@ -41,19 +44,19 @@ class OutlineDecorationElement extends DecorationElement {
     this.disabledBorderColor,
     this.radius=const BorderRadius.all(Radius.circular(0.0)),
     this.widthSide=1.0,
-    this.filledColor,
-    this.focusColor,
-  });
+    Color filledColor,
+    Color focusColor,
+    TextStyle textStyle,
+  }):super(filledColor:filledColor,focusColor:focusColor,style:textStyle?? ThemeData.light().textTheme.subhead);
 }
 
 class RoundedDecorationElement extends DecorationElement {
   final BorderRadius radius;
-  final Color filledColor;
-  final Color focusColor;
 
   RoundedDecorationElement({
     this.radius = const BorderRadius.all(Radius.circular(25.0)),
-    this.filledColor,
-    this.focusColor,
-  });
+    Color filledColor,
+    Color focusColor,
+    TextStyle textStyle,
+  }):super(filledColor:filledColor,focusColor:focusColor,style:textStyle?? ThemeData.light().textTheme.subhead);
 }
