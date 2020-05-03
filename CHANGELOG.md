@@ -1,3 +1,5 @@
+## [0.3.7+2] - version alpha:
+* add docs for loginForm
 ## [0.3.7+1] - version alpha:
 * add new form for login: LoginForm
 * make passwordError,usernameEmailError
