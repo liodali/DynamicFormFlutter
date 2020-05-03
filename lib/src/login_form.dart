@@ -7,6 +7,23 @@ import 'package:flutter/material.dart';
 
 typedef loginCallback = Function(String username, String password);
 
+
+/// [LoginForm]:Pre-existing form ,make easy to build your login form
+///
+/// [decorationElement] : input decoration of fields of form
+/// [directionGroup] : Direction of form (Vertical/Horizontal)
+///  [paddingFields] : padding between fields
+///  [onlyEmail] : enable only email type fieldtext
+///  [labelLogin] : label  of username/email textField
+///  [password] : label of the password field
+///  [textButton] : Text widget of the submit button
+///  [callback] : callback to make your api call when you form is validate
+///  [radiusBorderButton] : radius corner of the submit button
+///  [backgroundColorButton] : background color of the submit button
+///  [widthSubmitButton] : width size of the submit button
+///  [passwordError] : messages errors to show  when password field not validate
+///  [usernameEmailError] : messages errors to show when email/username not validate
+
 class LoginForm extends StatefulWidget {
   final DecorationElement decorationElement;
   final DirectionGroup directionGroup;

@@ -46,9 +46,46 @@ Add the following to your `pubspec.yaml` file:
 
 ` dynamicFormKey.currentState.recuperateAllValues() `
 
-###LoginForm
+### LoginForm
+> pre-existing login form to make easy for you to build
+## Simple Usage
+#### Creating a basic `LoginForm`
 
-` docs will be available soon `
+    LoginForm(
+          callback: (email,password){
+                //api call
+          },
+          backgroundColorButton: Colors.amber,
+          onlyEmail: false,
+          widthSubmitButton: 200,
+          labelLogin: "Username",
+          password: "Password",
+          textButton: Text("Log IN"),
+          radiusBorderButton: 10,
+          decorationElement: RoundedDecorationElement(
+            filledColor: Colors.grey[300],
+          ),
+        )
+
+
+####  `Properties in LoginForm`
+
+| Properties                | Description                         |
+| --------------------      | ----------------------------------- |
+| `decorationElement`       |  input decoration of fields of form |
+| `directionGroup`          |  Direction of form (Vertical/Horizontal)  |
+| `paddingFields`           |  padding between fields             |
+| `onlyEmail`               |  enable only email type fieldtext   |
+| `labelLogin`              |  label  of username/email textField |
+| `password`                |  label of the passwordField        |
+| `callback`                |  callback to make your api call when you form is validate |
+| `textButton`              |  Text widget of the submit button   |
+| `radiusBorderButton`      |  radius corner of the submit button |
+| `backgroundColorButton`   |  background color of the submit button |
+| `widthSubmitButton`       |  width size of the submit button    |
+| `passwordError`           |  messages errors to show  when password field not validate     |
+| `usernameEmailError`      |  messages errors to show when email/username not validate    |
+
 
 ### How to skectch your form ?
 
@@ -58,7 +95,7 @@ Add the following to your `pubspec.yaml` file:
 ####  `GroupElement`
 | Properties           | Description                         |
 | -------------------- | ----------------------------------- |
-| `directionGroup`     |  Direction of form (Vertical/Horizontal)           |
+| `directionGroup`     |  Direction of form (Vertical/Horizontal) |
 | `sizeElements`       |  size of each textElement  of form When direction Horizontal,sum of values should be egal a 1           |
 | `textElements`       |  group of textElement.              |
 | `padding`            |  padding of groups.                 |
