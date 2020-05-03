@@ -1,3 +1,5 @@
+## [0.3.7+3] - version alpha:
+* fix version in docs
 ## [0.3.7+2] - version alpha:
 * add docs for loginForm
 ## [0.3.7+1] - version alpha:
