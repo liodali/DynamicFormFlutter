@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 typedef loginCallback = Function(String username, String password);
 
-
 /// [LoginForm]:Pre-existing form ,make easy to build your login form
 ///
 /// [decorationElement] : input decoration of fields of form
@@ -43,7 +42,7 @@ class LoginForm extends StatefulWidget {
     Key key,
     this.decorationElement,
     this.directionGroup = DirectionGroup.Vertical,
-    this.paddingFields=const EdgeInsets.all(3.0),
+    this.paddingFields = const EdgeInsets.all(3.0),
     this.onlyEmail = true,
     this.labelLogin = "username or email",
     this.password = "Password",
@@ -68,8 +67,8 @@ class _LoginFormState extends State<LoginForm> {
   void initState() {
     super.initState();
     globalKeyForm = GlobalKey<FormState>();
-    username=TextEditingController();
-    password=TextEditingController();
+    username = TextEditingController();
+    password = TextEditingController();
   }
 
   @override
@@ -106,7 +105,7 @@ class _LoginFormState extends State<LoginForm> {
 
   Widget submitButton() {
     return Container(
-      width: widget.widthSubmitButton??MediaQuery.of(context).size.width,
+      width: widget.widthSubmitButton ?? MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(5.0),
       child: RaisedButton(
         onPressed: () async {
@@ -132,33 +131,33 @@ class _LoginFormState extends State<LoginForm> {
 
   List<Widget> fieldsForm() {
     return [
-     Padding(
-       padding: widget.paddingFields,
-       child:  widget.onlyEmail
-           ? EmailTextField(
-         textEditingController: username,
-         emailElement: EmailElement(
-           decorationElement: widget.decorationElement,
-           isRequired: true,
-           label: widget.labelLogin,
-           hint: widget.labelLogin,
-           errorEmailIsRequired:
-           widget.usernameEmailError.requiredErrorMsg,
-           errorEmailPattern:
-           widget.usernameEmailError.patternEmailErrorMsg,
-         ),
-       )
-           : TextFormField(
-         controller: username,
-         validator: validatorUsername,
-         style: widget.decorationElement.style,
-         decoration:
-         Constants.setInputBorder(context, widget.decorationElement)
-             .copyWith(
-             labelText: widget.labelLogin,
-             hintText: widget.labelLogin),
-       ),
-     ),
+      Padding(
+        padding: widget.paddingFields,
+        child: widget.onlyEmail
+            ? EmailTextField(
+                textEditingController: username,
+                emailElement: EmailElement(
+                  decorationElement: widget.decorationElement,
+                  isRequired: true,
+                  label: widget.labelLogin,
+                  hint: widget.labelLogin,
+                  errorEmailIsRequired:
+                      widget.usernameEmailError.requiredErrorMsg,
+                  errorEmailPattern:
+                      widget.usernameEmailError.patternEmailErrorMsg,
+                ),
+              )
+            : TextFormField(
+                controller: username,
+                validator: validatorUsername,
+                style: widget.decorationElement.style,
+                decoration:
+                    Constants.setInputBorder(context, widget.decorationElement)
+                        .copyWith(
+                            labelText: widget.labelLogin,
+                            hintText: widget.labelLogin),
+              ),
+      ),
       Padding(
         padding: widget.paddingFields,
         child: PasswordTextField(
@@ -174,7 +173,7 @@ class _LoginFormState extends State<LoginForm> {
               minLength: 6),
           textEditingController: password,
           inputDecoration:
-          Constants.setInputBorder(context, widget.decorationElement),
+              Constants.setInputBorder(context, widget.decorationElement),
           textInputType: Constants.getInput(TypeInput.Password),
         ),
       ),
@@ -192,20 +191,19 @@ class _LoginFormState extends State<LoginForm> {
           if (!usernameValid) {
             return widget.usernameEmailError.patternUsernameErrorMsg;
           }
-        }else{
+        } else {
           bool usernameValid =
-          RegExp(Constants.emailPattern).hasMatch(usernameText);
+              RegExp(Constants.emailPattern).hasMatch(usernameText);
           if (!usernameValid) {
             return widget.usernameEmailError.patternEmailErrorMsg;
           }
         }
-      }else{
+      } else {
         bool emailValid = RegExp(Constants.emailPattern).hasMatch(usernameText);
         if (!emailValid) {
           return widget.usernameEmailError.patternEmailErrorMsg;
         }
       }
-
 
       return null;
     }

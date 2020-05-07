@@ -80,7 +80,6 @@ class _CountryTextFieldState extends State<CountryTextField> {
         }
         return null;
       },
-
       readOnly: true,
       onTap: () async {
         var selected = await showModalBottomSheet<_Country>(

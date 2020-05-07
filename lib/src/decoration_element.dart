@@ -4,7 +4,8 @@ abstract class DecorationElement {
   final Color filledColor;
   final Color focusColor;
   final TextStyle style;
-  DecorationElement({this.filledColor,this.focusColor,this.style});
+
+  DecorationElement({this.filledColor, this.focusColor, this.style});
 }
 
 class UnderlineDecorationElement extends DecorationElement {
@@ -20,12 +21,15 @@ class UnderlineDecorationElement extends DecorationElement {
     this.errorBorderColor = Colors.red,
     this.focusBorderColor,
     this.disabledBorderColor,
-    this.radius=const BorderRadius.all(Radius.circular(0.0)),
-    this.widthSide=1.0,
+    this.radius = const BorderRadius.all(Radius.circular(0.0)),
+    this.widthSide = 1.0,
     Color filledColor,
     Color focusColor,
     TextStyle textStyle,
-  }):super(filledColor:filledColor,focusColor:focusColor,style:textStyle?? ThemeData.light().textTheme.subhead);
+  }) : super(
+            filledColor: filledColor,
+            focusColor: focusColor,
+            style: textStyle ?? ThemeData.light().textTheme.subtitle1);
 }
 
 class OutlineDecorationElement extends DecorationElement {
@@ -36,18 +40,20 @@ class OutlineDecorationElement extends DecorationElement {
   final BorderRadius radius;
   final double widthSide;
 
-
   OutlineDecorationElement({
     this.borderColor,
     this.errorBorderColor = Colors.red,
     this.focusBorderColor,
     this.disabledBorderColor,
-    this.radius=const BorderRadius.all(Radius.circular(0.0)),
-    this.widthSide=1.0,
+    this.radius = const BorderRadius.all(Radius.circular(0.0)),
+    this.widthSide = 1.0,
     Color filledColor,
     Color focusColor,
     TextStyle textStyle,
-  }):super(filledColor:filledColor,focusColor:focusColor,style:textStyle?? ThemeData.light().textTheme.subhead);
+  }) : super(
+            filledColor: filledColor,
+            focusColor: focusColor,
+            style: textStyle ?? ThemeData.light().textTheme.subtitle1);
 }
 
 class RoundedDecorationElement extends DecorationElement {
@@ -58,5 +64,8 @@ class RoundedDecorationElement extends DecorationElement {
     Color filledColor,
     Color focusColor,
     TextStyle textStyle,
-  }):super(filledColor:filledColor,focusColor:focusColor,style:textStyle?? ThemeData.light().textTheme.subhead);
+  }) : super(
+            filledColor: filledColor,
+            focusColor: focusColor,
+            style: textStyle ?? ThemeData.light().textTheme.subtitle1);
 }

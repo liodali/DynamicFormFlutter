@@ -1,3 +1,5 @@
+## [0.3.7+4] - version alpha:
+* remove deprecated api
 ## [0.3.7+3] - version alpha:
 * fix version in docs
 ## [0.3.7+2] - version alpha:
