@@ -337,16 +337,15 @@ class EmailError extends TextFieldError {
           patternErrorMsg: patternErrorMsg,
         );
 }
+
 class UsernameEmailError extends TextFieldError {
   final String patternEmailErrorMsg;
   final String patternUsernameErrorMsg;
+
   const UsernameEmailError({
     String requiredErrorMsg = "Username or Email is required",
     this.patternEmailErrorMsg = "Email is invalid",
     this.patternUsernameErrorMsg = "Username is invalid",
     String error,
-  }) : super(
-    error: error,
-    requiredErrorMsg:requiredErrorMsg
-  );
+  }) : super(error: error, requiredErrorMsg: requiredErrorMsg);
 }
