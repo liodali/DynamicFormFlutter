@@ -1,3 +1,7 @@
+## [0.3.7+5] - version alpha:
+* add ButtonLoginDecorationElement
+* change core of loginForm
+* make UnderlineDecoration default decoration
 ## [0.3.7+4] - version alpha:
 * remove deprecated api
 ## [0.3.7+3] - version alpha:

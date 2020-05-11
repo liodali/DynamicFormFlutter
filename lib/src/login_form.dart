@@ -17,9 +17,7 @@ typedef loginCallback = Function(String username, String password);
 ///  [password] : label of the password field
 ///  [textButton] : Text widget of the submit button
 ///  [callback] : callback to make your api call when you form is validate
-///  [radiusBorderButton] : radius corner of the submit button
-///  [backgroundColorButton] : background color of the submit button
-///  [widthSubmitButton] : width size of the submit button
+///  [buttonLoginDecorationElement] : decoration of  button  that contain radius,width,color
 ///  [passwordError] : messages errors to show  when password field not validate
 ///  [usernameEmailError] : messages errors to show when email/username not validate
 

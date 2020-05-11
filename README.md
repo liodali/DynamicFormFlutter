@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.3.7%2B4-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.3.7%2B5-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.3.7+4
+		dynamic_form: ^0.3.7+5
 
 
 
@@ -70,21 +70,19 @@ Add the following to your `pubspec.yaml` file:
 
 ####  `Properties in LoginForm`
 
-| Properties                | Description                         |
-| --------------------      | ----------------------------------- |
-| `decorationElement`       |  input decoration of fields of form |
-| `directionGroup`          |  Direction of form (Vertical/Horizontal)  |
-| `paddingFields`           |  padding between fields             |
-| `onlyEmail`               |  enable only email type fieldtext   |
-| `labelLogin`              |  label  of username/email textField |
-| `password`                |  label of the passwordField        |
-| `callback`                |  callback to make your api call when you form is validate |
-| `textButton`              |  Text widget of the submit button   |
-| `radiusBorderButton`      |  radius corner of the submit button |
-| `backgroundColorButton`   |  background color of the submit button |
-| `widthSubmitButton`       |  width size of the submit button    |
-| `passwordError`           |  messages errors to show  when password field not validate     |
-| `usernameEmailError`      |  messages errors to show when email/username not validate    |
+| Properties                          | Description                         |
+| ------------------------------------| ----------------------------------- |
+| `decorationElement`                 |  input decoration of fields of form |
+| `directionGroup`                    |  Direction of form (Vertical/Horizontal)  |
+| `paddingFields`                     |  padding between fields             |
+| `onlyEmail`                         |  enable only email type fieldtext   |
+| `labelLogin`                        |  label  of username/email textField |
+| `password`                          |  label of the passwordField        |
+| `callback`                          |  callback to make your api call when you form is validate |
+| `textButton`                        |  Text widget of the submit button   |
+| `buttonLoginDecorationElement`      |  decoration of button that contain radius,backgroundColor,width |
+| `passwordError`                     |  messages errors to show  when password field not validate     |
+| `usernameEmailError`                |  messages errors to show when email/username not validate    |
 
 
 ### How to skectch your form ?
