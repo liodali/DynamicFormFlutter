@@ -122,7 +122,7 @@ class EmailElement extends TextElement {
           label: label,
           typeInput: TypeInput.Email,
           hint: hint,
-          decorationElement: decorationElement,
+          decorationElement: decorationElement??const UnderlineDecorationElement(),
           padding: padding,
           readOnly: readOnly,
           validator: (email) {
