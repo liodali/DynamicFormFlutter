@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.3.7%2B5-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.3.7%2B6-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.3.7+5
+		dynamic_form: ^0.3.7+6
 
 
 
@@ -55,13 +55,15 @@ Add the following to your `pubspec.yaml` file:
           callback: (email,password){
                 //api call
           },
-          backgroundColorButton: Colors.amber,
+          buttonLoginDecorationElement: ButtonLoginDecorationElement(
+                  backgroundColorButton: Colors.amber,
+                  widthSubmitButton: 200,
+                  radiusBorderButton: 10,
+           ),
           onlyEmail: false,
-          widthSubmitButton: 200,
           labelLogin: "Username",
           password: "Password",
           textButton: Text("Log IN"),
-          radiusBorderButton: 10,
           decorationElement: RoundedDecorationElement(
             filledColor: Colors.grey[300],
           ),

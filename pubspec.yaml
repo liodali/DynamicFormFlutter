@@ -1,6 +1,6 @@
 name: dynamic_form
 description: generate your form with easier way, Pre-existing forms, fields ,customize your form in runtime
-version: 0.3.7+5
+version: 0.3.7+6
 homepage: https://github.com/liodali/DynamicFormFlutter
 
 environment:
