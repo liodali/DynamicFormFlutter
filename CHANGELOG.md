@@ -1,3 +1,5 @@
+## [0.3.7+6] - version alpha:
+* fix readme:example loginForm
 ## [0.3.7+5] - version alpha:
 * add ButtonLoginDecorationElement
 * change core of loginForm
