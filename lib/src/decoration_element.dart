@@ -5,7 +5,7 @@ abstract class DecorationElement {
   final Color focusColor;
   final TextStyle style;
 
-  DecorationElement({this.filledColor, this.focusColor, this.style});
+  const DecorationElement({this.filledColor, this.focusColor, this.style});
 }
 
 class UnderlineDecorationElement extends DecorationElement {
@@ -16,7 +16,7 @@ class UnderlineDecorationElement extends DecorationElement {
   final BorderRadius radius;
   final double widthSide;
 
-  UnderlineDecorationElement({
+  const UnderlineDecorationElement({
     this.borderColor,
     this.errorBorderColor = Colors.red,
     this.focusBorderColor,
@@ -27,9 +27,13 @@ class UnderlineDecorationElement extends DecorationElement {
     Color focusColor,
     TextStyle textStyle,
   }) : super(
-            filledColor: filledColor,
-            focusColor: focusColor,
-            style: textStyle ?? ThemeData.light().textTheme.subtitle1);
+            filledColor: filledColor ?? Colors.white,
+            focusColor: focusColor ?? Colors.white,
+            style: textStyle ??
+                const TextStyle(
+                  color: Colors.black,
+                  fontSize: 14,
+                ));
 }
 
 class OutlineDecorationElement extends DecorationElement {
@@ -40,7 +44,7 @@ class OutlineDecorationElement extends DecorationElement {
   final BorderRadius radius;
   final double widthSide;
 
-  OutlineDecorationElement({
+  const OutlineDecorationElement({
     this.borderColor,
     this.errorBorderColor = Colors.red,
     this.focusBorderColor,
@@ -51,21 +55,35 @@ class OutlineDecorationElement extends DecorationElement {
     Color focusColor,
     TextStyle textStyle,
   }) : super(
-            filledColor: filledColor,
-            focusColor: focusColor,
-            style: textStyle ?? ThemeData.light().textTheme.subtitle1);
+            filledColor: filledColor ?? Colors.white,
+            focusColor: focusColor ?? Colors.white,
+            style: textStyle ??
+                const TextStyle(color: Colors.black, fontSize: 14));
 }
 
 class RoundedDecorationElement extends DecorationElement {
   final BorderRadius radius;
 
-  RoundedDecorationElement({
+  const RoundedDecorationElement({
     this.radius = const BorderRadius.all(Radius.circular(25.0)),
     Color filledColor,
     Color focusColor,
     TextStyle textStyle,
   }) : super(
-            filledColor: filledColor,
-            focusColor: focusColor,
-            style: textStyle ?? ThemeData.light().textTheme.subtitle1);
+            filledColor: filledColor ?? Colors.white,
+            focusColor: focusColor ?? Colors.white,
+            style: textStyle ??
+                const TextStyle(color: Colors.black, fontSize: 14));
+}
+
+class ButtonLoginDecorationElement {
+  final double radiusBorderButton;
+  final Color backgroundColorButton;
+  final double widthSubmitButton;
+
+  const ButtonLoginDecorationElement({
+    this.radiusBorderButton = 5.0,
+    this.backgroundColorButton,
+    this.widthSubmitButton = 200,
+  });
 }

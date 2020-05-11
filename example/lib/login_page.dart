@@ -13,15 +13,17 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return LoginForm(
       callback: (email,password){
-
+        print("$email,$password");
       },
-      backgroundColorButton: Colors.amber,
+      buttonLoginDecorationElement: ButtonLoginDecorationElement(
+        backgroundColorButton: Colors.amber,
+        widthSubmitButton: 200,
+        radiusBorderButton: 10,
+      ),
       onlyEmail: false,
-      widthSubmitButton: 200,
       labelLogin: "Username",
       password: "Password",
       textButton: Text("Log IN"),
-      radiusBorderButton: 10,
       decorationElement: RoundedDecorationElement(
         filledColor: Colors.grey[300],
       ),

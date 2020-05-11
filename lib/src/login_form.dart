@@ -17,9 +17,7 @@ typedef loginCallback = Function(String username, String password);
 ///  [password] : label of the password field
 ///  [textButton] : Text widget of the submit button
 ///  [callback] : callback to make your api call when you form is validate
-///  [radiusBorderButton] : radius corner of the submit button
-///  [backgroundColorButton] : background color of the submit button
-///  [widthSubmitButton] : width size of the submit button
+///  [buttonLoginDecorationElement] : decoration of  button  that contain radius,width,color
 ///  [passwordError] : messages errors to show  when password field not validate
 ///  [usernameEmailError] : messages errors to show when email/username not validate
 
@@ -32,15 +30,13 @@ class LoginForm extends StatefulWidget {
   final String password;
   final Text textButton;
   final loginCallback callback;
-  final double radiusBorderButton;
-  final Color backgroundColorButton;
   final PasswordError passwordError;
-  final double widthSubmitButton;
   final UsernameEmailError usernameEmailError;
+  final ButtonLoginDecorationElement buttonLoginDecorationElement;
 
   LoginForm({
     Key key,
-    this.decorationElement,
+    this.decorationElement = const UnderlineDecorationElement(),
     this.directionGroup = DirectionGroup.Vertical,
     this.paddingFields = const EdgeInsets.all(3.0),
     this.onlyEmail = true,
@@ -48,11 +44,9 @@ class LoginForm extends StatefulWidget {
     this.password = "Password",
     this.callback,
     this.textButton = const Text("LOG IN"),
-    this.radiusBorderButton = 10.0,
-    this.widthSubmitButton,
     this.passwordError = const PasswordError(),
     this.usernameEmailError = const UsernameEmailError(),
-    this.backgroundColorButton,
+    this.buttonLoginDecorationElement = const ButtonLoginDecorationElement(),
   }) : super(key: key);
 
   @override
@@ -60,13 +54,13 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  GlobalKey<FormState> globalKeyForm;
+  GlobalKey<SimpleDynamicFormState> globalKeyDynamic;
   TextEditingController username, password;
 
   @override
   void initState() {
     super.initState();
-    globalKeyForm = GlobalKey<FormState>();
+    globalKeyDynamic = GlobalKey<SimpleDynamicFormState>();
     username = TextEditingController();
     password = TextEditingController();
   }
@@ -91,35 +85,38 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   Widget formWidget() {
-    return Form(
-      key: globalKeyForm,
-      child: widget.directionGroup == DirectionGroup.Vertical
-          ? Column(
-              children: fieldsForm(),
-            )
-          : Row(
-              children: fieldsForm(),
-            ),
-    );
+    if (widget.directionGroup == DirectionGroup.Vertical)
+      return Column(
+        children: fieldsForm(),
+      );
+    else {
+      return Row(
+        children: fieldsForm(),
+      );
+    }
   }
 
   Widget submitButton() {
     return Container(
-      width: widget.widthSubmitButton ?? MediaQuery.of(context).size.width,
+      width: widget.buttonLoginDecorationElement.widthSubmitButton,
       padding: EdgeInsets.all(5.0),
       child: RaisedButton(
         onPressed: () async {
-          if (globalKeyForm.currentState.validate()) {
-            await widget.callback(username.text, password.text);
+          if (globalKeyDynamic.currentState.validate()) {
+            await widget.callback(
+                globalKeyDynamic.currentState.recuperateAllValues()[0],
+                globalKeyDynamic.currentState.recuperateAllValues()[1]);
           }
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(widget.radiusBorderButton),
+            Radius.circular(
+                widget.buttonLoginDecorationElement.radiusBorderButton),
           ),
         ),
         child: widget.textButton,
-        color: widget.backgroundColorButton ?? Theme.of(context).primaryColor,
+        color: widget.buttonLoginDecorationElement.backgroundColorButton ??
+            Theme.of(context).primaryColor,
         textColor: widget.textButton?.style != null
             ? widget.textButton.style.color
             : Theme.of(context).textTheme.button.color,
@@ -131,51 +128,48 @@ class _LoginFormState extends State<LoginForm> {
 
   List<Widget> fieldsForm() {
     return [
-      Padding(
+      SimpleDynamicForm(
+        key: globalKeyDynamic,
         padding: widget.paddingFields,
-        child: widget.onlyEmail
-            ? EmailTextField(
-                textEditingController: username,
-                emailElement: EmailElement(
-                  decorationElement: widget.decorationElement,
-                  isRequired: true,
-                  label: widget.labelLogin,
-                  hint: widget.labelLogin,
-                  errorEmailIsRequired:
-                      widget.usernameEmailError.requiredErrorMsg,
-                  errorEmailPattern:
-                      widget.usernameEmailError.patternEmailErrorMsg,
-                ),
-              )
-            : TextFormField(
-                controller: username,
-                validator: validatorUsername,
-                style: widget.decorationElement.style,
-                decoration:
-                    Constants.setInputBorder(context, widget.decorationElement)
-                        .copyWith(
-                            labelText: widget.labelLogin,
-                            hintText: widget.labelLogin),
+        groupElements: [
+          GroupElement(
+            directionGroup:widget.directionGroup,
+            backgroundColor: Colors.transparent,
+            textElements: [
+              widget.onlyEmail
+                  ? EmailElement(
+                      decorationElement: widget.decorationElement,
+                      isRequired: true,
+                      label: widget.labelLogin,
+                      hint: widget.labelLogin,
+                      errorEmailIsRequired:
+                          widget.usernameEmailError.requiredErrorMsg,
+                      errorEmailPattern:
+                          widget.usernameEmailError.patternEmailErrorMsg,
+                    )
+                  : TextElement(
+                      validator: validatorUsername,
+                      textStyle: widget.decorationElement.style ??
+                          Theme.of(context).textTheme.subtitle1,
+                      decorationElement: widget.decorationElement,
+                      label: widget.labelLogin,
+                      hint: widget.labelLogin,
+                    ),
+              PasswordElement(
+                label: widget.password,
+                errors: widget.passwordError,
+                hint: widget.password,
+                decorationElement: widget.decorationElement,
+                hasUppercase: true,
+                isRequired: true,
+                hasDigits: true,
+                hasSpecialCharacter: true,
+                padding: widget.paddingFields,
+                minLength: 6,
               ),
-      ),
-      Padding(
-        padding: widget.paddingFields,
-        child: PasswordTextField(
-          element: PasswordElement(
-              label: widget.password,
-              errors: widget.passwordError,
-              hint: widget.password,
-              decorationElement: widget.decorationElement,
-              hasUppercase: true,
-              isRequired: true,
-              hasDigits: true,
-              hasSpecialCharacter: true,
-              minLength: 6),
-          textEditingController: password,
-          inputDecoration:
-              Constants.setInputBorder(context, widget.decorationElement),
-          textInputType: Constants.getInput(TypeInput.Password),
-        ),
+            ],
+          ),
+        ],
       ),
     ];
   }

@@ -29,7 +29,7 @@ abstract class FormElement {
     this.label = "",
     this.hint = "",
     this.error = "",
-    this.decorationElement,
+    this.decorationElement = const UnderlineDecorationElement(),
     this.labelStyle,
     this.hintStyle,
     this.errorStyle,
@@ -59,7 +59,7 @@ class TextElement extends FormElement {
     this.typeInput = TypeInput.Text,
     this.initValue,
     this.onTap,
-    this.decorationElement,
+    this.decorationElement = const UnderlineDecorationElement(),
     this.label = "",
     this.hint = "",
     this.error = "",
@@ -94,6 +94,7 @@ class EmailElement extends TextElement {
   final String label;
   final String hint;
   final DecorationElement decorationElement;
+
   final String errorEmailPattern;
   final String errorEmailIsRequired;
   final TextStyle errorStyle;
@@ -108,7 +109,7 @@ class EmailElement extends TextElement {
     this.initValue,
     this.label = "Email",
     this.hint = "example@mail.com",
-    this.decorationElement,
+    this.decorationElement = const UnderlineDecorationElement(),
     this.errorEmailPattern = "invalid email",
     this.errorEmailIsRequired = "email is empty",
     this.labelStyle,
@@ -165,7 +166,7 @@ class PasswordElement extends TextElement {
     this.initValue,
     this.label = " Password ",
     this.hint = "password",
-    this.decorationElement,
+    this.decorationElement = const UnderlineDecorationElement(),
     this.errorMsg,
     this.labelStyle,
     this.hintStyle,
@@ -217,6 +218,7 @@ class NumberElement extends TextElement {
   final String label;
   final validation validator;
   final DecorationElement decorationElement;
+
   final String hint;
   final String errorMsg;
   final TextStyle textStyle;
@@ -232,7 +234,7 @@ class NumberElement extends TextElement {
     this.initValue,
     this.label = "",
     this.hint = "",
-    this.decorationElement,
+    this.decorationElement = const UnderlineDecorationElement(),
     this.isDigits = false,
     this.errorMsg,
     this.textStyle,
@@ -265,7 +267,7 @@ class CountryElement extends TextElement {
 
   CountryElement({
     this.initValue,
-    this.decorationElement,
+    this.decorationElement = const UnderlineDecorationElement(),
     this.label,
     this.errorMsg = "invalid Country",
     this.labelModalSheet,
