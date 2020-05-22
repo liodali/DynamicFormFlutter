@@ -4,6 +4,7 @@ import 'package:dynamic_form/src/element.dart';
 import 'package:dynamic_form/src/email_text_field.dart';
 import 'package:dynamic_form/src/group_elements.dart';
 import 'package:dynamic_form/src/password_text_field.dart';
+import 'package:dynamic_form/src/phone_text_field.dart';
 import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -196,6 +197,10 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         emailElement: element,
         inputDecoration:
             Constants.setInputBorder(context, element.decorationElement),
+      );
+    }else if(element is PhoneNumberElement){
+      return PhoneTextField(
+
       );
     }
 

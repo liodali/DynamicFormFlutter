@@ -1,5 +1,5 @@
+import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/decoration_element.dart';
-import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
 enum TypeInput { Text, Email, Password, Phone, Numeric, Address }
@@ -133,7 +133,7 @@ class EmailElement extends TextElement {
               }
             }
             if (email.isNotEmpty) {
-              bool emailValid = RegExp(Constants.emailPattern).hasMatch(email);
+              bool emailValid = RegExp(Patterns.emailPattern).hasMatch(email);
               if (!emailValid) {
                 return errorEmailPattern;
               }
@@ -192,15 +192,15 @@ class PasswordElement extends TextElement {
             if (password.isNotEmpty) {
               if (password.length < minLength) {
                 return errors.minLengthErrorMsg;
-              } else if (RegExp(Constants.upperAlpha).stringMatch(password) ==
+              } else if (RegExp(Patterns.upperAlpha).stringMatch(password) ==
                       null &&
                   hasUppercase) {
                 return errors.uppercaseErrorMsg;
-              } else if (RegExp(Constants.specialChar).stringMatch(password) ==
+              } else if (RegExp(Patterns.specialChar).stringMatch(password) ==
                       null &&
                   hasSpecialCharacter) {
                 return errors.specialCharacterErrorMsg;
-              } else if (RegExp(Constants.digitPattern).stringMatch(password) ==
+              } else if (RegExp(Patterns.digitPattern).stringMatch(password) ==
                       null &&
                   hasDigits) {
                 return errors.digitsErrorMsg;
@@ -288,6 +288,63 @@ class CountryElement extends TextElement {
         );
 }
 
+class PhoneNumberElement extends TextElement {
+  final String initValue;
+  final DecorationElement decorationElement;
+  final String label;
+  final String hint;
+  final String errorMsg;
+  final bool showFlag;
+  final EdgeInsets padding;
+  final validation validator;
+  final bool readOnly;
+
+  PhoneNumberElement({
+    this.initValue,
+    this.decorationElement = const UnderlineDecorationElement(),
+    this.label = "Phone Number",
+    this.hint = "(+001)XXXXXXXXX",
+    this.errorMsg = "invalid phone number",
+    this.validator,
+    this.showFlag = false,
+    this.readOnly,
+    this.padding = const EdgeInsets.all(2.0),
+  }) : super(
+            initValue: initValue,
+            decorationElement: decorationElement,
+            label: label,
+            validator: validator ??
+                (phone) {
+                  if (phone.isEmpty) {
+                    return errorMsg;
+                  } else if (RegExp(Patterns.phonePattern)
+                      .allMatches(phone)
+                      .isEmpty) {
+                    return errorMsg;
+                  }
+                  return null;
+                },
+            hint: hint,
+            error: errorMsg,
+            padding: padding,
+            readOnly: readOnly);
+}
+
+/// [requiredErrorMsg] :  error message to show when textField is Empty
+/// [patternErrorMsg] : error message to show when TextField reqExp is not match
+/// [error] : general error message
+abstract class TextFieldError {
+  final String requiredErrorMsg;
+  final String patternErrorMsg;
+  final String error;
+
+  const TextFieldError({
+    this.requiredErrorMsg = "",
+    this.patternErrorMsg = "",
+    this.error,
+  });
+}
+
 /// [requiredErrorMsg] :  error message to show when password is Empty
 /// [minLengthErrorMsg] : error message to show when password length is less then [minLength]
 /// [uppercaseErrorMsg] : error message to show when password doesn't contain uppercase character
@@ -311,21 +368,6 @@ class PasswordError extends TextFieldError {
         "Password must include at least one digit from 0 to 9",
     String error,
   }) : super(error: error, requiredErrorMsg: requiredErrorMsg);
-}
-
-/// [requiredErrorMsg] :  error message to show when textField is Empty
-/// [patternErrorMsg] : error message to show when TextField reqExp is not match
-/// [error] : general error message
-abstract class TextFieldError {
-  final String requiredErrorMsg;
-  final String patternErrorMsg;
-  final String error;
-
-  const TextFieldError({
-    this.requiredErrorMsg = "",
-    this.patternErrorMsg = "",
-    this.error,
-  });
 }
 
 class EmailError extends TextFieldError {

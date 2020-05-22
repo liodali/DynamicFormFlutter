@@ -1,7 +1,4 @@
 import 'package:dynamic_form/dynamic_form.dart';
-import 'package:dynamic_form/src/email_text_field.dart';
-import 'package:dynamic_form/src/password_text_field.dart';
-import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -181,19 +178,19 @@ class _LoginFormState extends State<LoginForm> {
       if (!widget.onlyEmail) {
         if (!usernameText.contains("@")) {
           bool usernameValid =
-              RegExp(Constants.usernamePattern).hasMatch(usernameText);
+              RegExp(Patterns.usernamePattern).hasMatch(usernameText);
           if (!usernameValid) {
             return widget.usernameEmailError.patternUsernameErrorMsg;
           }
         } else {
           bool usernameValid =
-              RegExp(Constants.emailPattern).hasMatch(usernameText);
+              RegExp(Patterns.emailPattern).hasMatch(usernameText);
           if (!usernameValid) {
             return widget.usernameEmailError.patternEmailErrorMsg;
           }
         }
       } else {
-        bool emailValid = RegExp(Constants.emailPattern).hasMatch(usernameText);
+        bool emailValid = RegExp(Patterns.emailPattern).hasMatch(usernameText);
         if (!emailValid) {
           return widget.usernameEmailError.patternEmailErrorMsg;
         }
