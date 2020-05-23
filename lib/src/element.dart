@@ -307,7 +307,7 @@ class PhoneNumberElement extends TextElement {
     this.errorMsg = "invalid phone number",
     this.validator,
     this.showFlag = false,
-    this.readOnly=false,
+    this.readOnly = false,
     this.showPrefix = true,
     this.padding = const EdgeInsets.all(2.0),
   }) : super(
