@@ -297,22 +297,25 @@ class PhoneNumberElement extends TextElement {
   final bool showFlag;
   final EdgeInsets padding;
   final validation validator;
+  final bool showPrefix;
   final bool readOnly;
 
   PhoneNumberElement({
-    this.initValue,
+    this.initValue = "",
     this.decorationElement = const UnderlineDecorationElement(),
     this.label = "Phone Number",
     this.hint = "(+001)XXXXXXXXX",
     this.errorMsg = "invalid phone number",
     this.validator,
     this.showFlag = false,
-    this.readOnly,
+    this.readOnly=false,
+    this.showPrefix = true,
     this.padding = const EdgeInsets.all(2.0),
   }) : super(
             initValue: initValue,
             decorationElement: decorationElement,
             label: label,
+            typeInput: TypeInput.Numeric,
             validator: validator ??
                 (phone) {
                   if (phone.isEmpty) {

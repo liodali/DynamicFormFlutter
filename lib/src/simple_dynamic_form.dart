@@ -198,9 +198,10 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         inputDecoration:
             Constants.setInputBorder(context, element.decorationElement),
       );
-    }else if(element is PhoneNumberElement){
+    } else if (element is PhoneNumberElement) {
       return PhoneTextField(
-
+        controller: controller,
+        element: element,
       );
     }
 

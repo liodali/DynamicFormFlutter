@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^0.17.4
+  http:
 
 dev_dependencies:
   flutter_test:
