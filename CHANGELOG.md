@@ -1,3 +1,5 @@
+## [0.3.8+1] - version alpha:
+* fix dependencies in pubspec
 ## [0.3.8] - version alpha:
 * add PhoneNumberElement
 ## [0.3.7+6] - version alpha:

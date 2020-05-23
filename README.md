@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.3.8-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.3.82%B1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.3.8
+		dynamic_form: ^0.3.8+1
 
 
 
@@ -237,11 +237,11 @@ Add the following to your `pubspec.yaml` file:
 > Pre-initialized values
 
 
-#### `To Do`
+#### `To Do` in `PhoneNumberElement`
 
-[ ] pick calling phone via BottomSheet
+- [ ] pick calling phone via BottomSheet
 
-[ ] show flag of countries for each calling code
+- [ ] show flag of countries for each calling code
 
 ### `Properties`
 

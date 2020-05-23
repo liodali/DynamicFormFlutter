@@ -27,7 +27,8 @@ Future<List<T>> getInformation<T>(T Function(dynamic) mapReq) async {
   String jsonString = await rootBundle
       .loadString('packages/dynamic_form/assets/countries.json');
   final jsonResponse = json.decode(jsonString);
-  var _list =
-      (jsonResponse as List).map((j) => mapReq(j as Map<String,dynamic>)).toList(); //_Country.fromJson(j)
+  var _list = (jsonResponse as List)
+      .map((j) => mapReq(j as Map<String, dynamic>))
+      .toList(); //_Country.fromJson(j)
   return _list;
 }

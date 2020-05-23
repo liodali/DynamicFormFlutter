@@ -1,9 +1,7 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
 
-
 class Constants {
-
   static TextInputType getInput(TypeInput typeInput) {
     switch (typeInput) {
       case TypeInput.Email:

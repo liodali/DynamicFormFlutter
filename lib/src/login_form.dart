@@ -130,7 +130,7 @@ class _LoginFormState extends State<LoginForm> {
         padding: widget.paddingFields,
         groupElements: [
           GroupElement(
-            directionGroup:widget.directionGroup,
+            directionGroup: widget.directionGroup,
             backgroundColor: Colors.transparent,
             textElements: [
               widget.onlyEmail
