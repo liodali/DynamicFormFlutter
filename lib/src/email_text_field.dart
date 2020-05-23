@@ -1,4 +1,5 @@
 import 'package:dynamic_form/dynamic_form.dart';
+import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
 class EmailTextField extends StatelessWidget {
@@ -19,6 +20,7 @@ class EmailTextField extends StatelessWidget {
       controller: textEditingController,
       validator: emailElement.validator,
       readOnly: emailElement.readOnly,
+      keyboardType: Constants.getInput(emailElement.typeInput),
       style: emailElement.decorationElement.style,
       decoration: inputDecoration.copyWith(
         labelStyle: emailElement.textStyle ??

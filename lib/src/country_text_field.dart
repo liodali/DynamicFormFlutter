@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:dynamic_form/dynamic_form.dart';
+import 'package:dynamic_form/src/utilities/request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -133,10 +134,7 @@ class _CountriesBottomSheet extends StatefulWidget {
 
 class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
   Future<List<_Country>> loadCountries() async {
-    String jsonString = await rootBundle
-        .loadString('packages/dynamic_form/assets/countries.json');
-    final jsonResponse = json.decode(jsonString);
-    _list = (jsonResponse as List).map((j) => _Country.fromJson(j)).toList();
+    _list = await getInformation<_Country>((data)=>_Country.fromJson(data));
     if (widget.initValue.isNotEmpty && _selected == null) {
       _selected = _list.firstWhere(
           (c) =>

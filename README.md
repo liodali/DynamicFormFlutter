@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.3.7%2B6-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.3.8-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.3.7+6
+		dynamic_form: ^0.3.8
 
 
 
@@ -96,6 +96,7 @@ Add the following to your `pubspec.yaml` file:
 | Properties           | Description                         |
 | -------------------- | ----------------------------------- |
 | `directionGroup`     |  Direction of form (Vertical/Horizontal) |
+| `DecorationElement`     |  Direction of form (Vertical/Horizontal) |
 | `sizeElements`       |  size of each textElement  of form When direction Horizontal,sum of values should be egal a 1           |
 | `textElements`       |  group of textElement.              |
 | `padding`            |  padding of groups.                 |
@@ -104,20 +105,20 @@ Add the following to your `pubspec.yaml` file:
 
 
 ####  `textElement`
-| Properties           | Description                         |
-| -------------------- | ----------------------------------- |
+| Properties           | Description                                |
+| -------------------- | -----------------------------------        |
 | `typeInput`          |  Enumerate to specifie type of TextField.  |
-| `label`              |  text label of TextField.            |
+| `label`              |  text label of TextField.                  |
 | `DecorationElement`  |  input decoration of TextField.            |
-| `onTap`              |  callback when you click on TextField .  |
-| `hint`               |  text hint of textField.             |
+| `onTap`              |  callback when you click on TextField .    |
+| `hint`               |  text hint of textField.                   |
 | `errorMsg`           |  message to show when TextField isn't validate. |
-| `labelStyle`         |  style of label TextField            |
-| `errorStyle`         |  style of error message TextField    |
-| `hintStyle`          |  style of hint TextFieldcolor        |
-| `readOnly`           |  enable TextField uneditable         |
-| `validator`          |  callback validation of TextField    |
-| `padding`            |  padding of TextField                |
+| `labelStyle`         |  style of label TextField                  |
+| `errorStyle`         |  style of error message TextField          |
+| `hintStyle`          |  style of hint TextFieldcolor              |
+| `readOnly`           |  enable TextField uneditable               |
+| `validator`          |  callback validation of TextField          |
+| `padding`            |  padding of TextField                      |
 
 ### `EmailElement`
 
@@ -132,6 +133,7 @@ Add the following to your `pubspec.yaml` file:
 
 | Properties             | Description                             |
 | -----------------------| ----------------------------------------|
+| `DecorationElement`    |  input decoration of TextField.         |
 | `label`                |  text label of TextField.               |
 | `hint`                 |  text hint of textField.                |
 | `isRequired`           |  make textField required in validation  |
@@ -156,8 +158,9 @@ Add the following to your `pubspec.yaml` file:
 
 > extends from TextElement
 
-| Properties                 | Description                         |
-| ---------------------------| ----------------------------------- |
+| Properties                 | Description                                          |
+| ---------------------------| -----------------------------------                  |
+| `DecorationElement`        |  input decoration of TextField.                      |
 | `label`                    |  text label of TextField.                            |
 | `hint`                     |  text hint of textField.                             |
 | `errorMsg`                 |  message to show when TextField isn't validate.      |
@@ -189,10 +192,11 @@ Add the following to your `pubspec.yaml` file:
 
 > extends from TextElement
 
-| Properties           | Description                         |
-| -------------------- | ----------------------------------- |
+| Properties           | Description                          |
+| -------------------- | -----------------------------------  |
 | `label`              |  text label of TextField.            |
 | `hint`               |  text hint of textField.             |
+| `DecorationElement`  |  input decoration of TextField.      |
 | `errorMsg`           |  message to show when TextField isn't validate.       |
 | `labelStyle`         |  style of label TextField            |
 | `errorStyle`         |  style of error message TextField    |
@@ -214,15 +218,45 @@ Add the following to your `pubspec.yaml` file:
 > show flag of countries
 
 
-| Properties                | Description                         |
-| --------------------------| ----------------------------------- |
-| `label`                   |  text label of TextField.            |
-| `initValue`               |  Initiale Value to country input.    |
-| `labelModalSheet`         |  Title of modalSheet                 |
-| `labelSearchModalSheet`   |  hint search textfield in BottomSheet |
+| Properties                | Description                               |
+| --------------------------| -----------------------------------       |
+| `DecorationElement`       |  input decoration of TextField.           |
+| `label`                   |  text label of TextField.                 |
+| `initValue`               |  Initiale Value to country input.         |
+| `labelModalSheet`         |  Title of modalSheet                      |
+| `labelSearchModalSheet`   |  hint search textfield in BottomSheet     |
 | `countryTextResult`       |  enumeration get result of selection countries |
-| `showFlag`                |  show flag of countris in modalsheet        |
-| `padding`                 |  padding of TextField                |
+| `showFlag`                |  show flag of countris in modalsheet      |
+| `padding`                 |  padding of TextField                     |
+
+### `PhoneNumberElement`
+
+
+> Pre-exsiting element for phone number input
+
+> Pre-initialized values
+
+
+#### `To Do`
+
+[ ] pick calling phone via BottomSheet
+
+[ ] show flag of countries for each calling code
+
+### `Properties`
+
+| Properties                | Description                               |
+| --------------------------| -----------------------------------       |
+| `DecorationElement`       |  input decoration of TextField.           |
+| `label`                   |  text label of TextField.                 |
+| `hint`                    |  text placeholder for phone number input. |
+| `initValue`               |  Initiale Value to country input.         |
+| `errorMsg`                |  text error message                       |
+| `validator`               |   callback validation of TextField        |
+| `showFlag`                |  show flag of countris in rigth of input  |
+| `padding`                 |  padding of TextField                     |
+| `showPrefix`              |  show calling phone number(get current calling phone of user)|
+| `readOnly`                |  bool make TextField readOnly             |
 
 ### `DecorationElement`
 

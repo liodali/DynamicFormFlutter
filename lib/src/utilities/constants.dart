@@ -1,13 +1,8 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
 
+
 class Constants {
-  static String emailPattern =
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
-  static String usernamePattern = r"^[a-zA-Z0-9]+";
-  static String upperAlpha = "[A-Z]+";
-  static String specialChar = "[!@#\$%^&*_]+";
-  static String digitPattern = r"\d+";
 
   static TextInputType getInput(TypeInput typeInput) {
     switch (typeInput) {

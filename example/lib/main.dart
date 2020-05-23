@@ -7,16 +7,19 @@ void main() => runApp(MyApp());
 class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _MyAppState();
-  // This widget is the root of your application.
+// This widget is the root of your application.
 
 }
-class _MyAppState extends State<MyApp> with TickerProviderStateMixin{
+
+class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
   TabController tabController;
+
   @override
   void initState() {
     super.initState();
-    tabController=TabController(length: 2,initialIndex: 0,vsync: this);
+    tabController = TabController(length: 2, initialIndex: 0, vsync: this);
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,21 +35,20 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin{
             controller: tabController,
             tabs: <Widget>[
               GestureDetector(
-                onTap: (){
-                  tabController.index=0;
+                onTap: () {
+                  tabController.index = 0;
                 },
                 child: Text("Basic Example"),
               ),
               GestureDetector(
-                onTap: (){
-                  tabController.index=1;
+                onTap: () {
+                  tabController.index = 1;
                 },
                 child: Text("Login form example"),
               ),
             ],
           ),
         ),
-
         body: TabBarView(
           controller: tabController,
           children: <Widget>[
@@ -91,31 +93,15 @@ class MyHomePage extends StatelessWidget {
               GroupElement(
                 directionGroup: DirectionGroup.Vertical,
                 textElements: [
-                  NumberElement(
-                      label: "phone",
-                      validator: (v) {
-                        if (v.isEmpty) {
-                          return "err";
-                        }
-                        return null;
-                      }),
-                  EmailElement(
-                    //label: "",
-                    initValue: "example@mail.com",
-                    isRequired: true,
-                    decorationElement: RoundedDecorationElement(
-                        radius: BorderRadius.all(Radius.circular(0.0)),
-                        filledColor: Colors.white),
-                  ),
-                  PasswordElement(
-                    minLength: 8,
-                    hasDigits: false,
-                    hasSpecialCharacter: true,
-                    hasUppercase: true,
-                    isRequired: true,
-                    errors: PasswordError(
-                        minLengthErrorMsg:
-                            "Password must include at least 8 characters"),
+                  PhoneNumberElement(
+                    label: "Phone Number",
+                    hint: "XXXXXXXXX",
+                    errorMsg: "invalid phone number",
+                    showPrefix: true,
+                    readOnly: false,
+                    decorationElement: OutlineDecorationElement(
+                      borderColor: Colors.grey,
+                    ),
                   ),
                 ],
               ),
