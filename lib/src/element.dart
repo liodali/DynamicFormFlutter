@@ -218,7 +218,6 @@ class NumberElement extends TextElement {
   final String label;
   final validation validator;
   final DecorationElement decorationElement;
-
   final String hint;
   final String errorMsg;
   final TextStyle textStyle;
