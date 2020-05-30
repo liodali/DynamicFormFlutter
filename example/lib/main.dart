@@ -116,6 +116,11 @@ class MyHomePage extends StatelessWidget {
                     countryTextResult: CountryTextResult.countryCode,
                     showFlag: false,
                   ),
+                  TextAreaElement(
+                    maxCharacter: 300,
+                    maxLines: 4,
+                    showCounter: false
+                  )
                 ],
               ),
             ],

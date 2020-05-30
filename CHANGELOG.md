@@ -1,3 +1,5 @@
+## [0.3.9] - version alpha:
+* add textAreaElement for  multiline field
 ## [0.3.8+1] - version alpha:
 * fix dependencies in pubspec
 ## [0.3.8] - version alpha:
