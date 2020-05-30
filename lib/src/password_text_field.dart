@@ -1,4 +1,5 @@
 import 'package:dynamic_form/dynamic_form.dart';
+import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
 class PasswordTextField extends StatefulWidget {
@@ -6,12 +7,15 @@ class PasswordTextField extends StatefulWidget {
   final PasswordElement element;
   final InputDecoration inputDecoration;
   final TextInputType textInputType;
-
+  final FocusNode currentFocus;
+  final FocusNode nextFocus;
   PasswordTextField({
     this.textEditingController,
     this.element,
     this.inputDecoration,
     this.textInputType,
+    this.currentFocus,
+    this.nextFocus,
   });
 
   @override
@@ -35,7 +39,12 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       keyboardType: widget.textInputType,
       readOnly: widget.element.readOnly,
       obscureText: isObscure,
+      focusNode: widget.currentFocus,
       style: widget.element.decorationElement?.style,
+      textInputAction: widget.nextFocus==null?TextInputAction.done:TextInputAction.next,
+      onFieldSubmitted: (v){
+        Constants.fieldFocusChange(context, widget.currentFocus, widget.nextFocus);
+      },
       decoration: widget.inputDecoration.copyWith(
         labelText: widget.element.label,
         hintText: widget.element.hint,

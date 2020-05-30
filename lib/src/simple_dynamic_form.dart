@@ -46,6 +46,7 @@ class SimpleDynamicForm extends StatefulWidget {
 class SimpleDynamicFormState extends State<SimpleDynamicForm> {
   GlobalKey<FormState> _formKey;
   List<List<TextEditingController>> _listGTextControler;
+  List<List<FocusNode>> focusList;
 
   recuperateAllValues() {
     List<String> values = [];
@@ -62,12 +63,16 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     super.initState();
     _formKey = GlobalKey<FormState>();
     _listGTextControler = [];
+    focusList = [];
     widget.groupElements.forEach((g) {
       List<TextEditingController> _list = [];
+      List<FocusNode> _listFocus = [];
       g.textElements.forEach((e) {
         _list.add(TextEditingController(text: e.initValue));
+        _listFocus.add(FocusNode());
       });
       _listGTextControler.add(_list);
+      focusList.add(_listFocus);
     });
   }
 
@@ -146,8 +151,18 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
   }
 
   Widget generateTextField(TextElement element, GroupElement gElement) {
-    var controller = _listGTextControler[widget.groupElements.indexOf(gElement)]
-        [gElement.textElements.indexOf(element)];
+    int gIndex = widget.groupElements.indexOf(gElement);
+    int eIndex = gElement.textElements.indexOf(element);
+    var controller = _listGTextControler[gIndex][eIndex];
+
+    var focusNodeNext = focusList[gIndex].length > (eIndex + 1)
+        ? focusList[gIndex][eIndex + 1]
+        : focusList.length > gIndex + 1 ? focusList[gIndex + 1].first : null;
+
+    var focusNodeCurrent = focusList[gIndex].length > (eIndex)
+        ? focusList[gIndex][eIndex]
+        : focusList.length > gIndex ? focusList[gIndex].first : null;
+
     if (element.initValue != null && element.initValue.isNotEmpty) {
       controller.text = element.initValue;
     }
@@ -158,16 +173,24 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         inputDecoration:
             Constants.setInputBorder(context, element.decorationElement),
         textInputType: Constants.getInput(element.typeInput),
+        currentFocus: focusNodeCurrent,
+        nextFocus: focusNodeNext,
       );
     } else if (element is NumberElement) {
       return TextFormField(
         controller: controller,
         validator: element.validator,
         style: element.decorationElement?.style,
+        focusNode: focusNodeCurrent,
         inputFormatters:
             element.isDigits ? [WhitelistingTextInputFormatter.digitsOnly] : [],
         keyboardType: Constants.getInput(element.typeInput),
         readOnly: element.readOnly,
+        textInputAction:
+            focusNodeNext == null ? TextInputAction.done : TextInputAction.next,
+        onFieldSubmitted: (v) {
+          Constants.fieldFocusChange(context, focusNodeCurrent, focusNodeNext);
+        },
         decoration: Constants.setInputBorder(context, element.decorationElement)
             .copyWith(
           labelText: element.label,
@@ -198,11 +221,15 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         emailElement: element,
         inputDecoration:
             Constants.setInputBorder(context, element.decorationElement),
+        currentFocus: focusNodeCurrent,
+        nextFocus: focusNodeNext,
       );
     } else if (element is PhoneNumberElement) {
       return PhoneTextField(
         controller: controller,
         element: element,
+        currentFocus: focusNodeCurrent,
+        nextFocus: focusNodeNext,
       );
     } else if (element is TextAreaElement) {
       return TextAreaFormField(
@@ -218,6 +245,12 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
       readOnly: element.readOnly,
       enabled: true,
       onTap: element.onTap,
+      focusNode: focusNodeCurrent,
+      textInputAction:
+      focusNodeNext == null ? TextInputAction.done : TextInputAction.next,
+      onFieldSubmitted: (v) {
+        Constants.fieldFocusChange(context, focusNodeCurrent, focusNodeNext);
+      },
       decoration:
           Constants.setInputBorder(context, element.decorationElement).copyWith(
         labelText: element.label,

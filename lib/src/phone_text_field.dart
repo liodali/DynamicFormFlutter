@@ -32,8 +32,10 @@ class _CallingCountry {
 class PhoneTextField extends StatefulWidget {
   final PhoneNumberElement element;
   final TextEditingController controller;
+  final FocusNode currentFocus;
+  final FocusNode nextFocus;
 
-  PhoneTextField({this.element, this.controller});
+  PhoneTextField({this.element, this.controller,this.currentFocus,this.nextFocus});
 
   @override
   _PhoneTextFieldState createState() => _PhoneTextFieldState();
@@ -53,6 +55,11 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
       validator: widget.element.validator,
       readOnly: widget.element.readOnly,
       style: TextStyle(color: Colors.black),
+      focusNode: widget.currentFocus,
+      textInputAction: widget.nextFocus==null?TextInputAction.done:TextInputAction.next,
+      onFieldSubmitted: (v){
+        Constants.fieldFocusChange(context, widget.currentFocus, widget.nextFocus);
+      },
       decoration:
           Constants.setInputBorder(context, widget.element.decorationElement)
               .copyWith(
