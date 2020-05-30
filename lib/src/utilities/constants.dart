@@ -154,4 +154,10 @@ class Constants {
     }
     return InputDecoration();
   }
+
+  static fieldFocusChange(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    if (currentFocus != null) currentFocus.unfocus();
+    if (nextFocus != null) FocusScope.of(context).requestFocus(nextFocus);
+  }
 }

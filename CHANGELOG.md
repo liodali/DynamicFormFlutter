@@ -1,3 +1,5 @@
+## [0.4.0] - version alpha:
+* manage keyboard actions and focusNode,to navigate easy in form
 ## [0.3.9] - version alpha:
 * add textAreaElement for  multiline field
 ## [0.3.8+1] - version alpha:
