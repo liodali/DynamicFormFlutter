@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.3.8%2B1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.3.9-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.3.8+1
+		dynamic_form: ^0.3.9
 
 
 
@@ -257,6 +257,24 @@ Add the following to your `pubspec.yaml` file:
 | `padding`                 |  padding of TextField                     |
 | `showPrefix`              |  show calling phone number(get current calling phone of user)|
 | `readOnly`                |  bool make TextField readOnly             |
+
+###  `TextAreaElement`
+
+> Pre-exsiting element for multiLine  input (like commentField)
+> Pre-initialized values
+
+
+  final int maxLines;
+  final bool showCounter;
+  final int maxCharacter;
+
+| Properties                | Description                                       |
+| --------------------------| -----------------------------------               |
+| `maxLines`                |  maximum line  to span in textField.              |
+| `showCounter`             |  enable visibility of counterText.                |
+| `maxCharacter`            |  The limit on the number of characters that you can type  in textField      |
+
+
 
 ### `DecorationElement`
 

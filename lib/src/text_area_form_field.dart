@@ -22,11 +22,12 @@ class _TextAreaFormFieldState extends State<TextAreaFormField> {
       keyboardType: Constants.getInput(widget.element.typeInput),
       textInputAction: TextInputAction.newline,
       validator: widget.element.validator,
+      minLines: 1,
       maxLines: widget.element.maxLines,
-
       inputFormatters: widget.element.maxCharacter != null &&
           widget.element.maxCharacter != 0 ? [
         LengthLimitingTextInputFormatter(widget.element.maxCharacter),
+
       ] : [],
       onChanged: (text){
         setState(() {

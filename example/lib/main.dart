@@ -119,7 +119,7 @@ class MyHomePage extends StatelessWidget {
                   TextAreaElement(
                     maxCharacter: 300,
                     maxLines: 4,
-                    showCounter: true
+                    showCounter: false
                   )
                 ],
               ),
