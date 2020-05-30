@@ -2,7 +2,7 @@ import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/decoration_element.dart';
 import 'package:flutter/material.dart';
 
-enum TypeInput { Text, Email, Password, Phone, Numeric, Address }
+enum TypeInput { Text, Email, Password, Phone, Numeric, Address ,multiLine}
 enum CountryTextResult {
   FullName,
   countryCode,
@@ -330,6 +330,22 @@ class PhoneNumberElement extends TextElement {
             error: errorMsg,
             padding: padding,
             readOnly: readOnly);
+}
+
+class TextAreaElement extends TextElement {
+  final int maxLines;
+  final bool showCounter;
+  final int maxCharacter;
+
+  TextAreaElement({
+    String label = "Comment",
+    String hint = "Comment",
+    validation validator,
+    DecorationElement decorationElement=const UnderlineDecorationElement(),
+    this.maxLines=3,
+    this.showCounter=false,
+    this.maxCharacter=250
+  }) : super(label: label,hint:hint,decorationElement: decorationElement,validator: validator,typeInput:TypeInput.multiLine);
 }
 
 /// [requiredErrorMsg] :  error message to show when textField is Empty

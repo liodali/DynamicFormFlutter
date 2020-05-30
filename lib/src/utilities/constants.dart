@@ -20,6 +20,9 @@ class Constants {
       case TypeInput.Phone:
         return TextInputType.phone;
         break;
+      case TypeInput.multiLine:
+        return TextInputType.multiline;
+        break;
       default:
         return TextInputType.text;
         break;

@@ -5,6 +5,7 @@ import 'package:dynamic_form/src/email_text_field.dart';
 import 'package:dynamic_form/src/group_elements.dart';
 import 'package:dynamic_form/src/password_text_field.dart';
 import 'package:dynamic_form/src/phone_text_field.dart';
+import 'package:dynamic_form/src/text_area_form_field.dart';
 import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -202,6 +203,11 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
       return PhoneTextField(
         controller: controller,
         element: element,
+      );
+    } else if (element is TextAreaElement) {
+      return TextAreaFormField(
+        element: element,
+        controller: controller,
       );
     }
 
