@@ -1,3 +1,5 @@
+## [0.4.0+2] - version alpha:
+* make MainAxisSize loginForm : MainAxisSize.min
 ## [0.4.0+1] - version alpha:
 * remove MainAxisSize in loginForm
 ## [0.4.0] - version alpha:
