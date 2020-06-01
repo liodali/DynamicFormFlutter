@@ -66,7 +66,6 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     if (widget.directionGroup == DirectionGroup.Vertical) {
       return Column(
-        mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           formWidget(),
           submitButton(),
