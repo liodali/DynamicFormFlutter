@@ -8,13 +8,13 @@ class EmailTextField extends StatelessWidget {
   final InputDecoration inputDecoration;
   final FocusNode currentFocus;
   final FocusNode nextFocus;
-  EmailTextField({
-    this.emailElement,
-    this.textEditingController,
-    this.inputDecoration,
-    this.currentFocus,
-    this.nextFocus
-  });
+
+  EmailTextField(
+      {this.emailElement,
+      this.textEditingController,
+      this.inputDecoration,
+      this.currentFocus,
+      this.nextFocus});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +26,9 @@ class EmailTextField extends StatelessWidget {
       keyboardType: Constants.getInput(emailElement.typeInput),
       style: emailElement.decorationElement.style,
       focusNode: currentFocus,
-      textInputAction: nextFocus==null?TextInputAction.done:TextInputAction.next,
-      onFieldSubmitted: (v){
+      textInputAction:
+          nextFocus == null ? TextInputAction.done : TextInputAction.next,
+      onFieldSubmitted: (v) {
         Constants.fieldFocusChange(context, currentFocus, nextFocus);
       },
       decoration: inputDecoration.copyWith(

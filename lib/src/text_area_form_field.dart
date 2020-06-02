@@ -14,7 +14,8 @@ class TextAreaFormField extends StatefulWidget {
 }
 
 class _TextAreaFormFieldState extends State<TextAreaFormField> {
-  int character=0;
+  int character = 0;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -25,22 +26,25 @@ class _TextAreaFormFieldState extends State<TextAreaFormField> {
       minLines: 1,
       maxLines: widget.element.maxLines,
       inputFormatters: widget.element.maxCharacter != null &&
-          widget.element.maxCharacter != 0 ? [
-        LengthLimitingTextInputFormatter(widget.element.maxCharacter),
-
-      ] : [],
-      onChanged: (text){
+              widget.element.maxCharacter != 0
+          ? [
+              LengthLimitingTextInputFormatter(widget.element.maxCharacter),
+            ]
+          : [],
+      onChanged: (text) {
         setState(() {
-          character=text.length;
+          character = text.length;
         });
       },
       decoration:
-      Constants.setInputBorder(context, widget.element.decorationElement)
-          .copyWith(
-          labelText: widget.element.label,
-          hintText: widget.element.hint,
-          enabled: true,
-          counterText: widget.element.showCounter?"$character/${widget.element.maxCharacter}":"",
+          Constants.setInputBorder(context, widget.element.decorationElement)
+              .copyWith(
+        labelText: widget.element.label,
+        hintText: widget.element.hint,
+        enabled: true,
+        counterText: widget.element.showCounter
+            ? "$character/${widget.element.maxCharacter}"
+            : "",
       ),
     );
   }

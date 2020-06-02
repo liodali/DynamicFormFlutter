@@ -2,7 +2,7 @@ import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/decoration_element.dart';
 import 'package:flutter/material.dart';
 
-enum TypeInput { Text, Email, Password, Phone, Numeric, Address ,multiLine}
+enum TypeInput { Text, Email, Password, Phone, Numeric, Address, multiLine }
 enum CountryTextResult {
   FullName,
   countryCode,
@@ -293,7 +293,8 @@ class PhoneNumberElement extends TextElement {
   final String label;
   final String hint;
   final String errorMsg;
-  final bool showFlag;
+  final bool showPrefixFlag;
+  final bool showSuffixFlag;
   final EdgeInsets padding;
   final validation validator;
   final bool showPrefix;
@@ -306,11 +307,15 @@ class PhoneNumberElement extends TextElement {
     this.hint = "(+001)XXXXXXXXX",
     this.errorMsg = "invalid phone number",
     this.validator,
-    this.showFlag = false,
+    this.showPrefixFlag = false,
+    this.showSuffixFlag = false,
     this.readOnly = false,
     this.showPrefix = true,
     this.padding = const EdgeInsets.all(2.0),
-  }) : super(
+  })  : assert(showPrefixFlag == true && showSuffixFlag == false ||
+            showPrefixFlag == false && showSuffixFlag == true ||
+            showPrefixFlag == false && showSuffixFlag == false),
+        super(
             initValue: initValue,
             decorationElement: decorationElement,
             label: label,
@@ -337,15 +342,20 @@ class TextAreaElement extends TextElement {
   final bool showCounter;
   final int maxCharacter;
 
-  TextAreaElement({
-    String label = "Comment",
-    String hint = "Comment",
-    validation validator,
-    DecorationElement decorationElement=const UnderlineDecorationElement(),
-    this.maxLines=3,
-    this.showCounter=false,
-    this.maxCharacter=250
-  }) : super(label: label,hint:hint,decorationElement: decorationElement,validator: validator,typeInput:TypeInput.multiLine);
+  TextAreaElement(
+      {String label = "Comment",
+      String hint = "Comment",
+      validation validator,
+      DecorationElement decorationElement = const UnderlineDecorationElement(),
+      this.maxLines = 3,
+      this.showCounter = false,
+      this.maxCharacter = 250})
+      : super(
+            label: label,
+            hint: hint,
+            decorationElement: decorationElement,
+            validator: validator,
+            typeInput: TypeInput.multiLine);
 }
 
 /// [requiredErrorMsg] :  error message to show when textField is Empty

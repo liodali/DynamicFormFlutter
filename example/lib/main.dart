@@ -98,6 +98,7 @@ class MyHomePage extends StatelessWidget {
                     hint: "XXXXXXXXX",
                     errorMsg: "invalid phone number",
                     showPrefix: true,
+                    showPrefixFlag: true,
                     readOnly: false,
                     decorationElement: OutlineDecorationElement(
                       borderColor: Colors.grey,
@@ -114,7 +115,7 @@ class MyHomePage extends StatelessWidget {
                     labelSearchModalSheet: "search",
                     initValue: "",
                     countryTextResult: CountryTextResult.countryCode,
-                    showFlag: false,
+                    showFlag: true,
                   ),
                   TextAreaElement(
                     maxCharacter: 300,
