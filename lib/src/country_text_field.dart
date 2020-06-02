@@ -2,7 +2,6 @@ import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/utilities/request.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class _Country {
   final String fullName;
