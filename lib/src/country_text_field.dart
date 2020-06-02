@@ -1,21 +1,20 @@
-import 'dart:convert';
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/utilities/request.dart';
+import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class _Country {
   final String fullName;
   final String countryCode;
-  final String flag;
+  final String code2Alpha;
 
-  _Country({this.fullName, this.countryCode, this.flag});
+  _Country({this.fullName, this.countryCode, this.code2Alpha});
 
   _Country.fromJson(Map<String, dynamic> map)
       : this.fullName = map["name"],
         this.countryCode = map["alpha3Code"],
-        this.flag = map["flag"];
+        this.code2Alpha = map["alpha2Code"];
 
   @override
   int get hashCode {
@@ -313,8 +312,8 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
                           return RadioListTile<_Country>(
                             controlAffinity: ListTileControlAffinity.trailing,
                             secondary: widget.showFlag
-                                ? SvgPicture.network(
-                                    list[i].flag,
+                                ? Flag(
+                                    list[i].code2Alpha,
                                     width: 24,
                                     height: 24,
                                   )
