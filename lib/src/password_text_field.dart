@@ -9,6 +9,7 @@ class PasswordTextField extends StatefulWidget {
   final TextInputType textInputType;
   final FocusNode currentFocus;
   final FocusNode nextFocus;
+
   PasswordTextField({
     this.textEditingController,
     this.element,
@@ -41,9 +42,12 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       obscureText: isObscure,
       focusNode: widget.currentFocus,
       style: widget.element.decorationElement?.style,
-      textInputAction: widget.nextFocus==null?TextInputAction.done:TextInputAction.next,
-      onFieldSubmitted: (v){
-        Constants.fieldFocusChange(context, widget.currentFocus, widget.nextFocus);
+      textInputAction: widget.nextFocus == null
+          ? TextInputAction.done
+          : TextInputAction.next,
+      onFieldSubmitted: (v) {
+        Constants.fieldFocusChange(
+            context, widget.currentFocus, widget.nextFocus);
       },
       decoration: widget.inputDecoration.copyWith(
         labelText: widget.element.label,

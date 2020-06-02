@@ -133,7 +133,7 @@ class _CountriesBottomSheet extends StatefulWidget {
 
 class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
   Future<List<_Country>> loadCountries() async {
-    _list = await getInformation<_Country>((data)=>_Country.fromJson(data));
+    _list = await getInformation<_Country>((data) => _Country.fromJson(data));
     if (widget.initValue.isNotEmpty && _selected == null) {
       _selected = _list.firstWhere(
           (c) =>

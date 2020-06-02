@@ -247,7 +247,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
       onTap: element.onTap,
       focusNode: focusNodeCurrent,
       textInputAction:
-      focusNodeNext == null ? TextInputAction.done : TextInputAction.next,
+          focusNodeNext == null ? TextInputAction.done : TextInputAction.next,
       onFieldSubmitted: (v) {
         Constants.fieldFocusChange(context, focusNodeCurrent, focusNodeNext);
       },

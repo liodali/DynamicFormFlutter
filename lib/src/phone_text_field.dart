@@ -67,12 +67,11 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
       builder: (ctx, country, child) {
         if (country != null) {
           return Container(
-            margin: EdgeInsets.symmetric(vertical: 2.0,horizontal: 5.0),
+            margin: EdgeInsets.symmetric(vertical: 2.0, horizontal: 5.0),
             child: Flag(
               "${country.code2Alpha.toLowerCase()}",
               width: 12,
               height: 12,
-
             ),
           );
         }
