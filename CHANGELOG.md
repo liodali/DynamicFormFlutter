@@ -1,3 +1,5 @@
+## [0.4.2] - version alpha:
+* add visibility property to all element
 ## [0.4.1+1] - version alpha:
 * fix import problem
 ## [0.4.1] - version alpha:

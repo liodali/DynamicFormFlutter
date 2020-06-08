@@ -22,6 +22,7 @@ abstract class FormElement {
   final TextStyle errorStyle;
   final TextStyle hintStyle;
   final bool readOnly;
+  final bool visibility;
 
   FormElement({
     this.typeInput,
@@ -35,6 +36,7 @@ abstract class FormElement {
     this.errorStyle,
     this.textStyle,
     this.readOnly,
+    this.visibility = true,
   });
 }
 
@@ -71,6 +73,7 @@ class TextElement extends FormElement {
     this.isRequired = false,
     this.readOnly = false,
     this.padding = const EdgeInsets.all(2.0),
+    bool visibility = true,
   }) : super(
           typeInput: typeInput,
           initValue: initValue,
@@ -83,6 +86,7 @@ class TextElement extends FormElement {
           errorStyle: errorStyle,
           hintStyle: hintStyle,
           readOnly: readOnly,
+          visibility: visibility,
         );
 }
 
@@ -118,6 +122,7 @@ class EmailElement extends TextElement {
     this.isRequired = false,
     this.readOnly = false,
     this.padding = const EdgeInsets.all(2.0),
+    bool visibility = true,
   }) : super(
           initValue: initValue,
           label: label,
@@ -140,6 +145,7 @@ class EmailElement extends TextElement {
             }
             return null;
           },
+          visibility: visibility,
         );
 }
 
@@ -180,6 +186,7 @@ class PasswordElement extends TextElement {
     this.errors,
     this.readOnly = false,
     this.padding = const EdgeInsets.all(2.0),
+    bool visibility = true,
   }) : super(
           initValue: initValue,
           label: label,
@@ -210,6 +217,7 @@ class PasswordElement extends TextElement {
             }
             return null;
           },
+          visibility: visibility,
         );
 }
 
@@ -243,6 +251,7 @@ class NumberElement extends TextElement {
     this.padding = const EdgeInsets.all(2.0),
     this.validator,
     this.readOnly = false,
+    bool visibility = true,
   }) : super(
           decorationElement: decorationElement,
           initValue: initValue,
@@ -250,6 +259,7 @@ class NumberElement extends TextElement {
           hint: hint,
           readOnly: readOnly,
           typeInput: TypeInput.Numeric,
+          visibility: visibility,
         );
 }
 
@@ -274,6 +284,7 @@ class CountryElement extends TextElement {
     this.countryTextResult = CountryTextResult.FullName,
     this.showFlag = false,
     this.padding = const EdgeInsets.all(2.0),
+    bool visibility = true,
   })  : assert((countryTextResult == CountryTextResult.countryCode &&
                 (initValue.isEmpty || initValue.length == 3)) ||
             (countryTextResult == CountryTextResult.FullName)),
@@ -284,6 +295,7 @@ class CountryElement extends TextElement {
           readOnly: true,
           padding: padding,
           error: errorMsg,
+          visibility: visibility,
         );
 }
 
@@ -312,29 +324,32 @@ class PhoneNumberElement extends TextElement {
     this.readOnly = false,
     this.showPrefix = true,
     this.padding = const EdgeInsets.all(2.0),
+    bool visibility = true,
   })  : assert(showPrefixFlag == true && showSuffixFlag == false ||
             showPrefixFlag == false && showSuffixFlag == true ||
             showPrefixFlag == false && showSuffixFlag == false),
         super(
-            initValue: initValue,
-            decorationElement: decorationElement,
-            label: label,
-            typeInput: TypeInput.Numeric,
-            validator: validator ??
-                (phone) {
-                  if (phone.isEmpty) {
-                    return errorMsg;
-                  } else if (RegExp(Patterns.phonePattern)
-                      .allMatches(phone)
-                      .isEmpty) {
-                    return errorMsg;
-                  }
-                  return null;
-                },
-            hint: hint,
-            error: errorMsg,
-            padding: padding,
-            readOnly: readOnly);
+          initValue: initValue,
+          decorationElement: decorationElement,
+          label: label,
+          typeInput: TypeInput.Numeric,
+          validator: validator ??
+              (phone) {
+                if (phone.isEmpty) {
+                  return errorMsg;
+                } else if (RegExp(Patterns.phonePattern)
+                    .allMatches(phone)
+                    .isEmpty) {
+                  return errorMsg;
+                }
+                return null;
+              },
+          hint: hint,
+          error: errorMsg,
+          padding: padding,
+          readOnly: readOnly,
+          visibility: visibility,
+        );
 }
 
 class TextAreaElement extends TextElement {
@@ -342,20 +357,25 @@ class TextAreaElement extends TextElement {
   final bool showCounter;
   final int maxCharacter;
 
-  TextAreaElement(
-      {String label = "Comment",
-      String hint = "Comment",
-      validation validator,
-      DecorationElement decorationElement = const UnderlineDecorationElement(),
-      this.maxLines = 3,
-      this.showCounter = false,
-      this.maxCharacter = 250})
-      : super(
-            label: label,
-            hint: hint,
-            decorationElement: decorationElement,
-            validator: validator,
-            typeInput: TypeInput.multiLine);
+  TextAreaElement({
+    String label = "Comment",
+    String hint = "Comment",
+    validation validator,
+    DecorationElement decorationElement = const UnderlineDecorationElement(),
+    this.maxLines = 3,
+    this.showCounter = false,
+    this.maxCharacter = 250,
+    bool readOnly = false,
+    bool visibility = true,
+  }) : super(
+          label: label,
+          hint: hint,
+          decorationElement: decorationElement,
+          validator: validator,
+          typeInput: TypeInput.multiLine,
+          readOnly: readOnly,
+          visibility: visibility,
+        );
 }
 
 /// [requiredErrorMsg] :  error message to show when textField is Empty

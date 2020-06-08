@@ -99,14 +99,17 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       for (var element in gelement.textElements) ...[
-                        Flexible(
-                          flex: getFlex(gelement.textElements, element,
-                              gelement.sizeElements),
-                          child: Padding(
-                            padding: element.padding,
-                            child: generateTextField(
-                              element,
-                              gelement,
+                        Visibility(
+                          visible: element.visibility,
+                          child: Flexible(
+                            flex: getFlex(gelement.textElements, element,
+                                gelement.sizeElements),
+                            child: Padding(
+                              padding: element.padding,
+                              child: generateTextField(
+                                element,
+                                gelement,
+                              ),
                             ),
                           ),
                         ),
@@ -123,9 +126,12 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
                   child: Column(
                     children: <Widget>[
                       for (var element in gelement.textElements) ...[
-                        Padding(
-                          padding: element.padding,
-                          child: generateTextField(element, gelement),
+                        Visibility(
+                          visible: element.visibility,
+                          child: Padding(
+                            padding: element.padding,
+                            child: generateTextField(element, gelement),
+                          ),
                         ),
                       ],
                     ],

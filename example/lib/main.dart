@@ -97,9 +97,11 @@ class MyHomePage extends StatelessWidget {
                     label: "Phone Number",
                     hint: "XXXXXXXXX",
                     errorMsg: "invalid phone number",
+                    initValue: "1234567",
                     showPrefix: true,
                     showPrefixFlag: true,
                     readOnly: false,
+                    visibility: false,
                     decorationElement: OutlineDecorationElement(
                       borderColor: Colors.grey,
                     ),

@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.4.1%2B1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.4.2-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.4.1+1
+		dynamic_form: ^0.4.2
 
 
 
@@ -119,6 +119,7 @@ Add the following to your `pubspec.yaml` file:
 | `readOnly`           |  enable TextField uneditable               |
 | `validator`          |  callback validation of TextField          |
 | `padding`            |  padding of TextField                      |
+| `visibility`         |  enable visibility of element              |
 
 ### `EmailElement`
 
