@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.4.2-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.4.2%2B1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.4.2
+		dynamic_form: ^0.4.2+1
 
 
 
@@ -229,6 +229,7 @@ Add the following to your `pubspec.yaml` file:
 | `countryTextResult`       |  enumeration get result of selection countries |
 | `showFlag`                |  show flag of countris in modalsheet      |
 | `padding`                 |  padding of TextField                     |
+| `readonly`                |  when enable  TextField to be unmodified  |
 
 ### `PhoneNumberElement`
 

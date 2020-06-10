@@ -206,20 +206,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     } else if (element is CountryElement) {
       return CountryTextField(
         textEditingController: controller,
-        inputDecoration:
-            Constants.setInputBorder(context, element.decorationElement)
-                .copyWith(
-          labelText: element.label,
-          labelStyle: TextStyle(color: Colors.black),
-          hintText: element.hint,
-        ),
-        label: element.label,
-        errorMsg: element.errorMsg,
-        labelModalSheet: element.labelModalSheet,
-        labelSearchModalSheet: element.labelSearchModalSheet,
-        initValue: element.initValue,
-        countryTextResult: element.countryTextResult,
-        showFlag: element.showFlag,
+        element:element,
       );
     } else if (element is EmailElement) {
       return EmailTextField(
