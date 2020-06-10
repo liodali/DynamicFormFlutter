@@ -1,4 +1,5 @@
 import 'package:dynamic_form/dynamic_form.dart';
+import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:dynamic_form/src/utilities/request.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
@@ -32,25 +33,15 @@ class _Country {
 
 class CountryTextField extends StatefulWidget {
   final TextEditingController textEditingController;
-  final InputDecoration inputDecoration;
-  final String initValue;
-  final String label;
-  final String errorMsg;
-  final String labelModalSheet;
-  final String labelSearchModalSheet;
-  final bool showFlag;
+
   final CountryTextResult countryTextResult;
+
+  CountryElement element;
 
   CountryTextField({
     this.textEditingController,
-    this.inputDecoration,
-    this.label,
-    this.errorMsg,
-    this.initValue = "",
-    this.labelModalSheet = "Pays",
-    this.labelSearchModalSheet = "Recherche",
+    this.element,
     this.countryTextResult = CountryTextResult.FullName,
-    this.showFlag,
   });
 
   @override
@@ -63,47 +54,68 @@ class _CountryTextFieldState extends State<CountryTextField> {
   @override
   void initState() {
     super.initState();
-    if (widget.initValue.isNotEmpty) {
-      widget.textEditingController.text = widget.initValue;
+    if (widget.element.initValue.isNotEmpty) {
+      widget.textEditingController.text = widget.element.initValue;
     }
   }
 
+  /*
+   label: element.label,
+    errorMsg: element.errorMsg,
+    labelModalSheet: element.labelModalSheet,
+    labelSearchModalSheet: element.labelSearchModalSheet,
+    initValue: element.initValue,
+    showFlag: element.showFlag,
+   */
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.textEditingController,
-      decoration: widget.inputDecoration,
+      decoration: Constants.setInputBorder(context, widget.element.decorationElement)
+          .copyWith(
+        labelText: widget.element.label,
+        labelStyle: TextStyle(color: Colors.black),
+        hintText: widget.element.hint,
+        //errorText: widget.element.errorMsg,
+
+      ),
+
       validator: (v) {
         if (v.isEmpty) {
-          return widget.errorMsg;
+          return widget.element.errorMsg;
         }
         return null;
       },
-      readOnly: true,
+      readOnly:widget.element.readOnly,
       onTap: () async {
-        var selected = await showModalBottomSheet<_Country>(
-            context: context,
-            backgroundColor: Colors.white,
-            isDismissible: false,
-            isScrollControlled: false,
-            builder: (ctx) {
-              return _CountriesBottomSheet(
-                initialSelection: _selected,
-                initValue: widget.initValue,
-                title: widget.labelModalSheet,
-                labelRecherche: widget.labelSearchModalSheet,
-                showFlag: widget.showFlag,
-              );
+        FocusScope.of(context).requestFocus(FocusNode());
+        if(!widget.element.readOnly){
+          var selected = await showModalBottomSheet<_Country>(
+              context: context,
+              backgroundColor: Colors.white,
+              isDismissible: false,
+              isScrollControlled: false,
+              builder: (ctx) {
+                return _CountriesBottomSheet(
+                  initialSelection: _selected,
+                  initValue: widget.element.initValue,
+                  title: widget.element.labelModalSheet,
+                  labelRecherche: widget.element.labelSearchModalSheet,
+                  showFlag: widget.element.showFlag,
+                );
+              });
+          if (selected != null) {
+            if (widget.countryTextResult == CountryTextResult.FullName)
+              widget.textEditingController.text = selected.fullName;
+            else
+              widget.textEditingController.text = selected.countryCode;
+
+            setState(() {
+              _selected = selected;
             });
-        if (selected != null) {
-          if (widget.countryTextResult == CountryTextResult.FullName)
-            widget.textEditingController.text = selected.fullName;
-          else
-            widget.textEditingController.text = selected.countryCode;
-          setState(() {
-            _selected = selected;
-          });
+          }
         }
+
       },
     );
   }
@@ -135,8 +147,8 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
     _list = await getInformation<_Country>((data) => _Country.fromJson(data));
     if (widget.initValue.isNotEmpty && _selected == null) {
       _selected = _list.firstWhere(
-          (c) =>
-              c.fullName.toLowerCase() == widget.initValue.toLowerCase() ||
+              (c) =>
+          c.fullName.toLowerCase() == widget.initValue.toLowerCase() ||
               c.countryCode.toLowerCase() == widget.initValue.toLowerCase(),
           orElse: () => null);
     }
@@ -159,7 +171,8 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
       if (_list.isNotEmpty) {
         _notifierShowClose.value = true;
         var newList = _list
-            .where((c) => c.fullName
+            .where((c) =>
+            c.fullName
                 .toLowerCase()
                 .contains(_searchController.text.toLowerCase()))
             .toList();
@@ -312,10 +325,10 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
                             controlAffinity: ListTileControlAffinity.trailing,
                             secondary: widget.showFlag
                                 ? Flag(
-                                    list[i].code2Alpha,
-                                    width: 24,
-                                    height: 24,
-                                  )
+                              list[i].code2Alpha,
+                              width: 24,
+                              height: 24,
+                            )
                                 : null,
                             onChanged: (c) {
                               setState(() {

@@ -11,6 +11,7 @@ enum CountryTextResult {
 typedef validation = String Function(String);
 
 abstract class FormElement {
+  final String id;
   final TypeInput typeInput;
   final String initValue;
   final String label;
@@ -25,6 +26,7 @@ abstract class FormElement {
   final bool visibility;
 
   FormElement({
+    this.id,
     this.typeInput,
     this.initValue = "",
     this.label = "",
@@ -58,6 +60,7 @@ class TextElement extends FormElement {
   final bool readOnly;
 
   TextElement({
+    String id,
     this.typeInput = TypeInput.Text,
     this.initValue,
     this.onTap,
@@ -75,6 +78,7 @@ class TextElement extends FormElement {
     this.padding = const EdgeInsets.all(2.0),
     bool visibility = true,
   }) : super(
+          id: id,
           typeInput: typeInput,
           initValue: initValue,
           decorationElement: decorationElement,
@@ -110,6 +114,7 @@ class EmailElement extends TextElement {
 
   //final List<String> suffix;
   EmailElement({
+    String id,
     this.initValue,
     this.label = "Email",
     this.hint = "example@mail.com",
@@ -169,6 +174,7 @@ class PasswordElement extends TextElement {
 
   //final List<String> suffix;
   PasswordElement({
+    String id,
     this.initValue,
     this.label = " Password ",
     this.hint = "password",
@@ -238,6 +244,7 @@ class NumberElement extends TextElement {
 
   //final List<String> suffix;
   NumberElement({
+    String id,
     this.initValue,
     this.label = "",
     this.hint = "",
@@ -275,16 +282,18 @@ class CountryElement extends TextElement {
   final EdgeInsets padding;
 
   CountryElement({
+    String id,
     this.initValue,
     this.decorationElement = const UnderlineDecorationElement(),
     this.label,
     this.errorMsg = "invalid Country",
-    this.labelModalSheet,
-    this.labelSearchModalSheet,
+    this.labelModalSheet ="Pays",
+    this.labelSearchModalSheet ="Recherche",
     this.countryTextResult = CountryTextResult.FullName,
     this.showFlag = false,
     this.padding = const EdgeInsets.all(2.0),
     bool visibility = true,
+    bool readOnly=false,
   })  : assert((countryTextResult == CountryTextResult.countryCode &&
                 (initValue.isEmpty || initValue.length == 3)) ||
             (countryTextResult == CountryTextResult.FullName)),
@@ -292,7 +301,7 @@ class CountryElement extends TextElement {
           initValue: initValue,
           decorationElement: decorationElement,
           label: label,
-          readOnly: true,
+          readOnly: readOnly,
           padding: padding,
           error: errorMsg,
           visibility: visibility,
@@ -313,6 +322,7 @@ class PhoneNumberElement extends TextElement {
   final bool readOnly;
 
   PhoneNumberElement({
+    String id,
     this.initValue = "",
     this.decorationElement = const UnderlineDecorationElement(),
     this.label = "Phone Number",
@@ -358,6 +368,7 @@ class TextAreaElement extends TextElement {
   final int maxCharacter;
 
   TextAreaElement({
+    String id,
     String label = "Comment",
     String hint = "Comment",
     validation validator,
@@ -365,13 +376,21 @@ class TextAreaElement extends TextElement {
     this.maxLines = 3,
     this.showCounter = false,
     this.maxCharacter = 250,
+    String messageError = "this field is required",
     bool readOnly = false,
+    bool isRequired = false,
     bool visibility = true,
   }) : super(
           label: label,
           hint: hint,
           decorationElement: decorationElement,
-          validator: validator,
+          validator: (text) {
+            if (isRequired && text.isEmpty) {
+              return messageError;
+            }
+            return validator(text);
+          },
+          error: messageError,
           typeInput: TypeInput.multiLine,
           readOnly: readOnly,
           visibility: visibility,
