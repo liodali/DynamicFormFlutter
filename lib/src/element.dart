@@ -129,6 +129,7 @@ class EmailElement extends TextElement {
     this.padding = const EdgeInsets.all(2.0),
     bool visibility = true,
   }) : super(
+          id: id,
           initValue: initValue,
           label: label,
           typeInput: TypeInput.Email,
@@ -194,6 +195,7 @@ class PasswordElement extends TextElement {
     this.padding = const EdgeInsets.all(2.0),
     bool visibility = true,
   }) : super(
+          id: id,
           initValue: initValue,
           label: label,
           hint: hint,
@@ -260,6 +262,7 @@ class NumberElement extends TextElement {
     this.readOnly = false,
     bool visibility = true,
   }) : super(
+          id: id,
           decorationElement: decorationElement,
           initValue: initValue,
           label: label,
@@ -287,17 +290,18 @@ class CountryElement extends TextElement {
     this.decorationElement = const UnderlineDecorationElement(),
     this.label,
     this.errorMsg = "invalid Country",
-    this.labelModalSheet ="Pays",
-    this.labelSearchModalSheet ="Recherche",
+    this.labelModalSheet = "Pays",
+    this.labelSearchModalSheet = "Recherche",
     this.countryTextResult = CountryTextResult.FullName,
     this.showFlag = false,
     this.padding = const EdgeInsets.all(2.0),
     bool visibility = true,
-    bool readOnly=false,
+    bool readOnly = false,
   })  : assert((countryTextResult == CountryTextResult.countryCode &&
                 (initValue.isEmpty || initValue.length == 3)) ||
             (countryTextResult == CountryTextResult.FullName)),
         super(
+          id: id,
           initValue: initValue,
           decorationElement: decorationElement,
           label: label,
@@ -339,6 +343,7 @@ class PhoneNumberElement extends TextElement {
             showPrefixFlag == false && showSuffixFlag == true ||
             showPrefixFlag == false && showSuffixFlag == false),
         super(
+          id: id,
           initValue: initValue,
           decorationElement: decorationElement,
           label: label,

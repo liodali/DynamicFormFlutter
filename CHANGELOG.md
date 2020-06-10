@@ -1,3 +1,5 @@
+## [0.4.2+1] - version alpha:
+* change internal behavior inside countryTextField
 ## [0.4.2] - version alpha:
 * add visibility property to all element
 ## [0.4.1+1] - version alpha:
