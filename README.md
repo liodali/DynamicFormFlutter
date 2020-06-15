@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.4.2%2B1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.4.3-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,26 +13,30 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.4.2+1
+		dynamic_form: ^0.4.3
 
 
 
 ## Simple Usage
 #### Creating a basic `SimpleDynamicForm`
 
-    SimpleDynamicForm(
-          key: dynamicFormKey,
-          groupElements: [
-                  GroupElement(
-                                directionGroup: DirectionGroup.Vertical,
-                                textElements: [
-                                TextElement(label: "name"),
-                                TextElement(
-                                     label: "password", typeInput: TypeInput.Password)
-                                  ],
-                                 )
-                      ],
-                  );
+    ```flutter
+        SimpleDynamicForm(
+                  key: dynamicFormKey,
+                  groupElements: [
+                          GroupElement(
+                                        directionGroup: DirectionGroup.Vertical,
+                                        textElements: [
+                                        TextElement(id:"name",label: "name"),
+                                        TextElement(
+                                            id:"password",
+                                             label: "password", typeInput: TypeInput.Password)
+                                          ],
+                                         )
+                              ],
+                          );
+
+    ```
 
 
 ### Declare GlobalKey to get validation,list values of forms
@@ -43,31 +47,38 @@ Add the following to your `pubspec.yaml` file:
 
 ` dynamicFormKey.currentState.validate() `
 ### all values in form
-
 ` dynamicFormKey.currentState.recuperateAllValues() `
+> if you are used ids in element, you can recuperate values with
+` dynamicFormKey.currentState.recuperateByIds()`
+> you recuperate by id
+` dynamicFormKey.currentState.singleValueById(id)`
+
 
 ### LoginForm
 > pre-existing login form to make easy for you to build
 ## Simple Usage
 #### Creating a basic `LoginForm`
 
-    LoginForm(
-          callback: (email,password){
-                //api call
-          },
-          buttonLoginDecorationElement: ButtonLoginDecorationElement(
-                  backgroundColorButton: Colors.amber,
-                  widthSubmitButton: 200,
-                  radiusBorderButton: 10,
-           ),
-          onlyEmail: false,
-          labelLogin: "Username",
-          password: "Password",
-          textButton: Text("Log IN"),
-          decorationElement: RoundedDecorationElement(
-            filledColor: Colors.grey[300],
-          ),
-        )
+    ```flutter
+        LoginForm(
+                  callback: (email,password){
+                        //api call
+                  },
+                  buttonLoginDecorationElement: ButtonLoginDecorationElement(
+                          backgroundColorButton: Colors.amber,
+                          widthSubmitButton: 200,
+                          radiusBorderButton: 10,
+                   ),
+                  onlyEmail: false,
+                  labelLogin: "Username",
+                  password: "Password",
+                  textButton: Text("Log IN"),
+                  decorationElement: RoundedDecorationElement(
+                    filledColor: Colors.grey[300],
+                  ),
+            )
+
+    ```
 
 
 ####  `Properties in LoginForm`
