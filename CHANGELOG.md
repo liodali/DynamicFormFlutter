@@ -1,3 +1,6 @@
+## [0.4.3] - version alpha:
+* add id attribute of element
+* recuperate values by id
 ## [0.4.2+1] - version alpha:
 * change internal behavior inside countryTextField
 ## [0.4.2] - version alpha:

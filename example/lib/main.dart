@@ -112,6 +112,7 @@ class MyHomePage extends StatelessWidget {
                 directionGroup: DirectionGroup.Vertical,
                 textElements: [
                   CountryElement(
+                    id: "countries",
                     label: "Pays",
                     labelModalSheet: "Pays",
                     labelSearchModalSheet: "search",
@@ -132,6 +133,8 @@ class MyHomePage extends StatelessWidget {
             onPressed: () {
               print(_globalKey.currentState.validate());
               print(_globalKey.currentState.recuperateAllValues());
+              print(_globalKey.currentState.recuperateByIds());
+              print(_globalKey.currentState.singleValueById("countries"));
             },
             child: Text("Validate"),
           )
