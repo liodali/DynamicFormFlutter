@@ -46,6 +46,7 @@ class SimpleDynamicForm extends StatefulWidget {
 class SimpleDynamicFormState extends State<SimpleDynamicForm> {
   GlobalKey<FormState> _formKey;
   List<List<TextEditingController>> _listGTextControler;
+  Map<String, TextEditingController> mapGtextControler;
   List<List<FocusNode>> focusList;
 
   recuperateAllValues() {
@@ -58,17 +59,49 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     return values;
   }
 
+  Map<String, String> recuperateByIds() {
+    Map<String, String> values = {};
+    mapGtextControler.forEach((key, value) {
+      values.putIfAbsent(key, () => value.text);
+    });
+    return values;
+  }
+
+  String singleValueById(String id) {
+    if (mapGtextControler.containsKey(id)) {
+      return mapGtextControler[id].text;
+    } else {
+      throw (Exception("id doesn't exist"));
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    var listIds = [];
+    widget.groupElements.forEach((e) => e.textElements.forEach((elem) {
+          if (listIds.isEmpty || !listIds.contains(elem.id))
+            listIds.add(elem.id);
+          else {
+            if (listIds.contains(elem.id)) {
+              assert(true, "duplicated ids");
+            }
+          }
+        }));
+    listIds.asMap().forEach((key, value) {});
     _formKey = GlobalKey<FormState>();
     _listGTextControler = [];
+    mapGtextControler = {};
     focusList = [];
     widget.groupElements.forEach((g) {
       List<TextEditingController> _list = [];
       List<FocusNode> _listFocus = [];
       g.textElements.forEach((e) {
-        _list.add(TextEditingController(text: e.initValue));
+        var controllerText = TextEditingController(text: e.initValue);
+        _list.add(controllerText);
+        if (e.id != null && e.id.isNotEmpty) {
+          mapGtextControler.putIfAbsent("${e.id}", () => controllerText);
+        }
         _listFocus.add(FocusNode());
       });
       _listGTextControler.add(_list);
@@ -206,7 +239,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     } else if (element is CountryElement) {
       return CountryTextField(
         textEditingController: controller,
-        element:element,
+        element: element,
       );
     } else if (element is EmailElement) {
       return EmailTextField(

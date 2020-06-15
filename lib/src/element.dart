@@ -393,7 +393,10 @@ class TextAreaElement extends TextElement {
             if (isRequired && text.isEmpty) {
               return messageError;
             }
+            if(validator!=null)
             return validator(text);
+
+            return null;
           },
           error: messageError,
           typeInput: TypeInput.multiLine,
