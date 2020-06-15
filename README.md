@@ -18,9 +18,10 @@ Add the following to your `pubspec.yaml` file:
 
 
 ## Simple Usage
-#### Creating a basic `SimpleDynamicForm`
+#### Creating a basic `SimpleDynamicForm`:
 
-    ```flutter
+
+    ```dart
         SimpleDynamicForm(
                   key: dynamicFormKey,
                   groupElements: [
@@ -63,7 +64,7 @@ Add the following to your `pubspec.yaml` file:
 ## Simple Usage
 #### Creating a basic `LoginForm`:
 
-    ```flutter
+    ```dart
         LoginForm(
                   callback: (email,password){
                         //api call
