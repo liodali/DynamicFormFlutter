@@ -46,18 +46,22 @@ Add the following to your `pubspec.yaml` file:
 ### validate forms
 
 ` dynamicFormKey.currentState.validate() `
-### all values in form
+### all values in form :
 ` dynamicFormKey.currentState.recuperateAllValues() `
+
 > if you are used ids in element, you can recuperate values with
+
 ` dynamicFormKey.currentState.recuperateByIds()`
+
 > you recuperate by id
+
 ` dynamicFormKey.currentState.singleValueById(id)`
 
 
 ### LoginForm
 > pre-existing login form to make easy for you to build
 ## Simple Usage
-#### Creating a basic `LoginForm`
+#### Creating a basic `LoginForm`:
 
     ```flutter
         LoginForm(
