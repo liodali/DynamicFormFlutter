@@ -1,3 +1,5 @@
+## [0.4.4+1] - version alpha:
+* fix bug in clearValues function
 ## [0.4.4] - version alpha:
 * fix bug in some inputs
 * add function to clear all values in input fields

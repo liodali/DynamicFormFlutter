@@ -10,6 +10,8 @@ import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+///  [padding]          : The amount of space by which to inset the form.                                                                          |
+///  [groupElements]    :  list of element to build your form.                                                          |
 class SimpleDynamicForm extends StatefulWidget {
   final List<GroupElement> groupElements;
   final EdgeInsets padding;
@@ -61,7 +63,9 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
 
   clearValues() {
     _listGTextControler.forEach((textControllers) {
-      textControllers.clear();
+      textControllers.forEach((controller) {
+        controller.clear();
+      });
     });
   }
 
