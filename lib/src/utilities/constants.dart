@@ -98,20 +98,14 @@ class Constants {
     } else if (decorationElement is RoundedDecorationElement) {
       return InputDecoration(
         border: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ??
-              BorderRadius.all(
-                Radius.circular(25.0),
-              ),
+          borderRadius: decorationElement.radius ?? BorderRadius.circular(12.0),
           borderSide: BorderSide(
             color: Colors.transparent,
             width: 0,
           ),
         ),
         enabledBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ??
-              BorderRadius.all(
-                Radius.circular(25.0),
-              ),
+          borderRadius: decorationElement.radius ?? BorderRadius.circular(12.0),
           borderSide: BorderSide(
             color: Colors.transparent,
             width: 0,
@@ -119,8 +113,10 @@ class Constants {
         ),
         focusedErrorBorder: UnderlineInputBorder(
           borderRadius: decorationElement.radius ??
-              BorderRadius.all(
-                Radius.circular(25.0),
+              const RoundedRectangleBorder(
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(12.0),
+                ),
               ),
           borderSide: BorderSide(
             color: Colors.transparent,
@@ -128,20 +124,14 @@ class Constants {
           ),
         ),
         focusedBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ??
-              BorderRadius.all(
-                Radius.circular(25.0),
-              ),
+          borderRadius: decorationElement.radius ?? BorderRadius.circular(12.0),
           borderSide: BorderSide(
             color: Colors.transparent,
             width: 0,
           ),
         ),
         errorBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ??
-              BorderRadius.all(
-                Radius.circular(25.0),
-              ),
+          borderRadius: decorationElement.radius ?? BorderRadius.circular(12.0),
           borderSide: BorderSide(
             color: Colors.transparent,
             width: 0,

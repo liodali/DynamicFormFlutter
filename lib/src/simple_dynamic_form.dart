@@ -59,6 +59,12 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     return values;
   }
 
+  clearValues() {
+    _listGTextControler.forEach((textControllers) {
+      textControllers.clear();
+    });
+  }
+
   Map<String, String> recuperateByIds() {
     Map<String, String> values = {};
     mapGtextControler.forEach((key, value) {
@@ -266,7 +272,14 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
 
     return TextFormField(
       controller: controller,
-      validator: element.validator,
+      validator: element.isRequired
+          ? (v) {
+              if (v.isEmpty) {
+                return element.error;
+              }
+              return element.validator(v);
+            }
+          : element.validator,
       keyboardType: Constants.getInput(element.typeInput),
       readOnly: element.readOnly,
       enabled: true,
