@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.4.4-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.4.4%2B1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.4.4
+		dynamic_form: ^0.4.4+1
 
 
 
@@ -41,6 +41,13 @@ Add the following to your `pubspec.yaml` file:
                           );
 
 
+
+####  `Properties in SimpleDynamicForm`
+
+ | Properties                     | Description                                                    |
+ | ------------------------------ | -------------------------------------------------------------- |
+ | `groupElements`                | list of element to build your form                             |
+ | `padding`                      |  The amount of space by which to inset the form                |
 
 
 ### Declare GlobalKey to get validation,list values of forms

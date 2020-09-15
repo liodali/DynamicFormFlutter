@@ -36,7 +36,7 @@ class CountryTextField extends StatefulWidget {
 
   final CountryTextResult countryTextResult;
 
-  CountryElement element;
+  final CountryElement element;
 
   CountryTextField({
     this.textEditingController,
@@ -71,25 +71,24 @@ class _CountryTextFieldState extends State<CountryTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.textEditingController,
-      decoration: Constants.setInputBorder(context, widget.element.decorationElement)
-          .copyWith(
+      decoration:
+          Constants.setInputBorder(context, widget.element.decorationElement)
+              .copyWith(
         labelText: widget.element.label,
         labelStyle: TextStyle(color: Colors.black),
         hintText: widget.element.hint,
         //errorText: widget.element.errorMsg,
-
       ),
-
       validator: (v) {
         if (v.isEmpty) {
           return widget.element.errorMsg;
         }
         return null;
       },
-      readOnly:widget.element.readOnly,
+      readOnly: widget.element.readOnly,
       onTap: () async {
         FocusScope.of(context).requestFocus(FocusNode());
-        if(!widget.element.readOnly){
+        if (!widget.element.readOnly) {
           var selected = await showModalBottomSheet<_Country>(
               context: context,
               backgroundColor: Colors.white,
@@ -115,7 +114,6 @@ class _CountryTextFieldState extends State<CountryTextField> {
             });
           }
         }
-
       },
     );
   }
@@ -147,8 +145,8 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
     _list = await getInformation<_Country>((data) => _Country.fromJson(data));
     if (widget.initValue.isNotEmpty && _selected == null) {
       _selected = _list.firstWhere(
-              (c) =>
-          c.fullName.toLowerCase() == widget.initValue.toLowerCase() ||
+          (c) =>
+              c.fullName.toLowerCase() == widget.initValue.toLowerCase() ||
               c.countryCode.toLowerCase() == widget.initValue.toLowerCase(),
           orElse: () => null);
     }
@@ -171,8 +169,7 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
       if (_list.isNotEmpty) {
         _notifierShowClose.value = true;
         var newList = _list
-            .where((c) =>
-            c.fullName
+            .where((c) => c.fullName
                 .toLowerCase()
                 .contains(_searchController.text.toLowerCase()))
             .toList();
@@ -325,10 +322,10 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
                             controlAffinity: ListTileControlAffinity.trailing,
                             secondary: widget.showFlag
                                 ? Flag(
-                              list[i].code2Alpha,
-                              width: 24,
-                              height: 24,
-                            )
+                                    list[i].code2Alpha,
+                                    width: 24,
+                                    height: 24,
+                                  )
                                 : null,
                             onChanged: (c) {
                               setState(() {

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 typedef loginCallback = Function(String username, String password);
 
 /// [LoginForm]:Pre-existing form ,make easy to build your login form
-///
+
 /// [decorationElement] : input decoration of fields of form
 /// [directionGroup] : Direction of form (Vertical/Horizontal)
 ///  [paddingFields] : padding between fields

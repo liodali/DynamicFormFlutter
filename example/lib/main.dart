@@ -48,6 +48,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
               ),
             ],
           ),
+          actions: [],
         ),
         body: TabBarView(
           controller: tabController,
@@ -121,22 +122,29 @@ class MyHomePage extends StatelessWidget {
                     showFlag: true,
                   ),
                   TextAreaElement(
-                    maxCharacter: 300,
-                    maxLines: 4,
-                    showCounter: false
-                  )
+                      maxCharacter: 300, maxLines: 4, showCounter: false)
                 ],
               ),
             ],
           ),
-          RaisedButton(
-            onPressed: () {
-              print(_globalKey.currentState.validate());
-              print(_globalKey.currentState.recuperateAllValues());
-              print(_globalKey.currentState.recuperateByIds());
-              print(_globalKey.currentState.singleValueById("countries"));
-            },
-            child: Text("Validate"),
+          Row(
+            children: [
+              RaisedButton(
+                onPressed: () {
+                  print(_globalKey.currentState.validate());
+                  print(_globalKey.currentState.recuperateAllValues());
+                  print(_globalKey.currentState.recuperateByIds());
+                  print(_globalKey.currentState.singleValueById("countries"));
+                },
+                child: Text("Validate"),
+              ),
+              RaisedButton(
+                onPressed: () {
+                  _globalKey.currentState.clearValues();
+                },
+                child: Text("Clear data"),
+              ),
+            ],
           )
         ],
       ),
