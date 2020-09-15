@@ -1,6 +1,6 @@
 name: dynamic_form
 description: generate your form with easier way, Pre-existing forms, fields ,customize your form in runtime
-version: 0.4.3
+version: 0.4.4
 homepage: https://github.com/liodali/DynamicFormFlutter
 
 environment:
@@ -9,8 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flag: ^3.0.1
-  http: ^0.12.1
+  flag: ^3.0.5
+  http: ^0.12.2
 
 dev_dependencies:
   flutter_test:

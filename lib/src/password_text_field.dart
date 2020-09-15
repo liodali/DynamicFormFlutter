@@ -24,49 +24,53 @@ class PasswordTextField extends StatefulWidget {
 }
 
 class _PasswordTextFieldState extends State<PasswordTextField> {
-  bool isObscure;
+  ValueNotifier<bool> isObscureNotifier;
 
   @override
   void initState() {
     super.initState();
-    isObscure = true;
+    isObscureNotifier = ValueNotifier<bool>(true);
   }
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: widget.textEditingController,
-      validator: widget.element.validator,
-      keyboardType: widget.textInputType,
-      readOnly: widget.element.readOnly,
-      obscureText: isObscure,
-      focusNode: widget.currentFocus,
-      style: widget.element.decorationElement?.style,
-      textInputAction: widget.nextFocus == null
-          ? TextInputAction.done
-          : TextInputAction.next,
-      onFieldSubmitted: (v) {
-        Constants.fieldFocusChange(
-            context, widget.currentFocus, widget.nextFocus);
+    return ValueListenableBuilder<bool>(
+      valueListenable: isObscureNotifier,
+      builder: (ctx, isObscure, child) {
+        return TextFormField(
+          controller: widget.textEditingController,
+          validator: widget.element.validator,
+          keyboardType: widget.textInputType,
+          readOnly: widget.element.readOnly,
+          obscureText: isObscure,
+          focusNode: widget.currentFocus,
+          style: widget.element.decorationElement?.style,
+          maxLines: 1,
+          textInputAction: widget.nextFocus == null
+              ? TextInputAction.done
+              : TextInputAction.next,
+          onFieldSubmitted: (v) {
+            Constants.fieldFocusChange(
+                context, widget.currentFocus, widget.nextFocus);
+          },
+          decoration: widget.inputDecoration.copyWith(
+            labelText: widget.element.label,
+            hintText: widget.element.hint,
+            suffixIcon: widget.element.enableShowPassword
+                ? GestureDetector(
+                    onTap: () {
+                      isObscureNotifier.value = !isObscure;
+                    },
+                    child: Icon(
+                      isObscure ? Icons.remove_red_eye : Icons.visibility_off,
+                      color: Colors.black,
+                      size: 20,
+                    ),
+                  )
+                : null,
+          ),
+        );
       },
-      decoration: widget.inputDecoration.copyWith(
-        labelText: widget.element.label,
-        hintText: widget.element.hint,
-        suffixIcon: widget.element.enableShowPassword
-            ? GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isObscure = !isObscure;
-                  });
-                },
-                child: Icon(
-                  isObscure ? Icons.remove_red_eye : Icons.visibility_off,
-                  color: Colors.black,
-                  size: 16,
-                ),
-              )
-            : false,
-      ),
     );
   }
 }

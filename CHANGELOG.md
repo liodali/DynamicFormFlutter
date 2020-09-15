@@ -1,3 +1,7 @@
+## [0.4.4] - version alpha:
+* fix bug in some inputs
+* add function to clear all values in input fields
+* add docs
 ## [0.4.3] - version alpha:
 * add id attribute of element
 * recuperate values by id

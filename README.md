@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.4.3-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.4.4-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.4.3
+		dynamic_form: ^0.4.4
 
 
 
@@ -50,7 +50,7 @@ Add the following to your `pubspec.yaml` file:
 ### validate forms
 
 ` dynamicFormKey.currentState.validate() `
-### all values in form :
+### recuperate all values in form :
 ` dynamicFormKey.currentState.recuperateAllValues() `
 
 > if you are used ids in element, you can recuperate values with
@@ -60,6 +60,9 @@ Add the following to your `pubspec.yaml` file:
 > you recuperate by id
 
 ` dynamicFormKey.currentState.singleValueById(id)`
+### clear  all inputs in form :
+
+` dynamicFormKey.currentState.clearValues()`
 
 
 ### LoginForm
@@ -91,19 +94,19 @@ Add the following to your `pubspec.yaml` file:
 
 ####  `Properties in LoginForm`
 
-| Properties                     | Description                                                    |
-| ------------------------------ | -------------------------------------------------------------- |
-| `decorationElement`            | input decoration of fields of form                             |
-| `directionGroup`               | Direction of form (Vertical/Horizontal)                        |
-| `paddingFields`                | padding between fields                                         |
-| `onlyEmail`                    | enable only email type fieldtext                               |
-| `labelLogin`                   | label  of username/email textField                             |
-| `password`                     | label of the passwordField                                     |
-| `callback`                     | callback to make your api call when you form is validate       |
-| `textButton`                   | Text widget of the submit button                               |
-| `buttonLoginDecorationElement` | decoration of button that contain radius,backgroundColor,width |
-| `passwordError`                | messages errors to show  when password field not validate      |
-| `usernameEmailError`           | messages errors to show when email/username not validate       |
+ | Properties                     | Description                                                    |
+ | ------------------------------ | -------------------------------------------------------------- |
+ | `decorationElement`            | input decoration of fields of form                             |
+ | `directionGroup`               | Direction of form (Vertical/Horizontal)                        |
+ | `paddingFields`                | padding between fields                                         |
+ | `onlyEmail`                    | enable only email type fieldtext                               |
+ | `labelLogin`                   | label  of username/email textField                             |
+ | `password`                     | label of the passwordField                                     |
+ | `callback`                     | callback to make your api call when you form is validate       |
+ | `textButton`                   | Text widget of the submit button                               |
+ | `buttonLoginDecorationElement` | decoration of button that contain radius,backgroundColor,width |
+ | `passwordError`                | messages errors to show  when password field not validate      |
+ | `usernameEmailError`           | messages errors to show when email/username not validate       |
 
 
 ### How to skectch your form ?
@@ -345,3 +348,5 @@ Add the following to your `pubspec.yaml` file:
 | `radius`      | radius of the border.                |
 | `filledColor` | base fill color of the decoration    |
 | `focusColor`  | focused fill color of the decoration |
+
+
