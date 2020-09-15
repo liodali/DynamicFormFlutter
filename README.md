@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.4.4%2B1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.4.4%2B2-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.4.4+1
+		dynamic_form: ^0.4.4+2
 
 
 
@@ -125,7 +125,6 @@ Add the following to your `pubspec.yaml` file:
 | Properties          | Description                                                                                  |
 | ------------------- | -------------------------------------------------------------------------------------------- |
 | `directionGroup`    | Direction of form (Vertical/Horizontal)                                                      |
-| `DecorationElement` | Direction of form (Vertical/Horizontal)                                                      |
 | `sizeElements`      | size of each textElement  of form When direction Horizontal,sum of values should be egal a 1 |
 | `textElements`      | group of textElement.                                                                        |
 | `padding`           | padding of groups.                                                                           |
