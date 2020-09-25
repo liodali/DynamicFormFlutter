@@ -107,6 +107,11 @@ class MyHomePage extends StatelessWidget {
                       borderColor: Colors.grey,
                     ),
                   ),
+                  DateElement(
+                    id: "date",
+                    hint: "date",
+                    label: "date",
+                  ),
                 ],
               ),
               GroupElement(
