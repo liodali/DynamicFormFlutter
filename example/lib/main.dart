@@ -111,6 +111,8 @@ class MyHomePage extends StatelessWidget {
                     id: "date",
                     hint: "date",
                     label: "date",
+                    isRequired: true,
+                    errorMsg: "this field is required",
                   ),
                 ],
               ),

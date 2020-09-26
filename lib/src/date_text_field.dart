@@ -36,6 +36,15 @@ class DateTextField extends StatelessWidget {
         labelText: element.label,
         suffixIcon: element.suffixIcon,
       ),
+      validator: (v){
+        if(element.isRequired){
+          if(v.isEmpty||v==null){
+            return element.errorMsg;
+          }
+        }
+
+        return null;
+      },
       onTap: () async {
         FocusScope.of(context).requestFocus(FocusNode());
         DateTime date = await showDatePicker(
