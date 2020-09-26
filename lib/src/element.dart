@@ -409,9 +409,11 @@ class TextAreaElement extends TextElement {
 /// blueprint that open date picker to pick your date
 ///
 /// [id] : String,should be unique,
-/// [initValue] : (DateTime)  initialize the input field
+/// [initDate] : (DateTime)  initialize the input field
 /// [firstDate] : (DateTime)  represent earliest allowable Date in date picker
 /// [lastDate] : (DateTime)  represent latest allowable Date in date picker
+/// [format] : (DateFormat)  for format the date  that you pick (default  :DateFormat.yMd())
+/// [selectableDayPredicate] : (SelectableDayPredicate)  to enable dates to be selected
 /// [label] : (String) text label of TextField
 /// [decorationElement] :input decoration of TextField
 /// [hint] : (String) hint text of textField
@@ -463,7 +465,7 @@ class DateElement extends TextElement {
           initValue: initDate != null
               ? format != null
                   ? format.format(initDate)
-                  : DateFormat.yMEd().format(initDate)
+                  : DateFormat.yMd().format(initDate)
               : null,
         );
 }

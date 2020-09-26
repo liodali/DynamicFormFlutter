@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.4.4%2B2-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.4.5-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.4.4+2
+		dynamic_form: ^0.4.5
 
 
 
@@ -295,16 +295,31 @@ Add the following to your `pubspec.yaml` file:
 > Pre-initialized values
 
 
-  final int maxLines;
-  final bool showCounter;
-  final int maxCharacter;
-
 | Properties     | Description                                                           |
 | -------------- | --------------------------------------------------------------------- |
 | `maxLines`     | maximum line  to span in textField.                                   |
 | `showCounter`  | enable visibility of counterText.                                     |
 | `maxCharacter` | The limit on the number of characters that you can type  in textField |
 
+###  `DateElement`
+
+> Pre-exsiting element for date field  input
+> Pre-initialized values
+
+| Properties               | Description                                                           |
+| ------------------------ | --------------------------------------------------------------------- |
+| `id`                     | String,should be unique,
+| `initDate`               | (DateTime)  initialize the input field
+| `firstDate]`             | (DateTime)  represent earliest allowable Date in date picker
+| `lastDate`               | (DateTime)  represent latest allowable Date in date picker
+| `format`                 | (DateFormat)  for format the date  that you pick (default :DateFormat.yMd())
+| `selectableDayPredicate` | (SelectableDayPredicate)  to enable dates to be selected
+| `label`                  | (String) text label of TextField
+| `decorationElement`      | input decoration of TextField
+| `hint`                   | (String) hint text of textField
+| `isRequired`             | (bool) if true,make this field required
+| `errorMsg`               | (String) show error message  when the field isn't validate
+| `padding`                | (EdgeInsets) padding of textField
 
 
 ### `DecorationElement`

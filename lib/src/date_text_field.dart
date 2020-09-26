@@ -9,7 +9,8 @@ class DateTextField extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode currentFocus;
   final FocusNode nextFocus;
-  final dateFormat=DateFormat.yMEd();
+  final dateFormat = DateFormat.yMEd();
+
   DateTextField({
     this.element,
     this.controller,
@@ -36,9 +37,9 @@ class DateTextField extends StatelessWidget {
         labelText: element.label,
         suffixIcon: element.suffixIcon,
       ),
-      validator: (v){
-        if(element.isRequired){
-          if(v.isEmpty||v==null){
+      validator: (v) {
+        if (element.isRequired) {
+          if (v.isEmpty || v == null) {
             return element.errorMsg;
           }
         }
@@ -49,15 +50,16 @@ class DateTextField extends StatelessWidget {
         FocusScope.of(context).requestFocus(FocusNode());
         DateTime date = await showDatePicker(
           context: context,
-          initialDate: element.initDate??DateTime.now(),
-          firstDate: element.firstDate??DateTime(1970,1,1),
-          lastDate: element.lastDate??DateTime(2100,12,31),
+          initialDate: element.initDate ?? DateTime.now(),
+          firstDate: element.firstDate ?? DateTime(1970, 1, 1),
+          lastDate: element.lastDate ?? DateTime(2100, 12, 31),
           selectableDayPredicate: element.selectableDayPredicate,
         );
         if (date == null) {
           controller.text = "";
         } else {
-          controller.text = element.format?.format(date)??dateFormat.format(date);
+          controller.text =
+              element.format?.format(date) ?? dateFormat.format(date);
         }
         Constants.fieldFocusChange(context, currentFocus, nextFocus);
       },
