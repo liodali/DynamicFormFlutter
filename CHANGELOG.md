@@ -1,3 +1,8 @@
+## [0.4.5] - version alpha:
+* add DateElement to build date field input
+* update docs
+## [0.4.4+2] - version alpha:
+* add docs
 ## [0.4.4+1] - version alpha:
 * fix bug in clearValues function
 ## [0.4.4] - version alpha:

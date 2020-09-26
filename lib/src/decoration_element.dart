@@ -99,7 +99,9 @@ class RoundedDecorationElement extends DecorationElement {
         );
 }
 
-
+///  [radiusBorderButton]          : radius of the border Button.                                                             |
+///  [backgroundColorButton]      : background color of the button                                                 |
+///  [widthSubmitButton]          : size width of the button
 class ButtonLoginDecorationElement {
   final double radiusBorderButton;
   final Color backgroundColorButton;

@@ -1,6 +1,7 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/decoration_element.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 enum TypeInput { Text, Email, Password, Phone, Numeric, Address, multiLine }
 enum CountryTextResult {
@@ -386,6 +387,7 @@ class TextAreaElement extends TextElement {
     bool isRequired = false,
     bool visibility = true,
   }) : super(
+          id: id,
           label: label,
           hint: hint,
           decorationElement: decorationElement,
@@ -393,8 +395,7 @@ class TextAreaElement extends TextElement {
             if (isRequired && text.isEmpty) {
               return messageError;
             }
-            if(validator!=null)
-            return validator(text);
+            if (validator != null) return validator(text);
 
             return null;
           },
@@ -402,6 +403,70 @@ class TextAreaElement extends TextElement {
           typeInput: TypeInput.multiLine,
           readOnly: readOnly,
           visibility: visibility,
+        );
+}
+
+/// blueprint that open date picker to pick your date
+///
+/// [id] : String,should be unique,
+/// [initDate] : (DateTime)  initialize the input field
+/// [firstDate] : (DateTime)  represent earliest allowable Date in date picker
+/// [lastDate] : (DateTime)  represent latest allowable Date in date picker
+/// [format] : (DateFormat)  for format the date  that you pick (default  :DateFormat.yMd())
+/// [selectableDayPredicate] : (SelectableDayPredicate)  to enable dates to be selected
+/// [label] : (String) text label of TextField
+/// [decorationElement] :input decoration of TextField
+/// [hint] : (String) hint text of textField
+/// [isRequired] : (bool) if true,make this field required
+/// [errorMsg] : (String) show error message  when the field isn't validate
+/// [padding] : (EdgeInsets) padding of textField
+class DateElement extends TextElement {
+  final String id;
+  final DateTime initDate ;
+  final DateFormat format;
+  final DateTime firstDate;
+  final DateTime lastDate;
+  final SelectableDayPredicate selectableDayPredicate;
+  final String label;
+  final DecorationElement decorationElement;
+  final String hint;
+  final bool isRequired;
+  final bool readOnly = true;
+  final String errorMsg;
+  final EdgeInsets padding;
+  final Icon suffixIcon;
+
+  DateElement({
+    this.id,
+    this.format,
+    this.initDate,
+    this.firstDate,
+    this.lastDate,
+    this.selectableDayPredicate,
+    this.label,
+    this.suffixIcon = const Icon(
+      Icons.calendar_today,
+      color: Colors.black,
+      size: 24,
+    ),
+    this.decorationElement,
+    this.hint,
+    this.isRequired = false,
+    this.errorMsg,
+    this.padding=const EdgeInsets.all(0),
+  }) : super(
+          id: id,
+          padding: padding,
+          error: errorMsg,
+          isRequired: isRequired,
+          hint: hint,
+          label: label,
+          decorationElement: decorationElement,
+          initValue: initDate != null
+              ? format != null
+                  ? format.format(initDate)
+                  : DateFormat.yMd().format(initDate)
+              : null,
         );
 }
 

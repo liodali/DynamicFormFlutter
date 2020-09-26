@@ -1,5 +1,6 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/country_text_field.dart';
+import 'package:dynamic_form/src/date_text_field.dart';
 import 'package:dynamic_form/src/element.dart';
 import 'package:dynamic_form/src/email_text_field.dart';
 import 'package:dynamic_form/src/group_elements.dart';
@@ -271,6 +272,13 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
       return TextAreaFormField(
         element: element,
         controller: controller,
+      );
+    }else if(element is DateElement){
+      return DateTextField(
+        controller: controller,
+        element: element,
+        currentFocus: focusNodeCurrent,
+        nextFocus: focusNodeNext,
       );
     }
 

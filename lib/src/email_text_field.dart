@@ -9,17 +9,19 @@ class EmailTextField extends StatelessWidget {
   final FocusNode currentFocus;
   final FocusNode nextFocus;
 
-  EmailTextField(
-      {this.emailElement,
-      this.textEditingController,
-      this.inputDecoration,
-      this.currentFocus,
-      this.nextFocus});
+  EmailTextField({
+    this.emailElement,
+    this.textEditingController,
+    this.inputDecoration,
+    this.currentFocus,
+    this.nextFocus,
+  });
 
   @override
   Widget build(BuildContext context) {
     this.textEditingController.text = emailElement.initValue;
     return TextFormField(
+      initialValue: emailElement.initValue,
       controller: textEditingController,
       validator: emailElement.validator,
       readOnly: emailElement.readOnly,

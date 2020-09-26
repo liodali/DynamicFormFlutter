@@ -107,6 +107,13 @@ class MyHomePage extends StatelessWidget {
                       borderColor: Colors.grey,
                     ),
                   ),
+                  DateElement(
+                    id: "date",
+                    hint: "date",
+                    label: "date",
+                    isRequired: true,
+                    errorMsg: "this field is required",
+                  ),
                 ],
               ),
               GroupElement(
