@@ -233,7 +233,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         style: element.decorationElement?.style,
         focusNode: focusNodeCurrent,
         inputFormatters:
-            element.isDigits ? [WhitelistingTextInputFormatter.digitsOnly] : [],
+            element.isDigits ? [FilteringTextInputFormatter.digitsOnly] : [],
         keyboardType: Constants.getInput(element.typeInput),
         readOnly: element.readOnly,
         textInputAction:

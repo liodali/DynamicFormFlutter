@@ -99,17 +99,26 @@ class RoundedDecorationElement extends DecorationElement {
         );
 }
 
-///  [radiusBorderButton]          : radius of the border Button.                                                             |
+
+///  [shapeButtonLogin]           : shape of the Button.                                                             |
 ///  [backgroundColorButton]      : background color of the button                                                 |
 ///  [widthSubmitButton]          : size width of the button
+///  [elevation]                  : elevation of the button(default:2.0)
 class ButtonLoginDecorationElement {
-  final double radiusBorderButton;
+  final ShapeBorder shapeButtonLogin;
   final Color backgroundColorButton;
   final double widthSubmitButton;
+  final double elevation;
 
   const ButtonLoginDecorationElement({
-    this.radiusBorderButton = 5.0,
+    this.shapeButtonLogin = const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(5.0),
+      ),
+    ),
     this.backgroundColorButton,
     this.widthSubmitButton = 200,
+    this.elevation = 2.0,
   });
 }
+
