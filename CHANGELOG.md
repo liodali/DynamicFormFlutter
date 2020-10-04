@@ -1,3 +1,8 @@
+## [0.4.5+1] - version alpha:
+*  remove decorationElement from loginForm
+*  add decorationEmailElement and decorationPasswordElement
+*  add elevation  and shapeButtonLogin ButtonLoginDecorationElement
+*  remove unnecessary code in loginForm
 ## [0.4.5] - version alpha:
 * add DateElement to build date field input
 * update docs

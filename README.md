@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.4.5-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.4.5%2B1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.4.5
+		dynamic_form: ^0.4.5+1
 
 
 
@@ -78,32 +78,52 @@ Add the following to your `pubspec.yaml` file:
 #### Creating a basic `LoginForm` :
 
 
-
-        LoginForm(
-                  callback: (email,password){
-                        //api call
-                  },
-                  buttonLoginDecorationElement: ButtonLoginDecorationElement(
-                          backgroundColorButton: Colors.amber,
-                          widthSubmitButton: 200,
-                          radiusBorderButton: 10,
-                   ),
-                  onlyEmail: false,
-                  labelLogin: "Username",
-                  password: "Password",
-                  textButton: Text("Log IN"),
-                  decorationElement: RoundedDecorationElement(
-                    filledColor: Colors.grey[300],
-                  ),
-            )
-
+```
+    LoginForm(
+          callback: (email, password) {
+            print("$email,$password");
+          },
+          buttonLoginDecorationElement: ButtonLoginDecorationElement(
+              backgroundColorButton: Colors.white,
+              widthSubmitButton: 200,
+              shapeButtonLogin: StadiumBorder().copyWith(
+                side: BorderSide(
+                  color: Colors.amber,
+                  width: 0.6,
+                ),
+              ),
+              elevation: 0.0),
+          onlyEmail: false,
+          labelLogin: "Username",
+          password: "Password",
+          textButton: Text("Log IN"),
+          paddingFields: const EdgeInsets.all(0),
+          decorationEmailElement: OutlineDecorationElement(
+            filledColor: Colors.white,
+            radius: BorderRadius.only(
+              topLeft: Radius.circular(5.0),
+              topRight: Radius.circular(5.0),
+            ),
+            widthSide: 0.6,
+          ),
+          decorationPasswordElement: OutlineDecorationElement(
+            filledColor: Colors.white,
+            radius: BorderRadius.only(
+              bottomLeft: Radius.circular(5.0),
+              bottomRight: Radius.circular(5.0),
+            ),
+            widthSide: 0.6,
+          ),
+        )
+```
 
 
 ####  `Properties in LoginForm`
 
  | Properties                     | Description                                                    |
  | ------------------------------ | -------------------------------------------------------------- |
- | `decorationElement`            | input decoration of fields of form                             |
+ | `decorationEmailElement`       | input decoration of email field in form                             |
+ | `decorationPasswordElement`    | input decoration of password field in form                             |
  | `directionGroup`               | Direction of form (Vertical/Horizontal)                        |
  | `paddingFields`                | padding between fields                                         |
  | `onlyEmail`                    | enable only email type fieldtext                               |
@@ -369,5 +389,17 @@ Add the following to your `pubspec.yaml` file:
 | `radius`      | radius of the border.                |
 | `filledColor` | base fill color of the decoration    |
 | `focusColor`  | focused fill color of the decoration |
+
+
+### `ButtonLoginDecorationElement`
+
+> decoration for button login
+
+| Properties              | Description                          |
+| ------------------------| ------------------------------------ |
+| `shapeButtonLogin`      | shape of the login button.           |
+| `backgroundColorButton` | ackground color of the login button  |
+| `widthSubmitButton`     | width size of the login button       |
+| `elevation`             | elevation of the button              |
 
 

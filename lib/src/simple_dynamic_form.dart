@@ -207,11 +207,15 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
 
     var focusNodeNext = focusList[gIndex].length > (eIndex + 1)
         ? focusList[gIndex][eIndex + 1]
-        : focusList.length > gIndex + 1 ? focusList[gIndex + 1].first : null;
+        : focusList.length > gIndex + 1
+            ? focusList[gIndex + 1].first
+            : null;
 
     var focusNodeCurrent = focusList[gIndex].length > (eIndex)
         ? focusList[gIndex][eIndex]
-        : focusList.length > gIndex ? focusList[gIndex].first : null;
+        : focusList.length > gIndex
+            ? focusList[gIndex].first
+            : null;
 
     if (element.initValue != null && element.initValue.isNotEmpty) {
       controller.text = element.initValue;
@@ -273,7 +277,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         element: element,
         controller: controller,
       );
-    }else if(element is DateElement){
+    } else if (element is DateElement) {
       return DateTextField(
         controller: controller,
         element: element,
