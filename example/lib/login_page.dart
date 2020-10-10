@@ -30,6 +30,10 @@ class _LoginPageState extends State<LoginPage> {
       password: "Password",
       textButton: Text("Log IN"),
       paddingFields: const EdgeInsets.all(0),
+      passwordControls: PasswordControls.all(
+        false,
+        passwordMinLength: 3,
+      ),
       decorationEmailElement: OutlineDecorationElement(
         filledColor: Colors.white,
         radius: BorderRadius.only(
