@@ -422,7 +422,8 @@ class TextAreaElement extends TextElement {
 /// [padding] : (EdgeInsets) padding of textField
 class DateElement extends TextElement {
   final String id;
-  final DateTime initDate ;
+  final DateTime initDate;
+
   final DateFormat format;
   final DateTime firstDate;
   final DateTime lastDate;
@@ -453,7 +454,7 @@ class DateElement extends TextElement {
     this.hint,
     this.isRequired = false,
     this.errorMsg,
-    this.padding=const EdgeInsets.all(0),
+    this.padding = const EdgeInsets.all(0),
   }) : super(
           id: id,
           padding: padding,
@@ -468,6 +469,38 @@ class DateElement extends TextElement {
                   : DateFormat.yMd().format(initDate)
               : null,
         );
+}
+///PasswordControls : validation  rules for password input
+///
+/// [hasUppercase]: make password contains at least one upperCase character
+/// [hasSpecialCharacter]: make password contains at least one special character
+/// [hasDigits]: make password contains at least one digits
+/// [passwordMinLength]: minimum length accepted by password
+class PasswordControls {
+  final bool hasUppercase;
+  final bool hasSpecialCharacter;
+  final bool hasDigits;
+  final int passwordMinLength;
+
+  const PasswordControls.only({
+    this.hasDigits = true,
+    this.hasSpecialCharacter = true,
+    this.hasUppercase = true,
+    this.passwordMinLength = 6,
+  });
+
+  const PasswordControls.strong()
+      : this.hasUppercase = true,
+        this.hasDigits = true,
+        this.hasSpecialCharacter = true,
+        this.passwordMinLength = 8;
+
+  const PasswordControls.all(
+    bool value, {
+    this.passwordMinLength = 6,
+  })  : this.hasUppercase = value,
+        this.hasDigits = value,
+        this.hasSpecialCharacter = value;
 }
 
 /// [requiredErrorMsg] :  error message to show when textField is Empty

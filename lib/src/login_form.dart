@@ -28,6 +28,7 @@ class LoginForm extends StatefulWidget {
   final String password;
   final Text textButton;
   final loginCallback callback;
+  final PasswordControls passwordControls;
   final PasswordError passwordError;
   final UsernameEmailError usernameEmailError;
   final ButtonLoginDecorationElement buttonLoginDecorationElement;
@@ -42,6 +43,7 @@ class LoginForm extends StatefulWidget {
     this.labelLogin = "username or email",
     this.password = "Password",
     this.callback,
+    this.passwordControls = const PasswordControls.strong(),
     this.textButton = const Text("LOG IN"),
     this.passwordError = const PasswordError(),
     this.usernameEmailError = const UsernameEmailError(),
@@ -101,12 +103,12 @@ class _LoginFormState extends State<LoginForm> {
               errors: widget.passwordError,
               hint: widget.password,
               decorationElement: widget.decorationPasswordElement,
-              hasUppercase: true,
-              isRequired: true,
-              hasDigits: true,
-              hasSpecialCharacter: true,
+              hasUppercase: widget.passwordControls.hasUppercase,
+              isRequired:  true,
+              hasDigits:  widget.passwordControls.hasDigits,
+              hasSpecialCharacter:  widget.passwordControls.hasSpecialCharacter,
               padding: widget.paddingFields,
-              minLength: 6,
+              minLength:  widget.passwordControls.passwordMinLength,
             ),
           ],
         ),
