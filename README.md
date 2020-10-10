@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.4.5%2B1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.4.5%2B2-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
@@ -13,7 +13,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.4.5+1
+		dynamic_form: ^0.4.5+2
 
 
 
@@ -402,4 +402,15 @@ Add the following to your `pubspec.yaml` file:
 | `widthSubmitButton`     | width size of the login button       |
 | `elevation`             | elevation of the button              |
 
+
+### `PasswordControls`
+
+> define an validation rules for password input
+
+| Properties                 | Description                                                                 |
+| ---------------------------| ----------------------------------------------------------------------------|
+| `minLength`                | minimun length accepted by password                                         |
+| `hasUppercase`             | make password contains at least one upperCase character                     |
+| `hasSpecialCharacter`      | make password contains at least one special character                       |
+| `hasDigits`                | make password contains at least one digits                                  |
 

@@ -1,3 +1,5 @@
+## [0.4.5+2] - version alpha:
+* add password control for loginForm
 ## [0.4.5+1] - version alpha:
 *  remove decorationElement from loginForm
 *  add decorationEmailElement and decorationPasswordElement
