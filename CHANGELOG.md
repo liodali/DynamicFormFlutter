@@ -1,3 +1,5 @@
+## [0.4.5+4] - version alpha:
+* fix bug in element validator
 ## [0.4.5+3] - version alpha:
 * fix bug in email element generated
 * update dependencies

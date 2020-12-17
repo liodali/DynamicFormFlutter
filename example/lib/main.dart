@@ -88,7 +88,17 @@ class MyHomePage extends StatelessWidget {
                         }
                         return null;
                       }),
-                  TextElement(label: "last name"),
+                  TextElement(
+                    label: "last name",
+                    isRequired: true,
+                    initValue: "your name",
+                    validator: (v){
+                      if(v!="your name"){
+                        return "name not accepted";
+                      }
+                      return null;
+                    }
+                  ),
                 ],
               ),
               GroupElement(
