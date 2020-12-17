@@ -21,7 +21,6 @@ class EmailTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     this.textEditingController.text = emailElement.initValue;
     return TextFormField(
-      initialValue: emailElement.initValue,
       controller: textEditingController,
       validator: emailElement.validator,
       readOnly: emailElement.readOnly,

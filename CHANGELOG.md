@@ -1,3 +1,6 @@
+## [0.4.5+3] - version alpha:
+* fix bug in email element generated
+* update dependencies
 ## [0.4.5+2] - version alpha:
 * add password control for loginForm
 ## [0.4.5+1] - version alpha:
