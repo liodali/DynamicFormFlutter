@@ -293,7 +293,8 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
               if (v.isEmpty) {
                 return element.error;
               }
-              return element.validator(v);
+              if (element?.validator != null) return element?.validator(v);
+              return null;
             }
           : element.validator,
       keyboardType: Constants.getInput(element.typeInput),
