@@ -104,6 +104,7 @@ class RoundedDecorationElement extends DecorationElement {
 ///  [backgroundColorButton]      : background color of the button                                                 |
 ///  [widthSubmitButton]          : size width of the button
 ///  [elevation]                  : elevation of the button(default:2.0)
+@Deprecated("use ButtonDecorationElement, will removed in next version")
 class ButtonLoginDecorationElement {
   final ShapeBorder shapeButtonLogin;
   final Color backgroundColorButton;
@@ -111,6 +112,27 @@ class ButtonLoginDecorationElement {
   final double elevation;
 
   const ButtonLoginDecorationElement({
+    this.shapeButtonLogin = const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(5.0),
+      ),
+    ),
+    this.backgroundColorButton,
+    this.widthSubmitButton = 200,
+    this.elevation = 2.0,
+  });
+}
+///  [shapeButtonLogin]           : shape of the Button.                                                             |
+///  [backgroundColorButton]      : background color of the button                                                 |
+///  [widthSubmitButton]          : size width of the button
+///  [elevation]                  : elevation of the button(default:2.0)
+class ButtonDecorationElement {
+  final ShapeBorder shapeButtonLogin;
+  final Color backgroundColorButton;
+  final double widthSubmitButton;
+  final double elevation;
+
+  const ButtonDecorationElement({
     this.shapeButtonLogin = const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(5.0),

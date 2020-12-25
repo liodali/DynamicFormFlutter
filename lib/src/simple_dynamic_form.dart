@@ -1,5 +1,7 @@
 import 'package:dynamic_form/dynamic_form.dart';
+import 'package:dynamic_form/src/card_number_field.dart';
 import 'package:dynamic_form/src/country_text_field.dart';
+import 'package:dynamic_form/src/date_input_field.dart';
 import 'package:dynamic_form/src/date_text_field.dart';
 import 'package:dynamic_form/src/element.dart';
 import 'package:dynamic_form/src/email_text_field.dart';
@@ -230,6 +232,13 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
       );
+    }else if(element is CardNumberElement){
+      return CardNumberField(
+        controller: controller,
+        currentFocus: focusNodeCurrent,
+        nextFocus: focusNodeNext,
+        element: element,
+      );
     } else if (element is NumberElement) {
       return TextFormField(
         controller: controller,
@@ -284,6 +293,13 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
       );
+    } else if (element is DateInputElement) {
+      return DateInputField(
+        controller: controller,
+        currentFocus: focusNodeCurrent,
+        nextFocus: focusNodeNext,
+        element: element,
+      );
     }
 
     return TextFormField(
@@ -293,7 +309,8 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
               if (v.isEmpty) {
                 return element.error;
               }
-              return element.validator(v);
+              if (element?.validator != null) return element?.validator(v);
+              return null;
             }
           : element.validator,
       keyboardType: Constants.getInput(element.typeInput),
