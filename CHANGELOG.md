@@ -1,4 +1,4 @@
-## [0.5.0] - beta alpha:
+## [0.5.0] - beta version:
 * create new form : payment form
 * create dateInputField to enter date
 * create cardNumberField
