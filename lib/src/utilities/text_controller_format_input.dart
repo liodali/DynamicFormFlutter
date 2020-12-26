@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 /// credit by benhurott
 /// link of the original work  : https://github.com/benhurott/flutter-masked-text
 
-class TextControllerFormatDate extends TextEditingController {
-  TextControllerFormatDate({
+class TextControllerFormatInput extends TextEditingController {
+  TextControllerFormatInput({
     String text,
     this.mask,
     Map<String, RegExp> translator,
   }) : super(text: text) {
     this.translator =
-        translator ?? TextControllerFormatDate.getDefaultTranslator();
+        translator ?? TextControllerFormatInput.getDefaultTranslator();
 
     this.addListener(() {
       var previous = this._lastUpdatedText;

@@ -6,7 +6,9 @@ class PaymentExample extends StatelessWidget {
   Widget build(BuildContext context) {
     return PaymentForm(
       decorationElement: OutlineDecorationElement(),
-      actionPayment: (cardNumber, cvv, date) async {},
+      actionPayment: (cardNumber, cvv, date) async {
+        print("Credit Card information : $cardNumber,$cvv,$date");
+      },
       errorMessageCVV: "cvv is invalid",
       errorMessageDateExpiration: "date expiration is invalid",
       errorIsRequiredMessage: "This field  is required",

@@ -2,6 +2,7 @@ import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import 'utilities/text_controller_format_input.dart';
 import 'utilities/constants.dart';
 
 class CardNumberField extends StatelessWidget {
@@ -26,8 +27,14 @@ class CardNumberField extends StatelessWidget {
       Discover cards – Begin with a 6 and have 16 digits
    */
     final ValueNotifier<Widget> iconNotifier = ValueNotifier(null);
+    final TextControllerFormatInput inputController = TextControllerFormatInput(
+        mask: "XXXX-XXXX-XXXX-XXXX",
+        text: controller.text,
+        translator: {
+          "X": RegExp(r'[0-9]'),
+        });
     return TextFormField(
-      controller: controller,
+      controller: inputController,
       keyboardType: TextInputType.datetime,
       focusNode: currentFocus,
       textInputAction:
@@ -52,17 +59,20 @@ class CardNumberField extends StatelessWidget {
           },
         ),
       ),
-      validator: (v) {
-        if (v.isEmpty) {
+      validator: (value) {
+        final number = controller.text;
+        if (number.isEmpty) {
           return element.errorIsRequiredMessage;
         }
-        if (v.length < 13) {
+        if (number.length < 13) {
           return element.errorMsg ?? "credit card number is invalid";
         }
-        if ((v.startsWith("4") && (v.length != 13 || v.length != 16)) &&
-            (v.startsWith("5") && v.length != 16) &&
-            ((v.startsWith("34") || v.startsWith("37")) && v.length != 15) &&
-            (v.startsWith("6") && v.length != 16)) {
+        if ((number.startsWith("4") &&
+                (number.length != 13 && number.length != 16)) ||
+            (number.startsWith("5") && number.length != 16) ||
+            ((number.startsWith("34") && number.startsWith("37")) &&
+                number.length != 15) ||
+            (number.startsWith("6") && number.length != 16)) {
           return element.errorMsg ?? "credit card number is invalid";
         }
 
@@ -89,6 +99,7 @@ class CardNumberField extends StatelessWidget {
           else
             iconNotifier.value = null;
         }
+        controller.text = v.replaceAll("-", "");
       },
     );
   }
