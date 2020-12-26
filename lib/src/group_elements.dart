@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 enum DirectionGroup { Vertical, Horizontal }
 
-
 /// [directionGroup]     : Direction of form (Vertical/Horizontal)
 /// [sizeElements]       : size of each textElement  of form When direction Horizontal,sum of values should be egal a 1
 /// [textElements]       : group of textElement.

@@ -1,6 +1,7 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/decoration_element.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 enum TypeInput { Text, Email, Password, Phone, Numeric, Address, multiLine }
@@ -274,6 +275,46 @@ class NumberElement extends TextElement {
         );
 }
 
+class CardNumberElement extends NumberElement {
+  final String initValue;
+  final String label;
+  final String errorIsRequiredMessage;
+  final DecorationElement decorationElement;
+  final String hint;
+  final String errorMsg;
+  final TextStyle textStyle;
+  final TextStyle errorStyle;
+  final TextStyle hintStyle;
+  final TextStyle labelStyle;
+  final EdgeInsets padding;
+
+  CardNumberElement({
+    String id,
+    this.initValue,
+    this.label = "Credit Card Number",
+    this.hint = "XXXX-XXXX-XXXX-XXXX",
+    this.decorationElement = const UnderlineDecorationElement(),
+    this.errorMsg,
+    this.errorIsRequiredMessage = "this Field is required",
+    this.textStyle,
+    this.labelStyle,
+    this.hintStyle,
+    this.errorStyle,
+    this.padding = const EdgeInsets.all(2.0),
+  }) : super(
+          id: id,
+          decorationElement: decorationElement,
+          initValue: initValue,
+          label: label,
+          hint: hint,
+          labelStyle: labelStyle,
+          hintStyle: hintStyle,
+          errorStyle: errorStyle,
+          readOnly: false,
+          visibility: true,
+        );
+}
+
 class CountryElement extends TextElement {
   final String initValue;
   final DecorationElement decorationElement;
@@ -408,22 +449,21 @@ class TextAreaElement extends TextElement {
 
 /// blueprint that open date picker to pick your date
 ///
-/// [id] : String,should be unique,
-/// [initDate] : (DateTime)  initialize the input field
-/// [firstDate] : (DateTime)  represent earliest allowable Date in date picker
-/// [lastDate] : (DateTime)  represent latest allowable Date in date picker
-/// [format] : (DateFormat)  for format the date  that you pick (default  :DateFormat.yMd())
-/// [selectableDayPredicate] : (SelectableDayPredicate)  to enable dates to be selected
-/// [label] : (String) text label of TextField
-/// [decorationElement] :input decoration of TextField
-/// [hint] : (String) hint text of textField
-/// [isRequired] : (bool) if true,make this field required
-/// [errorMsg] : (String) show error message  when the field isn't validate
-/// [padding] : (EdgeInsets) padding of textField
+/// [id] : String,should be unique.
+/// [initDate] : (DateTime)  initialize the input field.
+/// [firstDate] : (DateTime)  represent earliest allowable Date in date picker.
+/// [lastDate] : (DateTime)  represent latest allowable Date in date picker.
+/// [format] : (DateFormat)  for format the date  that you pick (default  :DateFormat.yMd()).
+/// [selectableDayPredicate] : (SelectableDayPredicate)  to enable dates to be selected.
+/// [label] : (String) text label of TextField.
+/// [decorationElement] :input decoration of TextField.
+/// [hint] : (String) hint text of textField.
+/// [isRequired] : (bool) if true,make this field required.
+/// [errorMsg] : (String) show error message  when the field isn't validate.
+/// [padding] : (EdgeInsets) padding of textField.
 class DateElement extends TextElement {
   final String id;
   final DateTime initDate;
-
   final DateFormat format;
   final DateTime firstDate;
   final DateTime lastDate;
@@ -470,6 +510,63 @@ class DateElement extends TextElement {
               : null,
         );
 }
+
+/// blueprint that open date input to date
+///
+/// [id] : String,should be unique.
+/// [initDate] : (DateTime)  initialize the input field.
+/// [format] : (DateFormat)  for format the date  that you pick (default  :DateFormat.yMd()).
+/// [label] : (String) text label of TextField.
+/// [decorationElement] :input decoration of TextField.
+/// [hint] : (String) hint text of textField.
+/// [isRequired] : (bool) if true,make this field required.
+/// [errorMsg] : (String) show error message  when the field isn't validate.
+/// [padding] : (EdgeInsets) padding of textField.
+class DateInputElement extends TextElement {
+  final String id;
+  final DateTime initDate;
+  final DateFormat dateFormat;
+  final String label;
+  final bool isRequired;
+  final DecorationElement decorationElement;
+  final validation validator;
+  final String hint;
+  final bool readOnly = false;
+  final String errorMsg;
+  final String requiredErrorMsg;
+  final EdgeInsets padding;
+  final List<TextInputFormatter> formatters;
+
+  DateInputElement({
+    this.id,
+    this.dateFormat,
+    this.initDate,
+    this.label,
+    this.formatters,
+    this.isRequired,
+    this.decorationElement,
+    this.validator,
+    this.hint,
+    this.errorMsg,
+    this.requiredErrorMsg,
+    this.padding = const EdgeInsets.all(0),
+  }) : super(
+          id: id,
+          padding: padding,
+          error: errorMsg,
+          isRequired: isRequired,
+          hint: hint,
+          label: label,
+          validator: (v) {
+            if (isRequired) {
+              return requiredErrorMsg ?? "this field is requied";
+            }
+            return validator != null ? validator(v) : null;
+          },
+          decorationElement: decorationElement,
+        );
+}
+
 ///PasswordControls : validation  rules for password input
 ///
 /// [hasUppercase]: make password contains at least one upperCase character

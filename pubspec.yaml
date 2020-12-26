@@ -1,10 +1,10 @@
 name: dynamic_form
 description: generate your form with easier way, Pre-existing forms, fields ,customize your form in runtime
-version: 0.4.5+4
+version: 0.5.0
 homepage: https://github.com/liodali/DynamicFormFlutter
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -24,6 +24,10 @@ dev_dependencies:
 flutter:
   assets:
     - packages/dynamic_form/assets/countries.json
+    - packages/dynamic_form/assets/svg/american-express.svg
+    - packages/dynamic_form/assets/svg/discover.svg
+    - packages/dynamic_form/assets/svg/master-card.svg
+    - packages/dynamic_form/assets/svg/visa.svg
   # To add assets to your package, add an assets section, like this:
   # assets:
   #  - images/a_dot_burr.jpeg
