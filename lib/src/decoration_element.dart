@@ -127,13 +127,13 @@ class ButtonLoginDecorationElement {
 ///  [widthSubmitButton]          : size width of the button
 ///  [elevation]                  : elevation of the button(default:2.0)
 class ButtonDecorationElement {
-  final ShapeBorder shapeButtonLogin;
+  final ShapeBorder shapeButton;
   final Color backgroundColorButton;
   final double widthSubmitButton;
   final double elevation;
 
   const ButtonDecorationElement({
-    this.shapeButtonLogin = const RoundedRectangleBorder(
+    this.shapeButton = const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(5.0),
       ),

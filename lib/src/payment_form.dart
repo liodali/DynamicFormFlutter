@@ -10,6 +10,18 @@ import 'utilities/constants.dart';
 typedef onAction = Future<void> Function(
     String cardNumber, String cvv, String dateExpiration);
 
+/// [decorationElement] :            decoration of all input field in form
+/// [actionPayment] :                callback to make your api call when you form is validate
+/// [paymentText]  :                 Text widget of the submit button
+/// [buttonDecoration] :             decoration of button that contain radius,backgroundColor,width
+/// [errorMessageDateExpiration] :   messages errors to show  when Date Expiration field not validate
+/// [errorMessageCVV]   :            messages errors to show when cvv field is invalidate
+/// [errorMessageCardNumber]  :      messages errors to show when credit card number is invalidate
+/// [errorIsRequiredMessage] :       messages errors to show when at least one field not filled
+/// [labelCardNumber]        :       text label of credit card number field
+/// [labelDateExpiration]    :       text label of date expiration field
+/// [labelCVV]               :       text label of cvv field
+
 class PaymentForm extends StatefulWidget {
   final DecorationElement decorationElement;
   final String labelCardNumber;
@@ -34,7 +46,7 @@ class PaymentForm extends StatefulWidget {
     this.errorIsRequiredMessage,
     this.actionPayment,
     this.paymentText,
-    this.buttonDecoration,
+    this.buttonDecoration=const ButtonDecorationElement(),
     Key key,
   }) : super(
           key: key,
@@ -137,18 +149,24 @@ class _PaymentFormState extends State<PaymentForm> {
             ),
           ],
         ),
-        RaisedButton(
-          onPressed: () async {
-            if (globalKey.currentState.validate()) {
-              final cardNumber =
-                  globalKey.currentState.singleValueById(idCardNumber);
-              final cvv = globalKey.currentState.singleValueById(idCVV);
-              final dateExpiration =
-                  globalKey.currentState.singleValueById(idDateExpiration);
-              await widget.actionPayment(cardNumber, cvv, dateExpiration);
-            }
-          },
-          child: widget.paymentText ?? Text("purchase"),
+        Container(
+          width: widget.buttonDecoration.widthSubmitButton,
+          child: RaisedButton(
+            onPressed: () async {
+              if (globalKey.currentState.validate()) {
+                final cardNumber =
+                    globalKey.currentState.singleValueById(idCardNumber);
+                final cvv = globalKey.currentState.singleValueById(idCVV);
+                final dateExpiration =
+                    globalKey.currentState.singleValueById(idDateExpiration);
+                await widget.actionPayment(cardNumber, cvv, dateExpiration);
+              }
+            },
+            color: widget.buttonDecoration.backgroundColorButton,
+            elevation: widget.buttonDecoration.elevation,
+            shape: widget.buttonDecoration.shapeButton,
+            child: widget.paymentText ?? Text("purchase"),
+          ),
         ),
       ],
     );
