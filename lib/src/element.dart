@@ -1,6 +1,7 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/decoration_element.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 enum TypeInput { Text, Email, Password, Phone, Numeric, Address, multiLine }
@@ -79,20 +80,20 @@ class TextElement extends FormElement {
     this.padding = const EdgeInsets.all(2.0),
     bool visibility = true,
   }) : super(
-    id: id,
-    typeInput: typeInput,
-    initValue: initValue,
-    decorationElement: decorationElement,
-    label: label,
-    hint: hint,
-    error: error,
-    textStyle: textStyle,
-    labelStyle: labelStyle,
-    errorStyle: errorStyle,
-    hintStyle: hintStyle,
-    readOnly: readOnly,
-    visibility: visibility,
-  );
+          id: id,
+          typeInput: typeInput,
+          initValue: initValue,
+          decorationElement: decorationElement,
+          label: label,
+          hint: hint,
+          error: error,
+          textStyle: textStyle,
+          labelStyle: labelStyle,
+          errorStyle: errorStyle,
+          hintStyle: hintStyle,
+          readOnly: readOnly,
+          visibility: visibility,
+        );
 }
 
 /// [initValue]: initialized value of  textFormField
@@ -130,30 +131,30 @@ class EmailElement extends TextElement {
     this.padding = const EdgeInsets.all(2.0),
     bool visibility = true,
   }) : super(
-    id: id,
-    initValue: initValue,
-    label: label,
-    typeInput: TypeInput.Email,
-    hint: hint,
-    decorationElement: decorationElement,
-    padding: padding,
-    readOnly: readOnly,
-    validator: (email) {
-      if (isRequired) {
-        if (email.isEmpty) {
-          return errorEmailIsRequired;
-        }
-      }
-      if (email.isNotEmpty) {
-        bool emailValid = RegExp(Patterns.emailPattern).hasMatch(email);
-        if (!emailValid) {
-          return errorEmailPattern;
-        }
-      }
-      return null;
-    },
-    visibility: visibility,
-  );
+          id: id,
+          initValue: initValue,
+          label: label,
+          typeInput: TypeInput.Email,
+          hint: hint,
+          decorationElement: decorationElement,
+          padding: padding,
+          readOnly: readOnly,
+          validator: (email) {
+            if (isRequired) {
+              if (email.isEmpty) {
+                return errorEmailIsRequired;
+              }
+            }
+            if (email.isNotEmpty) {
+              bool emailValid = RegExp(Patterns.emailPattern).hasMatch(email);
+              if (!emailValid) {
+                return errorEmailPattern;
+              }
+            }
+            return null;
+          },
+          visibility: visibility,
+        );
 }
 
 class PasswordElement extends TextElement {
@@ -196,38 +197,38 @@ class PasswordElement extends TextElement {
     this.padding = const EdgeInsets.all(2.0),
     bool visibility = true,
   }) : super(
-    id: id,
-    initValue: initValue,
-    label: label,
-    hint: hint,
-    onTap: null,
-    decorationElement: decorationElement,
-    readOnly: readOnly,
-    typeInput: TypeInput.Password,
-    validator: (password) {
-      if (password.isNotEmpty) {
-        if (password.length < minLength) {
-          return errors.minLengthErrorMsg;
-        } else if (RegExp(Patterns.upperAlpha).stringMatch(password) ==
-            null &&
-            hasUppercase) {
-          return errors.uppercaseErrorMsg;
-        } else if (RegExp(Patterns.specialChar).stringMatch(password) ==
-            null &&
-            hasSpecialCharacter) {
-          return errors.specialCharacterErrorMsg;
-        } else if (RegExp(Patterns.digitPattern).stringMatch(password) ==
-            null &&
-            hasDigits) {
-          return errors.digitsErrorMsg;
-        }
-      } else if (isRequired) {
-        return errors.requiredErrorMsg;
-      }
-      return null;
-    },
-    visibility: visibility,
-  );
+          id: id,
+          initValue: initValue,
+          label: label,
+          hint: hint,
+          onTap: null,
+          decorationElement: decorationElement,
+          readOnly: readOnly,
+          typeInput: TypeInput.Password,
+          validator: (password) {
+            if (password.isNotEmpty) {
+              if (password.length < minLength) {
+                return errors.minLengthErrorMsg;
+              } else if (RegExp(Patterns.upperAlpha).stringMatch(password) ==
+                      null &&
+                  hasUppercase) {
+                return errors.uppercaseErrorMsg;
+              } else if (RegExp(Patterns.specialChar).stringMatch(password) ==
+                      null &&
+                  hasSpecialCharacter) {
+                return errors.specialCharacterErrorMsg;
+              } else if (RegExp(Patterns.digitPattern).stringMatch(password) ==
+                      null &&
+                  hasDigits) {
+                return errors.digitsErrorMsg;
+              }
+            } else if (isRequired) {
+              return errors.requiredErrorMsg;
+            }
+            return null;
+          },
+          visibility: visibility,
+        );
 }
 
 class NumberElement extends TextElement {
@@ -263,15 +264,15 @@ class NumberElement extends TextElement {
     this.readOnly = false,
     bool visibility = true,
   }) : super(
-    id: id,
-    decorationElement: decorationElement,
-    initValue: initValue,
-    label: label,
-    hint: hint,
-    readOnly: readOnly,
-    typeInput: TypeInput.Numeric,
-    visibility: visibility,
-  );
+          id: id,
+          decorationElement: decorationElement,
+          initValue: initValue,
+          label: label,
+          hint: hint,
+          readOnly: readOnly,
+          typeInput: TypeInput.Numeric,
+          visibility: visibility,
+        );
 }
 
 class CardNumberElement extends NumberElement {
@@ -294,24 +295,24 @@ class CardNumberElement extends NumberElement {
     this.hint = "XXXX-XXXX-XXXX-XXXX",
     this.decorationElement = const UnderlineDecorationElement(),
     this.errorMsg,
-    this.errorIsRequiredMessage="this Field is required",
+    this.errorIsRequiredMessage = "this Field is required",
     this.textStyle,
     this.labelStyle,
     this.hintStyle,
     this.errorStyle,
     this.padding = const EdgeInsets.all(2.0),
   }) : super(
-    id: id,
-    decorationElement: decorationElement,
-    initValue: initValue,
-    label: label,
-    hint: hint,
-    labelStyle: labelStyle,
-    hintStyle: hintStyle,
-    errorStyle: errorStyle,
-    readOnly: false,
-    visibility: true,
-  );
+          id: id,
+          decorationElement: decorationElement,
+          initValue: initValue,
+          label: label,
+          hint: hint,
+          labelStyle: labelStyle,
+          hintStyle: hintStyle,
+          errorStyle: errorStyle,
+          readOnly: false,
+          visibility: true,
+        );
 }
 
 class CountryElement extends TextElement {
@@ -338,20 +339,19 @@ class CountryElement extends TextElement {
     this.padding = const EdgeInsets.all(2.0),
     bool visibility = true,
     bool readOnly = false,
-  })
-      : assert((countryTextResult == CountryTextResult.countryCode &&
-      (initValue.isEmpty || initValue.length == 3)) ||
-      (countryTextResult == CountryTextResult.FullName)),
+  })  : assert((countryTextResult == CountryTextResult.countryCode &&
+                (initValue.isEmpty || initValue.length == 3)) ||
+            (countryTextResult == CountryTextResult.FullName)),
         super(
-        id: id,
-        initValue: initValue,
-        decorationElement: decorationElement,
-        label: label,
-        readOnly: readOnly,
-        padding: padding,
-        error: errorMsg,
-        visibility: visibility,
-      );
+          id: id,
+          initValue: initValue,
+          decorationElement: decorationElement,
+          label: label,
+          readOnly: readOnly,
+          padding: padding,
+          error: errorMsg,
+          visibility: visibility,
+        );
 }
 
 class PhoneNumberElement extends TextElement {
@@ -381,33 +381,32 @@ class PhoneNumberElement extends TextElement {
     this.showPrefix = true,
     this.padding = const EdgeInsets.all(2.0),
     bool visibility = true,
-  })
-      : assert(showPrefixFlag == true && showSuffixFlag == false ||
-      showPrefixFlag == false && showSuffixFlag == true ||
-      showPrefixFlag == false && showSuffixFlag == false),
+  })  : assert(showPrefixFlag == true && showSuffixFlag == false ||
+            showPrefixFlag == false && showSuffixFlag == true ||
+            showPrefixFlag == false && showSuffixFlag == false),
         super(
-        id: id,
-        initValue: initValue,
-        decorationElement: decorationElement,
-        label: label,
-        typeInput: TypeInput.Numeric,
-        validator: validator ??
-                (phone) {
-              if (phone.isEmpty) {
-                return errorMsg;
-              } else if (RegExp(Patterns.phonePattern)
-                  .allMatches(phone)
-                  .isEmpty) {
-                return errorMsg;
-              }
-              return null;
-            },
-        hint: hint,
-        error: errorMsg,
-        padding: padding,
-        readOnly: readOnly,
-        visibility: visibility,
-      );
+          id: id,
+          initValue: initValue,
+          decorationElement: decorationElement,
+          label: label,
+          typeInput: TypeInput.Numeric,
+          validator: validator ??
+              (phone) {
+                if (phone.isEmpty) {
+                  return errorMsg;
+                } else if (RegExp(Patterns.phonePattern)
+                    .allMatches(phone)
+                    .isEmpty) {
+                  return errorMsg;
+                }
+                return null;
+              },
+          hint: hint,
+          error: errorMsg,
+          padding: padding,
+          readOnly: readOnly,
+          visibility: visibility,
+        );
 }
 
 class TextAreaElement extends TextElement {
@@ -429,23 +428,23 @@ class TextAreaElement extends TextElement {
     bool isRequired = false,
     bool visibility = true,
   }) : super(
-    id: id,
-    label: label,
-    hint: hint,
-    decorationElement: decorationElement,
-    validator: (text) {
-      if (isRequired && text.isEmpty) {
-        return messageError;
-      }
-      if (validator != null) return validator(text);
+          id: id,
+          label: label,
+          hint: hint,
+          decorationElement: decorationElement,
+          validator: (text) {
+            if (isRequired && text.isEmpty) {
+              return messageError;
+            }
+            if (validator != null) return validator(text);
 
-      return null;
-    },
-    error: messageError,
-    typeInput: TypeInput.multiLine,
-    readOnly: readOnly,
-    visibility: visibility,
-  );
+            return null;
+          },
+          error: messageError,
+          typeInput: TypeInput.multiLine,
+          readOnly: readOnly,
+          visibility: visibility,
+        );
 }
 
 /// blueprint that open date picker to pick your date
@@ -497,19 +496,19 @@ class DateElement extends TextElement {
     this.errorMsg,
     this.padding = const EdgeInsets.all(0),
   }) : super(
-    id: id,
-    padding: padding,
-    error: errorMsg,
-    isRequired: isRequired,
-    hint: hint,
-    label: label,
-    decorationElement: decorationElement,
-    initValue: initDate != null
-        ? format != null
-        ? format.format(initDate)
-        : DateFormat.yMd().format(initDate)
-        : null,
-  );
+          id: id,
+          padding: padding,
+          error: errorMsg,
+          isRequired: isRequired,
+          hint: hint,
+          label: label,
+          decorationElement: decorationElement,
+          initValue: initDate != null
+              ? format != null
+                  ? format.format(initDate)
+                  : DateFormat.yMd().format(initDate)
+              : null,
+        );
 }
 
 /// blueprint that open date input to date
@@ -526,7 +525,7 @@ class DateElement extends TextElement {
 class DateInputElement extends TextElement {
   final String id;
   final DateTime initDate;
-  final DateFormat format;
+  final DateFormat dateFormat;
   final String label;
   final bool isRequired;
   final DecorationElement decorationElement;
@@ -536,12 +535,14 @@ class DateInputElement extends TextElement {
   final String errorMsg;
   final String requiredErrorMsg;
   final EdgeInsets padding;
+  final List<TextInputFormatter> formatters;
 
   DateInputElement({
     this.id,
-    this.format,
+    this.dateFormat,
     this.initDate,
     this.label,
+    this.formatters,
     this.isRequired,
     this.decorationElement,
     this.validator,
@@ -550,20 +551,20 @@ class DateInputElement extends TextElement {
     this.requiredErrorMsg,
     this.padding = const EdgeInsets.all(0),
   }) : super(
-    id: id,
-    padding: padding,
-    error: errorMsg,
-    isRequired: isRequired,
-    hint: hint,
-    label: label,
-    validator: (v) {
-      if (isRequired) {
-        return requiredErrorMsg ?? "this field is requied";
-      }
-      return validator != null ? validator(v) : null;
-    },
-    decorationElement: decorationElement,
-  );
+          id: id,
+          padding: padding,
+          error: errorMsg,
+          isRequired: isRequired,
+          hint: hint,
+          label: label,
+          validator: (v) {
+            if (isRequired) {
+              return requiredErrorMsg ?? "this field is requied";
+            }
+            return validator != null ? validator(v) : null;
+          },
+          decorationElement: decorationElement,
+        );
 }
 
 ///PasswordControls : validation  rules for password input
@@ -591,10 +592,10 @@ class PasswordControls {
         this.hasSpecialCharacter = true,
         this.passwordMinLength = 8;
 
-  const PasswordControls.all(bool value, {
+  const PasswordControls.all(
+    bool value, {
     this.passwordMinLength = 6,
-  })
-      : this.hasUppercase = value,
+  })  : this.hasUppercase = value,
         this.hasDigits = value,
         this.hasSpecialCharacter = value;
 }
@@ -630,11 +631,11 @@ class PasswordError extends TextFieldError {
     String requiredErrorMsg = "Password is required",
     this.minLengthErrorMsg = "",
     this.uppercaseErrorMsg =
-    "Password must include at least one uppercase letter ",
+        "Password must include at least one uppercase letter ",
     this.specialCharacterErrorMsg =
-    "Password must include at least one special character",
+        "Password must include at least one special character",
     this.digitsErrorMsg =
-    "Password must include at least one digit from 0 to 9",
+        "Password must include at least one digit from 0 to 9",
     String error,
   }) : super(error: error, requiredErrorMsg: requiredErrorMsg);
 }
@@ -645,10 +646,10 @@ class EmailError extends TextFieldError {
     String patternErrorMsg = "Email is invalid",
     String error,
   }) : super(
-    error: error,
-    requiredErrorMsg: requiredErrorMsg,
-    patternErrorMsg: patternErrorMsg,
-  );
+          error: error,
+          requiredErrorMsg: requiredErrorMsg,
+          patternErrorMsg: patternErrorMsg,
+        );
 }
 
 class UsernameEmailError extends TextFieldError {

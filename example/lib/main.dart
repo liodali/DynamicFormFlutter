@@ -2,6 +2,8 @@ import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
 import 'package:formdynamic/login_page.dart';
 
+import 'payment_example.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
@@ -17,7 +19,11 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 2, initialIndex: 0, vsync: this);
+    tabController = TabController(
+      length: 3,
+      initialIndex: 2,
+      vsync: this,
+    );
   }
 
   @override
@@ -44,7 +50,13 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
                 onTap: () {
                   tabController.index = 1;
                 },
-                child: Text("Login form example"),
+                child: Text("Login form "),
+              ),
+              GestureDetector(
+                onTap: () {
+                  tabController.index = 2;
+                },
+                child: Text("payment form "),
               ),
             ],
           ),
@@ -55,6 +67,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
           children: <Widget>[
             MyHomePage(),
             LoginPage(),
+            PaymentExample(),
           ],
         ),
       ),
@@ -113,6 +126,18 @@ class MyHomePage extends StatelessWidget {
                     label: "date",
                     isRequired: true,
                     errorMsg: "this field is required",
+                  ),
+                  TextElement(
+                    label: "last name",
+                    isRequired: true,
+                    initValue: "your name",
+                    error: "this field is required",
+                    validator: (v) {
+                      if (v != "your name") {
+                        return "name not accepted";
+                      }
+                      return null;
+                    },
                   ),
                 ],
               ),

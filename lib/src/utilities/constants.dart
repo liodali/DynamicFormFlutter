@@ -1,5 +1,13 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+extension parsing on DateTime{
+  DateTime parseFormat(DateFormat format){
+     return format.parse(format.format(this));
+  }
+}
+
 
 class Constants {
   static TextInputType getInput(TypeInput typeInput) {

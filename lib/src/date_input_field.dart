@@ -1,6 +1,8 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
+import 'utilities/TextControllerFomatDate.dart';
 import 'utilities/constants.dart';
 
 class DateInputField extends StatelessWidget {
@@ -19,12 +21,24 @@ class DateInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (element.initValue != null) {
-      controller.text = element.format?.format(element.initDate) ?? "";
+      controller.text = element.dateFormat?.format(element.initDate) ?? "";
     }
+    final TextControllerFormatDate inputController = TextControllerFormatDate(
+        mask: element.dateFormat.pattern,
+        text: controller.text,
+        translator: {
+          "M": RegExp(r'[0-9]'),
+          "y": RegExp(r'[0-9]'),
+          "d": RegExp(r'[0-9]'),
+          "h": RegExp(r'[0-9]'),
+          "m": RegExp(r'[0-9]'),
+          "s": RegExp(r'[0-9]'),
+        });
     return TextFormField(
-      controller: controller,
+      controller: inputController,
       keyboardType: TextInputType.datetime,
       focusNode: currentFocus,
+      inputFormatters: element.formatters,
       textInputAction:
           nextFocus == null ? TextInputAction.done : TextInputAction.next,
       decoration:
@@ -37,6 +51,11 @@ class DateInputField extends StatelessWidget {
         labelText: element.label,
       ),
       validator: element.validator,
+
+      onChanged: (v) {
+        controller.text = v;
+        print(controller.text);
+      },
     );
   }
 }

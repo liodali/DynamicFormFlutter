@@ -32,40 +32,26 @@ class CardNumberField extends StatelessWidget {
       focusNode: currentFocus,
       textInputAction:
           nextFocus == null ? TextInputAction.done : TextInputAction.next,
-      decoration: Constants.setInputBorder(context, element.decorationElement)
-          .copyWith(
-              labelStyle: element.textStyle ??
-                  Theme.of(context).inputDecorationTheme.labelStyle,
-              errorStyle: element.errorStyle ??
-                  Theme.of(context).inputDecorationTheme.labelStyle,
-              hintText: element.hint,
-              labelText: element.label,
-              suffixIcon: ValueListenableBuilder<Widget>(
-                valueListenable: iconNotifier,
-                builder: (ctx, child, _) {
-                  return child ?? SizedBox.shrink();
-                },
-              )),
-      onEditingComplete: () {
-        if (controller.text.length < 2 && controller.text.isNotEmpty) {
-          String cardIconName = "";
-          if (controller.text.startsWith("4")) {
-            cardIconName = "assets/svg/visa.svg";
-          } else if (controller.text.startsWith("5")) {
-            cardIconName = "assets/svg/visa.svg";
-          } else if (controller.text.startsWith("3")) {
-            cardIconName = "assets/svg/visa.svg";
-          } else if (controller.text.startsWith("6")) {
-            cardIconName = "assets/svg/visa.svg";
-          }
-          if (cardIconName.isNotEmpty)
-            iconNotifier.value = SvgPicture.asset(
-              cardIconName,
-              height: 56,
-              width: 56,
-            );
-        }
-      },
+      decoration:
+          Constants.setInputBorder(context, element.decorationElement).copyWith(
+        labelStyle: element.textStyle ??
+            Theme.of(context).inputDecorationTheme.labelStyle,
+        errorStyle: element.errorStyle ??
+            Theme.of(context).inputDecorationTheme.labelStyle,
+        hintText: element.hint,
+        labelText: element.label,
+        suffixIcon: ValueListenableBuilder<Widget>(
+          valueListenable: iconNotifier,
+          builder: (ctx, child, _) {
+            return Container(
+                  width: 32.0,
+                  alignment: Alignment.center,
+                  child: child,
+                ) ??
+                SizedBox.shrink();
+          },
+        ),
+      ),
       validator: (v) {
         if (v.isEmpty) {
           return element.errorIsRequiredMessage;
@@ -81,6 +67,28 @@ class CardNumberField extends StatelessWidget {
         }
 
         return null;
+      },
+      onChanged: (v) {
+        if (controller.text.length < 2 && controller.text.isNotEmpty) {
+          String cardIconName = "";
+          if (controller.text.startsWith("4")) {
+            cardIconName = "assets/svg/visa.svg";
+          } else if (controller.text.startsWith("5")) {
+            cardIconName = "assets/svg/master-card.svg";
+          } else if (controller.text.startsWith("3")) {
+            cardIconName = "assets/svg/american-express.svg";
+          } else if (controller.text.startsWith("6")) {
+            cardIconName = "assets/svg/discover.svg";
+          }
+          if (cardIconName.isNotEmpty)
+            iconNotifier.value = SvgPicture.asset(
+              "packages/dynamic_form/$cardIconName",
+              height: 24,
+              width: 24,
+            );
+          else
+            iconNotifier.value = null;
+        }
       },
     );
   }
