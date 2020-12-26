@@ -99,7 +99,6 @@ class RoundedDecorationElement extends DecorationElement {
         );
 }
 
-
 ///  [shapeButtonLogin]           : shape of the Button.                                                             |
 ///  [backgroundColorButton]      : background color of the button                                                 |
 ///  [widthSubmitButton]          : size width of the button
@@ -122,6 +121,7 @@ class ButtonLoginDecorationElement {
     this.elevation = 2.0,
   });
 }
+
 ///  [shapeButtonLogin]           : shape of the Button.                                                             |
 ///  [backgroundColorButton]      : background color of the button                                                 |
 ///  [widthSubmitButton]          : size width of the button
@@ -143,4 +143,3 @@ class ButtonDecorationElement {
     this.elevation = 2.0,
   });
 }
-

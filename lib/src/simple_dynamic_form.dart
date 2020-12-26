@@ -232,7 +232,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
       );
-    }else if(element is CardNumberElement){
+    } else if (element is CardNumberElement) {
       return CardNumberField(
         controller: controller,
         currentFocus: focusNodeCurrent,

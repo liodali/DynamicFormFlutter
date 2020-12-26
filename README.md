@@ -1,11 +1,13 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.4.5%2B3-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.5.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 create your form with easier way
 
 ## Getting Started
 
- * generate form
+ * generate custom form
+ * login Form
+ * payment form
  * Pre-existing elements
 
 ## Installing
@@ -13,7 +15,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.4.5+3
+		dynamic_form: ^0.5.0
 
 
 
@@ -134,6 +136,47 @@ Add the following to your `pubspec.yaml` file:
  | `buttonLoginDecorationElement` | decoration of button that contain radius,backgroundColor,width |
  | `passwordError`                | messages errors to show  when password field not validate      |
  | `usernameEmailError`           | messages errors to show when email/username not validate       |
+
+
+### PaymentForm
+> pre-existing payment form to make easy for you to build
+## Simple Usage
+#### Creating a basic `PaymentForm` :
+
+
+```
+    PaymentForm(
+          decorationElement: OutlineDecorationElement(),
+          actionPayment: (cardNumber, cvv, date) async {
+            print("Credit Card information : $cardNumber,$cvv,$date");
+          },
+          errorMessageCVV: "cvv is invalid",
+          errorMessageDateExpiration: "date expiration is invalid",
+          errorIsRequiredMessage: "This field  is required",
+          labelCVV: "cvv",
+          labelDateExpiration: "date expiration",
+          labelCardNumber: "card number",
+          paymentText: Text("purchase"),
+        )
+```
+
+
+####  `Properties in LoginForm`
+
+ | Properties                     | Description                                                    |
+ | ------------------------------ | -------------------------------------------------------------- |
+ | `decorationElement`            | decoration of all input field in form                             |
+ | `actionPayment`                | callback to make your api call when you form is validate       |
+ | `paymentText`                  | Text widget of the submit button                               |
+ | `buttonDecoration`             | decoration of button that contain radius,backgroundColor,width |
+ | `errorMessageDateExpiration`   | messages errors to show  when Date Expiration field not validate      |
+ | `errorMessageCVV`              | messages errors to show when cvv field is invalidate            |
+ | `errorMessageCardNumber`       | messages errors to show when credit card number is invalidate   |
+ | `errorIsRequiredMessage`       | messages errors to show when at least one field not filled      |
+ | `labelCardNumber`              | text label of credit card number field                          |
+ | `labelDateExpiration`          | text label of date expiration field                             |
+ | `labelCVV`                     | text label of cvv field                                         |
+
 
 
 ### How to skectch your form ?

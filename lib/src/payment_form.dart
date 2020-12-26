@@ -46,7 +46,7 @@ class PaymentForm extends StatefulWidget {
     this.errorIsRequiredMessage,
     this.actionPayment,
     this.paymentText,
-    this.buttonDecoration=const ButtonDecorationElement(),
+    this.buttonDecoration = const ButtonDecorationElement(),
     Key key,
   }) : super(
           key: key,

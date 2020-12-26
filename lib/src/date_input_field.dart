@@ -2,8 +2,8 @@ import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'utilities/text_controller_format_input.dart';
 import 'utilities/constants.dart';
+import 'utilities/text_controller_format_input.dart';
 
 class DateInputField extends StatelessWidget {
   final DateInputElement element;
@@ -51,7 +51,6 @@ class DateInputField extends StatelessWidget {
         labelText: element.label,
       ),
       validator: element.validator,
-
       onChanged: (v) {
         controller.text = v;
         print(controller.text);
