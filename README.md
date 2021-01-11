@@ -456,7 +456,7 @@ Add the following to your `pubspec.yaml` file:
 
 | Properties                 | Description                                                                 |
 | ---------------------------| ----------------------------------------------------------------------------|
-| `minLength`                | minimun length accepted by password                                         |
+| `minLength`                | minimum length accepted by password                                         |
 | `hasUppercase`             | make password contains at least one upperCase character                     |
 | `hasSpecialCharacter`      | make password contains at least one special character                       |
 | `hasDigits`                | make password contains at least one digits                                  |
