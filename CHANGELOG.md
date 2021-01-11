@@ -1,3 +1,6 @@
+## [0.5.1] - beta version:
+* make CVVTextField obscure Text
+* create blueprint for CVVTextField
 ## [0.5.0] - beta version:
 * create new form : payment form
 * create dateInputField to enter date

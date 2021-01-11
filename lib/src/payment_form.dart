@@ -131,20 +131,22 @@ class _PaymentFormState extends State<PaymentForm> {
                     return null;
                   },
                 ),
-                TextElement(
-                    id: idCVV,
-                    decorationElement: widget.decorationElement,
-                    isRequired: true,
-                    typeInput: TypeInput.Numeric,
-                    label: widget.labelCVV,
-                    hint: widget.labelCVV,
-                    error: widget.errorIsRequiredMessage,
-                    validator: (v) {
-                      if (v.length != 3) {
-                        return widget.errorMessageCVV;
-                      }
-                      return null;
-                    }),
+                CVVElement(
+                  id: idCVV,
+                  decorationElement: widget.decorationElement,
+                  label: widget.labelCVV,
+                  hint: widget.labelCVV,
+                  error: widget.errorIsRequiredMessage,
+                  validator: (v) {
+                    if (v.isEmpty) {
+                      return widget.errorIsRequiredMessage;
+                    }
+                    if (v.length != 3) {
+                      return widget.errorMessageCVV;
+                    }
+                    return null;
+                  },
+                ),
               ],
             ),
           ],

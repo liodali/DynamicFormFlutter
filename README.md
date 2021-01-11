@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.5.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.5.1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 
 create your form with easier way
@@ -16,7 +16,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.5.0
+		dynamic_form: ^0.5.1
 
 
 
@@ -24,6 +24,7 @@ Add the following to your `pubspec.yaml` file:
 ## Simple Usage
 #### Creating a basic `SimpleDynamicForm`:
 
+```dart
         SimpleDynamicForm(
                   key: dynamicFormKey,
                   groupElements: [
@@ -43,6 +44,7 @@ Add the following to your `pubspec.yaml` file:
                                 )
                               ],
                           );
+```
 
 
 
@@ -82,7 +84,7 @@ Add the following to your `pubspec.yaml` file:
 #### Creating a basic `LoginForm` :
 
 
-```
+```dart
     LoginForm(
           callback: (email, password) {
             print("$email,$password");
@@ -146,7 +148,7 @@ Add the following to your `pubspec.yaml` file:
 #### Creating a basic `PaymentForm` :
 
 
-```
+```dart
     PaymentForm(
           decorationElement: OutlineDecorationElement(),
           actionPayment: (cardNumber, cvv, date) async {
@@ -454,7 +456,7 @@ Add the following to your `pubspec.yaml` file:
 
 | Properties                 | Description                                                                 |
 | ---------------------------| ----------------------------------------------------------------------------|
-| `minLength`                | minimun length accepted by password                                         |
+| `minLength`                | minimum length accepted by password                                         |
 | `hasUppercase`             | make password contains at least one upperCase character                     |
 | `hasSpecialCharacter`      | make password contains at least one special character                       |
 | `hasDigits`                | make password contains at least one digits                                  |

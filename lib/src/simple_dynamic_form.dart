@@ -1,6 +1,7 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/card_number_field.dart';
 import 'package:dynamic_form/src/country_text_field.dart';
+import 'package:dynamic_form/src/cvv_text_field.dart';
 import 'package:dynamic_form/src/date_input_field.dart';
 import 'package:dynamic_form/src/date_text_field.dart';
 import 'package:dynamic_form/src/element.dart';
@@ -234,6 +235,13 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
       );
     } else if (element is CardNumberElement) {
       return CardNumberField(
+        controller: controller,
+        currentFocus: focusNodeCurrent,
+        nextFocus: focusNodeNext,
+        element: element,
+      );
+    } else if (element is CVVElement) {
+      return CvvTextField(
         controller: controller,
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
