@@ -245,6 +245,7 @@ class NumberElement extends TextElement {
   final bool isDigits;
   final EdgeInsets padding;
   final bool readOnly;
+  final bool isRequired;
 
   //final List<String> suffix;
   NumberElement({
@@ -261,6 +262,7 @@ class NumberElement extends TextElement {
     this.errorStyle,
     this.padding = const EdgeInsets.all(2.0),
     this.validator,
+    this.isRequired = false,
     this.readOnly = false,
     bool visibility = true,
   }) : super(
@@ -270,6 +272,7 @@ class NumberElement extends TextElement {
           label: label,
           hint: hint,
           readOnly: readOnly,
+          isRequired: isRequired,
           typeInput: TypeInput.Numeric,
           visibility: visibility,
         );
@@ -312,6 +315,41 @@ class CardNumberElement extends NumberElement {
           errorStyle: errorStyle,
           readOnly: false,
           visibility: true,
+        );
+}
+
+class CVVElement extends NumberElement {
+  CVVElement({
+    String id,
+    initValue = "",
+    label = "",
+    hint = "",
+    decorationElement = const UnderlineDecorationElement(),
+    error,
+    textStyle,
+    labelStyle,
+    hintStyle,
+    errorStyle,
+    padding = const EdgeInsets.all(2.0),
+    validator,
+    readOnly = false,
+    bool visibility = true,
+  }) : super(
+          id: id,
+          decorationElement: decorationElement,
+          initValue: initValue,
+          label: label,
+          hint: hint,
+          validator: validator ??
+              (v) {
+                if (v.length != 3) {
+                  return error;
+                }
+                return null;
+              },
+          readOnly: readOnly,
+          visibility: visibility,
+          isDigits: true,
         );
 }
 
