@@ -1,4 +1,4 @@
-import 'package:dynamic_form/src/element.dart';
+import 'package:dynamic_form/src/elements/element.dart';
 import 'package:flutter/material.dart';
 
 enum DirectionGroup { Vertical, Horizontal }

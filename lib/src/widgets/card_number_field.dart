@@ -2,8 +2,8 @@ import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'utilities/constants.dart';
-import 'utilities/text_controller_format_input.dart';
+import '../utilities/constants.dart';
+import '../utilities/text_controller_format_input.dart';
 
 class CardNumberField extends StatelessWidget {
   final CardNumberElement element;

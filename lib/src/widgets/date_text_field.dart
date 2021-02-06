@@ -2,7 +2,7 @@ import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'utilities/constants.dart';
+import '../utilities/constants.dart';
 
 class DateTextField extends StatelessWidget {
   final DateElement element;

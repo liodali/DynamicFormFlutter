@@ -1,5 +1,5 @@
-import 'package:dynamic_form/src/element.dart';
-import 'package:dynamic_form/src/utilities/constants.dart';
+import '../elements/element.dart';
+import '../utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
