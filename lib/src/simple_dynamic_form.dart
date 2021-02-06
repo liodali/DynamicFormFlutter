@@ -1,17 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import './elements/element.dart';
+import './elements/group_elements.dart';
+import './utilities/constants.dart';
 import './widgets/card_number_field.dart';
 import './widgets/country_text_field.dart';
 import './widgets/cvv_text_field.dart';
 import './widgets/date_input_field.dart';
 import './widgets/date_text_field.dart';
-import './elements/element.dart';
 import './widgets/email_text_field.dart';
-import './elements/group_elements.dart';
 import './widgets/password_text_field.dart';
 import './widgets/phone_text_field.dart';
 import './widgets/text_area_form_field.dart';
-import './utilities/constants.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 ///  [padding]          : The amount of space by which to inset the form.                                                                          |
 ///  [groupElements]    :  list of element to build your form.                                                          |
@@ -152,9 +153,13 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
                                 gelement.sizeElements),
                             child: Padding(
                               padding: element.padding,
-                              child: generateTextField(
-                                element,
-                                gelement,
+                              child: _GenerateTextField(
+                                element: element,
+                                gElement: gelement,
+                                groupElements: widget.groupElements,
+                                controllers: _listGTextControler,
+                                focusList: focusList,
+                                textElements: gelement.textElements,
                               ),
                             ),
                           ),
@@ -176,7 +181,14 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
                           visible: element.visibility,
                           child: Padding(
                             padding: element.padding,
-                            child: generateTextField(element, gelement),
+                            child: _GenerateTextField(
+                              element: element,
+                              gElement: gelement,
+                              groupElements: widget.groupElements,
+                              controllers: _listGTextControler,
+                              focusList: focusList,
+                              textElements: gelement.textElements,
+                            ),
                           ),
                         ),
                       ],
@@ -201,11 +213,30 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     }
     return flex;
   }
+}
 
-  Widget generateTextField(TextElement element, GroupElement gElement) {
-    int gIndex = widget.groupElements.indexOf(gElement);
+class _GenerateTextField extends StatelessWidget {
+  final GroupElement gElement;
+  final List<GroupElement> groupElements;
+  final TextElement element;
+  final List<TextElement> textElements;
+  final List<List<TextEditingController>> controllers;
+  final List<List<FocusNode>> focusList;
+
+  _GenerateTextField({
+    this.element,
+    this.gElement,
+    this.groupElements,
+    this.textElements,
+    this.controllers,
+    this.focusList,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    int gIndex = groupElements.indexOf(gElement);
     int eIndex = gElement.textElements.indexOf(element);
-    var controller = _listGTextControler[gIndex][eIndex];
+    var controller = controllers[gIndex][eIndex];
 
     var focusNodeNext = focusList[gIndex].length > (eIndex + 1)
         ? focusList[gIndex][eIndex + 1]
@@ -252,8 +283,9 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         validator: element.validator,
         style: element.decorationElement?.style,
         focusNode: focusNodeCurrent,
-        inputFormatters:
-            element.isDigits ? [FilteringTextInputFormatter.digitsOnly] : [],
+        inputFormatters: (element as NumberElement).isDigits
+            ? [FilteringTextInputFormatter.digitsOnly]
+            : [],
         keyboardType: Constants.getInput(element.typeInput),
         readOnly: element.readOnly,
         textInputAction:
