@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.5.1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.6.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 
 create your form with easier way
@@ -16,7 +16,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.5.1
+		dynamic_form: ^0.6.0
 
 
 
@@ -62,20 +62,30 @@ Add the following to your `pubspec.yaml` file:
 
 ### validate forms
 
-` dynamicFormKey.currentState.validate() `
+```dart
+dynamicFormKey.currentState.validate()
+```
 ### recuperate all values in form :
-` dynamicFormKey.currentState.recuperateAllValues() `
+```dart
+dynamicFormKey.currentState.recuperateAllValues()
+```
 
 > if you are used ids in element, you can recuperate values with
 
-` dynamicFormKey.currentState.recuperateByIds()`
+```dart
+dynamicFormKey.currentState.recuperateByIds()
+```
 
 > you recuperate by id
 
-` dynamicFormKey.currentState.singleValueById(id)`
+```dart
+dynamicFormKey.currentState.singleValueById(id)
+```
 ### clear  all inputs in form :
 
-` dynamicFormKey.currentState.clearValues()`
+```dart
+dynamicFormKey.currentState.clearValues()
+```
 
 
 ### LoginForm
