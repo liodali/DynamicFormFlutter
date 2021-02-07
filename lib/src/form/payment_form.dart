@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import './simple_dynamic_form.dart';
-import 'decoration_element.dart';
-import 'element.dart';
-import 'group_elements.dart';
-import 'utilities/constants.dart';
+import '../simple_dynamic_form.dart';
+import '../widgets/decoration_element.dart';
+import '../elements/element.dart';
+import '../elements/group_elements.dart';
+import '../utilities/constants.dart';
 
 typedef onAction = Future<void> Function(
     String cardNumber, String cvv, String dateExpiration);

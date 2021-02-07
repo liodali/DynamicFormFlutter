@@ -1,5 +1,5 @@
 import 'package:dynamic_form/dynamic_form.dart';
-import 'package:dynamic_form/src/decoration_element.dart';
+import 'package:dynamic_form/src/widgets/decoration_element.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';

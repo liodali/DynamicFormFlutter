@@ -1,3 +1,5 @@
+## [0.6.0] - beta version:
+* optimisation replace function generateTextField with statelessWidget
 ## [0.5.1] - beta version:
 * make CVVTextField obscure Text
 * create blueprint for CVVTextField

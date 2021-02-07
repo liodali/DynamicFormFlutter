@@ -1,9 +1,9 @@
 library dynamic_form;
 
-export 'src/decoration_element.dart';
-export 'src/element.dart';
-export 'src/group_elements.dart';
-export 'src/login_form.dart';
-export 'src/payment_form.dart';
+export 'src/widgets/decoration_element.dart';
+export 'src/elements/element.dart';
+export 'src/elements/group_elements.dart';
+export 'src/form/login_form.dart';
+export 'src/form/payment_form.dart';
 export 'src/simple_dynamic_form.dart';
 export 'src/utilities/patterns.dart';

@@ -1,7 +1,7 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
 
-import 'utilities/constants.dart';
+import '../utilities/constants.dart';
 
 class CvvTextField extends StatelessWidget {
   final TextEditingController controller;

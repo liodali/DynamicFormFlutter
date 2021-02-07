@@ -1,5 +1,6 @@
-import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
+
+import '../../dynamic_form.dart';
 
 typedef loginCallback = Function(String username, String password);
 
