@@ -1,3 +1,6 @@
+## [0.7.0] - beta version:
+* remove usage of globalKey (breaking changes)
+* create FormController to get data or clear data from form
 ## [0.6.0] - beta version:
 * optimisation replace function generateTextField with statelessWidget
 ## [0.5.1] - beta version:

@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.6.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.7.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 
 create your form with easier way
@@ -16,7 +16,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.6.0
+		dynamic_form: ^0.7.0
 
 
 
@@ -26,7 +26,7 @@ Add the following to your `pubspec.yaml` file:
 
 ```dart
         SimpleDynamicForm(
-                  key: dynamicFormKey,
+                  controller: controller,
                   groupElements: [
                           GroupElement(
                                         directionGroup: DirectionGroup.Vertical,
@@ -56,35 +56,37 @@ Add the following to your `pubspec.yaml` file:
  | `padding`                      |  The amount of space by which to inset the form                |
 
 
-### Declare GlobalKey to get validation,list values of forms
+### Declare FormController to get validation,list values of forms
 
-`  GlobalKey<SimpleDynamicFormState> dynamicFormKey = GlobalKey<SimpleDynamicFormState>();`
+```dart
+FormController controller = FormController();
+```
 
 ### validate forms
 
 ```dart
-dynamicFormKey.currentState.validate()
+controller.validate();
 ```
 ### recuperate all values in form :
 ```dart
-dynamicFormKey.currentState.recuperateAllValues()
+controller.getAllValues()
 ```
 
 > if you are used ids in element, you can recuperate values with
 
 ```dart
-dynamicFormKey.currentState.recuperateByIds()
+controller.getByIds()
 ```
 
 > you recuperate by id
 
 ```dart
-dynamicFormKey.currentState.singleValueById(id)
+controller.getValueById(id)
 ```
 ### clear  all inputs in form :
 
 ```dart
-dynamicFormKey.currentState.clearValues()
+controller.clearValues()
 ```
 
 
@@ -95,14 +97,16 @@ dynamicFormKey.currentState.clearValues()
 
 
 ```dart
+  
     LoginForm(
+          controller:controller
           callback: (email, password) {
             print("$email,$password");
           },
-          buttonLoginDecorationElement: ButtonLoginDecorationElement(
+          buttonLoginDecorationElement: ButtonDecorationElement(
               backgroundColorButton: Colors.white,
               widthSubmitButton: 200,
-              shapeButtonLogin: StadiumBorder().copyWith(
+              shapeButton: StadiumBorder().copyWith(
                 side: BorderSide(
                   color: Colors.amber,
                   width: 0.6,
@@ -114,21 +118,12 @@ dynamicFormKey.currentState.clearValues()
           password: "Password",
           textButton: Text("Log IN"),
           paddingFields: const EdgeInsets.all(0),
-          decorationEmailElement: OutlineDecorationElement(
-            filledColor: Colors.white,
-            radius: BorderRadius.only(
-              topLeft: Radius.circular(5.0),
-              topRight: Radius.circular(5.0),
-            ),
-            widthSide: 0.6,
-          ),
-          decorationPasswordElement: OutlineDecorationElement(
-            filledColor: Colors.white,
+          decorationEmailElement: decoration,
+          decorationPasswordElement: decoration.copy(
             radius: BorderRadius.only(
               bottomLeft: Radius.circular(5.0),
               bottomRight: Radius.circular(5.0),
             ),
-            widthSide: 0.6,
           ),
         )
 ```
@@ -459,6 +454,18 @@ dynamicFormKey.currentState.clearValues()
 | `widthSubmitButton`     | width size of the login button       |
 | `elevation`             | elevation of the button              |
 
+* example 
+```dart
+///decoration Element 
+ final decoration = OutlineDecorationElement(
+                     filledColor: Colors.white,
+                     radius: BorderRadius.only(
+                       topLeft: Radius.circular(5.0),
+                       topRight: Radius.circular(5.0),
+                     ),
+                     widthSide: 0.6,
+                   );
+```
 
 ### `PasswordControls`
 
