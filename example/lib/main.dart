@@ -78,13 +78,12 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    GlobalKey<SimpleDynamicFormState> _globalKey =
-        GlobalKey<SimpleDynamicFormState>();
+    final controller = FormController();
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
           SimpleDynamicForm(
-            key: _globalKey,
+            controller: controller,
             groupElements: [
               GroupElement(
                 margin: EdgeInsets.only(bottom: 5.0),
@@ -173,16 +172,16 @@ class MyHomePage extends StatelessWidget {
             children: [
               RaisedButton(
                 onPressed: () {
-                  print(_globalKey.currentState.validate());
-                  print(_globalKey.currentState.recuperateAllValues());
-                  print(_globalKey.currentState.recuperateByIds());
-                  print(_globalKey.currentState.singleValueById("countries"));
+                  print(controller.validate());
+                  print(controller.getAllValues());
+                  print(controller.getAllValuesByIds());
+                  print(controller.getValueById("countries"));
                 },
                 child: Text("Validate"),
               ),
               RaisedButton(
                 onPressed: () {
-                  _globalKey.currentState.clearValues();
+                  controller.clearValues();
                 },
                 child: Text("Clear data"),
               ),

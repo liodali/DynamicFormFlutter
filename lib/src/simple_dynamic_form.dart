@@ -1,3 +1,4 @@
+import './controller/form_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,21 +20,23 @@ import './widgets/text_area_form_field.dart';
 class SimpleDynamicForm extends StatefulWidget {
   final List<GroupElement> groupElements;
   final EdgeInsets padding;
+  final FormController controller;
 
   SimpleDynamicForm({
     Key key,
+    @required this.controller,
     @required this.groupElements,
     this.padding,
   })  : assert(groupElements.isNotEmpty, "you cannot generate empty form"),
         super(key: key);
 
-  static SimpleDynamicFormState of(BuildContext context,
+  static FormController of(BuildContext context,
       {bool nullOk = false}) {
     assert(context != null);
     assert(nullOk != null);
-    final SimpleDynamicFormState result =
-        context.findAncestorStateOfType<SimpleDynamicFormState>();
-    if (nullOk || result != null) return result;
+    final SimpleDynamicForm result =
+        context.findAncestorWidgetOfExactType<SimpleDynamicForm>();
+    if (nullOk ) return result.controller;
     throw FlutterError.fromParts(<DiagnosticsNode>[
       ErrorSummary(
           'SimpleDynamicForm.of() called with a context that does not contain an SimpleDynamicForm.'),
@@ -55,7 +58,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
   Map<String, TextEditingController> mapGtextControler;
   List<List<FocusNode>> focusList;
 
-  recuperateAllValues() {
+  List<String> recuperateAllValues() {
     List<String> values = [];
     _listGTextControler.forEach((textControllers) {
       textControllers.forEach((controller) {
@@ -65,7 +68,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     return values;
   }
 
-  clearValues() {
+  void clearValues() {
     _listGTextControler.forEach((textControllers) {
       textControllers.forEach((controller) {
         controller.clear();
@@ -102,7 +105,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
             }
           }
         }));
-    listIds.asMap().forEach((key, value) {});
+    widget.controller.init(this);
     _formKey = GlobalKey<FormState>();
     _listGTextControler = [];
     mapGtextControler = {};

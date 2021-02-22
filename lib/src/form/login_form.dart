@@ -32,10 +32,12 @@ class LoginForm extends StatefulWidget {
   final PasswordControls passwordControls;
   final PasswordError passwordError;
   final UsernameEmailError usernameEmailError;
-  final ButtonLoginDecorationElement buttonLoginDecorationElement;
+  final ButtonDecorationElement buttonLoginDecorationElement;
+  final FormController controller;
 
   LoginForm({
     Key key,
+    @required this.controller,
     this.decorationEmailElement = const UnderlineDecorationElement(),
     this.decorationPasswordElement = const UnderlineDecorationElement(),
     this.directionGroup = DirectionGroup.Vertical,
@@ -48,7 +50,7 @@ class LoginForm extends StatefulWidget {
     this.textButton = const Text("LOG IN"),
     this.passwordError = const PasswordError(),
     this.usernameEmailError = const UsernameEmailError(),
-    this.buttonLoginDecorationElement = const ButtonLoginDecorationElement(),
+    this.buttonLoginDecorationElement = const ButtonDecorationElement(),
   }) : super(key: key);
 
   @override
@@ -56,14 +58,12 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  GlobalKey<SimpleDynamicFormState> globalKeyDynamic;
   TextEditingController username, password;
 
   @override
   void initState() {
     super.initState();
 
-    globalKeyDynamic = GlobalKey<SimpleDynamicFormState>();
     username = TextEditingController();
     password = TextEditingController();
   }
@@ -71,7 +71,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     Widget form = SimpleDynamicForm(
-      key: globalKeyDynamic,
+      controller: widget.controller,
       padding: widget.paddingFields,
       groupElements: [
         GroupElement(
@@ -80,6 +80,7 @@ class _LoginFormState extends State<LoginForm> {
           textElements: [
             widget.onlyEmail
                 ? EmailElement(
+                    id: "email",
                     decorationElement: widget.decorationEmailElement,
                     isRequired: true,
                     padding: widget.paddingFields,
@@ -91,6 +92,7 @@ class _LoginFormState extends State<LoginForm> {
                         widget.usernameEmailError.patternEmailErrorMsg,
                   )
                 : TextElement(
+                    id: "email",
                     validator: validatorUsername,
                     padding: widget.paddingFields,
                     textStyle: widget.decorationEmailElement.style ??
@@ -100,6 +102,7 @@ class _LoginFormState extends State<LoginForm> {
                     hint: widget.labelLogin,
                   ),
             PasswordElement(
+              id: "password",
               label: widget.password,
               errors: widget.passwordError,
               hint: widget.password,
@@ -139,14 +142,15 @@ class _LoginFormState extends State<LoginForm> {
       padding: EdgeInsets.all(5.0),
       child: RaisedButton(
         onPressed: () async {
-          if (globalKeyDynamic.currentState.validate()) {
+          if (widget.controller.validate()) {
             await widget.callback(
-                globalKeyDynamic.currentState.recuperateAllValues()[0],
-                globalKeyDynamic.currentState.recuperateAllValues()[1]);
+              widget.controller.getAllValues()[0],
+              widget.controller.getAllValues()[1],
+            );
           }
         },
         elevation: widget.buttonLoginDecorationElement.elevation,
-        shape: widget.buttonLoginDecorationElement.shapeButtonLogin,
+        shape: widget.buttonLoginDecorationElement.shapeButton,
         color: widget.buttonLoginDecorationElement.backgroundColorButton ??
             Theme.of(context).primaryColor,
         textColor: widget.textButton?.style != null

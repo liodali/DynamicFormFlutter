@@ -4,17 +4,19 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets("test password controls login form", (tester) async {
+    final controller = FormController();
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: LoginForm(
+            controller: controller,
             callback: (email, password) {
               print("$email,$password");
             },
-            buttonLoginDecorationElement: ButtonLoginDecorationElement(
+            buttonLoginDecorationElement: ButtonDecorationElement(
                 backgroundColorButton: Colors.white,
                 widthSubmitButton: 200,
-                shapeButtonLogin: StadiumBorder().copyWith(
+                shapeButton: StadiumBorder().copyWith(
                   side: BorderSide(
                     color: Colors.amber,
                     width: 0.6,
@@ -62,9 +64,8 @@ void main() {
 
     String v= password.validator("da");
     expect(v, "min length is 3");
-
-     v= password.validator("dali");
-    expect(v, null);
+    password.controller.text ="dali";
+    expect(controller.getValueById("password"), "dali");
 
 
   });
