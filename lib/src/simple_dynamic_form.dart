@@ -55,7 +55,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
   Map<String, TextEditingController> mapGtextControler;
   List<List<FocusNode>> focusList;
 
-  recuperateAllValues() {
+  List<String> recuperateAllValues() {
     List<String> values = [];
     _listGTextControler.forEach((textControllers) {
       textControllers.forEach((controller) {
@@ -65,7 +65,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     return values;
   }
 
-  clearValues() {
+  void clearValues() {
     _listGTextControler.forEach((textControllers) {
       textControllers.forEach((controller) {
         controller.clear();
