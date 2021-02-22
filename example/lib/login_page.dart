@@ -11,20 +11,31 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    final decoration = OutlineDecorationElement(
+      filledColor: Colors.white,
+      radius: BorderRadius.only(
+        topLeft: Radius.circular(5.0),
+        topRight: Radius.circular(5.0),
+      ),
+      widthSide: 0.6,
+    );
+    final buttonDecoration = ButtonDecorationElement(
+      backgroundColorButton: Colors.white,
+      widthSubmitButton: 200,
+      shapeButton: StadiumBorder().copyWith(
+        side: BorderSide(
+          color: Colors.amber,
+          width: 0.6,
+        ),
+      ),
+      elevation: 0.0,
+    );
     return LoginForm(
+      controller: FormController(),
       callback: (email, password) {
         print("$email,$password");
       },
-      buttonLoginDecorationElement: ButtonLoginDecorationElement(
-          backgroundColorButton: Colors.white,
-          widthSubmitButton: 200,
-          shapeButtonLogin: StadiumBorder().copyWith(
-            side: BorderSide(
-              color: Colors.amber,
-              width: 0.6,
-            ),
-          ),
-          elevation: 0.0),
+      buttonLoginDecorationElement: buttonDecoration,
       onlyEmail: false,
       labelLogin: "Username",
       password: "Password",
@@ -34,21 +45,12 @@ class _LoginPageState extends State<LoginPage> {
         false,
         passwordMinLength: 3,
       ),
-      decorationEmailElement: OutlineDecorationElement(
-        filledColor: Colors.white,
-        radius: BorderRadius.only(
-          topLeft: Radius.circular(5.0),
-          topRight: Radius.circular(5.0),
-        ),
-        widthSide: 0.6,
-      ),
-      decorationPasswordElement: OutlineDecorationElement(
-        filledColor: Colors.white,
+      decorationEmailElement: decoration,
+      decorationPasswordElement: decoration.copy(
         radius: BorderRadius.only(
           bottomLeft: Radius.circular(5.0),
           bottomRight: Radius.circular(5.0),
         ),
-        widthSide: 0.6,
       ),
     );
   }

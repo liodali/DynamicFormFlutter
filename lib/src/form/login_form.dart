@@ -33,9 +33,11 @@ class LoginForm extends StatefulWidget {
   final PasswordError passwordError;
   final UsernameEmailError usernameEmailError;
   final ButtonDecorationElement buttonLoginDecorationElement;
+  final   FormController controller;
 
   LoginForm({
     Key key,
+    @required this.controller,
     this.decorationEmailElement = const UnderlineDecorationElement(),
     this.decorationPasswordElement = const UnderlineDecorationElement(),
     this.directionGroup = DirectionGroup.Vertical,
@@ -56,7 +58,6 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  FormController controller;
   TextEditingController username, password;
 
   @override
@@ -70,7 +71,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     Widget form = SimpleDynamicForm(
-      controller: controller,
+      controller: widget.controller,
       padding: widget.paddingFields,
       groupElements: [
         GroupElement(
@@ -138,10 +139,10 @@ class _LoginFormState extends State<LoginForm> {
       padding: EdgeInsets.all(5.0),
       child: RaisedButton(
         onPressed: () async {
-          if (controller.validate()) {
+          if (widget.controller.validate()) {
             await widget.callback(
-              controller.getAllValues()[0],
-              controller.getAllValues()[1],
+              widget.controller.getAllValues()[0],
+              widget.controller.getAllValues()[1],
             );
           }
         },

@@ -5,11 +5,12 @@ abstract class BaseFormController {
 
   List<String> getAllValues();
 
+  Map<String, String> getAllValuesByIds();
+
   String getValueById(String id);
 
   void clearValues();
 }
-
 
 class FormController extends BaseFormController {
   SimpleDynamicFormState _formState;
@@ -38,4 +39,8 @@ class FormController extends BaseFormController {
     _formState.clearValues();
   }
 
+  @override
+  Map<String, String> getAllValuesByIds() {
+    return _formState.recuperateByIds();
+  }
 }

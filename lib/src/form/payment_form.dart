@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../simple_dynamic_form.dart';
-import '../widgets/decoration_element.dart';
+import '../../dynamic_form.dart';
 import '../elements/element.dart';
 import '../elements/group_elements.dart';
+import '../simple_dynamic_form.dart';
 import '../utilities/constants.dart';
+import '../widgets/decoration_element.dart';
 
 typedef onAction = Future<void> Function(
     String cardNumber, String cvv, String dateExpiration);
@@ -63,7 +64,7 @@ class _PaymentFormState extends State<PaymentForm> {
 
   DateTime endDate;
 
-  GlobalKey<SimpleDynamicFormState> globalKey;
+  FormController controller;
 
   static const String idCardNumber = "id-card-number";
   static const String idCVV = "id-cvv";
@@ -75,7 +76,7 @@ class _PaymentFormState extends State<PaymentForm> {
   @override
   void initState() {
     super.initState();
-    globalKey = GlobalKey<SimpleDynamicFormState>();
+    controller = FormController();
     startedDate = DateTime.now().parseFormat(dateFormat);
     endDate = DateTime.now().add(Duration(days: 3650)).parseFormat(dateFormat);
 
@@ -90,7 +91,7 @@ class _PaymentFormState extends State<PaymentForm> {
     return Column(
       children: [
         SimpleDynamicForm(
-          key: globalKey,
+          controller: controller,
           groupElements: [
             GroupElement(
               directionGroup: DirectionGroup.Vertical,
@@ -155,12 +156,11 @@ class _PaymentFormState extends State<PaymentForm> {
           width: widget.buttonDecoration.widthSubmitButton,
           child: RaisedButton(
             onPressed: () async {
-              if (globalKey.currentState.validate()) {
-                final cardNumber =
-                    globalKey.currentState.singleValueById(idCardNumber);
-                final cvv = globalKey.currentState.singleValueById(idCVV);
+              if (controller.validate()) {
+                final cardNumber = controller.getValueById(idCardNumber);
+                final cvv = controller.getValueById(idCVV);
                 final dateExpiration =
-                    globalKey.currentState.singleValueById(idDateExpiration);
+                    controller.getValueById(idDateExpiration);
                 await widget.actionPayment(cardNumber, cvv, dateExpiration);
               }
             },

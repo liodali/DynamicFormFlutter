@@ -105,7 +105,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
             }
           }
         }));
-    listIds.asMap().forEach((key, value) {});
+    widget.controller.init(this);
     _formKey = GlobalKey<FormState>();
     _listGTextControler = [];
     mapGtextControler = {};
