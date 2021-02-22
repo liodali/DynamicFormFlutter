@@ -33,7 +33,7 @@ class LoginForm extends StatefulWidget {
   final PasswordError passwordError;
   final UsernameEmailError usernameEmailError;
   final ButtonDecorationElement buttonLoginDecorationElement;
-  final   FormController controller;
+  final FormController controller;
 
   LoginForm({
     Key key,
@@ -80,6 +80,7 @@ class _LoginFormState extends State<LoginForm> {
           textElements: [
             widget.onlyEmail
                 ? EmailElement(
+                    id: "email",
                     decorationElement: widget.decorationEmailElement,
                     isRequired: true,
                     padding: widget.paddingFields,
@@ -91,6 +92,7 @@ class _LoginFormState extends State<LoginForm> {
                         widget.usernameEmailError.patternEmailErrorMsg,
                   )
                 : TextElement(
+                    id: "email",
                     validator: validatorUsername,
                     padding: widget.paddingFields,
                     textStyle: widget.decorationEmailElement.style ??
@@ -100,6 +102,7 @@ class _LoginFormState extends State<LoginForm> {
                     hint: widget.labelLogin,
                   ),
             PasswordElement(
+              id: "password",
               label: widget.password,
               errors: widget.passwordError,
               hint: widget.password,
