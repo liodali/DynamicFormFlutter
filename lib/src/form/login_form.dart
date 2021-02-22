@@ -32,7 +32,7 @@ class LoginForm extends StatefulWidget {
   final PasswordControls passwordControls;
   final PasswordError passwordError;
   final UsernameEmailError usernameEmailError;
-  final ButtonLoginDecorationElement buttonLoginDecorationElement;
+  final ButtonDecorationElement buttonLoginDecorationElement;
 
   LoginForm({
     Key key,
@@ -48,7 +48,7 @@ class LoginForm extends StatefulWidget {
     this.textButton = const Text("LOG IN"),
     this.passwordError = const PasswordError(),
     this.usernameEmailError = const UsernameEmailError(),
-    this.buttonLoginDecorationElement = const ButtonLoginDecorationElement(),
+    this.buttonLoginDecorationElement = const ButtonDecorationElement(),
   }) : super(key: key);
 
   @override
@@ -56,14 +56,13 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  GlobalKey<SimpleDynamicFormState> globalKeyDynamic;
+  FormController controller;
   TextEditingController username, password;
 
   @override
   void initState() {
     super.initState();
 
-    globalKeyDynamic = GlobalKey<SimpleDynamicFormState>();
     username = TextEditingController();
     password = TextEditingController();
   }
@@ -71,7 +70,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     Widget form = SimpleDynamicForm(
-      key: globalKeyDynamic,
+      controller: controller,
       padding: widget.paddingFields,
       groupElements: [
         GroupElement(
@@ -139,14 +138,15 @@ class _LoginFormState extends State<LoginForm> {
       padding: EdgeInsets.all(5.0),
       child: RaisedButton(
         onPressed: () async {
-          if (globalKeyDynamic.currentState.validate()) {
+          if (controller.validate()) {
             await widget.callback(
-                globalKeyDynamic.currentState.recuperateAllValues()[0],
-                globalKeyDynamic.currentState.recuperateAllValues()[1]);
+              controller.getAllValues()[0],
+              controller.getAllValues()[1],
+            );
           }
         },
         elevation: widget.buttonLoginDecorationElement.elevation,
-        shape: widget.buttonLoginDecorationElement.shapeButtonLogin,
+        shape: widget.buttonLoginDecorationElement.shapeButton,
         color: widget.buttonLoginDecorationElement.backgroundColorButton ??
             Theme.of(context).primaryColor,
         textColor: widget.textButton?.style != null

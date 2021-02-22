@@ -15,6 +15,12 @@ abstract class DecorationElement {
     this.focusColor,
     this.style,
   });
+
+  DecorationElement copy({
+    Color filledColor,
+    Color focusColor,
+    TextStyle style,
+  });
 }
 
 ///  [borderColor]         : The border Color to display when the InputDecorator does not have the focus.
@@ -48,6 +54,30 @@ class UnderlineDecorationElement extends DecorationElement {
           focusColor: focusColor ?? Colors.white,
           style: textStyle,
         );
+
+  @override
+  DecorationElement copy({
+    Color borderColor,
+    Color errorBorderColor = Colors.red,
+    Color focusBorderColor,
+    Color disabledBorderColor,
+    BorderRadius radius = const BorderRadius.all(Radius.circular(0.0)),
+    double widthSide = 1.0,
+    Color filledColor,
+    Color focusColor,
+    TextStyle style,
+  }) {
+    return UnderlineDecorationElement(
+      borderColor: borderColor ?? this.borderColor,
+      errorBorderColor: errorBorderColor ?? this.errorBorderColor,
+      focusBorderColor: focusBorderColor ?? this.focusBorderColor,
+      disabledBorderColor: disabledBorderColor ?? this.disabledBorderColor,
+      radius: radius ?? this.radius,
+      widthSide: widthSide ?? this.widthSide,
+      focusColor: focusColor ?? this.focusColor,
+      textStyle: style ?? this.style,
+    );
+  }
 }
 
 ///  [borderColor]         : The border Color to display when the InputDecorator does not have the focus.
@@ -79,6 +109,29 @@ class OutlineDecorationElement extends DecorationElement {
           focusColor: focusColor ?? Colors.white,
           style: textStyle,
         );
+
+  @override
+  DecorationElement copy({
+    Color borderColor,
+    Color errorBorderColor,
+    Color focusBorderColor,
+    Color disabledBorderColor,
+    double widthSide,
+    Color filledColor,
+    Color focusColor,
+    TextStyle style,
+  }) {
+    return OutlineDecorationElement(
+      borderColor: borderColor ?? this.borderColor,
+      errorBorderColor: errorBorderColor ?? this.errorBorderColor,
+      focusBorderColor: focusBorderColor ?? this.focusBorderColor,
+      disabledBorderColor: disabledBorderColor ?? this.disabledBorderColor,
+      widthSide: widthSide ?? this.widthSide,
+      filledColor: filledColor ?? this.filledColor,
+      focusColor: focusColor ?? this.focusColor,
+      textStyle: style ?? this.style,
+    );
+  }
 }
 
 ///  [radius]              : radius of the border.                                                             |
@@ -97,6 +150,21 @@ class RoundedDecorationElement extends DecorationElement {
           focusColor: focusColor ?? Colors.white,
           style: textStyle,
         );
+
+  @override
+  DecorationElement copy({
+    double radius,
+    Color filledColor,
+    Color focusColor,
+    TextStyle style,
+  }) {
+    return RoundedDecorationElement(
+      radius: radius ?? this.radius,
+      filledColor: filledColor ?? this.filledColor,
+      focusColor: focusColor ?? this.focusColor,
+      textStyle: style ?? this.style,
+    );
+  }
 }
 
 ///  [shapeButtonLogin]           : shape of the Button.                                                             |
