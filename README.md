@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.7.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.7.1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 
 create your form with easier way
@@ -16,7 +16,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.7.0
+		dynamic_form: ^0.7.1
 
 
 
@@ -54,6 +54,8 @@ Add the following to your `pubspec.yaml` file:
  | ------------------------------ | -------------------------------------------------------------- |
  | `groupElements`                | list of element to build your form                             |
  | `padding`                      |  The amount of space by which to inset the form                |
+ | `controller`                   |  The FormController to get values and validate your form       |
+ | `submitButton`                 |  (Widget) custom submit Widget that you want to add to the form |
 
 
 ### Declare FormController to get validation,list values of forms
@@ -92,6 +94,7 @@ controller.clearValues()
 
 ### LoginForm
 > pre-existing login form to make easy for you to build
+
 ## Simple Usage
 #### Creating a basic `LoginForm` :
 
@@ -133,6 +136,7 @@ controller.clearValues()
 
  | Properties                     | Description                                                    |
  | ------------------------------ | -------------------------------------------------------------- |
+ | `controller`                   | FormController to validate login form and get data                             |
  | `decorationEmailElement`       | input decoration of email field in form                             |
  | `decorationPasswordElement`    | input decoration of password field in form                             |
  | `directionGroup`               | Direction of form (Vertical/Horizontal)                        |

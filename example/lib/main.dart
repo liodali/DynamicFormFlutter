@@ -76,119 +76,129 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
 }
 
 class MyHomePage extends StatelessWidget {
+  // controller.clearValues()
   @override
   Widget build(BuildContext context) {
     final controller = FormController();
-    return SingleChildScrollView(
-      child: Column(
-        children: <Widget>[
-          SimpleDynamicForm(
-            controller: controller,
-            groupElements: [
-              GroupElement(
-                margin: EdgeInsets.only(bottom: 5.0),
-                directionGroup: DirectionGroup.Horizontal,
-                sizeElements: [0.3],
-                textElements: [
-                  TextElement(
-                      initValue: "",
-                      label: "first name",
-                      hint: "first name",
-                      validator: (v) {
-                        if (v.isEmpty) {
-                          return "err";
-                        }
-                        return null;
-                      }),
-                  TextElement(
-                    label: "last name",
-                    isRequired: true,
-                    initValue: "your name",
-                    validator: (v){
-                      if(v!="your name"){
-                        return "name not accepted";
-                      }
-                      return null;
-                    }
+    return Stack(
+      children: [
+        SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SimpleDynamicForm(
+                controller: controller,
+                groupElements: [
+                  GroupElement(
+                    margin: EdgeInsets.only(bottom: 5.0),
+                    directionGroup: DirectionGroup.Horizontal,
+                    sizeElements: [0.3],
+                    textElements: [
+                      TextElement(
+                          initValue: "",
+                          label: "first name",
+                          hint: "first name",
+                          validator: (v) {
+                            if (v.isEmpty) {
+                              return "err";
+                            }
+                            return null;
+                          }),
+                      TextElement(
+                          label: "last name",
+                          isRequired: true,
+                          initValue: "your name",
+                          validator: (v) {
+                            if (v != "your name") {
+                              return "name not accepted";
+                            }
+                            return null;
+                          }),
+                    ],
+                  ),
+                  GroupElement(
+                    directionGroup: DirectionGroup.Vertical,
+                    textElements: [
+                      PhoneNumberElement(
+                        label: "Phone Number",
+                        hint: "XXXXXXXXX",
+                        errorMsg: "invalid phone number",
+                        initValue: "1234567",
+                        showPrefix: true,
+                        showPrefixFlag: true,
+                        readOnly: false,
+                        visibility: false,
+                        decorationElement: OutlineDecorationElement(
+                          borderColor: Colors.grey,
+                        ),
+                      ),
+                      DateElement(
+                        id: "date",
+                        hint: "date",
+                        label: "date",
+                        isRequired: true,
+                        errorMsg: "this field is required",
+                      ),
+                      TextElement(
+                        label: "last name",
+                        isRequired: true,
+                        initValue: "your name",
+                        error: "this field is required",
+                        validator: (v) {
+                          if (v != "your name") {
+                            return "name not accepted";
+                          }
+                          return null;
+                        },
+                      ),
+                    ],
+                  ),
+                  GroupElement(
+                    directionGroup: DirectionGroup.Vertical,
+                    textElements: [
+                      CountryElement(
+                        id: "countries",
+                        label: "Pays",
+                        labelModalSheet: "Pays",
+                        labelSearchModalSheet: "search",
+                        initValue: "",
+                        countryTextResult: CountryTextResult.countryCode,
+                        showFlag: true,
+                      ),
+                      TextAreaElement(
+                          maxCharacter: 300, maxLines: 4, showCounter: false)
+                    ],
                   ),
                 ],
-              ),
-              GroupElement(
-                directionGroup: DirectionGroup.Vertical,
-                textElements: [
-                  PhoneNumberElement(
-                    label: "Phone Number",
-                    hint: "XXXXXXXXX",
-                    errorMsg: "invalid phone number",
-                    initValue: "1234567",
-                    showPrefix: true,
-                    showPrefixFlag: true,
-                    readOnly: false,
-                    visibility: false,
-                    decorationElement: OutlineDecorationElement(
-                      borderColor: Colors.grey,
-                    ),
-                  ),
-                  DateElement(
-                    id: "date",
-                    hint: "date",
-                    label: "date",
-                    isRequired: true,
-                    errorMsg: "this field is required",
-                  ),
-                  TextElement(
-                    label: "last name",
-                    isRequired: true,
-                    initValue: "your name",
-                    error: "this field is required",
-                    validator: (v) {
-                      if (v != "your name") {
-                        return "name not accepted";
-                      }
-                      return null;
-                    },
-                  ),
-                ],
-              ),
-              GroupElement(
-                directionGroup: DirectionGroup.Vertical,
-                textElements: [
-                  CountryElement(
-                    id: "countries",
-                    label: "Pays",
-                    labelModalSheet: "Pays",
-                    labelSearchModalSheet: "search",
-                    initValue: "",
-                    countryTextResult: CountryTextResult.countryCode,
-                    showFlag: true,
-                  ),
-                  TextAreaElement(
-                      maxCharacter: 300, maxLines: 4, showCounter: false)
-                ],
+                submitButton: SubmitForm(),
               ),
             ],
           ),
-          Row(
-            children: [
-              RaisedButton(
-                onPressed: () {
-                  print(controller.validate());
-                  print(controller.getAllValues());
-                  print(controller.getAllValuesByIds());
-                  print(controller.getValueById("countries"));
-                },
-                child: Text("Validate"),
-              ),
-              RaisedButton(
-                onPressed: () {
-                  controller.clearValues();
-                },
-                child: Text("Clear data"),
-              ),
-            ],
-          )
-        ],
-      ),
+        ),Positioned(
+          bottom: 16,
+          right: 8,
+          child: FloatingActionButton(
+            heroTag: "clearForm",
+            child: Icon(Icons.delete),
+            onPressed: () => controller.clearValues(),
+          ),
+        ),
+      ],
     );
   }
+}
+class SubmitForm extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    final controller = SimpleDynamicForm.of(context);
+    return RaisedButton(
+      onPressed: () {
+        print(controller.validate());
+        print(controller.getAllValues());
+        print(controller.getAllValuesByIds());
+        print(controller.getValueById("countries"));
+      },
+      child: Text("Validate"),
+    );
+  }
+
 }

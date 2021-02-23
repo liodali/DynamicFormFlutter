@@ -1,7 +1,7 @@
-import './controller/form_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import './controller/form_controller.dart';
 import './elements/element.dart';
 import './elements/group_elements.dart';
 import './utilities/constants.dart';
@@ -21,22 +21,23 @@ class SimpleDynamicForm extends StatefulWidget {
   final List<GroupElement> groupElements;
   final EdgeInsets padding;
   final FormController controller;
+  final Widget submitButton;
 
   SimpleDynamicForm({
     Key key,
     @required this.controller,
     @required this.groupElements,
+    this.submitButton,
     this.padding,
   })  : assert(groupElements.isNotEmpty, "you cannot generate empty form"),
         super(key: key);
 
-  static FormController of(BuildContext context,
-      {bool nullOk = false}) {
+  static FormController of(BuildContext context, {bool nullOk = false}) {
     assert(context != null);
     assert(nullOk != null);
     final SimpleDynamicForm result =
         context.findAncestorWidgetOfExactType<SimpleDynamicForm>();
-    if (nullOk ) return result.controller;
+    if (nullOk || result != null) return result.controller;
     throw FlutterError.fromParts(<DiagnosticsNode>[
       ErrorSummary(
           'SimpleDynamicForm.of() called with a context that does not contain an SimpleDynamicForm.'),
@@ -200,6 +201,13 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
                 ),
               ]
             ],
+            if (widget.submitButton != null) ...[
+              Builder(
+                builder: (context) {
+                  return widget.submitButton;
+                },
+              )
+            ]
           ],
         ),
       ),
