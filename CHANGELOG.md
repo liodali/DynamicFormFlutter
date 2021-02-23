@@ -1,3 +1,5 @@
+## [0.7.1] - beta version:
+* add submitButton as custom Widget in simpleDynamicForm
 ## [0.7.0] - beta version:
 * remove usage of globalKey (breaking changes)
 * create FormController to get data or clear data from form
