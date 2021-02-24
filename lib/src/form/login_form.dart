@@ -6,6 +6,7 @@ typedef loginCallback = Function(String username, String password);
 
 /// [LoginForm]:Pre-existing form ,make easy to build your login form
 
+/// [controller]
 /// [decorationEmailElement] : input decoration of email/username fields of form
 /// [decorationPasswordElement] : input decoration of password fields of form
 /// [directionGroup] : Direction of form (Vertical/Horizontal)
@@ -20,6 +21,8 @@ typedef loginCallback = Function(String username, String password);
 ///  [usernameEmailError] : messages errors to show when email/username not validate
 
 class LoginForm extends StatefulWidget {
+
+  final LoginFormController controller;
   final DecorationElement decorationEmailElement;
   final DecorationElement decorationPasswordElement;
   final DirectionGroup directionGroup;
@@ -33,7 +36,6 @@ class LoginForm extends StatefulWidget {
   final PasswordError passwordError;
   final UsernameEmailError usernameEmailError;
   final ButtonDecorationElement buttonLoginDecorationElement;
-  final FormController controller;
   final Widget submitLogin;
   LoginForm({
     Key key,
@@ -55,16 +57,17 @@ class LoginForm extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LoginFormState createState() => _LoginFormState();
+  LoginFormState createState() => LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class LoginFormState extends State<LoginForm> {
   TextEditingController username, password;
+   FormController controller;
 
   @override
   void initState() {
     super.initState();
-
+    controller = FormController();
     username = TextEditingController();
     password = TextEditingController();
   }
@@ -72,7 +75,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     Widget form = SimpleDynamicForm(
-      controller: widget.controller,
+      controller: controller,
       padding: widget.paddingFields,
       groupElements: [
         GroupElement(
@@ -145,8 +148,8 @@ class _LoginFormState extends State<LoginForm> {
         onPressed: () async {
           if (widget.controller.validate()) {
             await widget.callback(
-              widget.controller.getAllValues()[0],
-              widget.controller.getAllValues()[1],
+              widget.controller.email,
+              widget.controller.password,
             );
           }
         },
