@@ -549,11 +549,10 @@ class DateElement extends TextElement {
         );
 }
 
-/// blueprint that open date input to date
+/// blueprint that  date input to date
 ///
 /// [id] : String,should be unique.
 /// [initDate] : (DateTime)  initialize the input field.
-/// [format] : (DateFormat)  for format the date  that you pick (default  :DateFormat.yMd()).
 /// [label] : (String) text label of TextField.
 /// [decorationElement] :input decoration of TextField.
 /// [hint] : (String) hint text of textField.

@@ -8,10 +8,12 @@ class EmailTextField extends StatelessWidget {
   final InputDecoration inputDecoration;
   final FocusNode currentFocus;
   final FocusNode nextFocus;
+  final ValueNotifier<String> errorNotifier;
 
   EmailTextField({
     this.emailElement,
     this.textEditingController,
+    this.errorNotifier,
     this.inputDecoration,
     this.currentFocus,
     this.nextFocus,
@@ -20,7 +22,42 @@ class EmailTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     this.textEditingController.text = emailElement.initValue;
-    return TextFormField(
+    if (errorNotifier != null) {
+      return ValueListenableBuilder<String>(
+          valueListenable: errorNotifier,
+          builder: (ctx, error, _) {
+            return TextFormField(
+              controller: textEditingController,
+              validator: emailElement.validator,
+              readOnly: emailElement.readOnly,
+              keyboardType: Constants.getInput(emailElement.typeInput),
+              style: emailElement.decorationElement.style,
+              focusNode: currentFocus,
+              textInputAction:
+              nextFocus == null ? TextInputAction.done : TextInputAction.next,
+              onFieldSubmitted: (v) {
+                Constants.fieldFocusChange(context, currentFocus, nextFocus);
+              },
+              decoration: inputDecoration.copyWith(
+                labelStyle: emailElement.textStyle ??
+                    Theme
+                        .of(context)
+                        .inputDecorationTheme
+                        .labelStyle,
+                errorStyle: emailElement.errorStyle ??
+                    Theme
+                        .of(context)
+                        .inputDecorationTheme
+                        .labelStyle,
+                hintText: emailElement.hint,
+                labelText: emailElement.label,
+                errorText: error,
+              ),
+            );
+          }
+      );
+    }
+    return  TextFormField(
       controller: textEditingController,
       validator: emailElement.validator,
       readOnly: emailElement.readOnly,
@@ -28,15 +65,21 @@ class EmailTextField extends StatelessWidget {
       style: emailElement.decorationElement.style,
       focusNode: currentFocus,
       textInputAction:
-          nextFocus == null ? TextInputAction.done : TextInputAction.next,
+      nextFocus == null ? TextInputAction.done : TextInputAction.next,
       onFieldSubmitted: (v) {
         Constants.fieldFocusChange(context, currentFocus, nextFocus);
       },
       decoration: inputDecoration.copyWith(
         labelStyle: emailElement.textStyle ??
-            Theme.of(context).inputDecorationTheme.labelStyle,
+            Theme
+                .of(context)
+                .inputDecorationTheme
+                .labelStyle,
         errorStyle: emailElement.errorStyle ??
-            Theme.of(context).inputDecorationTheme.labelStyle,
+            Theme
+                .of(context)
+                .inputDecorationTheme
+                .labelStyle,
         hintText: emailElement.hint,
         labelText: emailElement.label,
       ),

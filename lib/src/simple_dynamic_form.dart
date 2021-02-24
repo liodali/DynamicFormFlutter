@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -29,14 +30,15 @@ class SimpleDynamicForm extends StatefulWidget {
     @required this.groupElements,
     this.submitButton,
     this.padding,
-  })  : assert(groupElements.isNotEmpty, "you cannot generate empty form"),
+  })
+      : assert(groupElements.isNotEmpty, "you cannot generate empty form"),
         super(key: key);
 
   static FormController of(BuildContext context, {bool nullOk = false}) {
     assert(context != null);
     assert(nullOk != null);
     final SimpleDynamicForm result =
-        context.findAncestorWidgetOfExactType<SimpleDynamicForm>();
+    context.findAncestorWidgetOfExactType<SimpleDynamicForm>();
     if (nullOk || result != null) return result.controller;
     throw FlutterError.fromParts(<DiagnosticsNode>[
       ErrorSummary(
@@ -55,13 +57,14 @@ class SimpleDynamicForm extends StatefulWidget {
 
 class SimpleDynamicFormState extends State<SimpleDynamicForm> {
   GlobalKey<FormState> _formKey;
-  List<List<TextEditingController>> _listGTextControler;
-  Map<String, TextEditingController> mapGtextControler;
+  List<List<TextEditingController>> _listGTextController;
+  Map<String, TextEditingController> _mapGTextController;
+  Map<String, ValueNotifier<String>> _mapValueNotifierErrorField;
   List<List<FocusNode>> focusList;
 
   List<String> recuperateAllValues() {
     List<String> values = [];
-    _listGTextControler.forEach((textControllers) {
+    _listGTextController.forEach((textControllers) {
       textControllers.forEach((controller) {
         values.add(controller.text);
       });
@@ -70,34 +73,47 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
   }
 
   void clearValues() {
-    _listGTextControler.forEach((textControllers) {
+    _listGTextController.forEach((textControllers) {
       textControllers.forEach((controller) {
         controller.clear();
       });
     });
   }
 
+  void clearValueById(String id) {
+    _mapGTextController[id].clear();
+  }
+
   Map<String, String> recuperateByIds() {
     Map<String, String> values = {};
-    mapGtextControler.forEach((key, value) {
+    _mapGTextController.forEach((key, value) {
       values.putIfAbsent(key, () => value.text);
     });
     return values;
   }
 
   String singleValueById(String id) {
-    if (mapGtextControler.containsKey(id)) {
-      return mapGtextControler[id].text;
-    } else {
-      throw (Exception("id doesn't exist"));
-    }
+    assert(_mapGTextController.containsKey(id), "id doesn't exist");
+    return _mapGTextController[id].text;
+  }
+
+  void errorFieldById(String id, String error) {
+    assert(_mapValueNotifierErrorField.containsKey(id), "id doesn't exist");
+    _mapValueNotifierErrorField[id].value = error;
+  }
+
+  void clearErrors() {
+    _mapValueNotifierErrorField.forEach((key, value) {
+      _mapValueNotifierErrorField[key].value = null;
+    });
   }
 
   @override
   void initState() {
     super.initState();
     var listIds = [];
-    widget.groupElements.forEach((e) => e.textElements.forEach((elem) {
+    widget.groupElements.forEach((e) =>
+        e.textElements.forEach((elem) {
           if (listIds.isEmpty || !listIds.contains(elem.id))
             listIds.add(elem.id);
           else {
@@ -106,10 +122,10 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
             }
           }
         }));
-    widget.controller.init(this);
     _formKey = GlobalKey<FormState>();
-    _listGTextControler = [];
-    mapGtextControler = {};
+    _listGTextController = [];
+    _mapGTextController = {};
+    _mapValueNotifierErrorField = {};
     focusList = [];
     widget.groupElements.forEach((g) {
       List<TextEditingController> _list = [];
@@ -118,13 +134,16 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         var controllerText = TextEditingController(text: e.initValue);
         _list.add(controllerText);
         if (e.id != null && e.id.isNotEmpty) {
-          mapGtextControler.putIfAbsent("${e.id}", () => controllerText);
+          _mapGTextController.putIfAbsent("${e.id}", () => controllerText);
+          _mapValueNotifierErrorField.putIfAbsent(
+              "${e.id}", () => ValueNotifier(null));
         }
         _listFocus.add(FocusNode());
       });
-      _listGTextControler.add(_list);
+      _listGTextController.add(_list);
       focusList.add(_listFocus);
     });
+    widget.controller.init(this);
   }
 
   bool validate() {
@@ -158,10 +177,14 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
                             child: Padding(
                               padding: element.padding,
                               child: _GenerateTextField(
+                                errorNotifier: _mapValueNotifierErrorField
+                                    .containsKey(element.id)
+                                    ? _mapValueNotifierErrorField[element.id]
+                                    : null,
                                 element: element,
                                 gElement: gelement,
                                 groupElements: widget.groupElements,
-                                controllers: _listGTextControler,
+                                controllers: _listGTextController,
                                 focusList: focusList,
                                 textElements: gelement.textElements,
                               ),
@@ -186,10 +209,14 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
                           child: Padding(
                             padding: element.padding,
                             child: _GenerateTextField(
+                              errorNotifier: _mapValueNotifierErrorField
+                                  .containsKey(element.id)
+                                  ? _mapValueNotifierErrorField[element.id]
+                                  : null,
                               element: element,
                               gElement: gelement,
                               groupElements: widget.groupElements,
-                              controllers: _listGTextControler,
+                              controllers: _listGTextController,
                               focusList: focusList,
                               textElements: gelement.textElements,
                             ),
@@ -214,8 +241,8 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     );
   }
 
-  int getFlex(
-      List<TextElement> textElements, element, List<double> sizeElements) {
+  int getFlex(List<TextElement> textElements, element,
+      List<double> sizeElements) {
     int flex = 0;
     if (textElements.indexOf(element) < sizeElements.length)
       flex = (sizeElements[textElements.indexOf(element)] * 10).toInt();
@@ -233,8 +260,10 @@ class _GenerateTextField extends StatelessWidget {
   final List<TextElement> textElements;
   final List<List<TextEditingController>> controllers;
   final List<List<FocusNode>> focusList;
+  final ValueNotifier<String> errorNotifier;
 
   _GenerateTextField({
+    this.errorNotifier,
     this.element,
     this.gElement,
     this.groupElements,
@@ -252,14 +281,14 @@ class _GenerateTextField extends StatelessWidget {
     var focusNodeNext = focusList[gIndex].length > (eIndex + 1)
         ? focusList[gIndex][eIndex + 1]
         : focusList.length > gIndex + 1
-            ? focusList[gIndex + 1].first
-            : null;
+        ? focusList[gIndex + 1].first
+        : null;
 
     var focusNodeCurrent = focusList[gIndex].length > (eIndex)
         ? focusList[gIndex][eIndex]
         : focusList.length > gIndex
-            ? focusList[gIndex].first
-            : null;
+        ? focusList[gIndex].first
+        : null;
 
     if (element.initValue != null && element.initValue.isNotEmpty) {
       controller.text = element.initValue;
@@ -268,8 +297,9 @@ class _GenerateTextField extends StatelessWidget {
       return PasswordTextField(
         textEditingController: controller,
         element: element,
+        errorNotifier: errorNotifier,
         inputDecoration:
-            Constants.setInputBorder(context, element.decorationElement),
+        Constants.setInputBorder(context, element.decorationElement),
         textInputType: Constants.getInput(element.typeInput),
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
@@ -300,7 +330,7 @@ class _GenerateTextField extends StatelessWidget {
         keyboardType: Constants.getInput(element.typeInput),
         readOnly: element.readOnly,
         textInputAction:
-            focusNodeNext == null ? TextInputAction.done : TextInputAction.next,
+        focusNodeNext == null ? TextInputAction.done : TextInputAction.next,
         onFieldSubmitted: (v) {
           Constants.fieldFocusChange(context, focusNodeCurrent, focusNodeNext);
         },
@@ -317,10 +347,11 @@ class _GenerateTextField extends StatelessWidget {
       );
     } else if (element is EmailElement) {
       return EmailTextField(
+        errorNotifier: errorNotifier,
         textEditingController: controller,
         emailElement: element,
         inputDecoration:
-            Constants.setInputBorder(context, element.decorationElement),
+        Constants.setInputBorder(context, element.decorationElement),
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
       );
@@ -351,17 +382,57 @@ class _GenerateTextField extends StatelessWidget {
         element: element,
       );
     }
-
+    if (errorNotifier != null) {
+      return ValueListenableBuilder<String>(
+        valueListenable: errorNotifier,
+        builder: (ctx, error, _) {
+          return TextFormField(
+            controller: controller,
+            validator: element.isRequired
+                ? (v) {
+              if (v.isEmpty) {
+                return element.error;
+              }
+              if (element?.validator != null)
+                return element?.validator(v);
+              return null;
+            }
+                : element.validator,
+            keyboardType: Constants.getInput(element.typeInput),
+            readOnly: element.readOnly,
+            enabled: true,
+            onTap: element.onTap,
+            focusNode: focusNodeCurrent,
+            textInputAction: focusNodeNext == null
+                ? TextInputAction.done
+                : TextInputAction.next,
+            onFieldSubmitted: (v) {
+              Constants.fieldFocusChange(
+                  context, focusNodeCurrent, focusNodeNext);
+            },
+            decoration:
+            Constants.setInputBorder(context, element.decorationElement)
+                .copyWith(
+              labelText: element.label,
+              hintText: element.hint,
+              errorText: error,
+              enabled: true,
+              suffixIcon: null,
+            ),
+          );
+        },
+      );
+    }
     return TextFormField(
       controller: controller,
       validator: element.isRequired
           ? (v) {
-              if (v.isEmpty) {
-                return element.error;
-              }
-              if (element?.validator != null) return element?.validator(v);
-              return null;
-            }
+        if (v.isEmpty) {
+          return element.error;
+        }
+        if (element?.validator != null) return element?.validator(v);
+        return null;
+      }
           : element.validator,
       keyboardType: Constants.getInput(element.typeInput),
       readOnly: element.readOnly,
@@ -369,12 +440,12 @@ class _GenerateTextField extends StatelessWidget {
       onTap: element.onTap,
       focusNode: focusNodeCurrent,
       textInputAction:
-          focusNodeNext == null ? TextInputAction.done : TextInputAction.next,
+      focusNodeNext == null ? TextInputAction.done : TextInputAction.next,
       onFieldSubmitted: (v) {
         Constants.fieldFocusChange(context, focusNodeCurrent, focusNodeNext);
       },
       decoration:
-          Constants.setInputBorder(context, element.decorationElement).copyWith(
+      Constants.setInputBorder(context, element.decorationElement).copyWith(
         labelText: element.label,
         hintText: element.hint,
         enabled: true,

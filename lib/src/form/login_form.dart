@@ -34,7 +34,7 @@ class LoginForm extends StatefulWidget {
   final UsernameEmailError usernameEmailError;
   final ButtonDecorationElement buttonLoginDecorationElement;
   final FormController controller;
-
+  final Widget submitLogin;
   LoginForm({
     Key key,
     @required this.controller,
@@ -46,6 +46,7 @@ class LoginForm extends StatefulWidget {
     this.labelLogin = "username or email",
     this.password = "Password",
     this.callback,
+    this.submitLogin,
     this.passwordControls = const PasswordControls.strong(),
     this.textButton = const Text("LOG IN"),
     this.passwordError = const PasswordError(),
