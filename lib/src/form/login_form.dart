@@ -43,8 +43,7 @@ class LoginForm extends StatefulWidget {
     this.passwordControls = const PasswordControls.strong(),
     this.passwordError = const PasswordError(),
     this.usernameEmailError = const UsernameEmailError(),
-  })  : assert(submitLogin != null),
-        super(key: key);
+  }) : super(key: key);
 
   static LoginFormController of(BuildContext context, {bool nullOk = false}) {
     assert(context != null);
@@ -85,6 +84,10 @@ class LoginFormState extends State<LoginForm> {
       groupElements: [
         GroupElement(
           directionGroup: widget.directionGroup,
+          sizeElements: [
+            0.5,
+            0.5,
+          ],
           backgroundColor: Colors.transparent,
           textElements: [
             widget.onlyEmail
@@ -130,7 +133,10 @@ class LoginFormState extends State<LoginForm> {
     if (widget.directionGroup == DirectionGroup.Vertical) {
       return Column(
         mainAxisSize: MainAxisSize.min,
-        children: <Widget>[form, widget.submitLogin],
+        children: <Widget>[
+          form,
+          if (widget.submitLogin != null) widget.submitLogin,
+        ],
       );
     }
     return Wrap(
@@ -138,7 +144,7 @@ class LoginFormState extends State<LoginForm> {
       direction: Axis.horizontal,
       children: <Widget>[
         form,
-        widget.submitLogin,
+        if (widget.submitLogin != null) widget.submitLogin,
       ],
     );
   }
