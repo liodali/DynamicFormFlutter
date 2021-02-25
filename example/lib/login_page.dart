@@ -30,17 +30,29 @@ class _LoginPageState extends State<LoginPage> {
       ),
       elevation: 0.0,
     );
+    final controller = LoginFormController();
     return LoginForm(
-      controller: FormController(),
-      callback: (email, password) {
-        print("$email,$password");
-      },
-      buttonLoginDecorationElement: buttonDecoration,
+      controller: controller,
+      directionGroup: DirectionGroup.Horizontal,
+      submitLogin: Container(
+        width: 250,
+        child: RaisedButton(
+          onPressed: () {
+            final email = controller.email;
+            final password = controller.password;
+            controller.validate();
+            if (email != "dali") {
+              controller.addEmailError("invalid Email not found");
+            }
+            print("$email,$password");
+          },
+          child: Text("Log In"),
+        ),
+      ),
       onlyEmail: false,
-      labelLogin: "Username",
+      login: "Username",
       password: "Password",
-      textButton: Text("Log IN"),
-      paddingFields: const EdgeInsets.all(0),
+      paddingFields: const EdgeInsets.all(2),
       passwordControls: PasswordControls.all(
         false,
         passwordMinLength: 3,

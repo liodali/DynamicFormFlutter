@@ -2,6 +2,7 @@ import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:dynamic_form/src/utilities/request.dart';
 import 'package:flag/flag.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class _CallingCountry {
@@ -44,9 +45,16 @@ class PhoneTextField extends StatefulWidget {
   final TextEditingController controller;
   final FocusNode currentFocus;
   final FocusNode nextFocus;
+  final ValueNotifier<String> errorNotifier;
 
-  PhoneTextField(
-      {this.element, this.controller, this.currentFocus, this.nextFocus});
+  PhoneTextField({
+    this.element,
+    this.controller,
+    this.errorNotifier,
+    this.currentFocus,
+    this.nextFocus,
+    Key key,
+  }) : super(key: key);
 
   @override
   _PhoneTextFieldState createState() => _PhoneTextFieldState();
@@ -79,7 +87,49 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
       },
       valueListenable: countryNotifier,
     );
-    Widget textField = TextFormField(
+    if(widget.errorNotifier!=null){
+      return ValueListenableBuilder<String>(
+        valueListenable: widget.errorNotifier,
+        builder: (ctx,error,child){
+          return TextFormField(
+            controller: widget.controller,
+            keyboardType: Constants.getInput(widget.element.typeInput),
+            validator: widget.element.validator,
+            readOnly: widget.element.readOnly,
+            style: TextStyle(color: Colors.black),
+            focusNode: widget.currentFocus,
+            textInputAction: widget.nextFocus == null
+                ? TextInputAction.done
+                : TextInputAction.next,
+            onFieldSubmitted: (v) {
+              Constants.fieldFocusChange(
+                  context, widget.currentFocus, widget.nextFocus);
+            },
+            decoration:
+            Constants.setInputBorder(context, widget.element.decorationElement)
+                .copyWith(
+              labelText: widget.element.label,
+              hintText: widget.element.hint,
+              errorText: error,
+              prefix: widget.element.showPrefix
+                  ? SizedBox(
+                width: 55,
+                height: 25,
+                child: PrefixPhoneNumber(
+                  prefix: "",
+                  countryNotifier: countryNotifier,
+                ),
+              )
+                  : null,
+              prefixIcon: widget.element.showPrefixFlag ? child : null,
+              suffixIcon: widget.element.showSuffixFlag ? child : null,
+            ),
+          );
+        },
+        child: iconFlag,
+      );
+    }
+    return TextFormField(
       controller: widget.controller,
       keyboardType: Constants.getInput(widget.element.typeInput),
       validator: widget.element.validator,
@@ -94,25 +144,24 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
             context, widget.currentFocus, widget.nextFocus);
       },
       decoration:
-          Constants.setInputBorder(context, widget.element.decorationElement)
-              .copyWith(
+      Constants.setInputBorder(context, widget.element.decorationElement)
+          .copyWith(
         labelText: widget.element.label,
         hintText: widget.element.hint,
         prefix: widget.element.showPrefix
             ? SizedBox(
-                width: 55,
-                height: 25,
-                child: PrefixPhoneNumber(
-                  prefix: "",
-                  countryNotifier: countryNotifier,
-                ),
-              )
+          width: 55,
+          height: 25,
+          child: PrefixPhoneNumber(
+            prefix: "",
+            countryNotifier: countryNotifier,
+          ),
+        )
             : null,
         prefixIcon: widget.element.showPrefixFlag ? iconFlag : null,
         suffixIcon: widget.element.showSuffixFlag ? iconFlag : null,
       ),
     );
-    return textField;
   }
 }
 

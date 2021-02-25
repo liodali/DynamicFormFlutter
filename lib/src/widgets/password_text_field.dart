@@ -9,10 +9,12 @@ class PasswordTextField extends StatefulWidget {
   final TextInputType textInputType;
   final FocusNode currentFocus;
   final FocusNode nextFocus;
+  final ValueNotifier<String> errorNotifier;
 
   PasswordTextField({
     this.textEditingController,
     this.element,
+    this.errorNotifier,
     this.inputDecoration,
     this.textInputType,
     this.currentFocus,
@@ -37,7 +39,48 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
     return ValueListenableBuilder<bool>(
       valueListenable: isObscureNotifier,
       builder: (ctx, isObscure, child) {
-        return TextFormField(
+        if(widget.errorNotifier!=null){
+          return ValueListenableBuilder<String>(
+            valueListenable: widget.errorNotifier,
+            builder: (ctx,error,_){
+              return TextFormField(
+                controller: widget.textEditingController,
+                validator: widget.element.validator,
+                keyboardType: widget.textInputType,
+                readOnly: widget.element.readOnly,
+                obscureText: isObscure,
+                focusNode: widget.currentFocus,
+                style: widget.element.decorationElement?.style,
+                maxLines: 1,
+                textInputAction: widget.nextFocus == null
+                    ? TextInputAction.done
+                    : TextInputAction.next,
+                onFieldSubmitted: (v) {
+                  Constants.fieldFocusChange(
+                      context, widget.currentFocus, widget.nextFocus);
+                },
+                decoration: widget.inputDecoration.copyWith(
+                  labelText: widget.element.label,
+                  hintText: widget.element.hint,
+                  errorText: error,
+                  suffixIcon: widget.element.enableShowPassword
+                      ? GestureDetector(
+                    onTap: () {
+                      isObscureNotifier.value = !isObscure;
+                    },
+                    child: Icon(
+                      isObscure ? Icons.remove_red_eye : Icons.visibility_off,
+                      color: Colors.black,
+                      size: 20,
+                    ),
+                  )
+                      : null,
+                ),
+              );
+            },
+          );
+        }
+         return TextFormField(
           controller: widget.textEditingController,
           validator: widget.element.validator,
           keyboardType: widget.textInputType,
@@ -58,15 +101,15 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
             hintText: widget.element.hint,
             suffixIcon: widget.element.enableShowPassword
                 ? GestureDetector(
-                    onTap: () {
-                      isObscureNotifier.value = !isObscure;
-                    },
-                    child: Icon(
-                      isObscure ? Icons.remove_red_eye : Icons.visibility_off,
-                      color: Colors.black,
-                      size: 20,
-                    ),
-                  )
+              onTap: () {
+                isObscureNotifier.value = !isObscure;
+              },
+              child: Icon(
+                isObscure ? Icons.remove_red_eye : Icons.visibility_off,
+                color: Colors.black,
+                size: 20,
+              ),
+            )
                 : null,
           ),
         );
