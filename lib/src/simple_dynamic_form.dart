@@ -15,8 +15,10 @@ import './widgets/email_text_field.dart';
 import './widgets/password_text_field.dart';
 import './widgets/phone_text_field.dart';
 import './widgets/text_area_form_field.dart';
-
+/// [SimpleDynamicForm]: simple blueprint form generator
+///
 ///  [padding]          : The amount of space by which to inset the form.                                                                          |
+///
 ///  [groupElements]    :  list of element to build your form.                                                          |
 class SimpleDynamicForm extends StatefulWidget {
   final List<GroupElement> groupElements;

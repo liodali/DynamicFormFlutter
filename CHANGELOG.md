@@ -1,3 +1,8 @@
+## [0.8.0] - beta version:
+* add LoginFormController for LoginForm
+* add possibility to show error in the field after validation
+* remove loginCallback,textButton,buttonLoginDecorationElement from LoginForm
+* change example ,fix Widget test
 ## [0.7.1] - beta version:
 * add submitButton as custom Widget in simpleDynamicForm
 ## [0.7.0] - beta version:

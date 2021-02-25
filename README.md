@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.7.1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.8.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 
 create your form with easier way
@@ -7,6 +7,7 @@ create your form with easier way
 ## Getting Started
 
  * generate custom form
+ * Form Controller to manage form
  * login Form
  * payment form
  * Pre-existing elements
@@ -16,7 +17,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.7.1
+		dynamic_form: ^0.8.0
 
 
 
@@ -61,34 +62,46 @@ Add the following to your `pubspec.yaml` file:
 ### Declare FormController to get validation,list values of forms
 
 ```dart
-FormController controller = FormController();
+ FormController controller = FormController();
 ```
-
+> you can access to controller from your submit button
+>
+```dart
+ FormController controller = SimpleDynamicForm.of(context);
+```
 ### validate forms
 
 ```dart
 controller.validate();
 ```
+
+### show error to forms fields  after validation
+* error will be cleared automatically when form validate
+```dart
+ controller.addErrorToField(String idField,String errorMessage);
+```
+
+
 ### recuperate all values in form :
 ```dart
-controller.getAllValues()
+ controller.getAllValues();
 ```
 
 > if you are used ids in element, you can recuperate values with
 
 ```dart
-controller.getByIds()
+ controller.getByIds();
 ```
 
 > you recuperate by id
 
 ```dart
-controller.getValueById(id)
+ controller.getValueById(id);
 ```
 ### clear  all inputs in form :
 
 ```dart
-controller.clearValues()
+ controller.clearValues();
 ```
 
 
@@ -103,19 +116,14 @@ controller.clearValues()
   
     LoginForm(
           controller:controller
-          callback: (email, password) {
-            print("$email,$password");
-          },
-          buttonLoginDecorationElement: ButtonDecorationElement(
-              backgroundColorButton: Colors.white,
-              widthSubmitButton: 200,
-              shapeButton: StadiumBorder().copyWith(
-                side: BorderSide(
-                  color: Colors.amber,
-                  width: 0.6,
-                ),
-              ),
-              elevation: 0.0),
+          submitLogin:RaisedButton(
+           onPressed: () {
+                final email = controller.email;
+                final password = controller.password;
+                print("$email,$password");
+              },
+          child: Text("Log In"),
+         ),
           onlyEmail: false,
           labelLogin: "Username",
           password: "Password",
@@ -131,24 +139,40 @@ controller.clearValues()
         )
 ```
 
+### Declare LoginFormController to get validation,Email & Password values
+
+```dart
+LoginFormController controller = LoginFormController();
+```
+> you can access to controller from your submit button
+
+```dart
+ LoginFormController controller = LoginForm.of(context)
+```
+
+### show field error after validation (use case when auth failed)
+
+```dart
+ controller.addEmailError("invalid Email not found");
+ controller.addPasswordError("invalid Email not found");
+```
+
 
 ####  `Properties in LoginForm`
 
  | Properties                     | Description                                                    |
  | ------------------------------ | -------------------------------------------------------------- |
- | `controller`                   | FormController to validate login form and get data                             |
+ | `controller`                   | LoginFormController to validate login form and get data                             |
  | `decorationEmailElement`       | input decoration of email field in form                             |
  | `decorationPasswordElement`    | input decoration of password field in form                             |
  | `directionGroup`               | Direction of form (Vertical/Horizontal)                        |
  | `paddingFields`                | padding between fields                                         |
  | `onlyEmail`                    | enable only email type fieldtext                               |
- | `labelLogin`                   | label  of username/email textField                             |
+ | `login`                        | label  of username/email textField                             |
  | `password`                     | label of the passwordField                                     |
- | `callback`                     | callback to make your api call when you form is validate       |
- | `textButton`                   | Text widget of the submit button                               |
- | `buttonLoginDecorationElement` | decoration of button that contain radius,backgroundColor,width |
  | `passwordError`                | messages errors to show  when password field not validate      |
  | `usernameEmailError`           | messages errors to show when email/username not validate       |
+ | `submitLogin`                  | (Widget) Button of submit form                |
 
 
 ### PaymentForm

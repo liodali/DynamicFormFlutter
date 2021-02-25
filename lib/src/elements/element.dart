@@ -43,7 +43,15 @@ abstract class FormElement {
     this.visibility = true,
   });
 }
-
+///[TextElement] : base blueprint for TextFormField
+///
+///
+///
+///
+///
+///
+///
+///
 class TextElement extends FormElement {
   final TypeInput typeInput;
   final String initValue;
@@ -96,9 +104,29 @@ class TextElement extends FormElement {
         );
 }
 
-/// [initValue]: initialized value of  textFormField
-/// [label]: label text of  textFormField
-/// [hint]: placeholder text of  textFormField
+/// [EmailElement] : representation of  email text field in form
+///
+/// [initValue] : initialized value of  textFormField
+///
+/// [label] : label text of  textFormField
+///
+/// [hint] : placeholder text of  textFormField
+///
+/// [decorationElement] :  element decorator for text field
+///
+/// [errorEmailPattern] : (String) error message when email pattern was invalid
+///
+/// [errorEmailIsRequired] : (String) error message when email was required
+///
+/// [errorStyle] :
+///
+/// [hintStyle] :
+///
+/// [labelStyle] :
+///
+/// [isRequired] : (bool) make email field required in the form validation
+///
+/// [readOnly] : (bool) make email text field read only
 class EmailElement extends TextElement {
   final String initValue;
   final String label;
