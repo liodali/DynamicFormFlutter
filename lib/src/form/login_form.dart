@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../dynamic_form.dart';
 
-typedef loginCallback = Function(String username, String password);
-
 /// [LoginForm]:Pre-existing form ,make easy to build your login form
 
 /// [controller]
@@ -11,32 +9,26 @@ typedef loginCallback = Function(String username, String password);
 /// [decorationPasswordElement] : input decoration of password fields of form
 /// [directionGroup] : Direction of form (Vertical/Horizontal)
 ///  [paddingFields] : padding between fields
-///  [onlyEmail] : enable only email type fieldtext
-///  [labelLogin] : label  of username/email textField
+///  [onlyEmail] : enable only email type fieldText
+///  [login] : label  of username/email textField
 ///  [password] : label of the password field
-///  [textButton] : Text widget of the submit button
-///  [callback] : callback to make your api call when you form is validate
-///  [buttonLoginDecorationElement] : decoration of  button  that contain radius,width,color
 ///  [passwordError] : messages errors to show  when password field not validate
 ///  [usernameEmailError] : messages errors to show when email/username not validate
 
 class LoginForm extends StatefulWidget {
-
   final LoginFormController controller;
   final DecorationElement decorationEmailElement;
   final DecorationElement decorationPasswordElement;
   final DirectionGroup directionGroup;
   final EdgeInsets paddingFields;
   final bool onlyEmail;
-  final String labelLogin;
+  final String login;
   final String password;
-  final Text textButton;
-  final loginCallback callback;
   final PasswordControls passwordControls;
   final PasswordError passwordError;
   final UsernameEmailError usernameEmailError;
-  final ButtonDecorationElement buttonLoginDecorationElement;
   final Widget submitLogin;
+
   LoginForm({
     Key key,
     @required this.controller,
@@ -45,16 +37,28 @@ class LoginForm extends StatefulWidget {
     this.directionGroup = DirectionGroup.Vertical,
     this.paddingFields = const EdgeInsets.all(3.0),
     this.onlyEmail = true,
-    this.labelLogin = "username or email",
+    this.login = "username or email",
     this.password = "Password",
-    this.callback,
     this.submitLogin,
     this.passwordControls = const PasswordControls.strong(),
-    this.textButton = const Text("LOG IN"),
     this.passwordError = const PasswordError(),
     this.usernameEmailError = const UsernameEmailError(),
-    this.buttonLoginDecorationElement = const ButtonDecorationElement(),
-  }) : super(key: key);
+  })  : assert(submitLogin != null),
+        super(key: key);
+
+  static LoginFormController of(BuildContext context, {bool nullOk = false}) {
+    assert(context != null);
+    assert(nullOk != null);
+    final LoginForm result = context.findAncestorWidgetOfExactType<LoginForm>();
+    if (nullOk || result != null) return result.controller;
+    throw FlutterError.fromParts(<DiagnosticsNode>[
+      ErrorSummary(
+          'LoginForm.of() called with a context that does not contain an LoginForm.'),
+      ErrorDescription(
+          'No LoginForm ancestor could be found starting from the context that was passed to LoginForm.of().'),
+      context.describeElement('The context used was')
+    ]);
+  }
 
   @override
   LoginFormState createState() => LoginFormState();
@@ -62,7 +66,7 @@ class LoginForm extends StatefulWidget {
 
 class LoginFormState extends State<LoginForm> {
   TextEditingController username, password;
-   FormController controller;
+  FormController controller;
 
   @override
   void initState() {
@@ -70,6 +74,7 @@ class LoginFormState extends State<LoginForm> {
     controller = FormController();
     username = TextEditingController();
     password = TextEditingController();
+    widget.controller.init(this);
   }
 
   @override
@@ -88,8 +93,8 @@ class LoginFormState extends State<LoginForm> {
                     decorationElement: widget.decorationEmailElement,
                     isRequired: true,
                     padding: widget.paddingFields,
-                    label: widget.labelLogin,
-                    hint: widget.labelLogin,
+                    label: widget.login,
+                    hint: widget.login,
                     errorEmailIsRequired:
                         widget.usernameEmailError.requiredErrorMsg,
                     errorEmailPattern:
@@ -102,8 +107,8 @@ class LoginFormState extends State<LoginForm> {
                     textStyle: widget.decorationEmailElement.style ??
                         Theme.of(context).textTheme.subtitle1,
                     decorationElement: widget.decorationEmailElement,
-                    label: widget.labelLogin,
-                    hint: widget.labelLogin,
+                    label: widget.login,
+                    hint: widget.login,
                   ),
             PasswordElement(
               id: "password",
@@ -125,43 +130,16 @@ class LoginFormState extends State<LoginForm> {
     if (widget.directionGroup == DirectionGroup.Vertical) {
       return Column(
         mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          form,
-          submitButton(),
-        ],
+        children: <Widget>[form, widget.submitLogin],
       );
     }
-    return Row(
-      mainAxisSize: MainAxisSize.min,
+    return Wrap(
+      alignment: WrapAlignment.end,
+      direction: Axis.horizontal,
       children: <Widget>[
         form,
-        submitButton(),
+        widget.submitLogin,
       ],
-    );
-  }
-
-  Widget submitButton() {
-    return Container(
-      width: widget.buttonLoginDecorationElement.widthSubmitButton,
-      padding: EdgeInsets.all(5.0),
-      child: RaisedButton(
-        onPressed: () async {
-          if (widget.controller.validate()) {
-            await widget.callback(
-              widget.controller.email,
-              widget.controller.password,
-            );
-          }
-        },
-        elevation: widget.buttonLoginDecorationElement.elevation,
-        shape: widget.buttonLoginDecorationElement.shapeButton,
-        color: widget.buttonLoginDecorationElement.backgroundColorButton ??
-            Theme.of(context).primaryColor,
-        textColor: widget.textButton?.style != null
-            ? widget.textButton.style.color
-            : Theme.of(context).textTheme.button.color,
-        child: widget.textButton,
-      ),
     );
   }
 
