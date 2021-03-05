@@ -2,43 +2,36 @@ import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-extension parsing on DateTime{
-  DateTime parseFormat(DateFormat format){
-     return format.parse(format.format(this));
+extension parsing on DateTime {
+  DateTime parseFormat(DateFormat format) {
+    return format.parse(format.format(this));
   }
 }
-
 
 class Constants {
   static TextInputType getInput(TypeInput typeInput) {
     switch (typeInput) {
       case TypeInput.Email:
         return TextInputType.emailAddress;
-        break;
       case TypeInput.Numeric:
         return TextInputType.number;
-        break;
       case TypeInput.Address:
         return TextInputType.text;
-        break;
       case TypeInput.Text:
       case TypeInput.Password:
         return TextInputType.text;
-        break;
       case TypeInput.Phone:
         return TextInputType.phone;
-        break;
       case TypeInput.multiLine:
         return TextInputType.multiline;
-        break;
       default:
         return TextInputType.text;
-        break;
+
     }
   }
 
   static InputDecoration setInputBorder(
-      BuildContext context, DecorationElement decorationElement) {
+      BuildContext context, DecorationElement? decorationElement) {
     if (decorationElement is UnderlineDecorationElement) {
       return InputDecoration(
         border: UnderlineInputBorder(
@@ -106,40 +99,35 @@ class Constants {
     } else if (decorationElement is RoundedDecorationElement) {
       return InputDecoration(
         border: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? BorderRadius.circular(12.0),
+          borderRadius: decorationElement.radius,
           borderSide: BorderSide(
             color: Colors.transparent,
             width: 0,
           ),
         ),
         enabledBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? BorderRadius.circular(12.0),
+          borderRadius: decorationElement.radius,
           borderSide: BorderSide(
             color: Colors.transparent,
             width: 0,
           ),
         ),
         focusedErrorBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ??
-              const RoundedRectangleBorder(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(12.0),
-                ),
-              ),
+          borderRadius: decorationElement.radius,
           borderSide: BorderSide(
             color: Colors.transparent,
             width: 0,
           ),
         ),
         focusedBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? BorderRadius.circular(12.0),
+          borderRadius: decorationElement.radius ,
           borderSide: BorderSide(
             color: Colors.transparent,
             width: 0,
           ),
         ),
         errorBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? BorderRadius.circular(12.0),
+          borderRadius: decorationElement.radius ,
           borderSide: BorderSide(
             color: Colors.transparent,
             width: 0,
@@ -154,7 +142,7 @@ class Constants {
   }
 
   static fieldFocusChange(
-      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+      BuildContext context, FocusNode? currentFocus, FocusNode? nextFocus) {
     if (currentFocus != null) currentFocus.unfocus();
     if (nextFocus != null) FocusScope.of(context).requestFocus(nextFocus);
   }

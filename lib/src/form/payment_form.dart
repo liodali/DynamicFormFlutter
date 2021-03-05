@@ -8,8 +8,7 @@ import '../simple_dynamic_form.dart';
 import '../utilities/constants.dart';
 import '../widgets/decoration_element.dart';
 
-typedef onAction = Future<void> Function(
-    String cardNumber, String cvv, String dateExpiration);
+
 
 /// [decorationElement] :            decoration of all input field in form
 /// [actionPayment] :                callback to make your api call when you form is validate
@@ -22,18 +21,18 @@ typedef onAction = Future<void> Function(
 /// [labelCardNumber]        :       text label of credit card number field
 /// [labelDateExpiration]    :       text label of date expiration field
 /// [labelCVV]               :       text label of cvv field
-
+///[controller] :
 class PaymentForm extends StatefulWidget {
-  final DecorationElement decorationElement;
-  final String labelCardNumber;
-  final String labelDateExpiration;
-  final String labelCVV;
-  final String errorMessageDateExpiration;
-  final String errorMessageCVV;
-  final String errorMessageCardNumber;
-  final String errorIsRequiredMessage;
-  final onAction actionPayment;
-  final Text paymentText;
+  final DecorationElement? decorationElement;
+  final String? labelCardNumber;
+  final String? labelDateExpiration;
+  final String? labelCVV;
+  final String? errorMessageDateExpiration;
+  final String? errorMessageCVV;
+  final String? errorMessageCardNumber;
+  final String? errorIsRequiredMessage;
+  final FormController controller;
+  final Text? paymentText;
   final ButtonDecorationElement buttonDecoration;
 
   PaymentForm({
@@ -45,10 +44,10 @@ class PaymentForm extends StatefulWidget {
     this.errorMessageCVV,
     this.errorMessageCardNumber,
     this.errorIsRequiredMessage,
-    this.actionPayment,
+    required this.controller,
     this.paymentText,
     this.buttonDecoration = const ButtonDecorationElement(),
-    Key key,
+    Key? key,
   }) : super(
           key: key,
         );
@@ -60,27 +59,27 @@ class PaymentForm extends StatefulWidget {
 class _PaymentFormState extends State<PaymentForm> {
   final dateFormat = DateFormat("MM/yy");
   final dateFormatCompare = DateFormat("MM/yyyy");
-  DateTime startedDate;
+  DateTime? startedDate;
 
-  DateTime endDate;
+  late DateTime endDate;
 
-  FormController controller;
+  FormController? controller;
 
   static const String idCardNumber = "id-card-number";
   static const String idCVV = "id-cvv";
   static const String idDateExpiration = "id-date-expiration";
   String yearStartedInputFormat = "";
   String yearEndInputFormat = "";
-  RegExp reg;
+  late RegExp reg;
 
   @override
   void initState() {
     super.initState();
-    controller = FormController();
+    controller = widget.controller;
     startedDate = DateTime.now().parseFormat(dateFormat);
     endDate = DateTime.now().add(Duration(days: 3650)).parseFormat(dateFormat);
 
-    yearStartedInputFormat = startedDate.year.toString();
+    yearStartedInputFormat = startedDate!.year.toString();
     yearEndInputFormat = endDate.year.toString();
     reg = RegExp(
         "^((0[1-9])|(1[0-2]))(\/)((${yearStartedInputFormat[0]}[0-9])|($yearEndInputFormat))\$");
@@ -119,11 +118,11 @@ class _PaymentFormState extends State<PaymentForm> {
                   initDate: startedDate,
                   validator: (v) {
                     try {
-                      if (!reg.hasMatch(v)) {
+                      if (!reg.hasMatch(v!)) {
                         return widget.errorMessageDateExpiration;
                       }
                       var d = dateFormatCompare.parse(v);
-                      if (d.isBefore(startedDate) || d.isAfter(endDate)) {
+                      if (d.isBefore(startedDate!) || d.isAfter(endDate)) {
                         return widget.errorMessageDateExpiration;
                       }
                     } catch (e) {
@@ -156,12 +155,11 @@ class _PaymentFormState extends State<PaymentForm> {
           width: widget.buttonDecoration.widthSubmitButton,
           child: RaisedButton(
             onPressed: () async {
-              if (controller.validate()) {
-                final cardNumber = controller.getValueById(idCardNumber);
-                final cvv = controller.getValueById(idCVV);
+              if (controller!.validate()) {
+                final cardNumber = controller!.getValueById(idCardNumber);
+                final cvv = controller!.getValueById(idCVV);
                 final dateExpiration =
-                    controller.getValueById(idDateExpiration);
-                await widget.actionPayment(cardNumber, cvv, dateExpiration);
+                    controller!.getValueById(idDateExpiration);
               }
             },
             color: widget.buttonDecoration.backgroundColorButton,

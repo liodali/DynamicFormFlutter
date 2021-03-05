@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 /// [focusColor] : the Color of Text Field container when the input is focused
 /// [style] : The style on which to base the label, hint, and error styles
 abstract class DecorationElement {
-  final Color filledColor;
-  final Color focusColor;
-  final TextStyle style;
+  final Color? filledColor;
+  final Color? focusColor;
+  final TextStyle? style;
 
   const DecorationElement({
     this.filledColor,
@@ -17,9 +17,9 @@ abstract class DecorationElement {
   });
 
   DecorationElement copy({
-    Color filledColor,
-    Color focusColor,
-    TextStyle style,
+    Color? filledColor,
+    Color? focusColor,
+    TextStyle? style,
   });
 }
 
@@ -32,10 +32,10 @@ abstract class DecorationElement {
 ///  [filledColor]         : base fill color of the decoration                                                 |
 ///  [focusColor]          : focused fill color of the decoration
 class UnderlineDecorationElement extends DecorationElement {
-  final Color borderColor;
+  final Color? borderColor;
   final Color errorBorderColor;
-  final Color focusBorderColor;
-  final Color disabledBorderColor;
+  final Color? focusBorderColor;
+  final Color? disabledBorderColor;
   final BorderRadius radius;
   final double widthSide;
 
@@ -46,9 +46,9 @@ class UnderlineDecorationElement extends DecorationElement {
     this.disabledBorderColor,
     this.radius = const BorderRadius.all(Radius.circular(0.0)),
     this.widthSide = 1.0,
-    Color filledColor,
-    Color focusColor,
-    TextStyle textStyle,
+    Color? filledColor,
+    Color? focusColor,
+    TextStyle? textStyle,
   }) : super(
           filledColor: filledColor ?? Colors.white,
           focusColor: focusColor ?? Colors.white,
@@ -57,23 +57,23 @@ class UnderlineDecorationElement extends DecorationElement {
 
   @override
   DecorationElement copy({
-    Color borderColor,
+    Color? borderColor,
     Color errorBorderColor = Colors.red,
-    Color focusBorderColor,
-    Color disabledBorderColor,
+    Color? focusBorderColor,
+    Color? disabledBorderColor,
     BorderRadius radius = const BorderRadius.all(Radius.circular(0.0)),
     double widthSide = 1.0,
-    Color filledColor,
-    Color focusColor,
-    TextStyle style,
+    Color? filledColor,
+    Color? focusColor,
+    TextStyle? style,
   }) {
     return UnderlineDecorationElement(
       borderColor: borderColor ?? this.borderColor,
-      errorBorderColor: errorBorderColor ?? this.errorBorderColor,
+      errorBorderColor: errorBorderColor ,
       focusBorderColor: focusBorderColor ?? this.focusBorderColor,
       disabledBorderColor: disabledBorderColor ?? this.disabledBorderColor,
-      radius: radius ?? this.radius,
-      widthSide: widthSide ?? this.widthSide,
+      radius: radius ,
+      widthSide: widthSide,
       focusColor: focusColor ?? this.focusColor,
       textStyle: style ?? this.style,
     );
@@ -87,10 +87,10 @@ class UnderlineDecorationElement extends DecorationElement {
 ///  [radius]              : radius of the border.                                                             |
 ///  [widthSide]           : The width of this line of the border
 class OutlineDecorationElement extends DecorationElement {
-  final Color borderColor;
+  final Color? borderColor;
   final Color errorBorderColor;
-  final Color focusBorderColor;
-  final Color disabledBorderColor;
+  final Color? focusBorderColor;
+  final Color? disabledBorderColor;
   final BorderRadius radius;
   final double widthSide;
 
@@ -101,9 +101,9 @@ class OutlineDecorationElement extends DecorationElement {
     this.disabledBorderColor,
     this.radius = const BorderRadius.all(Radius.circular(0.0)),
     this.widthSide = 1.0,
-    Color filledColor,
-    Color focusColor,
-    TextStyle textStyle,
+    Color? filledColor,
+    Color? focusColor,
+    TextStyle? textStyle,
   }) : super(
           filledColor: filledColor ?? Colors.white,
           focusColor: focusColor ?? Colors.white,
@@ -112,15 +112,15 @@ class OutlineDecorationElement extends DecorationElement {
 
   @override
   DecorationElement copy({
-    Color borderColor,
-    Color errorBorderColor,
-    Color focusBorderColor,
-    Color disabledBorderColor,
-    double widthSide,
-    BorderRadius radius,
-    Color filledColor,
-    Color focusColor,
-    TextStyle style,
+    Color? borderColor,
+    Color? errorBorderColor,
+    Color? focusBorderColor,
+    Color? disabledBorderColor,
+    double? widthSide,
+    BorderRadius? radius,
+    Color? filledColor,
+    Color? focusColor,
+    TextStyle? style,
   }) {
     return OutlineDecorationElement(
       radius: radius??this.radius,
@@ -144,9 +144,9 @@ class RoundedDecorationElement extends DecorationElement {
 
   const RoundedDecorationElement({
     this.radius = const BorderRadius.all(Radius.circular(25.0)),
-    Color filledColor,
-    Color focusColor,
-    TextStyle textStyle,
+    Color? filledColor,
+    Color? focusColor,
+    TextStyle? textStyle,
   }) : super(
           filledColor: filledColor ?? Colors.white,
           focusColor: focusColor ?? Colors.white,
@@ -155,13 +155,13 @@ class RoundedDecorationElement extends DecorationElement {
 
   @override
   DecorationElement copy({
-    double radius,
-    Color filledColor,
-    Color focusColor,
-    TextStyle style,
+    double? radius,
+    Color? filledColor,
+    Color? focusColor,
+    TextStyle? style,
   }) {
     return RoundedDecorationElement(
-      radius: radius ?? this.radius,
+      radius: radius as BorderRadius? ?? this.radius,
       filledColor: filledColor ?? this.filledColor,
       focusColor: focusColor ?? this.focusColor,
       textStyle: style ?? this.style,
@@ -177,7 +177,7 @@ class RoundedDecorationElement extends DecorationElement {
 ///  [elevation]                  : elevation of the button(default:2.0)
 class ButtonDecorationElement {
   final ShapeBorder shapeButton;
-  final Color backgroundColorButton;
+  final Color? backgroundColorButton;
   final double widthSubmitButton;
   final double elevation;
 

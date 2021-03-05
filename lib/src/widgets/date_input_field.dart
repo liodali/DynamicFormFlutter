@@ -6,10 +6,10 @@ import '../utilities/constants.dart';
 import '../utilities/text_controller_format_input.dart';
 
 class DateInputField extends StatelessWidget {
-  final DateInputElement element;
-  final TextEditingController controller;
-  final FocusNode currentFocus;
-  final FocusNode nextFocus;
+  final DateInputElement? element;
+  final TextEditingController? controller;
+  final FocusNode? currentFocus;
+  final FocusNode? nextFocus;
 
   DateInputField({
     this.element,
@@ -20,12 +20,12 @@ class DateInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (element.initValue != null) {
-      controller.text = element.dateFormat?.format(element.initDate) ?? "";
+    if (element!.initValue != null) {
+      controller!.text = element!.dateFormat?.format(element!.initDate!) ?? "";
     }
     final TextControllerFormatInput inputController = TextControllerFormatInput(
-        mask: element.dateFormat.pattern,
-        text: controller.text,
+        mask: element!.dateFormat!.pattern,
+        text: controller!.text,
         translator: {
           "M": RegExp(r'[0-9]'),
           "y": RegExp(r'[0-9]'),
@@ -38,22 +38,22 @@ class DateInputField extends StatelessWidget {
       controller: inputController,
       keyboardType: TextInputType.datetime,
       focusNode: currentFocus,
-      inputFormatters: element.formatters,
+      inputFormatters: element!.formatters,
       textInputAction:
           nextFocus == null ? TextInputAction.done : TextInputAction.next,
       decoration:
-          Constants.setInputBorder(context, element.decorationElement).copyWith(
-        labelStyle: element.textStyle ??
+          Constants.setInputBorder(context, element!.decorationElement).copyWith(
+        labelStyle: element!.textStyle ??
             Theme.of(context).inputDecorationTheme.labelStyle,
-        errorStyle: element.errorStyle ??
+        errorStyle: element!.errorStyle ??
             Theme.of(context).inputDecorationTheme.labelStyle,
-        hintText: element.hint,
-        labelText: element.label,
+        hintText: element!.hint,
+        labelText: element!.label,
       ),
-      validator: element.validator,
+      validator: element!.validator,
       onChanged: (v) {
-        controller.text = v;
-        print(controller.text);
+        controller!.text = v;
+        print(controller!.text);
       },
     );
   }

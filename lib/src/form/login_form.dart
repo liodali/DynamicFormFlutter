@@ -27,11 +27,11 @@ class LoginForm extends StatefulWidget {
   final PasswordControls passwordControls;
   final PasswordError passwordError;
   final UsernameEmailError usernameEmailError;
-  final Widget submitLogin;
+  final Widget? submitLogin;
 
   LoginForm({
-    Key key,
-    @required this.controller,
+    Key? key,
+    required this.controller,
     this.decorationEmailElement = const UnderlineDecorationElement(),
     this.decorationPasswordElement = const UnderlineDecorationElement(),
     this.directionGroup = DirectionGroup.Vertical,
@@ -48,8 +48,8 @@ class LoginForm extends StatefulWidget {
   static LoginFormController of(BuildContext context, {bool nullOk = false}) {
     assert(context != null);
     assert(nullOk != null);
-    final LoginForm result = context.findAncestorWidgetOfExactType<LoginForm>();
-    if (nullOk || result != null) return result.controller;
+    final LoginForm? result = context.findAncestorWidgetOfExactType<LoginForm>();
+    if (nullOk || result != null) return result!.controller;
     throw FlutterError.fromParts(<DiagnosticsNode>[
       ErrorSummary(
           'LoginForm.of() called with a context that does not contain an LoginForm.'),
@@ -64,8 +64,8 @@ class LoginForm extends StatefulWidget {
 }
 
 class LoginFormState extends State<LoginForm> {
-  TextEditingController username, password;
-  FormController controller;
+  TextEditingController? username, password;
+  FormController? controller;
 
   @override
   void initState() {
@@ -135,7 +135,7 @@ class LoginFormState extends State<LoginForm> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           form,
-          if (widget.submitLogin != null) widget.submitLogin,
+          if (widget.submitLogin != null) widget.submitLogin!,
         ],
       );
     }
@@ -144,12 +144,12 @@ class LoginFormState extends State<LoginForm> {
       direction: Axis.horizontal,
       children: <Widget>[
         form,
-        if (widget.submitLogin != null) widget.submitLogin,
+        if (widget.submitLogin != null) widget.submitLogin!,
       ],
     );
   }
 
-  String validatorUsername(usernameText) {
+  String? validatorUsername(usernameText) {
     if (usernameText.isEmpty) {
       return widget.usernameEmailError.requiredErrorMsg;
     } else {

@@ -10,21 +10,21 @@ enum CountryTextResult {
   countryCode,
 }
 
-typedef validation = String Function(String);
+typedef validation = String? Function(String?);
 
 abstract class FormElement {
-  final String id;
-  final TypeInput typeInput;
-  final String initValue;
-  final String label;
-  final String hint;
-  final String error;
-  final DecorationElement decorationElement;
-  final TextStyle labelStyle;
-  final TextStyle textStyle;
-  final TextStyle errorStyle;
-  final TextStyle hintStyle;
-  final bool readOnly;
+  final String? id;
+  final TypeInput? typeInput;
+  final String? initValue;
+  final String? label;
+  final String? hint;
+  final String? error;
+  final DecorationElement? decorationElement;
+  final TextStyle? labelStyle;
+  final TextStyle? textStyle;
+  final TextStyle? errorStyle;
+  final TextStyle? hintStyle;
+  final bool? readOnly;
   final bool visibility;
 
   FormElement({
@@ -43,6 +43,7 @@ abstract class FormElement {
     this.visibility = true,
   });
 }
+
 ///[TextElement] : base blueprint for TextFormField
 ///
 ///
@@ -54,23 +55,23 @@ abstract class FormElement {
 ///
 class TextElement extends FormElement {
   final TypeInput typeInput;
-  final String initValue;
-  final Function onTap;
-  final DecorationElement decorationElement;
-  final String label;
-  final String hint;
-  final String error;
-  final TextStyle labelStyle;
-  final TextStyle errorStyle;
-  final TextStyle hintStyle;
-  final TextStyle textStyle;
-  final validation validator;
+  final String? initValue;
+  final Function? onTap;
+  final DecorationElement? decorationElement;
+  final String? label;
+  final String? hint;
+  final String? error;
+  final TextStyle? labelStyle;
+  final TextStyle? errorStyle;
+  final TextStyle? hintStyle;
+  final TextStyle? textStyle;
+  final validation? validator;
   final EdgeInsets padding;
-  final bool isRequired;
+  final bool? isRequired;
   final bool readOnly;
 
   TextElement({
-    String id,
+    String? id,
     this.typeInput = TypeInput.Text,
     this.initValue,
     this.onTap,
@@ -128,23 +129,23 @@ class TextElement extends FormElement {
 ///
 /// [readOnly] : (bool) make email text field read only
 class EmailElement extends TextElement {
-  final String initValue;
+  final String? initValue;
   final String label;
   final String hint;
   final DecorationElement decorationElement;
 
   final String errorEmailPattern;
   final String errorEmailIsRequired;
-  final TextStyle errorStyle;
-  final TextStyle hintStyle;
-  final TextStyle labelStyle;
+  final TextStyle? errorStyle;
+  final TextStyle? hintStyle;
+  final TextStyle? labelStyle;
   final EdgeInsets padding;
   final bool isRequired;
   final bool readOnly;
 
   //final List<String> suffix;
   EmailElement({
-    String id,
+    String? id,
     this.initValue,
     this.label = "Email",
     this.hint = "example@mail.com",
@@ -169,11 +170,11 @@ class EmailElement extends TextElement {
           readOnly: readOnly,
           validator: (email) {
             if (isRequired) {
-              if (email.isEmpty) {
+              if (email!.isEmpty) {
                 return errorEmailIsRequired;
               }
             }
-            if (email.isNotEmpty) {
+            if (email!.isNotEmpty) {
               bool emailValid = RegExp(Patterns.emailPattern).hasMatch(email);
               if (!emailValid) {
                 return errorEmailPattern;
@@ -186,26 +187,26 @@ class EmailElement extends TextElement {
 }
 
 class PasswordElement extends TextElement {
-  final String initValue;
+  final String? initValue;
   final String label;
   final String hint;
   final DecorationElement decorationElement;
-  final String errorMsg;
+  final String? errorMsg;
   final bool enableShowPassword;
-  final TextStyle errorStyle;
-  final TextStyle hintStyle;
-  final TextStyle labelStyle;
+  final TextStyle? errorStyle;
+  final TextStyle? hintStyle;
+  final TextStyle? labelStyle;
   final EdgeInsets padding;
-  final bool isRequired;
-  final bool hasUppercase;
-  final bool hasSpecialCharacter;
-  final bool hasDigits;
+  final bool? isRequired;
+  final bool? hasUppercase;
+  final bool? hasSpecialCharacter;
+  final bool? hasDigits;
   final bool readOnly;
-  final PasswordError errors;
+  final PasswordError? errors;
 
   //final List<String> suffix;
   PasswordElement({
-    String id,
+    String? id,
     this.initValue,
     this.label = " Password ",
     this.hint = "password",
@@ -234,24 +235,27 @@ class PasswordElement extends TextElement {
           readOnly: readOnly,
           typeInput: TypeInput.Password,
           validator: (password) {
-            if (password.isNotEmpty) {
-              if (password.length < minLength) {
-                return errors.minLengthErrorMsg;
-              } else if (RegExp(Patterns.upperAlpha).stringMatch(password) ==
-                      null &&
-                  hasUppercase) {
-                return errors.uppercaseErrorMsg;
-              } else if (RegExp(Patterns.specialChar).stringMatch(password) ==
-                      null &&
-                  hasSpecialCharacter) {
-                return errors.specialCharacterErrorMsg;
-              } else if (RegExp(Patterns.digitPattern).stringMatch(password) ==
-                      null &&
-                  hasDigits) {
-                return errors.digitsErrorMsg;
+            if (password != null) {
+              if (password.isNotEmpty) {
+                if (password.length < minLength) {
+                  return errors!.minLengthErrorMsg;
+                } else if (RegExp(Patterns.upperAlpha).stringMatch(password) ==
+                        null &&
+                    hasUppercase!) {
+                  return errors!.uppercaseErrorMsg;
+                } else if (RegExp(Patterns.specialChar).stringMatch(password) ==
+                        null &&
+                    hasSpecialCharacter!) {
+                  return errors!.specialCharacterErrorMsg;
+                } else if (RegExp(Patterns.digitPattern)
+                            .stringMatch(password) ==
+                        null &&
+                    hasDigits!) {
+                  return errors!.digitsErrorMsg;
+                }
+              } else if (isRequired!) {
+                return errors!.requiredErrorMsg;
               }
-            } else if (isRequired) {
-              return errors.requiredErrorMsg;
             }
             return null;
           },
@@ -260,16 +264,16 @@ class PasswordElement extends TextElement {
 }
 
 class NumberElement extends TextElement {
-  final String initValue;
-  final String label;
-  final validation validator;
-  final DecorationElement decorationElement;
-  final String hint;
-  final String errorMsg;
-  final TextStyle textStyle;
-  final TextStyle errorStyle;
-  final TextStyle hintStyle;
-  final TextStyle labelStyle;
+  final String? initValue;
+  final String? label;
+  final validation? validator;
+  final DecorationElement? decorationElement;
+  final String? hint;
+  final String? errorMsg;
+  final TextStyle? textStyle;
+  final TextStyle? errorStyle;
+  final TextStyle? hintStyle;
+  final TextStyle? labelStyle;
   final bool isDigits;
   final EdgeInsets padding;
   final bool readOnly;
@@ -277,7 +281,7 @@ class NumberElement extends TextElement {
 
   //final List<String> suffix;
   NumberElement({
-    String id,
+    String? id,
     this.initValue,
     this.label = "",
     this.hint = "",
@@ -307,20 +311,20 @@ class NumberElement extends TextElement {
 }
 
 class CardNumberElement extends NumberElement {
-  final String initValue;
-  final String label;
+  final String? initValue;
+  final String? label;
   final String errorIsRequiredMessage;
-  final DecorationElement decorationElement;
+  final DecorationElement? decorationElement;
   final String hint;
-  final String errorMsg;
-  final TextStyle textStyle;
-  final TextStyle errorStyle;
-  final TextStyle hintStyle;
-  final TextStyle labelStyle;
+  final String? errorMsg;
+  final TextStyle? textStyle;
+  final TextStyle? errorStyle;
+  final TextStyle? hintStyle;
+  final TextStyle? labelStyle;
   final EdgeInsets padding;
 
   CardNumberElement({
-    String id,
+    String? id,
     this.initValue,
     this.label = "Credit Card Number",
     this.hint = "XXXX-XXXX-XXXX-XXXX",
@@ -348,7 +352,7 @@ class CardNumberElement extends NumberElement {
 
 class CVVElement extends NumberElement {
   CVVElement({
-    String id,
+    String? id,
     initValue = "",
     label = "",
     hint = "",
@@ -370,7 +374,7 @@ class CVVElement extends NumberElement {
           hint: hint,
           validator: validator ??
               (v) {
-                if (v.length != 3) {
+                if (v != null && v.length != 3) {
                   return error;
                 }
                 return null;
@@ -382,9 +386,9 @@ class CVVElement extends NumberElement {
 }
 
 class CountryElement extends TextElement {
-  final String initValue;
+  final String? initValue;
   final DecorationElement decorationElement;
-  final String label;
+  final String? label;
   final String errorMsg;
   final String labelModalSheet;
   final String labelSearchModalSheet;
@@ -393,7 +397,7 @@ class CountryElement extends TextElement {
   final EdgeInsets padding;
 
   CountryElement({
-    String id,
+    String? id,
     this.initValue,
     this.decorationElement = const UnderlineDecorationElement(),
     this.label,
@@ -406,7 +410,7 @@ class CountryElement extends TextElement {
     bool visibility = true,
     bool readOnly = false,
   })  : assert((countryTextResult == CountryTextResult.countryCode &&
-                (initValue.isEmpty || initValue.length == 3)) ||
+                (initValue!.isEmpty || initValue.length == 3)) ||
             (countryTextResult == CountryTextResult.FullName)),
         super(
           id: id,
@@ -429,12 +433,12 @@ class PhoneNumberElement extends TextElement {
   final bool showPrefixFlag;
   final bool showSuffixFlag;
   final EdgeInsets padding;
-  final validation validator;
+  final validation? validator;
   final bool showPrefix;
   final bool readOnly;
 
   PhoneNumberElement({
-    String id,
+    String? id,
     this.initValue = "",
     this.decorationElement = const UnderlineDecorationElement(),
     this.label = "Phone Number",
@@ -458,12 +462,14 @@ class PhoneNumberElement extends TextElement {
           typeInput: TypeInput.Numeric,
           validator: validator ??
               (phone) {
-                if (phone.isEmpty) {
-                  return errorMsg;
-                } else if (RegExp(Patterns.phonePattern)
-                    .allMatches(phone)
-                    .isEmpty) {
-                  return errorMsg;
+                if (phone != null) {
+                  if (phone.isEmpty) {
+                    return errorMsg;
+                  } else if (RegExp(Patterns.phonePattern)
+                      .allMatches(phone)
+                      .isEmpty) {
+                    return errorMsg;
+                  }
                 }
                 return null;
               },
@@ -481,10 +487,10 @@ class TextAreaElement extends TextElement {
   final int maxCharacter;
 
   TextAreaElement({
-    String id,
+    String? id,
     String label = "Comment",
     String hint = "Comment",
-    validation validator,
+    validation? validator,
     DecorationElement decorationElement = const UnderlineDecorationElement(),
     this.maxLines = 3,
     this.showCounter = false,
@@ -499,7 +505,7 @@ class TextAreaElement extends TextElement {
           hint: hint,
           decorationElement: decorationElement,
           validator: (text) {
-            if (isRequired && text.isEmpty) {
+            if (isRequired && text != null && text.isEmpty) {
               return messageError;
             }
             if (validator != null) return validator(text);
@@ -528,18 +534,18 @@ class TextAreaElement extends TextElement {
 /// [errorMsg] : (String) show error message  when the field isn't validate.
 /// [padding] : (EdgeInsets) padding of textField.
 class DateElement extends TextElement {
-  final String id;
-  final DateTime initDate;
-  final DateFormat format;
-  final DateTime firstDate;
-  final DateTime lastDate;
-  final SelectableDayPredicate selectableDayPredicate;
-  final String label;
-  final DecorationElement decorationElement;
-  final String hint;
+  final String? id;
+  final DateTime? initDate;
+  final DateFormat? format;
+  final DateTime? firstDate;
+  final DateTime? lastDate;
+  final SelectableDayPredicate? selectableDayPredicate;
+  final String? label;
+  final DecorationElement? decorationElement;
+  final String? hint;
   final bool isRequired;
   final bool readOnly = true;
-  final String errorMsg;
+  final String? errorMsg;
   final EdgeInsets padding;
   final Icon suffixIcon;
 
@@ -588,19 +594,19 @@ class DateElement extends TextElement {
 /// [errorMsg] : (String) show error message  when the field isn't validate.
 /// [padding] : (EdgeInsets) padding of textField.
 class DateInputElement extends TextElement {
-  final String id;
-  final DateTime initDate;
-  final DateFormat dateFormat;
-  final String label;
-  final bool isRequired;
-  final DecorationElement decorationElement;
-  final validation validator;
-  final String hint;
+  final String? id;
+  final DateTime? initDate;
+  final DateFormat? dateFormat;
+  final String? label;
+  final bool? isRequired;
+  final DecorationElement? decorationElement;
+  final validation? validator;
+  final String? hint;
   final bool readOnly = false;
-  final String errorMsg;
-  final String requiredErrorMsg;
+  final String? errorMsg;
+  final String? requiredErrorMsg;
   final EdgeInsets padding;
-  final List<TextInputFormatter> formatters;
+  final List<TextInputFormatter>? formatters;
 
   DateInputElement({
     this.id,
@@ -623,7 +629,7 @@ class DateInputElement extends TextElement {
           hint: hint,
           label: label,
           validator: (v) {
-            if (isRequired) {
+            if (isRequired!) {
               return requiredErrorMsg ?? "this field is requied";
             }
             return validator != null ? validator(v) : null;
@@ -671,7 +677,7 @@ class PasswordControls {
 abstract class TextFieldError {
   final String requiredErrorMsg;
   final String patternErrorMsg;
-  final String error;
+  final String? error;
 
   const TextFieldError({
     this.requiredErrorMsg = "",
@@ -701,7 +707,7 @@ class PasswordError extends TextFieldError {
         "Password must include at least one special character",
     this.digitsErrorMsg =
         "Password must include at least one digit from 0 to 9",
-    String error,
+    String? error,
   }) : super(error: error, requiredErrorMsg: requiredErrorMsg);
 }
 
@@ -709,7 +715,7 @@ class EmailError extends TextFieldError {
   EmailError({
     String requiredErrorMsg = "Email is required",
     String patternErrorMsg = "Email is invalid",
-    String error,
+    String? error,
   }) : super(
           error: error,
           requiredErrorMsg: requiredErrorMsg,
@@ -725,6 +731,6 @@ class UsernameEmailError extends TextFieldError {
     String requiredErrorMsg = "Username or Email is required",
     this.patternEmailErrorMsg = "Email is invalid",
     this.patternUsernameErrorMsg = "Username is invalid",
-    String error,
+    String? error,
   }) : super(error: error, requiredErrorMsg: requiredErrorMsg);
 }

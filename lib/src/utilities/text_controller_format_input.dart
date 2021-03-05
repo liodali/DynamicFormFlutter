@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 
 class TextControllerFormatInput extends TextEditingController {
   TextControllerFormatInput({
-    String text,
+    String? text,
     this.mask,
-    Map<String, RegExp> translator,
+    Map<String, RegExp>? translator,
   }) : super(text: text) {
     this.translator =
         translator ?? TextControllerFormatInput.getDefaultTranslator();
@@ -25,9 +25,9 @@ class TextControllerFormatInput extends TextEditingController {
     this.updateText(this.text);
   }
 
-  String mask;
+  String? mask;
 
-  Map<String, RegExp> translator;
+  late Map<String, RegExp> translator;
 
   Function afterChange = (String previous, String next) {};
   Function beforeChange = (String previous, String next) {
@@ -57,8 +57,8 @@ class TextControllerFormatInput extends TextEditingController {
 
   void moveCursorToEnd() {
     var text = this._lastUpdatedText;
-    this.selection = new TextSelection.fromPosition(
-        new TextPosition(offset: (text ?? '').length));
+    this.selection =  TextSelection.fromPosition(
+         TextPosition(offset: (text).length));
   }
 
   @override
@@ -78,7 +78,7 @@ class TextControllerFormatInput extends TextEditingController {
     };
   }
 
-  String _applyMask(String mask, String value) {
+  String _applyMask(String? mask, String value) {
     String result = '';
 
     var maskCharIndex = 0;
@@ -86,7 +86,7 @@ class TextControllerFormatInput extends TextEditingController {
 
     while (true) {
       // if mask is ended, break.
-      if (maskCharIndex == mask.length) {
+      if (maskCharIndex == mask!.length) {
         break;
       }
 
@@ -108,7 +108,7 @@ class TextControllerFormatInput extends TextEditingController {
 
       // apply translator if match
       if (this.translator.containsKey(maskChar)) {
-        if (this.translator[maskChar].hasMatch(valueChar)) {
+        if (this.translator[maskChar]!.hasMatch(valueChar)) {
           result += valueChar;
           maskCharIndex += 1;
         }

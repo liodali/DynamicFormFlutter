@@ -1,13 +1,12 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:dynamic_form/src/utilities/request.dart';
-import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 
 class _Country {
-  final String fullName;
-  final String countryCode;
-  final String code2Alpha;
+  final String? fullName;
+  final String? countryCode;
+  final String? code2Alpha;
 
   _Country({this.fullName, this.countryCode, this.code2Alpha});
 
@@ -22,8 +21,8 @@ class _Country {
   }
 
   @override
-  bool operator ==(other) {
-    _Country c = other;
+  bool operator ==(Object other) {
+    final c = other as _Country;
     if (this.fullName == c.fullName && this.countryCode == c.countryCode) {
       return true;
     }
@@ -32,11 +31,11 @@ class _Country {
 }
 
 class CountryTextField extends StatefulWidget {
-  final TextEditingController textEditingController;
+  final TextEditingController? textEditingController;
 
   final CountryTextResult countryTextResult;
 
-  final CountryElement element;
+  final CountryElement? element;
 
   CountryTextField({
     this.textEditingController,
@@ -49,13 +48,13 @@ class CountryTextField extends StatefulWidget {
 }
 
 class _CountryTextFieldState extends State<CountryTextField> {
-  _Country _selected;
+  _Country? _selected;
 
   @override
   void initState() {
     super.initState();
-    if (widget.element.initValue.isNotEmpty) {
-      widget.textEditingController.text = widget.element.initValue;
+    if (widget.element!.initValue!.isNotEmpty) {
+      widget.textEditingController!.text = widget.element!.initValue!;
     }
   }
 
@@ -72,23 +71,23 @@ class _CountryTextFieldState extends State<CountryTextField> {
     return TextFormField(
       controller: widget.textEditingController,
       decoration:
-          Constants.setInputBorder(context, widget.element.decorationElement)
+          Constants.setInputBorder(context, widget.element!.decorationElement)
               .copyWith(
-        labelText: widget.element.label,
+        labelText: widget.element!.label,
         labelStyle: TextStyle(color: Colors.black),
-        hintText: widget.element.hint,
+        hintText: widget.element!.hint,
         //errorText: widget.element.errorMsg,
       ),
       validator: (v) {
-        if (v.isEmpty) {
-          return widget.element.errorMsg;
+        if (v!.isEmpty) {
+          return widget.element!.errorMsg;
         }
         return null;
       },
-      readOnly: widget.element.readOnly,
+      readOnly: widget.element!.readOnly,
       onTap: () async {
         FocusScope.of(context).requestFocus(FocusNode());
-        if (!widget.element.readOnly) {
+        if (!widget.element!.readOnly) {
           var selected = await showModalBottomSheet<_Country>(
               context: context,
               backgroundColor: Colors.white,
@@ -97,17 +96,17 @@ class _CountryTextFieldState extends State<CountryTextField> {
               builder: (ctx) {
                 return _CountriesBottomSheet(
                   initialSelection: _selected,
-                  initValue: widget.element.initValue,
-                  title: widget.element.labelModalSheet,
-                  labelRecherche: widget.element.labelSearchModalSheet,
-                  showFlag: widget.element.showFlag,
+                  initValue: widget.element!.initValue,
+                  title: widget.element!.labelModalSheet,
+                  labelRecherche: widget.element!.labelSearchModalSheet,
+                  showFlag: widget.element!.showFlag,
                 );
               });
           if (selected != null) {
             if (widget.countryTextResult == CountryTextResult.FullName)
-              widget.textEditingController.text = selected.fullName;
+              widget.textEditingController!.text = selected.fullName!;
             else
-              widget.textEditingController.text = selected.countryCode;
+              widget.textEditingController!.text = selected.countryCode!;
 
             setState(() {
               _selected = selected;
@@ -120,10 +119,10 @@ class _CountryTextFieldState extends State<CountryTextField> {
 }
 
 class _CountriesBottomSheet extends StatefulWidget {
-  final _Country initialSelection;
-  final String initValue;
-  final String title;
-  final String labelRecherche;
+  final _Country? initialSelection;
+  final String? initValue;
+  final String? title;
+  final String? labelRecherche;
   final bool showFlag;
 
   _CountriesBottomSheet({
@@ -141,37 +140,37 @@ class _CountriesBottomSheet extends StatefulWidget {
 }
 
 class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
-  Future<List<_Country>> loadCountries() async {
-    _list = await getInformation<_Country>((data) => _Country.fromJson(data));
-    if (widget.initValue.isNotEmpty && _selected == null) {
-      _selected = _list.firstWhere(
+  Future<List<_Country?>?> loadCountries() async {
+    _list = await getInformation<_Country?>((data) => _Country.fromJson(data));
+    if (widget.initValue!.isNotEmpty && _selected == null) {
+      _selected = _list!.firstWhere(
           (c) =>
-              c.fullName.toLowerCase() == widget.initValue.toLowerCase() ||
-              c.countryCode.toLowerCase() == widget.initValue.toLowerCase(),
+              c!.fullName!.toLowerCase() == widget.initValue!.toLowerCase() ||
+              c.countryCode!.toLowerCase() == widget.initValue!.toLowerCase(),
           orElse: () => null);
     }
     setState(() {});
     return _list;
   }
 
-  List<_Country> _list;
-  _Country _selected;
-  Stream<List<_Country>> _stream;
-  ValueNotifier<bool> _notifierShowClose;
-  TextEditingController _searchController;
+  List<_Country?>? _list;
+  _Country? _selected;
+  Stream<List<_Country?>?>? _stream;
+  late ValueNotifier<bool> _notifierShowClose;
+  TextEditingController? _searchController;
 
   @override
   void initState() {
     super.initState();
     _notifierShowClose = ValueNotifier(false);
     _searchController = TextEditingController(text: "");
-    _searchController.addListener(() async {
-      if (_list.isNotEmpty) {
+    _searchController!.addListener(() async {
+      if (_list!.isNotEmpty) {
         _notifierShowClose.value = true;
-        var newList = _list
-            .where((c) => c.fullName
+        var newList = _list!
+            .where((c) => c!.fullName!
                 .toLowerCase()
-                .contains(_searchController.text.toLowerCase()))
+                .contains(_searchController!.text.toLowerCase()))
             .toList();
         _stream = Stream.value(newList);
       } else {
@@ -185,7 +184,7 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
   @override
   void dispose() {
     _stream = null;
-    _searchController.dispose();
+    _searchController!.dispose();
     super.dispose();
   }
 
@@ -205,7 +204,7 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
         children: <Widget>[
           AppBar(
             title: Text(
-              widget.title,
+              widget.title!,
               style: TextStyle(color: Colors.black),
             ),
             centerTitle: true,
@@ -240,7 +239,7 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
                       if (show)
                         return InkWell(
                           onTap: () {
-                            _searchController.clear();
+                            _searchController!.clear();
                             _notifierShowClose.value = false;
                             FocusScope.of(context).requestFocus(FocusNode());
                           },
@@ -297,11 +296,11 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
             ),
           ),
           Expanded(
-            child: StreamBuilder<List<_Country>>(
+            child: StreamBuilder<List<_Country?>?>(
               stream: _stream,
               builder: (ctx, snap) {
                 if (snap.hasError) {
-                  return ErrorWidget(snap.error);
+                  return ErrorWidget(snap.error!);
                 }
                 if (snap.hasData) {
                   var list = snap.data;
@@ -312,17 +311,20 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
                     builder: (ctx, controller) {
                       return ListView.builder(
                         controller: ScrollController(
-                            initialScrollOffset: list.indexOf(_selected) != -1
+                            initialScrollOffset: list!.indexOf(_selected) != -1
                                 ? 48.8 * (list.indexOf(_selected))
                                 : 0.0),
                         addAutomaticKeepAlives: true,
                         itemExtent: 50.0,
                         itemBuilder: (ctx, i) {
-                          return RadioListTile<_Country>(
+                          return RadioListTile<_Country?>(
                             controlAffinity: ListTileControlAffinity.trailing,
                             secondary: widget.showFlag
-                                ? Flag(
-                                    list[i].code2Alpha,
+                                ? Image.network(
+                                    "https://www.countryflags.io/${list[i]!.code2Alpha}/flat/32.png",
+                                    errorBuilder: (ctx,_,s){
+                                      return Icon(Icons.error);
+                                    },
                                     width: 24,
                                     height: 24,
                                   )
@@ -333,7 +335,7 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
                               });
                             },
                             groupValue: _selected,
-                            title: Text("${list[i].fullName}"),
+                            title: Text("${list[i]!.fullName}"),
                             value: list[i],
                             selected: _selected == list[i],
                           );

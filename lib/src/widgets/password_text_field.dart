@@ -3,13 +3,13 @@ import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:flutter/material.dart';
 
 class PasswordTextField extends StatefulWidget {
-  final TextEditingController textEditingController;
-  final PasswordElement element;
-  final InputDecoration inputDecoration;
-  final TextInputType textInputType;
-  final FocusNode currentFocus;
-  final FocusNode nextFocus;
-  final ValueNotifier<String> errorNotifier;
+  final TextEditingController? textEditingController;
+  final PasswordElement? element;
+  final InputDecoration? inputDecoration;
+  final TextInputType? textInputType;
+  final FocusNode? currentFocus;
+  final FocusNode? nextFocus;
+  final ValueNotifier<String?>? errorNotifier;
 
   PasswordTextField({
     this.textEditingController,
@@ -26,7 +26,7 @@ class PasswordTextField extends StatefulWidget {
 }
 
 class _PasswordTextFieldState extends State<PasswordTextField> {
-  ValueNotifier<bool> isObscureNotifier;
+  late ValueNotifier<bool> isObscureNotifier;
 
   @override
   void initState() {
@@ -40,17 +40,17 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       valueListenable: isObscureNotifier,
       builder: (ctx, isObscure, child) {
         if(widget.errorNotifier!=null){
-          return ValueListenableBuilder<String>(
-            valueListenable: widget.errorNotifier,
+          return ValueListenableBuilder<String?>(
+            valueListenable: widget.errorNotifier!,
             builder: (ctx,error,_){
               return TextFormField(
                 controller: widget.textEditingController,
-                validator: widget.element.validator,
+                validator: widget.element!.validator,
                 keyboardType: widget.textInputType,
-                readOnly: widget.element.readOnly,
+                readOnly: widget.element!.readOnly,
                 obscureText: isObscure,
                 focusNode: widget.currentFocus,
-                style: widget.element.decorationElement?.style,
+                style: widget.element!.decorationElement.style,
                 maxLines: 1,
                 textInputAction: widget.nextFocus == null
                     ? TextInputAction.done
@@ -59,11 +59,11 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                   Constants.fieldFocusChange(
                       context, widget.currentFocus, widget.nextFocus);
                 },
-                decoration: widget.inputDecoration.copyWith(
-                  labelText: widget.element.label,
-                  hintText: widget.element.hint,
+                decoration: widget.inputDecoration!.copyWith(
+                  labelText: widget.element!.label,
+                  hintText: widget.element!.hint,
                   errorText: error,
-                  suffixIcon: widget.element.enableShowPassword
+                  suffixIcon: widget.element!.enableShowPassword
                       ? GestureDetector(
                     onTap: () {
                       isObscureNotifier.value = !isObscure;
@@ -82,12 +82,12 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
         }
          return TextFormField(
           controller: widget.textEditingController,
-          validator: widget.element.validator,
+          validator: widget.element!.validator,
           keyboardType: widget.textInputType,
-          readOnly: widget.element.readOnly,
+          readOnly: widget.element!.readOnly,
           obscureText: isObscure,
           focusNode: widget.currentFocus,
-          style: widget.element.decorationElement?.style,
+          style: widget.element!.decorationElement.style,
           maxLines: 1,
           textInputAction: widget.nextFocus == null
               ? TextInputAction.done
@@ -96,10 +96,10 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
             Constants.fieldFocusChange(
                 context, widget.currentFocus, widget.nextFocus);
           },
-          decoration: widget.inputDecoration.copyWith(
-            labelText: widget.element.label,
-            hintText: widget.element.hint,
-            suffixIcon: widget.element.enableShowPassword
+          decoration: widget.inputDecoration!.copyWith(
+            labelText: widget.element!.label,
+            hintText: widget.element!.hint,
+            suffixIcon: widget.element!.enableShowPassword
                 ? GestureDetector(
               onTap: () {
                 isObscureNotifier.value = !isObscure;

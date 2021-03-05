@@ -29,16 +29,16 @@ void main() {
     final inputCVV = tester.widget(find.byType(TextFormField).at(2)) as TextFormField;
 
 
-    inputCardNb.controller.text = "4555555555555555";
-    inputCVV.controller.text = "455";
-    inputDate.controller.text = "11/20";
+    inputCardNb.controller!.text = "4555555555555555";
+    inputCVV.controller!.text = "455";
+    inputDate.controller!.text = "11/20";
 
     await tester.pump();
 
     await tester.tap(find.byType(RaisedButton));
 
-    expect(inputCardNb.controller.value.text,"4555555555555555");
-    expect(inputDate.validator("11/20"),"date expiration is invalid");
-    expect(inputCVV.validator("45"),"cvv is invalid");
+    expect(inputCardNb.controller!.value.text,"4555555555555555");
+    expect(inputDate.validator!("11/20"),"date expiration is invalid");
+    expect(inputCVV.validator!("45"),"cvv is invalid");
   });
 }

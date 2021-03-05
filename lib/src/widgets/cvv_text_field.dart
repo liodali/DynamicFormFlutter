@@ -6,27 +6,27 @@ import '../utilities/constants.dart';
 class CvvTextField extends StatelessWidget {
   final TextEditingController controller;
   final CVVElement element;
-  final FocusNode currentFocus;
-  final FocusNode nextFocus;
+  final FocusNode? currentFocus;
+  final FocusNode? nextFocus;
 
   CvvTextField({
-    this.controller,
-    this.element,
+    required this.controller,
+    required this.element,
     this.currentFocus,
     this.nextFocus,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (element.initValue.isNotEmpty) controller.text = element.initValue;
+    if ( element.initValue!=null && element.initValue!.isNotEmpty) controller.text = element.initValue!;
     return TextFormField(
       controller: controller,
       validator: element.validator,
       keyboardType: Constants.getInput(element.typeInput),
       readOnly: element.readOnly,
       enabled: true,
-      onTap: element.onTap,
+      onTap: element.onTap as void Function()?,
       focusNode: currentFocus,
       obscureText: true,
       textInputAction:
