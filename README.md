@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.9.0-nullsafety.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.9.0--nullsafety.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 
 create your form with easier way
