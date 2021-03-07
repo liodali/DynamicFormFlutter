@@ -309,7 +309,8 @@ class _GenerateTextField extends StatelessWidget {
         controller: controller,
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
-        element: element as CardNumberElement?,
+        element: element as CardNumberElement,
+        errorNotifier: errorNotifier,
       );
     } else if (element is CVVElement) {
       return CvvTextField(
@@ -317,6 +318,7 @@ class _GenerateTextField extends StatelessWidget {
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
         element: element as CVVElement,
+        errorNotifier: errorNotifier,
       );
     } else if (element is NumberElement) {
       return TextFormField(
@@ -373,6 +375,7 @@ class _GenerateTextField extends StatelessWidget {
         element: element as DateElement,
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
+
       );
     } else if (element is DateInputElement) {
       return DateInputField(
@@ -380,6 +383,7 @@ class _GenerateTextField extends StatelessWidget {
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
         element: element as DateInputElement,
+        errorNotifier: errorNotifier,
       );
     }
     if (errorNotifier != null) {
@@ -427,12 +431,12 @@ class _GenerateTextField extends StatelessWidget {
       controller: controller,
       validator: element!.isRequired!
           ? (v) {
-        if (v.isEmpty) {
+        if (v!=null && v.isEmpty) {
           return element!.error;
         }
         if (element?.validator != null) return element?.validator!(v);
         return null;
-      } as String? Function(String?)?
+      }
           : element!.validator,
       keyboardType: Constants.getInput(element!.typeInput),
       readOnly: element!.readOnly,
