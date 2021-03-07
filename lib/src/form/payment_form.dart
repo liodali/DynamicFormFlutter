@@ -8,33 +8,41 @@ import '../simple_dynamic_form.dart';
 import '../utilities/constants.dart';
 import '../widgets/decoration_element.dart';
 
-typedef onAction = Future<void> Function(
-    String cardNumber, String cvv, String dateExpiration);
-
+/// [PaymentForm] : Widget Form that illustrate payment form
+///
 /// [decorationElement] :            decoration of all input field in form
-/// [actionPayment] :                callback to make your api call when you form is validate
-/// [paymentText]  :                 Text widget of the submit button
+///
 /// [buttonDecoration] :             decoration of button that contain radius,backgroundColor,width
+///
 /// [errorMessageDateExpiration] :   messages errors to show  when Date Expiration field not validate
-/// [errorMessageCVV]   :            messages errors to show when cvv field is invalidate
-/// [errorMessageCardNumber]  :      messages errors to show when credit card number is invalidate
-/// [errorIsRequiredMessage] :       messages errors to show when at least one field not filled
-/// [labelCardNumber]        :       text label of credit card number field
-/// [labelDateExpiration]    :       text label of date expiration field
-/// [labelCVV]               :       text label of cvv field
-
+///
+/// [errorMessageCVV]            :   messages errors to show when cvv field is invalidate
+///
+/// [errorMessageCardNumber]     :   messages errors to show when credit card number is invalidate
+///
+/// [errorIsRequiredMessage]     :   messages errors to show when at least one field not filled
+///
+/// [labelCardNumber]            :   text label of credit card number field
+///
+/// [labelDateExpiration]        :   text label of date expiration field
+///
+/// [labelCVV]                   :   text label of cvv field
+///
+///[controller]                  :  Controls the form and validate it,setError to fields,clear values.
+///
+///[submitButton]                 :  (Widget) submit widget that you want integrated directly in form
 class PaymentForm extends StatefulWidget {
-  final DecorationElement decorationElement;
-  final String labelCardNumber;
-  final String labelDateExpiration;
-  final String labelCVV;
-  final String errorMessageDateExpiration;
-  final String errorMessageCVV;
-  final String errorMessageCardNumber;
-  final String errorIsRequiredMessage;
-  final onAction actionPayment;
-  final Text paymentText;
+  final DecorationElement? decorationElement;
+  final String? labelCardNumber;
+  final String? labelDateExpiration;
+  final String? labelCVV;
+  final String? errorMessageDateExpiration;
+  final String? errorMessageCVV;
+  final String? errorMessageCardNumber;
+  final String? errorIsRequiredMessage;
+  final PaymentController controller;
   final ButtonDecorationElement buttonDecoration;
+  final Widget? submitButton;
 
   PaymentForm({
     this.decorationElement,
@@ -45,45 +53,53 @@ class PaymentForm extends StatefulWidget {
     this.errorMessageCVV,
     this.errorMessageCardNumber,
     this.errorIsRequiredMessage,
-    this.actionPayment,
-    this.paymentText,
+    required this.controller,
+    this.submitButton,
     this.buttonDecoration = const ButtonDecorationElement(),
-    Key key,
+    Key? key,
   }) : super(
           key: key,
         );
 
+  static PaymentController? of(BuildContext context, {bool nullOk = false}) {
+    final PaymentForm? result =
+        context.findAncestorWidgetOfExactType<PaymentForm>();
+    if (nullOk || result != null) return result!.controller;
+    throw FlutterError.fromParts(<DiagnosticsNode>[
+      ErrorSummary(
+          'PaymentForm.of() called with a context that does not contain an PaymentForm.'),
+      ErrorDescription(
+          'No PaymentForm ancestor could be found starting from the context that was passed to PaymentForm.of().'),
+      context.describeElement('The context used was')
+    ]);
+  }
+
   @override
-  _PaymentFormState createState() => _PaymentFormState();
+  PaymentFormState createState() => PaymentFormState();
 }
 
-class _PaymentFormState extends State<PaymentForm> {
-  final dateFormat = DateFormat("MM/yy");
+class PaymentFormState extends State<PaymentForm> {
   final dateFormatCompare = DateFormat("MM/yyyy");
-  DateTime startedDate;
+  DateTime? startedDate;
 
-  DateTime endDate;
+  late DateTime endDate;
 
-  FormController controller;
+  FormController controller = FormController();
 
   static const String idCardNumber = "id-card-number";
   static const String idCVV = "id-cvv";
   static const String idDateExpiration = "id-date-expiration";
-  String yearStartedInputFormat = "";
-  String yearEndInputFormat = "";
-  RegExp reg;
+  late RegExp reg;
 
   @override
   void initState() {
     super.initState();
-    controller = FormController();
-    startedDate = DateTime.now().parseFormat(dateFormat);
-    endDate = DateTime.now().add(Duration(days: 3650)).parseFormat(dateFormat);
+    widget.controller.init(this);
+    startedDate = DateTime.now().parseFormat(dateFormatCompare);
+    endDate =
+        DateTime.now().add(Duration(days: 3650)).parseFormat(dateFormatCompare);
 
-    yearStartedInputFormat = startedDate.year.toString();
-    yearEndInputFormat = endDate.year.toString();
-    reg = RegExp(
-        "^((0[1-9])|(1[0-2]))(\/)((${yearStartedInputFormat[0]}[0-9])|($yearEndInputFormat))\$");
+    reg = RegExp("^((0[1-9])|(1[0-2]))(\/)(([0-9]){4})\$");
   }
 
   @override
@@ -114,19 +130,20 @@ class _PaymentFormState extends State<PaymentForm> {
                   isRequired: true,
                   requiredErrorMsg: widget.errorIsRequiredMessage,
                   label: widget.labelDateExpiration,
-                  hint: "mm/yy",
-                  dateFormat: dateFormat,
+                  hint: "mm/yyyy",
+                  dateFormat: dateFormatCompare,
                   initDate: startedDate,
                   validator: (v) {
                     try {
-                      if (!reg.hasMatch(v)) {
+                      if (!reg.hasMatch(v!)) {
                         return widget.errorMessageDateExpiration;
                       }
                       var d = dateFormatCompare.parse(v);
-                      if (d.isBefore(startedDate) || d.isAfter(endDate)) {
+                      if (d.isBefore(startedDate!) || d.isAfter(endDate)) {
                         return widget.errorMessageDateExpiration;
                       }
                     } catch (e) {
+                      print(e);
                       return widget.errorMessageDateExpiration;
                     }
                     return null;
@@ -152,24 +169,24 @@ class _PaymentFormState extends State<PaymentForm> {
             ),
           ],
         ),
-        Container(
-          width: widget.buttonDecoration.widthSubmitButton,
-          child: RaisedButton(
-            onPressed: () async {
-              if (controller.validate()) {
-                final cardNumber = controller.getValueById(idCardNumber);
-                final cvv = controller.getValueById(idCVV);
-                final dateExpiration =
-                    controller.getValueById(idDateExpiration);
-                await widget.actionPayment(cardNumber, cvv, dateExpiration);
-              }
-            },
-            color: widget.buttonDecoration.backgroundColorButton,
-            elevation: widget.buttonDecoration.elevation,
-            shape: widget.buttonDecoration.shapeButton,
-            child: widget.paymentText ?? Text("purchase"),
-          ),
-        ),
+        if (widget.submitButton != null) ...[widget.submitButton!]
+        // Container(
+        //   width: widget.buttonDecoration.widthSubmitButton,
+        //   child: RaisedButton(
+        //     onPressed: () async {
+        //       if (controller!.validate()) {
+        //         final cardNumber = controller!.getValueById(idCardNumber);
+        //         final cvv = controller!.getValueById(idCVV);
+        //         final dateExpiration =
+        //             controller!.getValueById(idDateExpiration);
+        //       }
+        //     },
+        //     color: widget.buttonDecoration.backgroundColorButton,
+        //     elevation: widget.buttonDecoration.elevation,
+        //     shape: widget.buttonDecoration.shapeButton,
+        //     child: widget.paymentText ?? Text("purchase"),
+        //   ),
+        // ),
       ],
     );
   }

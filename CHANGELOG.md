@@ -1,3 +1,9 @@
+## [0.9.0-nullsafety.0] - beta version:
+* migration to null safety feature in dart
+* create new form controller for payment form
+* add submit button in payment form
+* fix bugs in payment form
+* remove flag package  that doesn't support null safety
 ## [0.8.0] - beta version:
 * add LoginFormController for LoginForm
 * add possibility to show error in the field after validation

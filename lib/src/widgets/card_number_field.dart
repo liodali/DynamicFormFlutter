@@ -8,15 +8,18 @@ import '../utilities/text_controller_format_input.dart';
 class CardNumberField extends StatelessWidget {
   final CardNumberElement element;
   final TextEditingController controller;
-  final FocusNode currentFocus;
-  final FocusNode nextFocus;
+  final FocusNode? currentFocus;
+  final FocusNode? nextFocus;
+  final ValueNotifier<String?>? errorNotifier;
 
   CardNumberField({
-    this.element,
-    this.controller,
+    required this.element,
+    required this.controller,
     this.currentFocus,
     this.nextFocus,
-  });
+    this.errorNotifier,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,36 +29,121 @@ class CardNumberField extends StatelessWidget {
       American Express cards – Begin with a 3, followed by a 4 or a 7  has 15 digits
       Discover cards – Begin with a 6 and have 16 digits
    */
-    final ValueNotifier<Widget> iconNotifier = ValueNotifier(null);
+    final ValueNotifier<Widget?> iconNotifier = ValueNotifier(null);
     final TextControllerFormatInput inputController = TextControllerFormatInput(
         mask: "XXXX-XXXX-XXXX-XXXX",
         text: controller.text,
         translator: {
           "X": RegExp(r'[0-9]'),
         });
+    inputController.addListener(() {
+      controller.text = inputController.text.replaceAll("-", "");
+    });
+    if (errorNotifier != null) {
+      return ValueListenableBuilder<String?>(
+        valueListenable: errorNotifier!,
+        builder: (ctx, error, _) {
+          return TextFormField(
+            controller: inputController,
+            keyboardType: TextInputType.datetime,
+            focusNode: currentFocus,
+            textInputAction:
+                nextFocus == null ? TextInputAction.done : TextInputAction.next,
+            decoration:
+                Constants.setInputBorder(context, element.decorationElement)
+                    .copyWith(
+              labelStyle: element.textStyle ??
+                  Theme.of(context).inputDecorationTheme.labelStyle,
+              errorStyle: element.errorStyle ??
+                  Theme.of(context).inputDecorationTheme.labelStyle,
+              hintText: element.hint,
+              labelText: element.label,
+              errorText: error,
+              suffixIcon: ValueListenableBuilder<Widget?>(
+                valueListenable: iconNotifier,
+                builder: (ctx, child, _) {
+                  if (child == null) {
+                    return SizedBox.shrink();
+                  }
+                  return Container(
+                    width: 32.0,
+                    alignment: Alignment.center,
+                    child: child,
+                  );
+                },
+              ),
+            ),
+            validator: (value) {
+              final number = controller.text;
+              if (number.isEmpty) {
+                return element.errorIsRequiredMessage;
+              }
+              if (number.length < 13) {
+                return element.errorMsg ?? "credit card number is invalid";
+              }
+              if ((number.startsWith("4") &&
+                      (number.length != 13 && number.length != 16)) ||
+                  (number.startsWith("5") && number.length != 16) ||
+                  ((number.startsWith("34") && number.startsWith("37")) &&
+                      number.length != 15) ||
+                  (number.startsWith("6") && number.length != 16)) {
+                return element.errorMsg ?? "credit card number is invalid";
+              }
+
+              return null;
+            },
+            onChanged: (v) {
+              if (controller.text.length < 2 && controller.text.isNotEmpty) {
+                String cardIconName = "";
+                if (controller.text.startsWith("4")) {
+                  cardIconName = "assets/svg/visa.svg";
+                } else if (controller.text.startsWith("5")) {
+                  cardIconName = "assets/svg/master-card.svg";
+                } else if (controller.text.startsWith("3")) {
+                  cardIconName = "assets/svg/american-express.svg";
+                } else if (controller.text.startsWith("6")) {
+                  cardIconName = "assets/svg/discover.svg";
+                }
+                if (cardIconName.isNotEmpty)
+                  iconNotifier.value = SvgPicture.asset(
+                    "packages/dynamic_form/$cardIconName",
+                    height: 24,
+                    width: 24,
+                  );
+                else
+                  iconNotifier.value = null;
+              }
+              //controller.text = inputController.text.replaceAll("-", "");
+            },
+          );
+        },
+      );
+    }
     return TextFormField(
       controller: inputController,
       keyboardType: TextInputType.datetime,
       focusNode: currentFocus,
       textInputAction:
           nextFocus == null ? TextInputAction.done : TextInputAction.next,
-      decoration:
-          Constants.setInputBorder(context, element.decorationElement).copyWith(
+      decoration: Constants.setInputBorder(context, element.decorationElement)
+          .copyWith(
         labelStyle: element.textStyle ??
             Theme.of(context).inputDecorationTheme.labelStyle,
         errorStyle: element.errorStyle ??
             Theme.of(context).inputDecorationTheme.labelStyle,
         hintText: element.hint,
         labelText: element.label,
-        suffixIcon: ValueListenableBuilder<Widget>(
+        suffixIcon: ValueListenableBuilder<Widget?>(
           valueListenable: iconNotifier,
           builder: (ctx, child, _) {
+            if (child == null) {
+              return SizedBox.shrink();
+            }
             return Container(
-                  width: 32.0,
-                  alignment: Alignment.center,
-                  child: child,
-                ) ??
-                SizedBox.shrink();
+              width: 32.0,
+              alignment: Alignment.center,
+              child: child,
+            );
           },
         ),
       ),
@@ -99,7 +187,7 @@ class CardNumberField extends StatelessWidget {
           else
             iconNotifier.value = null;
         }
-        controller.text = v.replaceAll("-", "");
+        //controller.text = inputController.text.replaceAll("-", "");
       },
     );
   }

@@ -1,15 +1,14 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:dynamic_form/src/utilities/request.dart';
-import 'package:flag/flag.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class _CallingCountry {
-  final String fullName;
-  final String code3Alpha;
-  final String code2Alpha;
-  final List<String> callingCode;
+  final String? fullName;
+  final String? code3Alpha;
+  final String? code2Alpha;
+  final List<String?>? callingCode;
 
   _CallingCountry({
     this.fullName,
@@ -32,7 +31,7 @@ class _CallingCountry {
 
   @override
   bool operator ==(other) {
-    _CallingCountry c = other;
+    _CallingCountry c = other as _CallingCountry;
     if (this.fullName == c.fullName && this.callingCode == c.callingCode) {
       return true;
     }
@@ -41,11 +40,11 @@ class _CallingCountry {
 }
 
 class PhoneTextField extends StatefulWidget {
-  final PhoneNumberElement element;
-  final TextEditingController controller;
-  final FocusNode currentFocus;
-  final FocusNode nextFocus;
-  final ValueNotifier<String> errorNotifier;
+  final PhoneNumberElement? element;
+  final TextEditingController? controller;
+  final FocusNode? currentFocus;
+  final FocusNode? nextFocus;
+  final ValueNotifier<String>? errorNotifier;
 
   PhoneTextField({
     this.element,
@@ -53,7 +52,7 @@ class PhoneTextField extends StatefulWidget {
     this.errorNotifier,
     this.currentFocus,
     this.nextFocus,
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -61,7 +60,7 @@ class PhoneTextField extends StatefulWidget {
 }
 
 class _PhoneTextFieldState extends State<PhoneTextField> {
-  ValueNotifier<_CallingCountry> countryNotifier;
+  ValueNotifier<_CallingCountry?>? countryNotifier;
 
   @override
   void initState() {
@@ -71,13 +70,16 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
 
   @override
   Widget build(BuildContext context) {
-    Widget iconFlag = ValueListenableBuilder<_CallingCountry>(
+    Widget iconFlag = ValueListenableBuilder<_CallingCountry?>(
       builder: (ctx, country, child) {
         if (country != null) {
           return Container(
             margin: EdgeInsets.symmetric(vertical: 2.0, horizontal: 5.0),
-            child: Flag(
-              "${country.code2Alpha.toLowerCase()}",
+            child: Image.network(
+              "https://www.countryflags.io/${country.code2Alpha}/flat/32.png",
+              errorBuilder: (ctx,_,s){
+                return Icon(Icons.error);
+              },
               width: 12,
               height: 12,
             ),
@@ -85,17 +87,17 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
         }
         return Container();
       },
-      valueListenable: countryNotifier,
+      valueListenable: countryNotifier!,
     );
     if(widget.errorNotifier!=null){
       return ValueListenableBuilder<String>(
-        valueListenable: widget.errorNotifier,
+        valueListenable: widget.errorNotifier!,
         builder: (ctx,error,child){
           return TextFormField(
             controller: widget.controller,
-            keyboardType: Constants.getInput(widget.element.typeInput),
-            validator: widget.element.validator,
-            readOnly: widget.element.readOnly,
+            keyboardType: Constants.getInput(widget.element!.typeInput),
+            validator: widget.element!.validator,
+            readOnly: widget.element!.readOnly,
             style: TextStyle(color: Colors.black),
             focusNode: widget.currentFocus,
             textInputAction: widget.nextFocus == null
@@ -106,12 +108,12 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
                   context, widget.currentFocus, widget.nextFocus);
             },
             decoration:
-            Constants.setInputBorder(context, widget.element.decorationElement)
+            Constants.setInputBorder(context, widget.element!.decorationElement)
                 .copyWith(
-              labelText: widget.element.label,
-              hintText: widget.element.hint,
+              labelText: widget.element!.label,
+              hintText: widget.element!.hint,
               errorText: error,
-              prefix: widget.element.showPrefix
+              prefix: widget.element!.showPrefix
                   ? SizedBox(
                 width: 55,
                 height: 25,
@@ -121,8 +123,8 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
                 ),
               )
                   : null,
-              prefixIcon: widget.element.showPrefixFlag ? child : null,
-              suffixIcon: widget.element.showSuffixFlag ? child : null,
+              prefixIcon: widget.element!.showPrefixFlag ? child : null,
+              suffixIcon: widget.element!.showSuffixFlag ? child : null,
             ),
           );
         },
@@ -131,9 +133,9 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
     }
     return TextFormField(
       controller: widget.controller,
-      keyboardType: Constants.getInput(widget.element.typeInput),
-      validator: widget.element.validator,
-      readOnly: widget.element.readOnly,
+      keyboardType: Constants.getInput(widget.element!.typeInput),
+      validator: widget.element!.validator,
+      readOnly: widget.element!.readOnly,
       style: TextStyle(color: Colors.black),
       focusNode: widget.currentFocus,
       textInputAction: widget.nextFocus == null
@@ -144,11 +146,11 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
             context, widget.currentFocus, widget.nextFocus);
       },
       decoration:
-      Constants.setInputBorder(context, widget.element.decorationElement)
+      Constants.setInputBorder(context, widget.element!.decorationElement)
           .copyWith(
-        labelText: widget.element.label,
-        hintText: widget.element.hint,
-        prefix: widget.element.showPrefix
+        labelText: widget.element!.label,
+        hintText: widget.element!.hint,
+        prefix: widget.element!.showPrefix
             ? SizedBox(
           width: 55,
           height: 25,
@@ -158,16 +160,16 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
           ),
         )
             : null,
-        prefixIcon: widget.element.showPrefixFlag ? iconFlag : null,
-        suffixIcon: widget.element.showSuffixFlag ? iconFlag : null,
+        prefixIcon: widget.element!.showPrefixFlag ? iconFlag : null,
+        suffixIcon: widget.element!.showSuffixFlag ? iconFlag : null,
       ),
     );
   }
 }
 
 class PrefixPhoneNumber extends StatefulWidget {
-  final String prefix;
-  final ValueNotifier<_CallingCountry> countryNotifier;
+  final String? prefix;
+  final ValueNotifier<_CallingCountry?>? countryNotifier;
 
   PrefixPhoneNumber({this.prefix, this.countryNotifier});
 
@@ -176,8 +178,8 @@ class PrefixPhoneNumber extends StatefulWidget {
 }
 
 class _PrefixPhoneNumberState extends State<PrefixPhoneNumber> {
-  List<_CallingCountry> _list;
-  Future<_CallingCountry> future;
+  late List<_CallingCountry> _list;
+  Future<_CallingCountry>? future;
 
   @override
   void initState() {
@@ -189,16 +191,16 @@ class _PrefixPhoneNumberState extends State<PrefixPhoneNumber> {
     _list = await getInformation<_CallingCountry>(
       (data) => _CallingCountry.fromJson(data),
     );
-    if (widget.prefix.isEmpty) {
-      String callingCountries = await request<String>(
+    if (widget.prefix!.isEmpty) {
+      String? callingCountries = await request<String?>(
           "http://ip-api.com/json/", (jsonData) => jsonData["country"],
           type: requestType.get);
       if (callingCountries != null) {
         _CallingCountry _callingCountry = _list
             .where((value) =>
-                value.fullName.toLowerCase() == callingCountries.toLowerCase())
+                value.fullName!.toLowerCase() == callingCountries.toLowerCase())
             .first;
-        widget.countryNotifier.value = _callingCountry;
+        widget.countryNotifier!.value = _callingCountry;
         return _callingCountry;
       }
       return _list.first;
@@ -215,7 +217,7 @@ class _PrefixPhoneNumberState extends State<PrefixPhoneNumber> {
           if (snap.hasError) {
             return Container();
           }
-          return Text("${snap.data.callingCode[0]}");
+          return Text("${snap.data!.callingCode![0]}");
         }
         return Container(
           height: 25,

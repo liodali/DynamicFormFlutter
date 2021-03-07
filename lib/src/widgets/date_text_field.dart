@@ -7,15 +7,15 @@ import '../utilities/constants.dart';
 class DateTextField extends StatelessWidget {
   final DateElement element;
   final TextEditingController controller;
-  final FocusNode currentFocus;
-  final FocusNode nextFocus;
+  final FocusNode? currentFocus;
+  final FocusNode? nextFocus;
   final dateFormat = DateFormat.yMEd();
-  final ValueNotifier<String> errorNotifier;
+  final ValueNotifier<String>? errorNotifier;
 
   DateTextField({
     this.errorNotifier,
-    this.element,
-    this.controller,
+    required this.element,
+    required this.controller,
     this.currentFocus,
     this.nextFocus,
   });
@@ -42,7 +42,7 @@ class DateTextField extends StatelessWidget {
         ),
         validator: (v) {
           if (element.isRequired) {
-            if (v.isEmpty || v == null) {
+            if (v!.isEmpty) {
               return element.errorMsg;
             }
           }
@@ -51,7 +51,7 @@ class DateTextField extends StatelessWidget {
         },
         onTap: () async {
           FocusScope.of(context).requestFocus(FocusNode());
-          DateTime date = await showDatePicker(
+          DateTime? date = await showDatePicker(
             context: context,
             initialDate: element.initDate ?? DateTime.now(),
             firstDate: element.firstDate ?? DateTime(1970, 1, 1),
@@ -69,7 +69,7 @@ class DateTextField extends StatelessWidget {
       );
     }
     return ValueListenableBuilder<String>(
-      valueListenable: errorNotifier,
+      valueListenable: errorNotifier!,
       builder: (ctx, error, _) {
         return TextFormField(
           controller: controller,
@@ -92,7 +92,7 @@ class DateTextField extends StatelessWidget {
           ),
           validator: (v) {
             if (element.isRequired) {
-              if (v.isEmpty || v == null) {
+              if (v!.isEmpty) {
                 return element.errorMsg;
               }
             }
@@ -100,7 +100,7 @@ class DateTextField extends StatelessWidget {
           },
           onTap: () async {
             FocusScope.of(context).requestFocus(FocusNode());
-            DateTime date = await showDatePicker(
+            DateTime? date = await showDatePicker(
               context: context,
               initialDate: element.initDate ?? DateTime.now(),
               firstDate: element.firstDate ?? DateTime(1970, 1, 1),

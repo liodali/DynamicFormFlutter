@@ -1,4 +1,5 @@
 import '../form/login_form.dart';
+import '../form/payment_form.dart';
 import '../simple_dynamic_form.dart';
 
 abstract class BaseFormController {
@@ -20,7 +21,7 @@ abstract class BaseSimpleFormController extends BaseFormController {
 }
 
 class FormController extends BaseSimpleFormController {
-  SimpleDynamicFormState _formState;
+  late SimpleDynamicFormState _formState;
 
   void init(SimpleDynamicFormState state) {
     this._formState = state;
@@ -57,34 +58,73 @@ class FormController extends BaseSimpleFormController {
 /// use case use can show error in username/password if auth failed
 /// clear all values
 class LoginFormController extends BaseFormController {
-  LoginFormState _formState;
+  late LoginFormState _formState;
 
   void init(LoginFormState state) {
     this._formState = state;
   }
   /// get current email/username value
-  String get email => _formState.controller.getValueById("email");
+  String get email => _formState.controller!.getValueById("email");
   /// get current password value
-  String get password => _formState.controller.getValueById("password");
+  String get password => _formState.controller!.getValueById("password");
 
 
   /// show error in email/username without validator
   void addEmailError(String error) {
-    _formState.controller.addErrorToField("email", error);
+    _formState.controller!.addErrorToField("email", error);
   }
   /// show error in password without validator
   void addPasswordError(String error) {
-    _formState.controller.addErrorToField("password", error);
+    _formState.controller!.addErrorToField("password", error);
   }
 
   /// clear value in textFields
   @override
   void clearValues() {
-    _formState.controller.clearValues();
+    _formState.controller!.clearValues();
   }
   /// form validation
   @override
   bool validate() {
-    return _formState.controller.validate();
+    return _formState.controller!.validate();
   }
+}
+class PaymentController extends BaseFormController{
+
+  late PaymentFormState _state;
+
+  void init(PaymentFormState state){
+    this._state = state;
+  }
+  /// get current cardNumber value
+  String get cardNumber => _state.controller.getValueById(PaymentFormState.idCardNumber);
+  /// get current cvv value
+  String get cvv => _state.controller.getValueById(PaymentFormState.idCVV);
+  /// get current date expiration value
+  String get dateExpiration => _state.controller.getValueById(PaymentFormState.idDateExpiration);
+
+  /// show error in cardNumber without validator
+  void addCardNumberError(String error) {
+    _state.controller.addErrorToField(PaymentFormState.idCardNumber, error);
+  }
+  /// show error in cvv without validator
+  void addCVVError(String error) {
+    _state.controller.addErrorToField(PaymentFormState.idCVV, error);
+  }
+  /// show error in date expiration without validator
+  void addDateExpirationError(String error) {
+    _state.controller.addErrorToField(PaymentFormState.idDateExpiration, error);
+  }
+
+
+  @override
+  void clearValues() {
+    this._state.controller.clearValues();
+  }
+
+  @override
+  bool validate() {
+    return this._state.controller.validate();
+  }
+
 }

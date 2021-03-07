@@ -48,18 +48,18 @@ void main() {
 
 
 
-    String v= password.validator("da");
+    String? v= password.validator!("da");
     expect(v, "min length is 3");
-    password.controller.text ="dali";
+    password.controller!.text ="dali";
     expect(controller.password, "dali");
     controller.addPasswordError("password Error");
     await tester.pump();
     var widgetText = tester.widget(find.byType(TextField).last) as TextField;
-    expect(widgetText.decoration.errorText, "password Error");
+    expect(widgetText.decoration!.errorText, "password Error");
     controller.validate();
     await tester.pump(Duration(seconds: 1));
     widgetText = tester.widget(find.byType(TextField).last) as TextField;
-    expect(widgetText.decoration.errorText, null);
+    expect(widgetText.decoration!.errorText, null);
 
 
   });

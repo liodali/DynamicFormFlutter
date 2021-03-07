@@ -8,14 +8,14 @@ enum requestType {
   post,
 }
 
-Future<T> request<T>(String url, T Function(dynamic) mapReq,
-    {requestType type = requestType.get, Map body}) async {
-  http.Client client = http.Client();
+Future<T?> request<T>(String url, T Function(dynamic) mapReq,
+    {requestType type = requestType.get, Map? body}) async {
+  final uri = Uri.parse(url);
   http.Response response;
   if (type == requestType.get) {
-    response = await client.get(url);
+    response = await http.get(uri);
   } else {
-    response = await client.post(url, body: body);
+    response = await http.post(uri, body: body);
   }
   if (response.statusCode == 200)
     return mapReq(json.decode(response.body));

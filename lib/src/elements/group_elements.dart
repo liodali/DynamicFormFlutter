@@ -10,12 +10,12 @@ enum DirectionGroup { Vertical, Horizontal }
 /// [decoration]         : decoration  of container groups.
 /// [backgroundColor]    : color of the container groups.
 class GroupElement {
-  final List<TextElement> textElements;
-  final DirectionGroup directionGroup;
+  final List<TextElement?>? textElements;
+  final DirectionGroup? directionGroup;
   final List<double> sizeElements;
-  final EdgeInsets padding;
-  final EdgeInsets margin;
-  final BoxDecoration decoration;
+  final EdgeInsets? padding;
+  final EdgeInsets? margin;
+  final BoxDecoration? decoration;
   final Color backgroundColor;
 
   GroupElement({
