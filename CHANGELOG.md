@@ -1,3 +1,5 @@
+## [0.9.0-nullsafety.1] - beta version:
+* fix readme badge
 ## [0.9.0-nullsafety.0] - beta version:
 * migration to null safety feature in dart
 * create new form controller for payment form
