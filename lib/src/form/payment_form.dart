@@ -28,7 +28,7 @@ import '../widgets/decoration_element.dart';
 ///
 /// [labelCVV]                   :   text label of cvv field
 ///
-///[controller]                  :
+///[controller]                  :  Controls the form and validate it,setError to fields,clear values.
 ///
 ///[submitButton]                 :  (Widget) submit widget that you want integrated directly in form
 class PaymentForm extends StatefulWidget {

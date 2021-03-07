@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.8.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.9.0-nullsafety.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 
 create your form with easier way
@@ -17,7 +17,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.8.0
+		dynamic_form: ^0.9.0-nullsafety.0
 
 
 
@@ -149,6 +149,11 @@ LoginFormController controller = LoginFormController();
 ```dart
  LoginFormController controller = LoginForm.of(context)
 ```
+### recuperate email/Username,password
+```dart
+final email = controller.email;
+final password = controller.password;
+```
 
 ### show field error after validation (use case when auth failed)
 
@@ -183,28 +188,57 @@ LoginFormController controller = LoginFormController();
 
 ```dart
     PaymentForm(
+          controller:controller,
           decorationElement: OutlineDecorationElement(),
-          actionPayment: (cardNumber, cvv, date) async {
-            print("Credit Card information : $cardNumber,$cvv,$date");
-          },
           errorMessageCVV: "cvv is invalid",
           errorMessageDateExpiration: "date expiration is invalid",
           errorIsRequiredMessage: "This field  is required",
           labelCVV: "cvv",
           labelDateExpiration: "date expiration",
           labelCardNumber: "card number",
-          paymentText: Text("purchase"),
+          submitButton: ElevatedButton(
+            onPressed: () {
+              controller.validate();
+            },
+            child: Text("pay"),
+          ),
         )
 ```
+### Declare LoginFormController to get validation,Email & Password values
 
+```dart
+PaymentController controller = PaymentController();
+```
+> you can access to controller from your submit button
 
-####  `Properties in LoginForm`
+```dart
+ PaymentController controller = PaymentForm.of(context);
+```
+### validation payment form 
+```dart
+bool isValid = controller.validate();
+```
+
+### recuperate cardNumber,cvv,dateExpiration
+```dart
+final cardNumber = controller.cardNumber;
+final cvv = controller.cvv;
+final dateExpiration = controller.dateExpiration;
+```
+
+### show field error after validation (use case when card check failed)
+```dart
+ controller.addCardNumberError(errorMessage);
+ controller.addCVVError(errorMessage);
+ controller.addDateExpirationError(errorMessage);
+```
+
+####  `Properties in PaymentForm`
 
  | Properties                     | Description                                                    |
  | ------------------------------ | -------------------------------------------------------------- |
+ | `controller`                   | (PaymentController) controller to validate form,setError fields,clear values                           |
  | `decorationElement`            | decoration of all input field in form                             |
- | `actionPayment`                | callback to make your api call when you form is validate       |
- | `paymentText`                  | Text widget of the submit button                               |
  | `buttonDecoration`             | decoration of button that contain radius,backgroundColor,width |
  | `errorMessageDateExpiration`   | messages errors to show  when Date Expiration field not validate      |
  | `errorMessageCVV`              | messages errors to show when cvv field is invalidate            |
@@ -213,6 +247,7 @@ LoginFormController controller = LoginFormController();
  | `labelCardNumber`              | text label of credit card number field                          |
  | `labelDateExpiration`          | text label of date expiration field                             |
  | `labelCVV`                     | text label of cvv field                                         |
+ | `submitButton`                 | (widget) submit button widget                                         |
 
 
 
