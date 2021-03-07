@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets("small test", (tester) async {
+  testWidgets("payment form test", (tester) async {
+    final controller = PaymentController();
     await tester.pumpWidget(
       MaterialApp(
         home: Scaffold(
           body: PaymentForm(
+            controller: controller,
             decorationElement: OutlineDecorationElement(),
-            actionPayment: (cardNumber, cvv, date) async {},
             errorMessageCVV: "cvv is invalid",
             errorMessageDateExpiration: "date expiration is invalid",
             labelCVV: "cvv",
             labelDateExpiration: "date expiration",
             labelCardNumber: "card number",
-            paymentText: Text("purchase"),
           ),
         ),
       ),
@@ -31,14 +31,13 @@ void main() {
 
     inputCardNb.controller!.text = "4555555555555555";
     inputCVV.controller!.text = "455";
-    inputDate.controller!.text = "11/20";
+    inputDate.controller!.text = "11/2022";
 
     await tester.pump();
+    expect(controller.validate(), true);
+    expect(controller.cardNumber,"4555555555555555");
+    expect(controller.cvv,"455");
+    expect(controller.dateExpiration,"11/2022");
 
-    await tester.tap(find.byType(RaisedButton));
-
-    expect(inputCardNb.controller!.value.text,"4555555555555555");
-    expect(inputDate.validator!("11/20"),"date expiration is invalid");
-    expect(inputCVV.validator!("45"),"cvv is invalid");
   });
 }
