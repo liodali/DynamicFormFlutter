@@ -37,8 +37,6 @@ class SimpleDynamicForm extends StatefulWidget {
         super(key: key);
 
   static FormController? of(BuildContext context, {bool nullOk = false}) {
-    assert(context != null);
-    assert(nullOk != null);
     final SimpleDynamicForm? result =
     context.findAncestorWidgetOfExactType<SimpleDynamicForm>();
     if (nullOk || result != null) return result!.controller;
@@ -59,14 +57,14 @@ class SimpleDynamicForm extends StatefulWidget {
 
 class SimpleDynamicFormState extends State<SimpleDynamicForm> {
   GlobalKey<FormState>? _formKey;
-  List<List<TextEditingController>>? _listGTextController;
+  late List<List<TextEditingController>> _listGTextController;
   late Map<String, TextEditingController> _mapGTextController;
   late Map<String, ValueNotifier<String?>> _mapValueNotifierErrorField;
   List<List<FocusNode>>? focusList;
 
   List<String> recuperateAllValues() {
     List<String> values = [];
-    _listGTextController!.forEach((textControllers) {
+    _listGTextController.forEach((textControllers) {
       textControllers.forEach((controller) {
         values.add(controller.text);
       });
@@ -75,7 +73,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
   }
 
   void clearValues() {
-    _listGTextController!.forEach((textControllers) {
+    _listGTextController.forEach((textControllers) {
       textControllers.forEach((controller) {
         controller.clear();
       });
@@ -142,7 +140,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
         }
         _listFocus.add(FocusNode());
       });
-      _listGTextController!.add(_list);
+      _listGTextController.add(_list);
       focusList!.add(_listFocus);
     });
     widget.controller!.init(this);
@@ -260,7 +258,7 @@ class _GenerateTextField extends StatelessWidget {
   final List<GroupElement?>? groupElements;
   final TextElement? element;
   final List<TextElement?>? textElements;
-  final List<List<TextEditingController>>? controllers;
+  final List<List<TextEditingController>> controllers;
   final List<List<FocusNode>>? focusList;
   final ValueNotifier<String?>? errorNotifier;
 
@@ -270,7 +268,7 @@ class _GenerateTextField extends StatelessWidget {
     this.gElement,
     this.groupElements,
     this.textElements,
-    this.controllers,
+    required this.controllers,
     this.focusList,
   });
 
@@ -278,7 +276,7 @@ class _GenerateTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     int gIndex = groupElements!.indexOf(gElement);
     int eIndex = gElement!.textElements!.indexOf(element);
-    var controller = controllers![gIndex][eIndex];
+    var controller = controllers[gIndex][eIndex];
 
     var focusNodeNext = focusList![gIndex].length > (eIndex + 1)
         ? focusList![gIndex][eIndex + 1]
@@ -372,7 +370,7 @@ class _GenerateTextField extends StatelessWidget {
     } else if (element is DateElement) {
       return DateTextField(
         controller: controller,
-        element: element as DateElement?,
+        element: element as DateElement,
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
       );
@@ -381,7 +379,7 @@ class _GenerateTextField extends StatelessWidget {
         controller: controller,
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
-        element: element as DateInputElement?,
+        element: element as DateInputElement,
       );
     }
     if (errorNotifier != null) {
@@ -392,13 +390,13 @@ class _GenerateTextField extends StatelessWidget {
             controller: controller,
             validator: element!.isRequired!
                 ? (v) {
-              if (v.isEmpty) {
+              if (v!.isEmpty) {
                 return element!.error;
               }
               if (element?.validator != null)
                 return element?.validator!(v);
               return null;
-            } as String? Function(String?)?
+            }
                 : element!.validator,
             keyboardType: Constants.getInput(element!.typeInput),
             readOnly: element!.readOnly,

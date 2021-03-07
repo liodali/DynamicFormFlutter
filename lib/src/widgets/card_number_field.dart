@@ -7,16 +7,19 @@ import '../utilities/text_controller_format_input.dart';
 
 class CardNumberField extends StatelessWidget {
   final CardNumberElement? element;
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final FocusNode? currentFocus;
   final FocusNode? nextFocus;
+  final ValueNotifier<String?>? errorNotifier;
 
   CardNumberField({
     this.element,
-    this.controller,
+    required this.controller,
     this.currentFocus,
     this.nextFocus,
-  });
+    this.errorNotifier,
+    Key? key,
+  }):super(key:key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +32,13 @@ class CardNumberField extends StatelessWidget {
     final ValueNotifier<Widget?> iconNotifier = ValueNotifier(null);
     final TextControllerFormatInput inputController = TextControllerFormatInput(
         mask: "XXXX-XXXX-XXXX-XXXX",
-        text: controller!.text,
+        text: controller.text,
         translator: {
           "X": RegExp(r'[0-9]'),
         });
+    inputController.addListener(() {
+      controller.text = inputController.text.replaceAll("-", "");
+    });
     return TextFormField(
       controller: inputController,
       keyboardType: TextInputType.datetime,
@@ -62,7 +68,7 @@ class CardNumberField extends StatelessWidget {
         ),
       ),
       validator: (value) {
-        final number = controller!.text;
+        final number = controller.text;
         if (number.isEmpty) {
           return element!.errorIsRequiredMessage;
         }
@@ -81,15 +87,15 @@ class CardNumberField extends StatelessWidget {
         return null;
       },
       onChanged: (v) {
-        if (controller!.text.length < 2 && controller!.text.isNotEmpty) {
+        if (controller.text.length < 2 && controller.text.isNotEmpty) {
           String cardIconName = "";
-          if (controller!.text.startsWith("4")) {
+          if (controller.text.startsWith("4")) {
             cardIconName = "assets/svg/visa.svg";
-          } else if (controller!.text.startsWith("5")) {
+          } else if (controller.text.startsWith("5")) {
             cardIconName = "assets/svg/master-card.svg";
-          } else if (controller!.text.startsWith("3")) {
+          } else if (controller.text.startsWith("3")) {
             cardIconName = "assets/svg/american-express.svg";
-          } else if (controller!.text.startsWith("6")) {
+          } else if (controller.text.startsWith("6")) {
             cardIconName = "assets/svg/discover.svg";
           }
           if (cardIconName.isNotEmpty)
@@ -101,7 +107,7 @@ class CardNumberField extends StatelessWidget {
           else
             iconNotifier.value = null;
         }
-        controller!.text = v.replaceAll("-", "");
+        //controller.text = inputController.text.replaceAll("-", "");
       },
     );
   }
