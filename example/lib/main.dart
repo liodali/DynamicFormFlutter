@@ -167,7 +167,8 @@ class MyHomePage extends StatelessWidget {
                       PhoneNumberElement(
                         label: "Phone",
                         showPrefix: true,
-                        showSuffixFlag: true,
+                        showSuffixFlag: false,
+                        showPrefixFlag: true,
                         hint: "XXXXXXXXXX"
                       ),
                       TextAreaElement(

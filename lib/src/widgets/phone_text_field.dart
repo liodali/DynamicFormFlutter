@@ -110,14 +110,14 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
     );
     Widget? prefixWidget = widget.element.showPrefix
         ? SizedBox(
-      width: 55,
-      height: 25,
-      child: PrefixPhoneNumber(
-        prefix: widget.element.initPrefix,
-        countryNotifier: countryNotifier,
-        title: widget.element.labelModalSheet,
-      ),
-    )
+            width: 55,
+            height: 25,
+            child: PrefixPhoneNumber(
+              prefix: widget.element.initPrefix,
+              countryNotifier: countryNotifier,
+              title: widget.element.labelModalSheet,
+            ),
+          )
         : null;
     if (widget.errorNotifier != null) {
       return ValueListenableBuilder<String>(
@@ -201,6 +201,16 @@ class _PrefixPhoneNumberState extends State<PrefixPhoneNumber> {
   @override
   void initState() {
     super.initState();
+    if (widget.prefix.isEmpty)
+      Future.delayed(Duration.zero, () {
+        getInformation<_CallingCountry>(
+          (data) => _CallingCountry.fromJson(data),
+        ).then((list) {
+          widget.countryNotifier.value = list.first.copy(
+            callingCode: [list.first.callingCode.first],
+          );
+        });
+      });
   }
 
   @override
@@ -309,64 +319,46 @@ class _CallingCodeModalPopups extends StatelessWidget {
                     )
                     .expand((element) => element)
                     .toList();
+                list.removeWhere(
+                    (element) => element.callingCode.first.length == 1);
                 return ListView.builder(
                   controller: ScrollController(
                     initialScrollOffset: list
                             .map((e) => e.callingCode.first)
                             .toList()
                             .indexOf(initCallingCode) *
-                        31.5,
+                        55.5,
                   ),
-                  itemExtent: 32,
+                  itemExtent: 56,
                   itemBuilder: (ctx, index) {
                     final countryInfo = list[index];
 
-                    return InkWell(
-                      onTap: () {
+                    return ListTile(
+                      onTap: (){
                         selectCallingCodeFunction(countryInfo);
                       },
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 5.0, horizontal: 12.0),
-                        child: DefaultTextStyle(
-                          style: TextStyle(
-                            color:
-                                countryInfo.callingCode.first == initCallingCode
-                                    ? Theme.of(context).primaryColor
-                                    : Theme.of(context).colorScheme.onSurface,
-                          ),
-                          child: Row(
-                            children: [
-                              FlagCountry(
-                                flagURL: countryInfo.code2Alpha,
-                              ),
-                              Flexible(
-                                flex: 4,
-                                child: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 5.0),
-                                  child: Text(
-                                    countryInfo.fullName,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                  ),
-                                ),
-                              ),
-                              Flexible(
-                                flex: 3,
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 5.0),
-                                  child: Text(
-                                    countryInfo.callingCode.first,
-                                    maxLines: 1,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                      contentPadding: EdgeInsets.all(12.0),
+                      minLeadingWidth: 32,
+                      minVerticalPadding: 5.0,
+                      leading: FlagCountry(
+                        flagURL: countryInfo.code2Alpha,
+                        flagSize: 48,
+                      ),
+                      title: Text(
+                        countryInfo.fullName,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: TextStyle(
+                          color:
+                          countryInfo.callingCode.first == initCallingCode
+                              ? Theme.of(context).primaryColor
+                              : Theme.of(context).colorScheme.onSurface,
                         ),
+                      ),
+                      trailing: Text(
+                        countryInfo.callingCode.first,
+                        maxLines: 1,
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     );
                   },
