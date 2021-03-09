@@ -8,8 +8,13 @@ enum requestType {
   post,
 }
 
-Future<T?> request<T>(String url, T Function(dynamic) mapReq,
-    {requestType type = requestType.get, Map? body}) async {
+Future<T?> request<T>(
+  String url,
+  T Function(dynamic) mapReq, {
+  requestType type = requestType.get,
+      bool isJsonResponse = false,
+  Map? body,
+}) async {
   final uri = Uri.parse(url);
   http.Response response;
   if (type == requestType.get) {
@@ -31,4 +36,15 @@ Future<List<T>> getInformation<T>(T Function(dynamic) mapReq) async {
       .map((j) => mapReq(j as Map<String, dynamic>))
       .toList(); //_Country.fromJson(j)
   return _list;
+}
+
+class Address {
+  final int FID;
+  final String addr;
+
+  Address(this.addr, this.FID);
+
+  Address.fromMap(Map m)
+      : this.addr = m["Adresse"],
+        this.FID = m["FID"];
 }

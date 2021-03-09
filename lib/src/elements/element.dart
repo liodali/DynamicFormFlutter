@@ -426,12 +426,14 @@ class CountryElement extends TextElement {
 
 class PhoneNumberElement extends TextElement {
   final String initValue;
+  final String initPrefix;
   final DecorationElement decorationElement;
   final String label;
   final String hint;
   final String errorMsg;
   final bool showPrefixFlag;
   final bool showSuffixFlag;
+  final String labelModalSheet;
   final EdgeInsets padding;
   final validation? validator;
   final bool showPrefix;
@@ -444,11 +446,13 @@ class PhoneNumberElement extends TextElement {
     this.label = "Phone Number",
     this.hint = "(+001)XXXXXXXXX",
     this.errorMsg = "invalid phone number",
+    this.labelModalSheet = "select calling code",
     this.validator,
     this.showPrefixFlag = false,
     this.showSuffixFlag = false,
     this.readOnly = false,
     this.showPrefix = true,
+    this.initPrefix = "",
     this.padding = const EdgeInsets.all(2.0),
     bool visibility = true,
   })  : assert(showPrefixFlag == true && showSuffixFlag == false ||

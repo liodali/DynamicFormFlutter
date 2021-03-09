@@ -164,8 +164,17 @@ class MyHomePage extends StatelessWidget {
                         countryTextResult: CountryTextResult.countryCode,
                         showFlag: true,
                       ),
+                      PhoneNumberElement(
+                        label: "Phone",
+                        showPrefix: true,
+                        showSuffixFlag: true,
+                        hint: "XXXXXXXXXX"
+                      ),
                       TextAreaElement(
-                          maxCharacter: 300, maxLines: 4, showCounter: false)
+                        maxCharacter: 300,
+                        maxLines: 4,
+                        showCounter: false,
+                      ),
                     ],
                   ),
                 ],
@@ -173,7 +182,8 @@ class MyHomePage extends StatelessWidget {
               ),
             ],
           ),
-        ),Positioned(
+        ),
+        Positioned(
           bottom: 16,
           right: 8,
           child: FloatingActionButton(
@@ -186,7 +196,8 @@ class MyHomePage extends StatelessWidget {
     );
   }
 }
-class SubmitForm extends StatelessWidget{
+
+class SubmitForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = SimpleDynamicForm.of(context);
@@ -200,5 +211,4 @@ class SubmitForm extends StatelessWidget{
       child: Text("Validate"),
     );
   }
-
 }

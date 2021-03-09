@@ -360,7 +360,7 @@ class _GenerateTextField extends StatelessWidget {
     } else if (element is PhoneNumberElement) {
       return PhoneTextField(
         controller: controller,
-        element: element as PhoneNumberElement?,
+        element: element as PhoneNumberElement,
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
       );
