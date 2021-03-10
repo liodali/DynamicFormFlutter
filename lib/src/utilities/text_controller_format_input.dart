@@ -37,11 +37,7 @@ class TextControllerFormatInput extends TextEditingController {
   String _lastUpdatedText = '';
 
   void updateText(String text) {
-    if (text != null) {
-      this.text = this._applyMask(this.mask, text);
-    } else {
-      this.text = '';
-    }
+    this.text = this._applyMask(this.mask, text);
 
     this._lastUpdatedText = this.text;
   }

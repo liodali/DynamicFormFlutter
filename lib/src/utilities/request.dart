@@ -37,14 +37,3 @@ Future<List<T>> getInformation<T>(T Function(dynamic) mapReq) async {
       .toList(); //_Country.fromJson(j)
   return _list;
 }
-
-class Address {
-  final int FID;
-  final String addr;
-
-  Address(this.addr, this.FID);
-
-  Address.fromMap(Map m)
-      : this.addr = m["Adresse"],
-        this.FID = m["FID"];
-}
