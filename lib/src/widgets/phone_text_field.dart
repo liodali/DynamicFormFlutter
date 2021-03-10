@@ -59,14 +59,14 @@ class _CallingCountry {
 
 class PhoneTextField extends StatefulWidget {
   final PhoneNumberElement element;
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final FocusNode? currentFocus;
   final FocusNode? nextFocus;
   final ValueNotifier<String>? errorNotifier;
 
   PhoneTextField({
     required this.element,
-    this.controller,
+    required this.controller,
     this.errorNotifier,
     this.currentFocus,
     this.nextFocus,
@@ -79,11 +79,25 @@ class PhoneTextField extends StatefulWidget {
 
 class _PhoneTextFieldState extends State<PhoneTextField> {
   late ValueNotifier<_CallingCountry?> countryNotifier;
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     countryNotifier = ValueNotifier(null);
+    textEditingController.addListener(changeTextListener);
+  }
+
+  void changeTextListener() {
+    final callingCode = countryNotifier.value?.callingCode.first ?? "";
+    widget.controller.text = callingCode.trim() + textEditingController.text.trim();
+  }
+
+  @override
+  void dispose() {
+    textEditingController.removeListener(changeTextListener);
+
+    super.dispose();
   }
 
   @override
@@ -109,14 +123,10 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
       valueListenable: countryNotifier,
     );
     Widget? prefixWidget = widget.element.showPrefix
-        ? SizedBox(
-            width: 55,
-            height: 25,
-            child: PrefixPhoneNumber(
-              prefix: widget.element.initPrefix,
-              countryNotifier: countryNotifier,
-              title: widget.element.labelModalSheet,
-            ),
+        ? PrefixPhoneNumber(
+            prefix: widget.element.initPrefix,
+            countryNotifier: countryNotifier,
+            title: widget.element.labelModalSheet,
           )
         : null;
     if (widget.errorNotifier != null) {
@@ -124,7 +134,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
         valueListenable: widget.errorNotifier!,
         builder: (ctx, error, child) {
           return TextFormField(
-            controller: widget.controller,
+            controller: textEditingController,
             keyboardType: Constants.getInput(widget.element.typeInput),
             validator: widget.element.validator,
             readOnly: widget.element.readOnly,
@@ -153,7 +163,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
       );
     }
     return TextFormField(
-      controller: widget.controller,
+      controller: textEditingController,
       keyboardType: Constants.getInput(widget.element.typeInput),
       validator: widget.element.validator,
       readOnly: widget.element.readOnly,
@@ -201,16 +211,23 @@ class _PrefixPhoneNumberState extends State<PrefixPhoneNumber> {
   @override
   void initState() {
     super.initState();
-    if (widget.prefix.isEmpty)
-      Future.delayed(Duration.zero, () {
-        getInformation<_CallingCountry>(
-          (data) => _CallingCountry.fromJson(data),
-        ).then((list) {
-          widget.countryNotifier.value = list.first.copy(
-            callingCode: [list.first.callingCode.first],
-          );
-        });
+
+    Future.delayed(Duration.zero, () {
+      getInformation<_CallingCountry>(
+        (data) => _CallingCountry.fromJson(data),
+      ).then((list) {
+        final index = widget.prefix.isNotEmpty
+            ? list
+                .map((e) => e.callingCode.first)
+                .toList()
+                .indexOf(widget.prefix)
+            : 0;
+
+        widget.countryNotifier.value = list[index].copy(
+          callingCode: [list[index].callingCode.first],
+        );
       });
+    });
   }
 
   @override
@@ -259,7 +276,14 @@ class _PrefixPhoneNumberState extends State<PrefixPhoneNumber> {
       child: ValueListenableBuilder<_CallingCountry?>(
         valueListenable: widget.countryNotifier,
         builder: (ctx, country, _) {
-          return Text(country?.callingCode.first ?? "");
+          if (country == null || country.callingCode.first.isEmpty) {
+            return SizedBox.shrink();
+          }
+          return SizedBox(
+            width: 55,
+            height: 25,
+            child: Text(country.callingCode.first),
+          );
         },
       ),
     );
@@ -334,7 +358,7 @@ class _CallingCodeModalPopups extends StatelessWidget {
                     final countryInfo = list[index];
 
                     return ListTile(
-                      onTap: (){
+                      onTap: () {
                         selectCallingCodeFunction(countryInfo);
                       },
                       contentPadding: EdgeInsets.all(12.0),
@@ -350,9 +374,9 @@ class _CallingCodeModalPopups extends StatelessWidget {
                         maxLines: 2,
                         style: TextStyle(
                           color:
-                          countryInfo.callingCode.first == initCallingCode
-                              ? Theme.of(context).primaryColor
-                              : Theme.of(context).colorScheme.onSurface,
+                              countryInfo.callingCode.first == initCallingCode
+                                  ? Theme.of(context).primaryColor
+                                  : Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                       trailing: Text(
