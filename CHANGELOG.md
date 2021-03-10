@@ -1,4 +1,6 @@
 ## [0.10.0-nullsafety.1] - beta version:
+* remove unnecessary code
+## [0.10.0-nullsafety.0] - beta version:
 * improve phone text field
 * recuperate calling code with phone number
 * show country flag by calling code
