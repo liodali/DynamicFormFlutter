@@ -14,9 +14,7 @@ void main() {
             login: "Username",
             password: "Password",
             paddingFields: const EdgeInsets.all(0),
-            passwordError: PasswordError(
-              minLengthErrorMsg: "min length is 3"
-            ),
+            passwordError: PasswordError(minLengthErrorMsg: "min length is 3"),
             passwordControls: PasswordControls.all(
               false,
               passwordMinLength: 3,
@@ -46,11 +44,9 @@ void main() {
     TextFormField password =
         tester.widget(find.byType(TextFormField).at(1)) as TextFormField;
 
-
-
-    String? v= password.validator!("da");
+    String? v = password.validator!("da");
     expect(v, "min length is 3");
-    password.controller!.text ="dali";
+    password.controller!.text = "dali";
     expect(controller.password, "dali");
     controller.addPasswordError("password Error");
     await tester.pump();
@@ -60,7 +56,5 @@ void main() {
     await tester.pump(Duration(seconds: 1));
     widgetText = tester.widget(find.byType(TextField).last) as TextField;
     expect(widgetText.decoration!.errorText, null);
-
-
   });
 }

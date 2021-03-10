@@ -33,31 +33,25 @@ class EmailTextField extends StatelessWidget {
               keyboardType: Constants.getInput(emailElement!.typeInput),
               style: emailElement!.decorationElement.style,
               focusNode: currentFocus,
-              textInputAction:
-              nextFocus == null ? TextInputAction.done : TextInputAction.next,
+              textInputAction: nextFocus == null
+                  ? TextInputAction.done
+                  : TextInputAction.next,
               onFieldSubmitted: (v) {
                 Constants.fieldFocusChange(context, currentFocus, nextFocus);
               },
               decoration: inputDecoration!.copyWith(
                 labelStyle: emailElement!.textStyle ??
-                    Theme
-                        .of(context)
-                        .inputDecorationTheme
-                        .labelStyle,
+                    Theme.of(context).inputDecorationTheme.labelStyle,
                 errorStyle: emailElement!.errorStyle ??
-                    Theme
-                        .of(context)
-                        .inputDecorationTheme
-                        .labelStyle,
+                    Theme.of(context).inputDecorationTheme.labelStyle,
                 hintText: emailElement!.hint,
                 labelText: emailElement!.label,
                 errorText: error,
               ),
             );
-          }
-      );
+          });
     }
-    return  TextFormField(
+    return TextFormField(
       controller: textEditingController,
       validator: emailElement!.validator,
       readOnly: emailElement!.readOnly,
@@ -65,21 +59,15 @@ class EmailTextField extends StatelessWidget {
       style: emailElement!.decorationElement.style,
       focusNode: currentFocus,
       textInputAction:
-      nextFocus == null ? TextInputAction.done : TextInputAction.next,
+          nextFocus == null ? TextInputAction.done : TextInputAction.next,
       onFieldSubmitted: (v) {
         Constants.fieldFocusChange(context, currentFocus, nextFocus);
       },
       decoration: inputDecoration!.copyWith(
         labelStyle: emailElement!.textStyle ??
-            Theme
-                .of(context)
-                .inputDecorationTheme
-                .labelStyle,
+            Theme.of(context).inputDecorationTheme.labelStyle,
         errorStyle: emailElement!.errorStyle ??
-            Theme
-                .of(context)
-                .inputDecorationTheme
-                .labelStyle,
+            Theme.of(context).inputDecorationTheme.labelStyle,
         hintText: emailElement!.hint,
         labelText: emailElement!.label,
       ),

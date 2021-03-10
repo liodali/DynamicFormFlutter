@@ -52,6 +52,7 @@ class FormController extends BaseSimpleFormController {
   void addErrorToField(String id, String error) =>
       _formState.errorFieldById(id, error);
 }
+
 /// LoginFormController : controller of login form
 /// use it to get email/username value or password value
 /// show error in email/password without validator
@@ -63,16 +64,18 @@ class LoginFormController extends BaseFormController {
   void init(LoginFormState state) {
     this._formState = state;
   }
+
   /// get current email/username value
   String get email => _formState.controller!.getValueById("email");
+
   /// get current password value
   String get password => _formState.controller!.getValueById("password");
-
 
   /// show error in email/username without validator
   void addEmailError(String error) {
     _formState.controller!.addErrorToField("email", error);
   }
+
   /// show error in password without validator
   void addPasswordError(String error) {
     _formState.controller!.addErrorToField("password", error);
@@ -83,39 +86,46 @@ class LoginFormController extends BaseFormController {
   void clearValues() {
     _formState.controller!.clearValues();
   }
+
   /// form validation
   @override
   bool validate() {
     return _formState.controller!.validate();
   }
 }
-class PaymentController extends BaseFormController{
 
+class PaymentController extends BaseFormController {
   late PaymentFormState _state;
 
-  void init(PaymentFormState state){
+  void init(PaymentFormState state) {
     this._state = state;
   }
+
   /// get current cardNumber value
-  String get cardNumber => _state.controller.getValueById(PaymentFormState.idCardNumber);
+  String get cardNumber =>
+      _state.controller.getValueById(PaymentFormState.idCardNumber);
+
   /// get current cvv value
   String get cvv => _state.controller.getValueById(PaymentFormState.idCVV);
+
   /// get current date expiration value
-  String get dateExpiration => _state.controller.getValueById(PaymentFormState.idDateExpiration);
+  String get dateExpiration =>
+      _state.controller.getValueById(PaymentFormState.idDateExpiration);
 
   /// show error in cardNumber without validator
   void addCardNumberError(String error) {
     _state.controller.addErrorToField(PaymentFormState.idCardNumber, error);
   }
+
   /// show error in cvv without validator
   void addCVVError(String error) {
     _state.controller.addErrorToField(PaymentFormState.idCVV, error);
   }
+
   /// show error in date expiration without validator
   void addDateExpirationError(String error) {
     _state.controller.addErrorToField(PaymentFormState.idDateExpiration, error);
   }
-
 
   @override
   void clearValues() {
@@ -126,5 +136,4 @@ class PaymentController extends BaseFormController{
   bool validate() {
     return this._state.controller.validate();
   }
-
 }

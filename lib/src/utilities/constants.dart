@@ -26,7 +26,6 @@ class Constants {
         return TextInputType.multiline;
       default:
         return TextInputType.text;
-
     }
   }
 
@@ -120,14 +119,14 @@ class Constants {
           ),
         ),
         focusedBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ,
+          borderRadius: decorationElement.radius,
           borderSide: BorderSide(
             color: Colors.transparent,
             width: 0,
           ),
         ),
         errorBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ,
+          borderRadius: decorationElement.radius,
           borderSide: BorderSide(
             color: Colors.transparent,
             width: 0,

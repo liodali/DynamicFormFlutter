@@ -39,10 +39,10 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
     return ValueListenableBuilder<bool>(
       valueListenable: isObscureNotifier,
       builder: (ctx, isObscure, child) {
-        if(widget.errorNotifier!=null){
+        if (widget.errorNotifier != null) {
           return ValueListenableBuilder<String?>(
             valueListenable: widget.errorNotifier!,
-            builder: (ctx,error,_){
+            builder: (ctx, error, _) {
               return TextFormField(
                 controller: widget.textEditingController,
                 validator: widget.element!.validator,
@@ -65,22 +65,24 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                   errorText: error,
                   suffixIcon: widget.element!.enableShowPassword
                       ? GestureDetector(
-                    onTap: () {
-                      isObscureNotifier.value = !isObscure;
-                    },
-                    child: Icon(
-                      isObscure ? Icons.remove_red_eye : Icons.visibility_off,
-                      color: Colors.black,
-                      size: 20,
-                    ),
-                  )
+                          onTap: () {
+                            isObscureNotifier.value = !isObscure;
+                          },
+                          child: Icon(
+                            isObscure
+                                ? Icons.remove_red_eye
+                                : Icons.visibility_off,
+                            color: Colors.black,
+                            size: 20,
+                          ),
+                        )
                       : null,
                 ),
               );
             },
           );
         }
-         return TextFormField(
+        return TextFormField(
           controller: widget.textEditingController,
           validator: widget.element!.validator,
           keyboardType: widget.textInputType,
@@ -101,15 +103,15 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
             hintText: widget.element!.hint,
             suffixIcon: widget.element!.enableShowPassword
                 ? GestureDetector(
-              onTap: () {
-                isObscureNotifier.value = !isObscure;
-              },
-              child: Icon(
-                isObscure ? Icons.remove_red_eye : Icons.visibility_off,
-                color: Colors.black,
-                size: 20,
-              ),
-            )
+                    onTap: () {
+                      isObscureNotifier.value = !isObscure;
+                    },
+                    child: Icon(
+                      isObscure ? Icons.remove_red_eye : Icons.visibility_off,
+                      color: Colors.black,
+                      size: 20,
+                    ),
+                  )
                 : null,
           ),
         );

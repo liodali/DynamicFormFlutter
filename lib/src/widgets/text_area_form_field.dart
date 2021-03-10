@@ -7,7 +7,8 @@ class TextAreaFormField extends StatefulWidget {
   final TextAreaElement? element;
   final TextEditingController? controller;
 
-  TextAreaFormField({Key? key, this.element, this.controller}) : super(key: key);
+  TextAreaFormField({Key? key, this.element, this.controller})
+      : super(key: key);
 
   @override
   _TextAreaFormFieldState createState() => _TextAreaFormFieldState();

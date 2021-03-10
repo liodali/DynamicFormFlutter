@@ -1,12 +1,12 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.9.0--nullsafety.1-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.10.0--nullsafety.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 
 create your form with easier way
 
 ## Getting Started
 
- * generate custom form
+ * Generate custom form
  * Form Controller to manage form
  * login Form
  * payment form
@@ -17,7 +17,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.9.0-nullsafety.1
+		dynamic_form: ^0.10.0-nullsafety.0
 
 
 
@@ -415,7 +415,7 @@ final dateExpiration = controller.dateExpiration;
 | `DecorationElement` | input decoration of TextField.                               |
 | `label`             | text label of TextField.                                     |
 | `hint`              | text placeholder for phone number input.                     |
-| `initValue`         | Initiale Value to country input.                             |
+| `initValue`         | initial Value to phone input.                             |
 | `errorMsg`          | text error message                                           |
 | `validator`         | callback validation of TextField                             |
 | `showPrefixFlag`    | enable flag country to be visible at left  of TextField      |
@@ -423,6 +423,8 @@ final dateExpiration = controller.dateExpiration;
 | `padding`           | padding of TextField                                         |
 | `showPrefix`        | show calling phone number(get current calling phone of user) |
 | `readOnly`          | bool make TextField readOnly                                 |
+| `initPrefix`        | (String) initial calling code of the specific country                                |
+| `labelModalSheet`   | (String) title of bottom sheet that shown list of calling code of countries                                |
 
 ###  `TextAreaElement`
 
