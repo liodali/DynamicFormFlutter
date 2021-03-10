@@ -50,20 +50,14 @@ class DateInputField extends StatelessWidget {
             focusNode: currentFocus,
             inputFormatters: element.formatters,
             textInputAction:
-            nextFocus == null ? TextInputAction.done : TextInputAction.next,
+                nextFocus == null ? TextInputAction.done : TextInputAction.next,
             decoration:
-            Constants.setInputBorder(context, element.decorationElement)
-                .copyWith(
+                Constants.setInputBorder(context, element.decorationElement)
+                    .copyWith(
               labelStyle: element.textStyle ??
-                  Theme
-                      .of(context)
-                      .inputDecorationTheme
-                      .labelStyle,
+                  Theme.of(context).inputDecorationTheme.labelStyle,
               errorStyle: element.errorStyle ??
-                  Theme
-                      .of(context)
-                      .inputDecorationTheme
-                      .labelStyle,
+                  Theme.of(context).inputDecorationTheme.labelStyle,
               hintText: element.hint,
               labelText: element.label,
             ),
@@ -78,19 +72,13 @@ class DateInputField extends StatelessWidget {
       focusNode: currentFocus,
       inputFormatters: element.formatters,
       textInputAction:
-      nextFocus == null ? TextInputAction.done : TextInputAction.next,
+          nextFocus == null ? TextInputAction.done : TextInputAction.next,
       decoration:
-      Constants.setInputBorder(context, element.decorationElement).copyWith(
+          Constants.setInputBorder(context, element.decorationElement).copyWith(
         labelStyle: element.textStyle ??
-            Theme
-                .of(context)
-                .inputDecorationTheme
-                .labelStyle,
+            Theme.of(context).inputDecorationTheme.labelStyle,
         errorStyle: element.errorStyle ??
-            Theme
-                .of(context)
-                .inputDecorationTheme
-                .labelStyle,
+            Theme.of(context).inputDecorationTheme.labelStyle,
         hintText: element.hint,
         labelText: element.label,
       ),

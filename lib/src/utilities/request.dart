@@ -12,7 +12,7 @@ Future<T?> request<T>(
   String url,
   T Function(dynamic) mapReq, {
   requestType type = requestType.get,
-      bool isJsonResponse = false,
+  bool isJsonResponse = false,
   Map? body,
 }) async {
   final uri = Uri.parse(url);

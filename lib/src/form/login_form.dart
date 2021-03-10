@@ -46,9 +46,8 @@ class LoginForm extends StatefulWidget {
   }) : super(key: key);
 
   static LoginFormController of(BuildContext context, {bool nullOk = false}) {
-    assert(context != null);
-    assert(nullOk != null);
-    final LoginForm? result = context.findAncestorWidgetOfExactType<LoginForm>();
+    final LoginForm? result =
+        context.findAncestorWidgetOfExactType<LoginForm>();
     if (nullOk || result != null) return result!.controller;
     throw FlutterError.fromParts(<DiagnosticsNode>[
       ErrorSummary(

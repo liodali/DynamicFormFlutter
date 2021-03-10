@@ -125,8 +125,8 @@ class CardNumberField extends StatelessWidget {
       focusNode: currentFocus,
       textInputAction:
           nextFocus == null ? TextInputAction.done : TextInputAction.next,
-      decoration: Constants.setInputBorder(context, element.decorationElement)
-          .copyWith(
+      decoration:
+          Constants.setInputBorder(context, element.decorationElement).copyWith(
         labelStyle: element.textStyle ??
             Theme.of(context).inputDecorationTheme.labelStyle,
         errorStyle: element.errorStyle ??

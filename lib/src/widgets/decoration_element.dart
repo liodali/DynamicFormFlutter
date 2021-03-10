@@ -69,10 +69,10 @@ class UnderlineDecorationElement extends DecorationElement {
   }) {
     return UnderlineDecorationElement(
       borderColor: borderColor ?? this.borderColor,
-      errorBorderColor: errorBorderColor ,
+      errorBorderColor: errorBorderColor,
       focusBorderColor: focusBorderColor ?? this.focusBorderColor,
       disabledBorderColor: disabledBorderColor ?? this.disabledBorderColor,
-      radius: radius ,
+      radius: radius,
       widthSide: widthSide,
       focusColor: focusColor ?? this.focusColor,
       textStyle: style ?? this.style,
@@ -123,7 +123,7 @@ class OutlineDecorationElement extends DecorationElement {
     TextStyle? style,
   }) {
     return OutlineDecorationElement(
-      radius: radius??this.radius,
+      radius: radius ?? this.radius,
       borderColor: borderColor ?? this.borderColor,
       errorBorderColor: errorBorderColor ?? this.errorBorderColor,
       focusBorderColor: focusBorderColor ?? this.focusBorderColor,
@@ -168,8 +168,6 @@ class RoundedDecorationElement extends DecorationElement {
     );
   }
 }
-
-
 
 ///  [shapeButton]           : shape of the Button.                                                             |
 ///  [backgroundColorButton]      : background color of the button                                                 |

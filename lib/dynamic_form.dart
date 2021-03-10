@@ -7,4 +7,5 @@ export 'src/form/login_form.dart' hide LoginFormState;
 export 'src/form/payment_form.dart' hide PaymentFormState;
 export 'src/simple_dynamic_form.dart' hide SimpleDynamicFormState;
 export 'src/utilities/patterns.dart';
-export 'src/controller/form_controller.dart' hide BaseFormController,BaseSimpleFormController;
+export 'src/controller/form_controller.dart'
+    hide BaseFormController, BaseSimpleFormController;

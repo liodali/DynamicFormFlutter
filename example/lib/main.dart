@@ -165,13 +165,12 @@ class MyHomePage extends StatelessWidget {
                         showFlag: true,
                       ),
                       PhoneNumberElement(
-                        label: "Phone",
-                        showPrefix: true,
-                        showSuffixFlag: true,
-                        showPrefixFlag: false,
-                        hint: "XXXXXXXXXX",
-                        initPrefix: "+216"
-                      ),
+                          label: "Phone",
+                          showPrefix: true,
+                          showSuffixFlag: true,
+                          showPrefixFlag: false,
+                          hint: "XXXXXXXXXX",
+                          initPrefix: "+216"),
                       TextAreaElement(
                         maxCharacter: 300,
                         maxLines: 4,

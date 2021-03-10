@@ -57,8 +57,8 @@ class TextControllerFormatInput extends TextEditingController {
 
   void moveCursorToEnd() {
     var text = this._lastUpdatedText;
-    this.selection =  TextSelection.fromPosition(
-         TextPosition(offset: (text).length));
+    this.selection =
+        TextSelection.fromPosition(TextPosition(offset: (text).length));
   }
 
   @override

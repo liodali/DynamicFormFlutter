@@ -90,7 +90,8 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
 
   void changeTextListener() {
     final callingCode = countryNotifier.value?.callingCode.first ?? "";
-    widget.controller.text = callingCode.trim() + textEditingController.text.trim();
+    widget.controller.text =
+        callingCode.trim() + textEditingController.text.trim();
   }
 
   @override
