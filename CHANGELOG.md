@@ -1,3 +1,7 @@
+## [0.11.0-nullsafety.1] - beta version:
+* remove flutter_svg
+* replace svg asset with png image
+* fix bug
 ## [0.10.0-nullsafety.1] - beta version:
 * remove unnecessary code
 ## [0.10.0-nullsafety.0] - beta version:
