@@ -19,24 +19,13 @@ class _LoginPageState extends State<LoginPage> {
       ),
       widthSide: 0.6,
     );
-    final buttonDecoration = ButtonDecorationElement(
-      backgroundColorButton: Colors.white,
-      widthSubmitButton: 200,
-      shapeButton: StadiumBorder().copyWith(
-        side: BorderSide(
-          color: Colors.amber,
-          width: 0.6,
-        ),
-      ),
-      elevation: 0.0,
-    );
     final controller = LoginFormController();
     return LoginForm(
       controller: controller,
       directionGroup: DirectionGroup.Horizontal,
       submitLogin: Container(
         width: 250,
-        child: RaisedButton(
+        child: ElevatedButton(
           onPressed: () {
             final email = controller.email;
             final password = controller.password;
