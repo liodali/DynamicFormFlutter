@@ -49,11 +49,12 @@ class _CallingCountry {
 
   @override
   bool operator ==(other) {
-    _CallingCountry c = other as _CallingCountry;
-    if (this.fullName == c.fullName && this.callingCode == c.callingCode) {
+    if (identical(other, this)) {
       return true;
     }
-    return false;
+    return (other is _CallingCountry &&
+        this.fullName == other.fullName &&
+        this.callingCode == other.callingCode);
   }
 }
 

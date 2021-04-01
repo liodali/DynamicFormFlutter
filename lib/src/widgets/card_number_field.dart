@@ -1,10 +1,20 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../utilities/constants.dart';
 import '../utilities/text_controller_format_input.dart';
 
+/// Widget to illustrate card number text field
+///
+/// [element] : (CardNumberElement) blueprint element
+///
+/// [controller] : text controller of textField
+///
+/// [currentFocus] : current focus of the textField
+///
+/// [nextFocus] : next focus of the textField
+///
+/// [errorNotifier] : (ValueNotifier) to get error message when textField is not valid
 class CardNumberField extends StatelessWidget {
   final CardNumberElement element;
   final TextEditingController controller;
@@ -93,25 +103,21 @@ class CardNumberField extends StatelessWidget {
               return null;
             },
             onChanged: (v) {
-              if (controller.text.length < 2 && controller.text.isNotEmpty) {
-                String cardIconName = "";
-                if (controller.text.startsWith("4")) {
-                  cardIconName = "assets/svg/visa.svg";
-                } else if (controller.text.startsWith("5")) {
-                  cardIconName = "assets/svg/master-card.svg";
-                } else if (controller.text.startsWith("3")) {
-                  cardIconName = "assets/svg/american-express.svg";
-                } else if (controller.text.startsWith("6")) {
-                  cardIconName = "assets/svg/discover.svg";
-                }
-                if (cardIconName.isNotEmpty)
-                  iconNotifier.value = SvgPicture.asset(
-                    "packages/dynamic_form/$cardIconName",
-                    height: 24,
-                    width: 24,
-                  );
-                else
+              if (controller.text.length < 2) {
+                if (controller.text.isEmpty) {
                   iconNotifier.value = null;
+                } else {
+                  String cardIconName = getCardImagePathFromNB(controller.text);
+                  if (cardIconName.isNotEmpty)
+                    iconNotifier.value = Image.asset(
+                      "packages/dynamic_form/$cardIconName",
+                      height: 24,
+                      width: 24,
+                    );
+                  else {
+                    iconNotifier.value = null;
+                  }
+                }
               }
               //controller.text = inputController.text.replaceAll("-", "");
             },
@@ -167,28 +173,37 @@ class CardNumberField extends StatelessWidget {
         return null;
       },
       onChanged: (v) {
-        if (controller.text.length < 2 && controller.text.isNotEmpty) {
-          String cardIconName = "";
-          if (controller.text.startsWith("4")) {
-            cardIconName = "assets/svg/visa.svg";
-          } else if (controller.text.startsWith("5")) {
-            cardIconName = "assets/svg/master-card.svg";
-          } else if (controller.text.startsWith("3")) {
-            cardIconName = "assets/svg/american-express.svg";
-          } else if (controller.text.startsWith("6")) {
-            cardIconName = "assets/svg/discover.svg";
-          }
-          if (cardIconName.isNotEmpty)
-            iconNotifier.value = SvgPicture.asset(
-              "packages/dynamic_form/$cardIconName",
-              height: 24,
-              width: 24,
-            );
-          else
+        if (controller.text.length < 2) {
+          if (controller.text.isEmpty) {
             iconNotifier.value = null;
+          } else {
+            String cardIconName = getCardImagePathFromNB(controller.text);
+            if (cardIconName.isNotEmpty)
+              iconNotifier.value = Image.asset(
+                "packages/dynamic_form/$cardIconName",
+                height: 24,
+                width: 24,
+              );
+            else {
+              iconNotifier.value = null;
+            }
+          }
         }
-        //controller.text = inputController.text.replaceAll("-", "");
       },
     );
   }
+}
+
+String getCardImagePathFromNB(String text) {
+  String cardIconName = "";
+  if (text.startsWith("4")) {
+    cardIconName = "assets/png/visa.png";
+  } else if (text.startsWith("5")) {
+    cardIconName = "assets/png/mastercard.png";
+  } else if (text.startsWith("3")) {
+    cardIconName = "assets/png/american-express.png";
+  } else if (text.startsWith("6")) {
+    cardIconName = "assets/png/discover.png";
+  }
+  return cardIconName;
 }

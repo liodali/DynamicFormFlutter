@@ -202,7 +202,7 @@ class SubmitForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = SimpleDynamicForm.of(context);
-    return RaisedButton(
+    return ElevatedButton(
       onPressed: () {
         print(controller.validate());
         print(controller.getAllValues());

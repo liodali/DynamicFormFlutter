@@ -58,7 +58,7 @@ class TextControllerFormatInput extends TextEditingController {
   }
 
   @override
-  void set text(String newText) {
+  set text(String newText) {
     if (super.text != newText) {
       super.text = newText;
       this.moveCursorToEnd();

@@ -22,11 +22,13 @@ class _Country {
 
   @override
   bool operator ==(Object other) {
-    final c = other as _Country;
-    if (this.fullName == c.fullName && this.countryCode == c.countryCode) {
+    if (identical(other, this)) {
       return true;
     }
-    return false;
+
+    return other is _Country &&
+        this.fullName == other.fullName &&
+        this.countryCode == other.countryCode;
   }
 }
 
