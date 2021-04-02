@@ -21,6 +21,8 @@ class DateInputField extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+
+
   @override
   Widget build(BuildContext context) {
     if (element.initValue != null) {
@@ -46,6 +48,8 @@ class DateInputField extends StatelessWidget {
         builder: (ctx, error, _) {
           return TextFormField(
             controller: inputController,
+            maxLength: element.minLength,
+            buildCounter: buildCounter,
             keyboardType: TextInputType.datetime,
             focusNode: currentFocus,
             inputFormatters: element.formatters,
@@ -70,6 +74,8 @@ class DateInputField extends StatelessWidget {
       controller: inputController,
       keyboardType: TextInputType.datetime,
       focusNode: currentFocus,
+      maxLength: element.minLength,
+      buildCounter: buildCounter,
       inputFormatters: element.formatters,
       textInputAction:
           nextFocus == null ? TextInputAction.done : TextInputAction.next,
@@ -88,4 +94,5 @@ class DateInputField extends StatelessWidget {
       },*/
     );
   }
+
 }

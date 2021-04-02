@@ -12,8 +12,6 @@ import '../widgets/decoration_element.dart';
 ///
 /// [decorationElement] :            decoration of all input field in form
 ///
-/// [buttonDecoration] :             decoration of button that contain radius,backgroundColor,width
-///
 /// [errorMessageDateExpiration] :   messages errors to show  when Date Expiration field not validate
 ///
 /// [errorMessageCVV]            :   messages errors to show when cvv field is invalidate
@@ -41,7 +39,6 @@ class PaymentForm extends StatefulWidget {
   final String? errorMessageCardNumber;
   final String? errorIsRequiredMessage;
   final PaymentController controller;
-  final ButtonDecorationElement buttonDecoration;
   final Widget? submitButton;
 
   PaymentForm({
@@ -55,7 +52,6 @@ class PaymentForm extends StatefulWidget {
     this.errorIsRequiredMessage,
     required this.controller,
     this.submitButton,
-    this.buttonDecoration = const ButtonDecorationElement(),
     Key? key,
   }) : super(
           key: key,
@@ -84,7 +80,7 @@ class PaymentFormState extends State<PaymentForm> {
 
   late DateTime endDate;
 
-  FormController controller = FormController();
+  late FormController controller = FormController();
 
   static const String idCardNumber = "id-card-number";
   static const String idCVV = "id-cvv";
@@ -122,12 +118,13 @@ class PaymentFormState extends State<PaymentForm> {
             ),
             GroupElement(
               directionGroup: DirectionGroup.Horizontal,
-              sizeElements: [0.5, 0.5],
+              sizeElements: [0.6,0.4],
               textElements: [
                 DateInputElement(
                   id: idDateExpiration,
                   decorationElement: widget.decorationElement,
                   isRequired: true,
+                  minLength: 7,
                   requiredErrorMsg: widget.errorIsRequiredMessage,
                   label: widget.labelDateExpiration,
                   hint: "mm/yyyy",
@@ -143,7 +140,6 @@ class PaymentFormState extends State<PaymentForm> {
                         return widget.errorMessageDateExpiration;
                       }
                     } catch (e) {
-                      print(e);
                       return widget.errorMessageDateExpiration;
                     }
                     return null;
@@ -169,24 +165,9 @@ class PaymentFormState extends State<PaymentForm> {
             ),
           ],
         ),
-        if (widget.submitButton != null) ...[widget.submitButton!]
-        // Container(
-        //   width: widget.buttonDecoration.widthSubmitButton,
-        //   child: RaisedButton(
-        //     onPressed: () async {
-        //       if (controller!.validate()) {
-        //         final cardNumber = controller!.getValueById(idCardNumber);
-        //         final cvv = controller!.getValueById(idCVV);
-        //         final dateExpiration =
-        //             controller!.getValueById(idDateExpiration);
-        //       }
-        //     },
-        //     color: widget.buttonDecoration.backgroundColorButton,
-        //     elevation: widget.buttonDecoration.elevation,
-        //     shape: widget.buttonDecoration.shapeButton,
-        //     child: widget.paymentText ?? Text("purchase"),
-        //   ),
-        // ),
+        if (widget.submitButton != null) ...[
+          widget.submitButton!,
+        ]
       ],
     );
   }

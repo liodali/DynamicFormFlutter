@@ -57,6 +57,9 @@ class CardNumberField extends StatelessWidget {
             controller: inputController,
             keyboardType: TextInputType.datetime,
             focusNode: currentFocus,
+            maxLength: 16,
+            buildCounter: buildCounter,
+            maxLines: 1,
             textInputAction:
                 nextFocus == null ? TextInputAction.done : TextInputAction.next,
             decoration:
@@ -129,6 +132,9 @@ class CardNumberField extends StatelessWidget {
       controller: inputController,
       keyboardType: TextInputType.datetime,
       focusNode: currentFocus,
+      maxLength: 16,
+      buildCounter: buildCounter,
+      maxLines: 1,
       textInputAction:
           nextFocus == null ? TextInputAction.done : TextInputAction.next,
       decoration:
