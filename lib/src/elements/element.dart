@@ -606,6 +606,7 @@ class DateInputElement extends TextElement {
   final DecorationElement? decorationElement;
   final validation? validator;
   final String? hint;
+  final int? minLength;
   final bool readOnly = false;
   final String? errorMsg;
   final String? requiredErrorMsg;
@@ -617,6 +618,7 @@ class DateInputElement extends TextElement {
     this.dateFormat,
     this.initDate,
     this.label,
+    this.minLength,
     this.formatters,
     this.isRequired,
     this.decorationElement,

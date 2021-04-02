@@ -66,31 +66,31 @@ class LoginFormController extends BaseFormController {
   }
 
   /// get current email/username value
-  String get email => _formState.controller!.getValueById("email");
+  String get email => _formState.controller.getValueById("email");
 
   /// get current password value
-  String get password => _formState.controller!.getValueById("password");
+  String get password => _formState.controller.getValueById("password");
 
   /// show error in email/username without validator
   void addEmailError(String error) {
-    _formState.controller!.addErrorToField("email", error);
+    _formState.controller.addErrorToField("email", error);
   }
 
   /// show error in password without validator
   void addPasswordError(String error) {
-    _formState.controller!.addErrorToField("password", error);
+    _formState.controller.addErrorToField("password", error);
   }
 
   /// clear value in textFields
   @override
   void clearValues() {
-    _formState.controller!.clearValues();
+    _formState.controller.clearValues();
   }
 
   /// form validation
   @override
   bool validate() {
-    return _formState.controller!.validate();
+    return _formState.controller.validate();
   }
 }
 
