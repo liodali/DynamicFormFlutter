@@ -118,7 +118,7 @@ class PaymentFormState extends State<PaymentForm> {
             ),
             GroupElement(
               directionGroup: DirectionGroup.Horizontal,
-              sizeElements: [0.6,0.4],
+              sizeElements: [0.5,0.5],
               textElements: [
                 DateInputElement(
                   id: idDateExpiration,

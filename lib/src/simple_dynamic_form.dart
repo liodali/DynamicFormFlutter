@@ -14,6 +14,7 @@ import './widgets/date_text_field.dart';
 import './widgets/email_text_field.dart';
 import './widgets/password_text_field.dart';
 import './widgets/phone_text_field.dart';
+import './widgets/card_expiration_date_field.dart';
 import './widgets/text_area_form_field.dart';
 
 /// [SimpleDynamicForm]: simple blueprint form generator
@@ -370,6 +371,13 @@ class _GenerateTextField extends StatelessWidget {
       return TextAreaFormField(
         element: element as TextAreaElement?,
         controller: controller,
+      );
+    } else if (element is CardExpirationDateInputElement) {
+      return CardExpirationDateField(
+        controller: controller,
+        element: element as CardExpirationDateInputElement,
+        currentFocus: focusNodeCurrent,
+        nextFocus: focusNodeNext,
       );
     } else if (element is DateElement) {
       return DateTextField(
