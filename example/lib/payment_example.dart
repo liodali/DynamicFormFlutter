@@ -17,6 +17,9 @@ class PaymentExample extends StatelessWidget {
       submitButton: ElevatedButton(
         onPressed: () {
           controller.validate();
+          print(controller.cardNumber);
+          print(controller.cvv);
+          print(controller.dateExpiration);
         },
         child: Text("pay"),
       ),
