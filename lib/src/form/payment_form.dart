@@ -31,25 +31,25 @@ import '../widgets/decoration_element.dart';
 ///[submitButton]                 :  (Widget) submit widget that you want integrated directly in form
 class PaymentForm extends StatefulWidget {
   final DecorationElement? decorationElement;
-  final String? labelCardNumber;
+  final String labelCardNumber;
   final String? labelDateExpiration;
-  final String? labelCVV;
-  final String? errorMessageDateExpiration;
+  final String labelCVV;
+  final String errorMessageDateExpiration;
   final String? errorMessageCVV;
   final String? errorMessageCardNumber;
-  final String? errorIsRequiredMessage;
+  final String errorIsRequiredMessage;
   final PaymentController controller;
   final Widget? submitButton;
 
   PaymentForm({
     this.decorationElement,
-    this.errorMessageDateExpiration,
-    this.labelCardNumber,
+    this.errorMessageDateExpiration = "this field is invalid",
+    this.labelCardNumber = "XXXX-XXXX-XXXX-XXXX",
     this.labelDateExpiration,
-    this.labelCVV,
+    this.labelCVV = "cvv",
     this.errorMessageCVV,
     this.errorMessageCardNumber,
-    this.errorIsRequiredMessage,
+    this.errorIsRequiredMessage = "this field is required",
     required this.controller,
     this.submitButton,
     Key? key,
@@ -99,6 +99,12 @@ class PaymentFormState extends State<PaymentForm> {
   }
 
   @override
+  void didUpdateWidget(covariant PaymentForm oldWidget) {
+    widget.controller.init(this);
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -118,39 +124,51 @@ class PaymentFormState extends State<PaymentForm> {
             ),
             GroupElement(
               directionGroup: DirectionGroup.Horizontal,
-              sizeElements: [0.5,0.5],
+              sizeElements: [0.7, 0.3],
               textElements: [
-                DateInputElement(
+                CardExpirationDateInputElement(
                   id: idDateExpiration,
                   decorationElement: widget.decorationElement,
-                  isRequired: true,
-                  minLength: 7,
-                  requiredErrorMsg: widget.errorIsRequiredMessage,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 5.0,
+                  ),
+                  maxYear: 2025,
                   label: widget.labelDateExpiration,
-                  hint: "mm/yyyy",
-                  dateFormat: dateFormatCompare,
-                  initDate: startedDate,
-                  validator: (v) {
-                    try {
-                      if (!reg.hasMatch(v!)) {
-                        return widget.errorMessageDateExpiration;
-                      }
-                      var d = dateFormatCompare.parse(v);
-                      if (d.isBefore(startedDate!) || d.isAfter(endDate)) {
-                        return widget.errorMessageDateExpiration;
-                      }
-                    } catch (e) {
-                      return widget.errorMessageDateExpiration;
-                    }
-                    return null;
-                  },
+                  requiredErrorMsg: widget.errorIsRequiredMessage,
+                  invalidErrorMsg: widget.errorMessageDateExpiration,
                 ),
+                // DateInputElement(
+                //   id: idDateExpiration,
+                //   decorationElement: widget.decorationElement,
+                //   isRequired: true,
+                //   minLength: 7,
+                //   requiredErrorMsg: widget.errorIsRequiredMessage,
+                //   label: widget.labelDateExpiration,
+                //   hint: "mm/yyyy",
+                //   dateFormat: dateFormatCompare,
+                //   initDate: startedDate,
+                //   validator: (v) {
+                //     try {
+                //       if (!reg.hasMatch(v!)) {
+                //         return widget.errorMessageDateExpiration;
+                //       }
+                //       var d = dateFormatCompare.parse(v);
+                //       if (d.isBefore(startedDate!) || d.isAfter(endDate)) {
+                //         return widget.errorMessageDateExpiration;
+                //       }
+                //     } catch (e) {
+                //       return widget.errorMessageDateExpiration;
+                //     }
+                //     return null;
+                //   },
+                // ),
                 CVVElement(
                   id: idCVV,
                   decorationElement: widget.decorationElement,
                   label: widget.labelCVV,
                   hint: widget.labelCVV,
                   error: widget.errorIsRequiredMessage,
+                  padding: EdgeInsets.only(top: 15.0),
                   validator: (v) {
                     if (v.isEmpty) {
                       return widget.errorIsRequiredMessage;
