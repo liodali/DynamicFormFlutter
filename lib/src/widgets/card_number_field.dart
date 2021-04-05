@@ -57,7 +57,7 @@ class CardNumberField extends StatelessWidget {
             controller: inputController,
             keyboardType: TextInputType.datetime,
             focusNode: currentFocus,
-            maxLength: 16,
+            maxLength: 19,
             buildCounter: buildCounter,
             maxLines: 1,
             textInputAction:

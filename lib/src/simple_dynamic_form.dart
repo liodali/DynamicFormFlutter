@@ -307,6 +307,13 @@ class _GenerateTextField extends StatelessWidget {
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
       );
+    }else if (element is CardExpirationDateInputElement) {
+      return CardExpirationDateField(
+        controller: controller,
+        element: element as CardExpirationDateInputElement,
+        currentFocus: focusNodeCurrent,
+        nextFocus: focusNodeNext,
+      );
     } else if (element is CardNumberElement) {
       return CardNumberField(
         controller: controller,
@@ -372,14 +379,7 @@ class _GenerateTextField extends StatelessWidget {
         element: element as TextAreaElement?,
         controller: controller,
       );
-    } else if (element is CardExpirationDateInputElement) {
-      return CardExpirationDateField(
-        controller: controller,
-        element: element as CardExpirationDateInputElement,
-        currentFocus: focusNodeCurrent,
-        nextFocus: focusNodeNext,
-      );
-    } else if (element is DateElement) {
+    }  else if (element is DateElement) {
       return DateTextField(
         controller: controller,
         element: element as DateElement,
