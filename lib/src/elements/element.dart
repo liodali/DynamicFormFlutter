@@ -16,6 +16,7 @@ enum DateExpirationEntryMode {
   /// Text input.
   input,
 }
+
 typedef validation = String? Function(String?);
 
 abstract class FormElement {
@@ -696,7 +697,11 @@ class CardExpirationDateInputElement extends NumberElement {
           errorMsg: invalidErrorMsg,
           label: label,
           decorationElement: decorationElement,
-        );
+        ) {
+    if (maxYear != null && maxYear! < DateTime.now().year) {
+      assert(false);
+    }
+  }
 }
 
 ///PasswordControls : validation  rules for password input
