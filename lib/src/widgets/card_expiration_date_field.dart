@@ -53,8 +53,7 @@ class CardExpirationDateField extends StatelessWidget {
                       ? TextInputAction.done
                       : TextInputAction.next,
                   onFieldSubmitted: (v) {
-                    Constants.fieldFocusChange(
-                        context, monthFocus, yearFocus);
+                    Constants.fieldFocusChange(context, monthFocus, yearFocus);
                   },
                   validator: (month) {
                     if (element.isRequired && month!.isEmpty) {
@@ -98,11 +97,12 @@ class CardExpirationDateField extends StatelessWidget {
                     controller.text = "$monthValue/$v";
                   },
                   validator: (year) {
+                    final maxYear = element.maxYear ?? DateTime.now().year + 10;
                     if (element.isRequired && year!.isEmpty) {
                       return element.requiredErrorMsg;
                     }
                     if (int.parse(year!) < DateTime.now().year ||
-                        int.parse(year) > element.maxYear!) {
+                        int.parse(year) > maxYear) {
                       return element.invalidErrorMsg;
                     }
                   },
@@ -111,8 +111,7 @@ class CardExpirationDateField extends StatelessWidget {
                       ? TextInputAction.done
                       : TextInputAction.next,
                   onFieldSubmitted: (v) {
-                    Constants.fieldFocusChange(
-                        context, yearFocus, nextFocus);
+                    Constants.fieldFocusChange(context, yearFocus, nextFocus);
                   },
                   decoration: Constants.setInputBorder(
                           context, element.decorationElement)

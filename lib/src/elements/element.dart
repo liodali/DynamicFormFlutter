@@ -668,7 +668,7 @@ class DateInputElement extends TextElement {
 /// [padding] : (EdgeInsets) padding of textField.
 class CardExpirationDateInputElement extends NumberElement {
   final String? id;
-  late final int? maxYear;
+  final int? maxYear;
   final String? label;
   final bool isRequired;
   final DecorationElement? decorationElement;
@@ -696,11 +696,7 @@ class CardExpirationDateInputElement extends NumberElement {
           errorMsg: invalidErrorMsg,
           label: label,
           decorationElement: decorationElement,
-        ) {
-    if (maxYear == null) {
-      maxYear = DateTime.now().year + 10;
-    }
-  }
+        );
 }
 
 ///PasswordControls : validation  rules for password input

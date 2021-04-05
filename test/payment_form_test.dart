@@ -34,13 +34,17 @@ void main() {
     inputCardNb.controller!.text = "4555555555555555";
     inputCVV.controller!.text = "455";
     inputDateMonth.controller!.text = "11";
-    inputDateYear.controller!.text = "2022";
+    inputDateYear.controller!.text = "2026";
 
     await tester.pump();
     expect(controller.validate(), true);
     expect(controller.cardNumber, "4555555555555555");
     expect(controller.cvv, "455");
     expect(find.text("11"),findsOneWidget);
-    expect(find.text("2022"),findsOneWidget);
+    expect(find.text("2026"),findsOneWidget);
+    inputDateYear.controller!.text = "2032";
+    expect(controller.validate(), false);
+
+
   });
 }
