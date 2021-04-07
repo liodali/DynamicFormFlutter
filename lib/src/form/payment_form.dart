@@ -135,6 +135,7 @@ class PaymentFormState extends State<PaymentForm> {
                     horizontal: 5.0,
                   ),
                   maxYear: widget.maxYearDateExpiration,
+                  entryMode: DateExpirationEntryMode.dropdown,
                   label: widget.labelDateExpiration,
                   requiredErrorMsg: widget.errorIsRequiredMessage,
                   invalidErrorMsg: widget.errorMessageDateExpiration,
