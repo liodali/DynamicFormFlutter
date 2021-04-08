@@ -167,7 +167,7 @@ class DropdownDateExpiration extends StatelessWidget {
     final yearRange = maxYear - currentYear;
     final currentMonth = DateTime.now().month;
     if (currentMonth > 1) {
-      notifierMM.value = List.generate(currentMonth, (index) => index);
+      notifierMM.value = List.generate(currentMonth-1, (index) => index);
     }
     controller.text = "$currentMonth/$currentYear";
     return Row(
@@ -293,6 +293,13 @@ class _SpinnerWidgetState extends State<_SpinnerWidget> {
     if (widget.initValue != null) {
       assert(widget.initValue! >= 1);
       value = widget.initValue!;
+    }
+    if (widget.notifierDisableValues.value.isNotEmpty) {
+      disabledValues = widget.notifierDisableValues.value;
+      if (disabledValues.contains(value)) {
+        value = List.generate(widget.size, (index) => (index + 1))
+            .firstWhere((element) => !disabledValues.contains(element));
+      }
     }
     widget.notifierError?.addListener(listenerError);
     widget.notifierDisableValues.addListener(listenerValue);
