@@ -130,6 +130,7 @@ class PaymentFormState extends State<PaymentForm> {
               textElements: [
                 CardExpirationDateInputElement(
                   id: idDateExpiration,
+                  isRequired: true,
                   decorationElement: widget.decorationElement,
                   padding: EdgeInsets.symmetric(
                     horizontal: 5.0,
@@ -140,38 +141,14 @@ class PaymentFormState extends State<PaymentForm> {
                   requiredErrorMsg: widget.errorIsRequiredMessage,
                   invalidErrorMsg: widget.errorMessageDateExpiration,
                 ),
-                // DateInputElement(
-                //   id: idDateExpiration,
-                //   decorationElement: widget.decorationElement,
-                //   isRequired: true,
-                //   minLength: 7,
-                //   requiredErrorMsg: widget.errorIsRequiredMessage,
-                //   label: widget.labelDateExpiration,
-                //   hint: "mm/yyyy",
-                //   dateFormat: dateFormatCompare,
-                //   initDate: startedDate,
-                //   validator: (v) {
-                //     try {
-                //       if (!reg.hasMatch(v!)) {
-                //         return widget.errorMessageDateExpiration;
-                //       }
-                //       var d = dateFormatCompare.parse(v);
-                //       if (d.isBefore(startedDate!) || d.isAfter(endDate)) {
-                //         return widget.errorMessageDateExpiration;
-                //       }
-                //     } catch (e) {
-                //       return widget.errorMessageDateExpiration;
-                //     }
-                //     return null;
-                //   },
-                // ),
+
                 CVVElement(
                   id: idCVV,
                   decorationElement: widget.decorationElement,
                   label: widget.labelCVV,
                   hint: widget.labelCVV,
                   error: widget.errorIsRequiredMessage,
-                  padding: EdgeInsets.only(top: 15.0),
+                  padding: EdgeInsets.only(top: 5.0),
                   validator: (v) {
                     if (v.isEmpty) {
                       return widget.errorIsRequiredMessage;

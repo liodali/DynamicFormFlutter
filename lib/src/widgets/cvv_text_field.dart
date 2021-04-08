@@ -29,6 +29,7 @@ class CvvTextField extends StatelessWidget {
         builder: (ctx, error, _) {
           return TextFormField(
             controller: controller,
+            maxLength: 3,
             validator: element.validator,
             keyboardType: Constants.getInput(element.typeInput),
             readOnly: element.readOnly,

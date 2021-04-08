@@ -139,7 +139,7 @@ class CardExpirationDateField extends StatelessWidget {
               ],
             ),
           ),
-        ]
+        ],
       ],
     );
   }
@@ -167,7 +167,7 @@ class DropdownDateExpiration extends StatelessWidget {
     final yearRange = maxYear - currentYear;
     final currentMonth = DateTime.now().month;
     if (currentMonth > 1) {
-      notifierMM.value = List.generate(currentMonth-1, (index) => index);
+      notifierMM.value = List.generate(currentMonth - 1, (index) => index);
     }
     controller.text = "$currentMonth/$currentYear";
     return Row(
@@ -179,6 +179,7 @@ class DropdownDateExpiration extends StatelessWidget {
             controller: controller,
             validator: (v) {
               if (v!.isEmpty) {
+                errorNotifier?.value = element.requiredErrorMsg;
                 return element.requiredErrorMsg;
               }
             },
@@ -347,7 +348,10 @@ class _SpinnerWidgetState extends State<_SpinnerWidget> {
         });
       },
       hint: Text(widget.hint),
-      dropdownColor: errorColor,
+      underline: errorColor != null ?Container(
+        color: errorColor,
+        height: 16,
+      ):null,
       value: value,
       items: List.generate(
         widget.size,
