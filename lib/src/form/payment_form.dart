@@ -31,6 +31,7 @@ import '../widgets/decoration_element.dart';
 ///[submitButton]                 :  (Widget) submit widget that you want integrated directly in form
 class PaymentForm extends StatefulWidget {
   final int? maxYearDateExpiration;
+  final DateExpirationEntryMode entryModeDateExpiration;
   final DecorationElement? decorationElement;
   final String labelCardNumber;
   final String? labelDateExpiration;
@@ -43,6 +44,8 @@ class PaymentForm extends StatefulWidget {
   final Widget? submitButton;
 
   PaymentForm({
+    required this.controller,
+    this.entryModeDateExpiration = DateExpirationEntryMode.input,
     this.decorationElement,
     this.errorMessageDateExpiration = "this field is invalid",
     this.labelCardNumber = "XXXX-XXXX-XXXX-XXXX",
@@ -52,7 +55,6 @@ class PaymentForm extends StatefulWidget {
     this.errorMessageCardNumber,
     this.maxYearDateExpiration,
     this.errorIsRequiredMessage = "this field is required",
-    required this.controller,
     this.submitButton,
     Key? key,
   }) : super(
@@ -136,7 +138,7 @@ class PaymentFormState extends State<PaymentForm> {
                     horizontal: 5.0,
                   ),
                   maxYear: widget.maxYearDateExpiration,
-                  entryMode: DateExpirationEntryMode.dropdown,
+                  entryMode: widget.entryModeDateExpiration,
                   label: widget.labelDateExpiration,
                   requiredErrorMsg: widget.errorIsRequiredMessage,
                   invalidErrorMsg: widget.errorMessageDateExpiration,

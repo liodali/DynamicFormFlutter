@@ -9,7 +9,7 @@ class CardExpirationDateField extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode? currentFocus;
   final FocusNode? nextFocus;
-  final ValueNotifier<String>? errorNotifier;
+  final ValueNotifier<String?>? errorNotifier;
 
   CardExpirationDateField({
     required this.element,
@@ -150,7 +150,7 @@ class DropdownDateExpiration extends StatelessWidget {
   final TextEditingController controller;
   final int maxYear;
   final currentYear = DateTime.now().year;
-  final ValueNotifier<String>? errorNotifier;
+  final ValueNotifier<String?>? errorNotifier;
 
   DropdownDateExpiration({
     required this.element,
@@ -263,7 +263,7 @@ class _SpinnerWidget extends StatefulWidget {
   final int? initValue;
   final Function(BuildContext, int, bool) builder;
   final String hint;
-  final ValueNotifier<String>? notifierError;
+  final ValueNotifier<String?>? notifierError;
   final ValueNotifier<List<int>> notifierDisableValues;
 
   _SpinnerWidget({
@@ -314,8 +314,12 @@ class _SpinnerWidgetState extends State<_SpinnerWidget> {
   }
 
   void listenerError() {
-    if (widget.notifierDisableValues.value.isNotEmpty) {
-      errorColor = Colors.red;
+    if (widget.notifierError != null &&
+        widget.notifierError!.value != null &&
+        widget.notifierError!.value!.isNotEmpty) {
+      setState(() {
+        errorColor = Colors.red;
+      });
     }
   }
 
@@ -348,10 +352,19 @@ class _SpinnerWidgetState extends State<_SpinnerWidget> {
         });
       },
       hint: Text(widget.hint),
-      underline: errorColor != null ?Container(
-        color: errorColor,
-        height: 16,
-      ):null,
+      underline: errorColor != null
+          ? Container(
+              height: 1.0,
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: errorColor!,
+                    width: 2.0,
+                  ),
+                ),
+              ),
+            )
+          : null,
       value: value,
       items: List.generate(
         widget.size,

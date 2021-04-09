@@ -313,6 +313,7 @@ class _GenerateTextField extends StatelessWidget {
         element: element as CardExpirationDateInputElement,
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
+        errorNotifier: errorNotifier,
       );
     } else if (element is CardNumberElement) {
       return CardNumberField(
