@@ -1,3 +1,6 @@
+## [0.12.0] - beta version:
+* add dropdown entry mode for card date expiration
+* fix bug
 ## [0.11.0-nullsafety.1] - beta version:
 * remove flutter_svg
 * replace svg asset with png image

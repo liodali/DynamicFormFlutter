@@ -10,9 +10,9 @@ import '../widgets/decoration_element.dart';
 
 /// [PaymentForm] : Widget Form that illustrate payment form
 ///
-/// [decorationElement] :            decoration of all input field in form
+/// [entryModeDateExpiration]    :  (DateExpirationEntryMode)   input type of card date expiration can be dropdown or input(textField)
 ///
-/// [buttonDecoration] :             decoration of button that contain radius,backgroundColor,width
+/// [decorationElement]          :   decoration of all input field in form
 ///
 /// [errorMessageDateExpiration] :   messages errors to show  when Date Expiration field not validate
 ///
@@ -32,30 +32,32 @@ import '../widgets/decoration_element.dart';
 ///
 ///[submitButton]                 :  (Widget) submit widget that you want integrated directly in form
 class PaymentForm extends StatefulWidget {
+  final int? maxYearDateExpiration;
+  final DateExpirationEntryMode entryModeDateExpiration;
   final DecorationElement? decorationElement;
-  final String? labelCardNumber;
+  final String labelCardNumber;
   final String? labelDateExpiration;
-  final String? labelCVV;
-  final String? errorMessageDateExpiration;
+  final String labelCVV;
+  final String errorMessageDateExpiration;
   final String? errorMessageCVV;
   final String? errorMessageCardNumber;
-  final String? errorIsRequiredMessage;
+  final String errorIsRequiredMessage;
   final PaymentController controller;
-  final ButtonDecorationElement buttonDecoration;
   final Widget? submitButton;
 
   PaymentForm({
+    required this.controller,
+    this.entryModeDateExpiration = DateExpirationEntryMode.input,
     this.decorationElement,
-    this.errorMessageDateExpiration,
-    this.labelCardNumber,
+    this.errorMessageDateExpiration = "this field is invalid",
+    this.labelCardNumber = "XXXX-XXXX-XXXX-XXXX",
     this.labelDateExpiration,
-    this.labelCVV,
+    this.labelCVV = "cvv",
     this.errorMessageCVV,
     this.errorMessageCardNumber,
-    this.errorIsRequiredMessage,
-    required this.controller,
+    this.maxYearDateExpiration,
+    this.errorIsRequiredMessage = "this field is required",
     this.submitButton,
-    this.buttonDecoration = const ButtonDecorationElement(),
     Key? key,
   }) : super(
           key: key,
@@ -84,7 +86,7 @@ class PaymentFormState extends State<PaymentForm> {
 
   late DateTime endDate;
 
-  FormController controller = FormController();
+  late FormController controller = FormController();
 
   static const String idCardNumber = "id-card-number";
   static const String idCVV = "id-cvv";
@@ -100,6 +102,12 @@ class PaymentFormState extends State<PaymentForm> {
         DateTime.now().add(Duration(days: 3650)).parseFormat(dateFormatCompare);
 
     reg = RegExp("^((0[1-9])|(1[0-2]))(\/)(([0-9]){4})\$");
+  }
+
+  @override
+  void didUpdateWidget(covariant PaymentForm oldWidget) {
+    widget.controller.init(this);
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -122,39 +130,29 @@ class PaymentFormState extends State<PaymentForm> {
             ),
             GroupElement(
               directionGroup: DirectionGroup.Horizontal,
-              sizeElements: [0.5, 0.5],
+              sizeElements: [0.7, 0.3],
               textElements: [
-                DateInputElement(
+                CardExpirationDateInputElement(
                   id: idDateExpiration,
-                  decorationElement: widget.decorationElement,
                   isRequired: true,
-                  requiredErrorMsg: widget.errorIsRequiredMessage,
+                  decorationElement: widget.decorationElement,
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 5.0,
+                  ),
+                  maxYear: widget.maxYearDateExpiration,
+                  entryMode: widget.entryModeDateExpiration,
                   label: widget.labelDateExpiration,
-                  hint: "mm/yyyy",
-                  dateFormat: dateFormatCompare,
-                  initDate: startedDate,
-                  validator: (v) {
-                    try {
-                      if (!reg.hasMatch(v!)) {
-                        return widget.errorMessageDateExpiration;
-                      }
-                      var d = dateFormatCompare.parse(v);
-                      if (d.isBefore(startedDate!) || d.isAfter(endDate)) {
-                        return widget.errorMessageDateExpiration;
-                      }
-                    } catch (e) {
-                      print(e);
-                      return widget.errorMessageDateExpiration;
-                    }
-                    return null;
-                  },
+                  requiredErrorMsg: widget.errorIsRequiredMessage,
+                  invalidErrorMsg: widget.errorMessageDateExpiration,
                 ),
+
                 CVVElement(
                   id: idCVV,
                   decorationElement: widget.decorationElement,
                   label: widget.labelCVV,
                   hint: widget.labelCVV,
                   error: widget.errorIsRequiredMessage,
+                  padding: EdgeInsets.only(top: 5.0),
                   validator: (v) {
                     if (v.isEmpty) {
                       return widget.errorIsRequiredMessage;
@@ -169,24 +167,9 @@ class PaymentFormState extends State<PaymentForm> {
             ),
           ],
         ),
-        if (widget.submitButton != null) ...[widget.submitButton!]
-        // Container(
-        //   width: widget.buttonDecoration.widthSubmitButton,
-        //   child: RaisedButton(
-        //     onPressed: () async {
-        //       if (controller!.validate()) {
-        //         final cardNumber = controller!.getValueById(idCardNumber);
-        //         final cvv = controller!.getValueById(idCVV);
-        //         final dateExpiration =
-        //             controller!.getValueById(idDateExpiration);
-        //       }
-        //     },
-        //     color: widget.buttonDecoration.backgroundColorButton,
-        //     elevation: widget.buttonDecoration.elevation,
-        //     shape: widget.buttonDecoration.shapeButton,
-        //     child: widget.paymentText ?? Text("purchase"),
-        //   ),
-        // ),
+        if (widget.submitButton != null) ...[
+          widget.submitButton!,
+        ]
       ],
     );
   }

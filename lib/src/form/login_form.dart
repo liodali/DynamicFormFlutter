@@ -64,7 +64,7 @@ class LoginForm extends StatefulWidget {
 
 class LoginFormState extends State<LoginForm> {
   TextEditingController? username, password;
-  FormController? controller;
+  late FormController controller;
 
   @override
   void initState() {

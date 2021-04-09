@@ -7,6 +7,7 @@ class PaymentExample extends StatelessWidget {
     final controller = PaymentController();
     return PaymentForm(
       controller: controller,
+      entryModeDateExpiration: DateExpirationEntryMode.input,
       decorationElement: OutlineDecorationElement(),
       errorMessageCVV: "cvv is invalid",
       errorMessageDateExpiration: "date expiration is invalid",
@@ -17,6 +18,9 @@ class PaymentExample extends StatelessWidget {
       submitButton: ElevatedButton(
         onPressed: () {
           controller.validate();
+          print(controller.cardNumber);
+          print(controller.cvv);
+          print(controller.dateExpiration);
         },
         child: Text("pay"),
       ),

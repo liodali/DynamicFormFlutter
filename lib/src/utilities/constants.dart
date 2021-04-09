@@ -146,3 +146,12 @@ class Constants {
     if (nextFocus != null) FocusScope.of(context).requestFocus(nextFocus);
   }
 }
+
+Widget? buildCounter(
+  ctx, {
+  required int currentLength,
+  int? maxLength,
+  required bool isFocused,
+}) {
+  return null;
+}

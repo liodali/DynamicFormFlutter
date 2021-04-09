@@ -9,6 +9,13 @@ enum CountryTextResult {
   FullName,
   countryCode,
 }
+enum DateExpirationEntryMode {
+  /// dropdown for month input and year input.
+  dropdown,
+
+  /// Text input.
+  input,
+}
 
 typedef validation = String? Function(String?);
 
@@ -353,18 +360,18 @@ class CardNumberElement extends NumberElement {
 class CVVElement extends NumberElement {
   CVVElement({
     String? id,
-    initValue = "",
-    label = "",
-    hint = "",
+    String initValue = "",
+    String label = "",
+    String hint = "",
     decorationElement = const UnderlineDecorationElement(),
-    error,
-    textStyle,
-    labelStyle,
-    hintStyle,
-    errorStyle,
-    padding = const EdgeInsets.all(2.0),
+    String? error,
+    TextStyle? textStyle,
+    TextStyle? labelStyle,
+    TextStyle? hintStyle,
+    TextStyle? errorStyle,
+    EdgeInsets padding = const EdgeInsets.all(2.0),
     validator,
-    readOnly = false,
+    bool readOnly = false,
     bool visibility = true,
   }) : super(
           id: id,
@@ -372,6 +379,7 @@ class CVVElement extends NumberElement {
           initValue: initValue,
           label: label,
           hint: hint,
+          padding: padding,
           validator: validator ??
               (v) {
                 if (v != null && v.length != 3) {
@@ -606,6 +614,7 @@ class DateInputElement extends TextElement {
   final DecorationElement? decorationElement;
   final validation? validator;
   final String? hint;
+  final int? minLength;
   final bool readOnly = false;
   final String? errorMsg;
   final String? requiredErrorMsg;
@@ -617,6 +626,7 @@ class DateInputElement extends TextElement {
     this.dateFormat,
     this.initDate,
     this.label,
+    this.minLength,
     this.formatters,
     this.isRequired,
     this.decorationElement,
@@ -640,6 +650,58 @@ class DateInputElement extends TextElement {
           },
           decorationElement: decorationElement,
         );
+}
+
+/// blueprint for card expiration date input
+///
+/// [id] : String,should be unique.
+///
+/// [label] : (String) text label of TextField.
+///
+/// [isPicker] : (bool) show bottomSheet to select values for inputs.
+///
+/// [decorationElement] :input decoration of TextField.
+///
+/// [isRequired] : (bool) if true,make this field required.
+///
+/// [requiredErrorMsg] : (String) show error message  when the field isn't validate.
+///
+/// [padding] : (EdgeInsets) padding of textField.
+class CardExpirationDateInputElement extends NumberElement {
+  final String? id;
+  final int? maxYear;
+  final String? label;
+  final bool isRequired;
+  final DecorationElement? decorationElement;
+  final DateExpirationEntryMode entryMode;
+  final String requiredErrorMsg;
+  final String invalidErrorMsg;
+  final EdgeInsets padding;
+
+  CardExpirationDateInputElement({
+    this.id,
+    this.maxYear,
+    this.label,
+    this.isRequired = true,
+    this.entryMode = DateExpirationEntryMode.input,
+    this.decorationElement,
+    required this.requiredErrorMsg,
+    required this.invalidErrorMsg,
+    this.padding = const EdgeInsets.all(0),
+  })  : assert(requiredErrorMsg.isNotEmpty),
+        assert(invalidErrorMsg.isNotEmpty),
+        super(
+          id: id,
+          padding: padding,
+          isRequired: isRequired,
+          errorMsg: invalidErrorMsg,
+          label: label,
+          decorationElement: decorationElement,
+        ) {
+    if (maxYear != null && maxYear! < DateTime.now().year) {
+      assert(false);
+    }
+  }
 }
 
 ///PasswordControls : validation  rules for password input
