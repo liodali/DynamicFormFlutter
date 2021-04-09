@@ -1,6 +1,7 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   testWidgets("payment form test", (tester) async {
@@ -10,6 +11,7 @@ void main() {
         home: Scaffold(
           body: PaymentForm(
             controller: controller,
+            maxYearDateExpiration: 2025,
             decorationElement: OutlineDecorationElement(),
             errorMessageCVV: "cvv is invalid",
             errorMessageDateExpiration: "date expiration is invalid",
@@ -34,17 +36,23 @@ void main() {
     inputCardNb.controller!.text = "4555555555555555";
     inputCVV.controller!.text = "455";
     inputDateMonth.controller!.text = "11";
-    inputDateYear.controller!.text = "2026";
+    inputDateYear.controller!.text = "2024";
 
     await tester.pump();
     expect(controller.validate(), true);
     expect(controller.cardNumber, "4555555555555555");
     expect(controller.cvv, "455");
     expect(find.text("11"),findsOneWidget);
-    expect(find.text("2026"),findsOneWidget);
+    expect(find.text("2024"),findsOneWidget);
     inputDateYear.controller!.text = "2032";
     expect(controller.validate(), false);
 
 
   });
+
+  test("test conversion",()async{
+    String m = DateFormat('MMM').format(DateTime(0, 2));
+    print(m);
+  });
+
 }
