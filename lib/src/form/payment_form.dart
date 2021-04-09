@@ -10,7 +10,9 @@ import '../widgets/decoration_element.dart';
 
 /// [PaymentForm] : Widget Form that illustrate payment form
 ///
-/// [decorationElement] :            decoration of all input field in form
+/// [entryModeDateExpiration]    :  (DateExpirationEntryMode)   input type of card date expiration can be dropdown or input(textField)
+///
+/// [decorationElement]          :   decoration of all input field in form
 ///
 /// [errorMessageDateExpiration] :   messages errors to show  when Date Expiration field not validate
 ///

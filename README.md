@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.11.0--nullsafety.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.12.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 
 create your form with easier way
@@ -17,7 +17,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.11.0-nullsafety.0
+		dynamic_form: ^0.12.0
 
 
 
@@ -87,10 +87,10 @@ controller.validate();
  controller.getAllValues();
 ```
 
-> if you are used ids in element, you can recuperate values with
+> if you are used ids in element,  you can recuperate values with their ids
 
 ```dart
- controller.getByIds();
+ Map values = controller.getByIds();
 ```
 
 > you recuperate by id
@@ -105,10 +105,11 @@ controller.validate();
 ```
 
 
-### LoginForm
+## LoginForm
 > pre-existing login form to make easy for you to build
 
-## Simple Usage
+### Simple Usage
+
 #### Creating a basic `LoginForm` :
 
 
@@ -139,23 +140,31 @@ controller.validate();
         )
 ```
 
-### Declare LoginFormController to get validation,Email & Password values
+
+### LoginFormController 
+
+ * validate login form
+ * recuperate email/password
+ * show error in specific input
+
+1) initialization
 
 ```dart
 LoginFormController controller = LoginFormController();
 ```
-> you can access to controller from your submit button
-
-```dart
- LoginFormController controller = LoginForm.of(context)
-```
-### recuperate email/Username,password
+2) recuperate email/Username,password
 ```dart
 final email = controller.email;
 final password = controller.password;
 ```
+3) access to controller in submit button 
 
-### show field error after validation (use case when auth failed)
+```dart
+ LoginFormController controller = LoginForm.of(context)
+```
+
+
+4) show field error after validation (use case when auth failed)
 
 ```dart
  controller.addEmailError("invalid Email not found");
@@ -163,7 +172,7 @@ final password = controller.password;
 ```
 
 
-####  `Properties in LoginForm`
+5) Properties
 
  | Properties                     | Description                                                    |
  | ------------------------------ | -------------------------------------------------------------- |
@@ -180,11 +189,13 @@ final password = controller.password;
  | `submitLogin`                  | (Widget) Button of submit form                |
 
 
-### PaymentForm
-> pre-existing payment form to make easy for you to build
-## Simple Usage
-#### Creating a basic `PaymentForm` :
+## PaymentForm
 
+* pre-existing payment form to make easy for you to build
+
+1) Simple Usage
+
+#### Creating a basic `PaymentForm` :
 
 ```dart
     PaymentForm(
@@ -204,40 +215,45 @@ final password = controller.password;
           ),
         )
 ```
-### Declare LoginFormController to get validation,Email & Password values
+
+### PaymentController
+
+1) initialization
 
 ```dart
 PaymentController controller = PaymentController();
 ```
-> you can access to controller from your submit button
-
-```dart
- PaymentController controller = PaymentForm.of(context);
-```
-### validation payment form 
+2) validation payment form
 ```dart
 bool isValid = controller.validate();
 ```
+3) recuperate cardNumber,cvv,dateExpiration
 
-### recuperate cardNumber,cvv,dateExpiration
 ```dart
 final cardNumber = controller.cardNumber;
 final cvv = controller.cvv;
 final dateExpiration = controller.dateExpiration;
 ```
+5) access to payment controller inside payment submit button
 
-### show field error after validation (use case when card check failed)
+```dart
+ PaymentController controller = PaymentForm.of(context);
+```
+
+6) show field error after validation (use case when card check failed)
+
 ```dart
  controller.addCardNumberError(errorMessage);
  controller.addCVVError(errorMessage);
  controller.addDateExpirationError(errorMessage);
 ```
 
-####  `Properties in PaymentForm`
+7) `Properties
 
  | Properties                     | Description                                                    |
  | ------------------------------ | -------------------------------------------------------------- |
  | `controller`                   | (PaymentController) controller to validate form,setError fields,clear values                           |
+ | `entryModeDateExpiration`      | (DateExpirationEntryMode)   input type of card date expiration can be dropdown or input(textField)                           |
  | `decorationElement`            | decoration of all input field in form                             |
  | `buttonDecoration`             | decoration of button that contain radius,backgroundColor,width |
  | `errorMessageDateExpiration`   | messages errors to show  when Date Expiration field not validate      |
@@ -250,8 +266,8 @@ final dateExpiration = controller.dateExpiration;
  | `submitButton`                 | (widget) submit button widget                                         |
 
 
-
-### How to skectch your form ?
+## API
+### How to sketch your form ?
 
 > ` textElement is small element in dynamicForm `
 > ` GroupElement is group of TextElement`
