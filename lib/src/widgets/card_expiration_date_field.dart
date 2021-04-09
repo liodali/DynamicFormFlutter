@@ -50,7 +50,9 @@ class CardExpirationDateField extends StatelessWidget {
                 Expanded(
                   flex: 2,
                   child: TextFormField(
-                    controller: TextEditingController(),
+                    controller: TextEditingController(
+                      text: controller.text.isNotEmpty?controller.text.split("/").first:""
+                    ),
                     maxLength: 2,
                     buildCounter: buildCounter,
                     keyboardType: Constants.getInput(element.typeInput),
@@ -62,6 +64,7 @@ class CardExpirationDateField extends StatelessWidget {
                         ? TextInputAction.done
                         : TextInputAction.next,
                     onFieldSubmitted: (v) {
+                      monthFocus.unfocus();
                       Constants.fieldFocusChange(
                           context, monthFocus, yearFocus);
                     },
@@ -95,7 +98,10 @@ class CardExpirationDateField extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: TextFormField(
-                    controller: TextEditingController(),
+                    controller: TextEditingController(
+                        text: controller.text.isNotEmpty?controller.text.split("/").last:""
+
+                    ),
                     maxLength: 4,
                     buildCounter: buildCounter,
                     keyboardType: Constants.getInput(element.typeInput),
@@ -122,6 +128,7 @@ class CardExpirationDateField extends StatelessWidget {
                         ? TextInputAction.done
                         : TextInputAction.next,
                     onFieldSubmitted: (v) {
+                      yearFocus.unfocus();
                       Constants.fieldFocusChange(context, yearFocus, nextFocus);
                     },
                     decoration: Constants.setInputBorder(
