@@ -1,3 +1,5 @@
+## [0.12.1] - beta version:
+* remove separator in credit card number text field
 ## [0.12.0] - beta version:
 * add dropdown entry mode for card date expiration
 * fix bug

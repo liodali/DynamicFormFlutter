@@ -41,7 +41,7 @@ class CardNumberField extends StatelessWidget {
    */
     final ValueNotifier<Widget?> iconNotifier = ValueNotifier(null);
     final TextEditingController inputController = TextEditingController();
-    final maxLength = 16 ;
+    final maxLength = 16;
     /* TextControllerFormatInput(
         mask: "XXXX-XXXX-XXXX-XXXX",
         text: controller.text,

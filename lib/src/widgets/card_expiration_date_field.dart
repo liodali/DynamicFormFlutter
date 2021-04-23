@@ -51,8 +51,9 @@ class CardExpirationDateField extends StatelessWidget {
                   flex: 2,
                   child: TextFormField(
                     controller: TextEditingController(
-                      text: controller.text.isNotEmpty?controller.text.split("/").first:""
-                    ),
+                        text: controller.text.isNotEmpty
+                            ? controller.text.split("/").first
+                            : ""),
                     maxLength: 2,
                     buildCounter: buildCounter,
                     keyboardType: Constants.getInput(element.typeInput),
@@ -99,9 +100,9 @@ class CardExpirationDateField extends StatelessWidget {
                   flex: 3,
                   child: TextFormField(
                     controller: TextEditingController(
-                        text: controller.text.isNotEmpty?controller.text.split("/").last:""
-
-                    ),
+                        text: controller.text.isNotEmpty
+                            ? controller.text.split("/").last
+                            : ""),
                     maxLength: 4,
                     buildCounter: buildCounter,
                     keyboardType: Constants.getInput(element.typeInput),

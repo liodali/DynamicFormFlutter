@@ -83,9 +83,10 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
   }
 
   void clearValueById(String id) {
-    if(!widget.groupElements.map((g) => g.textElements.firstWhere((e) => e.id==id))
-        .first.readOnly)
-      _mapGTextController[id]!.clear();
+    if (!widget.groupElements
+        .map((g) => g.textElements.firstWhere((e) => e.id == id))
+        .first
+        .readOnly) _mapGTextController[id]!.clear();
   }
 
   Map<String, String> recuperateByIds() {
@@ -307,7 +308,7 @@ class _GenerateTextField extends StatelessWidget {
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
       );
-    }else if (element is CardExpirationDateInputElement) {
+    } else if (element is CardExpirationDateInputElement) {
       return CardExpirationDateField(
         controller: controller,
         element: element as CardExpirationDateInputElement,
@@ -380,7 +381,7 @@ class _GenerateTextField extends StatelessWidget {
         element: element as TextAreaElement?,
         controller: controller,
       );
-    }  else if (element is DateElement) {
+    } else if (element is DateElement) {
       return DateTextField(
         controller: controller,
         element: element as DateElement,

@@ -145,7 +145,6 @@ class PaymentFormState extends State<PaymentForm> {
                   requiredErrorMsg: widget.errorIsRequiredMessage,
                   invalidErrorMsg: widget.errorMessageDateExpiration,
                 ),
-
                 CVVElement(
                   id: idCVV,
                   decorationElement: widget.decorationElement,
