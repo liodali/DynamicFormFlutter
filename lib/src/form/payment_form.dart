@@ -50,7 +50,7 @@ class PaymentForm extends StatefulWidget {
     this.entryModeDateExpiration = DateExpirationEntryMode.input,
     this.decorationElement,
     this.errorMessageDateExpiration = "this field is invalid",
-    this.labelCardNumber = "XXXX-XXXX-XXXX-XXXX",
+    this.labelCardNumber = "XXXX XXXX XXXX XXXX",
     this.labelDateExpiration,
     this.labelCVV = "cvv",
     this.errorMessageCVV,
@@ -145,7 +145,6 @@ class PaymentFormState extends State<PaymentForm> {
                   requiredErrorMsg: widget.errorIsRequiredMessage,
                   invalidErrorMsg: widget.errorMessageDateExpiration,
                 ),
-
                 CVVElement(
                   id: idCVV,
                   decorationElement: widget.decorationElement,

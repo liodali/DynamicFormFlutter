@@ -21,8 +21,6 @@ class DateInputField extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-
-
   @override
   Widget build(BuildContext context) {
     if (element.initValue != null) {
@@ -94,5 +92,4 @@ class DateInputField extends StatelessWidget {
       },*/
     );
   }
-
 }
