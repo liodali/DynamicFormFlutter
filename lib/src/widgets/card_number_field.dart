@@ -40,12 +40,14 @@ class CardNumberField extends StatelessWidget {
       Discover cards – Begin with a 6 and have 16 digits
    */
     final ValueNotifier<Widget?> iconNotifier = ValueNotifier(null);
-    final TextControllerFormatInput inputController = TextControllerFormatInput(
+    final TextEditingController inputController = TextEditingController();
+    final maxLength = 16 ;
+    /* TextControllerFormatInput(
         mask: "XXXX-XXXX-XXXX-XXXX",
         text: controller.text,
         translator: {
           "X": RegExp(r'[0-9]'),
-        });
+        });*/
     inputController.addListener(() {
       controller.text = inputController.text.replaceAll("-", "");
     });
@@ -57,7 +59,7 @@ class CardNumberField extends StatelessWidget {
             controller: inputController,
             keyboardType: TextInputType.datetime,
             focusNode: currentFocus,
-            maxLength: 19,
+            maxLength: maxLength,
             buildCounter: buildCounter,
             maxLines: 1,
             textInputAction:

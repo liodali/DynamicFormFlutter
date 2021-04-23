@@ -334,7 +334,7 @@ class CardNumberElement extends NumberElement {
     String? id,
     this.initValue,
     this.label = "Credit Card Number",
-    this.hint = "XXXX-XXXX-XXXX-XXXX",
+    this.hint = "XXXX XXXX XXXX XXXX",
     this.decorationElement = const UnderlineDecorationElement(),
     this.errorMsg,
     this.errorIsRequiredMessage = "this Field is required",
