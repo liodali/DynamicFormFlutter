@@ -1,6 +1,8 @@
-## [0.12.1] - beta version:
+## [0.12.2]
+* fix rebuild widget and set initValue again
+## [0.12.1]   
 * remove separator in credit card number text field
-## [0.12.0] - beta version:
+## [0.12.0] 
 * add dropdown entry mode for card date expiration
 * fix bug
 ## [0.11.0-nullsafety.1] - beta version:
