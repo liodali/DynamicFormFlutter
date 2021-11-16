@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.12.2-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.12.3-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 
 create your form with easier way
@@ -17,7 +17,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.12.2
+		dynamic_form: ^0.12.3
 
 
 

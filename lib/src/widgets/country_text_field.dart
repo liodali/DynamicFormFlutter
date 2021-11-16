@@ -1,6 +1,7 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:dynamic_form/src/utilities/constants.dart';
 import 'package:dynamic_form/src/utilities/request.dart';
+import 'package:dynamic_form/src/widgets/flag_country.dart';
 import 'package:flutter/material.dart';
 
 class _Country {
@@ -322,13 +323,8 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
                           return RadioListTile<_Country?>(
                             controlAffinity: ListTileControlAffinity.trailing,
                             secondary: widget.showFlag
-                                ? Image.network(
-                                    "https://www.countryflags.io/${list[i]!.code2Alpha}/flat/32.png",
-                                    errorBuilder: (ctx, _, s) {
-                                      return Icon(Icons.error);
-                                    },
-                                    width: 24,
-                                    height: 24,
+                                ? FlagCountry(
+                                    countryName: list[i]!.code2Alpha ?? "",
                                   )
                                 : null,
                             onChanged: (c) {

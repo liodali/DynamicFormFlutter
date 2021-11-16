@@ -256,6 +256,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     return flex;
   }
 }
+
 /// 15/11/2021 : fix text of the textfield reset to initValue when widget rebuild
 class _GenerateTextField extends StatelessWidget {
   final GroupElement gElement;
@@ -293,7 +294,6 @@ class _GenerateTextField extends StatelessWidget {
         : focusList!.length > gIndex
             ? focusList![gIndex].first
             : null;
-
 
     if (element is PasswordElement) {
       return PasswordTextField(

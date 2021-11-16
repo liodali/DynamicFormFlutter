@@ -112,8 +112,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: FlagCountry(
-                flagURL: country.code2Alpha,
-                flagSize: 32,
+                countryName: country.code2Alpha,
                 width: 32,
                 height: 32,
               ),
@@ -367,8 +366,7 @@ class _CallingCodeModalPopups extends StatelessWidget {
                       minLeadingWidth: 32,
                       minVerticalPadding: 5.0,
                       leading: FlagCountry(
-                        flagURL: countryInfo.code2Alpha,
-                        flagSize: 48,
+                        countryName: countryInfo.code2Alpha,
                       ),
                       title: Text(
                         countryInfo.fullName,
