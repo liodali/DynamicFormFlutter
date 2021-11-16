@@ -20,10 +20,10 @@ class FlagCountry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      imageUrl: "https://flagcdn.com/${flagSize.value}/${countryName.toLowerCase()}.jpg",
+      imageUrl:
+          "https://flagcdn.com/${flagSize.value}/${countryName.toLowerCase()}.jpg",
       height: height,
       width: width,
-
     );
   }
 }

@@ -8,12 +8,13 @@ enum CountryFlagSize {
   w80,
   w160,
 }
+
 extension CountryFlagSizeValues on CountryFlagSize {
-  static List<String> values = ["w20","w40","w80","w160"];
+  static List<String> values = ["w20", "w40", "w80", "w160"];
 
   String get value => values[index];
-
 }
+
 extension parsing on DateTime {
   DateTime parseFormat(DateFormat format) {
     return format.parse(format.format(this));

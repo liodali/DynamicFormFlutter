@@ -73,7 +73,9 @@ class _CountryTextFieldState extends State<CountryTextField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.textEditingController,
-      decoration: Constants.setInputBorder(context, widget.element!.decorationElement).copyWith(
+      decoration:
+          Constants.setInputBorder(context, widget.element!.decorationElement)
+              .copyWith(
         labelText: widget.element!.label,
         labelStyle: TextStyle(color: Colors.black),
         hintText: widget.element!.hint,
@@ -169,8 +171,9 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
       if (_list!.isNotEmpty) {
         _notifierShowClose.value = true;
         var newList = _list!
-            .where(
-                (c) => c!.fullName!.toLowerCase().contains(_searchController!.text.toLowerCase()))
+            .where((c) => c!.fullName!
+                .toLowerCase()
+                .contains(_searchController!.text.toLowerCase()))
             .toList();
         _stream = Stream.value(newList);
       } else {
