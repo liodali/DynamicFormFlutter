@@ -1,3 +1,5 @@
+## [0.12.3]
+* change country url images
 ## [0.12.2]
 * fix rebuild widget and set initValue again
 ## [0.12.1]   

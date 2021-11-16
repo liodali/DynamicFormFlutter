@@ -39,8 +39,7 @@ class _CallingCountry {
       : this.fullName = map["name"],
         this.code3Alpha = map["alpha3Code"],
         this.code2Alpha = map["alpha2Code"],
-        this.callingCode =
-            (map["callingCodes"] as List).map((c) => "+${c.trim()}").toList();
+        this.callingCode = (map["callingCodes"] as List).map((c) => "+${c.trim()}").toList();
 
   @override
   int get hashCode {
@@ -91,8 +90,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
 
   void changeTextListener() {
     final callingCode = countryNotifier.value?.callingCode.first ?? "";
-    widget.controller.text =
-        callingCode.trim() + textEditingController.text.trim();
+    widget.controller.text = callingCode.trim() + textEditingController.text.trim();
   }
 
   @override
@@ -112,8 +110,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: FlagCountry(
-                flagURL: country.code2Alpha,
-                flagSize: 32,
+                countryName: country.code2Alpha,
                 width: 32,
                 height: 32,
               ),
@@ -142,16 +139,12 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
             readOnly: widget.element.readOnly,
             style: TextStyle(color: Colors.black),
             focusNode: widget.currentFocus,
-            textInputAction: widget.nextFocus == null
-                ? TextInputAction.done
-                : TextInputAction.next,
+            textInputAction: widget.nextFocus == null ? TextInputAction.done : TextInputAction.next,
             onFieldSubmitted: (v) {
-              Constants.fieldFocusChange(
-                  context, widget.currentFocus, widget.nextFocus);
+              Constants.fieldFocusChange(context, widget.currentFocus, widget.nextFocus);
             },
-            decoration: Constants.setInputBorder(
-                    context, widget.element.decorationElement)
-                .copyWith(
+            decoration:
+                Constants.setInputBorder(context, widget.element.decorationElement).copyWith(
               labelText: widget.element.label,
               hintText: widget.element.hint,
               errorText: error,
@@ -171,16 +164,11 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
       readOnly: widget.element.readOnly,
       style: TextStyle(color: Colors.black),
       focusNode: widget.currentFocus,
-      textInputAction: widget.nextFocus == null
-          ? TextInputAction.done
-          : TextInputAction.next,
+      textInputAction: widget.nextFocus == null ? TextInputAction.done : TextInputAction.next,
       onFieldSubmitted: (v) {
-        Constants.fieldFocusChange(
-            context, widget.currentFocus, widget.nextFocus);
+        Constants.fieldFocusChange(context, widget.currentFocus, widget.nextFocus);
       },
-      decoration:
-          Constants.setInputBorder(context, widget.element.decorationElement)
-              .copyWith(
+      decoration: Constants.setInputBorder(context, widget.element.decorationElement).copyWith(
         labelText: widget.element.label,
         hintText: widget.element.hint,
         prefix: prefixWidget,
@@ -219,10 +207,7 @@ class _PrefixPhoneNumberState extends State<PrefixPhoneNumber> {
         (data) => _CallingCountry.fromJson(data),
       ).then((list) {
         final index = widget.prefix.isNotEmpty
-            ? list
-                .map((e) => e.callingCode.first)
-                .toList()
-                .indexOf(widget.prefix)
+            ? list.map((e) => e.callingCode.first).toList().indexOf(widget.prefix)
             : 0;
 
         widget.countryNotifier.value = list[index].copy(
@@ -241,9 +226,7 @@ class _PrefixPhoneNumberState extends State<PrefixPhoneNumber> {
             context: context,
             builder: (ctx) {
               return _CallingCodeModalPopups(
-                initCallingCode:
-                    widget.countryNotifier.value?.callingCode.first ??
-                        widget.prefix,
+                initCallingCode: widget.countryNotifier.value?.callingCode.first ?? widget.prefix,
                 title: widget.title,
                 selectCallingCodeFunction: (callingCode) async {
                   widget.countryNotifier.value = callingCode;
@@ -262,9 +245,7 @@ class _PrefixPhoneNumberState extends State<PrefixPhoneNumber> {
             )),
             builder: (ctx) {
               return _CallingCodeModalPopups(
-                initCallingCode:
-                    widget.countryNotifier.value?.callingCode.first ??
-                        widget.prefix,
+                initCallingCode: widget.countryNotifier.value?.callingCode.first ?? widget.prefix,
                 title: widget.title,
                 selectCallingCodeFunction: (callingCode) async {
                   widget.countryNotifier.value = callingCode;
@@ -345,15 +326,12 @@ class _CallingCodeModalPopups extends StatelessWidget {
                     )
                     .expand((element) => element)
                     .toList();
-                list.removeWhere(
-                    (element) => element.callingCode.first.length == 1);
+                list.removeWhere((element) => element.callingCode.first.length == 1);
                 return ListView.builder(
                   controller: ScrollController(
-                    initialScrollOffset: list
-                            .map((e) => e.callingCode.first)
-                            .toList()
-                            .indexOf(initCallingCode) *
-                        55.5,
+                    initialScrollOffset:
+                        list.map((e) => e.callingCode.first).toList().indexOf(initCallingCode) *
+                            55.5,
                   ),
                   itemExtent: 56,
                   itemBuilder: (ctx, index) {
@@ -367,18 +345,16 @@ class _CallingCodeModalPopups extends StatelessWidget {
                       minLeadingWidth: 32,
                       minVerticalPadding: 5.0,
                       leading: FlagCountry(
-                        flagURL: countryInfo.code2Alpha,
-                        flagSize: 48,
+                        countryName: countryInfo.code2Alpha,
                       ),
                       title: Text(
                         countryInfo.fullName,
                         overflow: TextOverflow.ellipsis,
                         maxLines: 2,
                         style: TextStyle(
-                          color:
-                              countryInfo.callingCode.first == initCallingCode
-                                  ? Theme.of(context).primaryColor
-                                  : Theme.of(context).colorScheme.onSurface,
+                          color: countryInfo.callingCode.first == initCallingCode
+                              ? Theme.of(context).primaryColor
+                              : Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                       trailing: Text(

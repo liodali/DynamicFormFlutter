@@ -1,14 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../utilities/constants.dart';
+
 class FlagCountry extends StatelessWidget {
-  final String flagURL;
-  final int flagSize;
+  final String countryName;
+  final CountryFlagSize flagSize;
   final double height;
   final double width;
 
   FlagCountry({
-    required this.flagURL,
-    this.flagSize = 32,
+    required this.countryName,
+    this.flagSize = CountryFlagSize.w40,
     this.width = 24,
     this.height = 24,
     Key? key,
@@ -16,10 +19,11 @@ class FlagCountry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      "https://www.countryflags.io/$flagURL/flat/$flagSize.png",
+    return CachedNetworkImage(
+      imageUrl: "https://flagcdn.com/${flagSize.value}/${countryName.toLowerCase()}.jpg",
       height: height,
       width: width,
+
     );
   }
 }
