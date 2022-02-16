@@ -3,17 +3,27 @@ import 'package:flutter/material.dart';
 /// Pre existing  border, labels, icons, and styles
 /// used to decorate a Material text field.
 /// [filledColor] : the Color of text Field container
+///
 /// [focusColor] : the Color of Text Field container when the input is focused
+///
 /// [style] : The style on which to base the label, hint, and error styles
+///
+/// [size]                : set width/height of the Input
 abstract class DecorationElement {
   final Color? filledColor;
   final Color? focusColor;
   final TextStyle? style;
+  final Widget? prefix;
+  final Widget? suffix;
+  final Size? size;
 
   const DecorationElement({
     this.filledColor,
     this.focusColor,
     this.style,
+    this.prefix,
+    this.suffix,
+    this.size,
   });
 
   DecorationElement copy({
@@ -44,6 +54,7 @@ class UnderlineDecorationElement extends DecorationElement {
     this.errorBorderColor = Colors.red,
     this.focusBorderColor,
     this.disabledBorderColor,
+    Size? size,
     this.radius = const BorderRadius.all(Radius.circular(0.0)),
     this.widthSide = 1.0,
     Color? filledColor,
@@ -53,6 +64,7 @@ class UnderlineDecorationElement extends DecorationElement {
           filledColor: filledColor ?? Colors.white,
           focusColor: focusColor ?? Colors.white,
           style: textStyle,
+          size: size,
         );
 
   @override
@@ -66,6 +78,7 @@ class UnderlineDecorationElement extends DecorationElement {
     Color? filledColor,
     Color? focusColor,
     TextStyle? style,
+    Size? size,
   }) {
     return UnderlineDecorationElement(
       borderColor: borderColor ?? this.borderColor,
@@ -76,6 +89,8 @@ class UnderlineDecorationElement extends DecorationElement {
       widthSide: widthSide,
       focusColor: focusColor ?? this.focusColor,
       textStyle: style ?? this.style,
+      size: size,
+      filledColor: filledColor,
     );
   }
 }
@@ -104,11 +119,12 @@ class OutlineDecorationElement extends DecorationElement {
     Color? filledColor,
     Color? focusColor,
     TextStyle? textStyle,
+    Size? size,
   }) : super(
-          filledColor: filledColor ?? Colors.white,
-          focusColor: focusColor ?? Colors.white,
-          style: textStyle,
-        );
+            filledColor: filledColor ?? Colors.white,
+            focusColor: focusColor ?? Colors.white,
+            style: textStyle,
+            size: size);
 
   @override
   DecorationElement copy({
@@ -121,6 +137,7 @@ class OutlineDecorationElement extends DecorationElement {
     Color? filledColor,
     Color? focusColor,
     TextStyle? style,
+    Size? size,
   }) {
     return OutlineDecorationElement(
       radius: radius ?? this.radius,
@@ -132,6 +149,7 @@ class OutlineDecorationElement extends DecorationElement {
       filledColor: filledColor ?? this.filledColor,
       focusColor: focusColor ?? this.focusColor,
       textStyle: style ?? this.style,
+      size: size,
     );
   }
 }
@@ -147,11 +165,12 @@ class RoundedDecorationElement extends DecorationElement {
     Color? filledColor,
     Color? focusColor,
     TextStyle? textStyle,
+    Size? size,
   }) : super(
-          filledColor: filledColor ?? Colors.white,
-          focusColor: focusColor ?? Colors.white,
-          style: textStyle,
-        );
+            filledColor: filledColor ?? Colors.white,
+            focusColor: focusColor ?? Colors.white,
+            style: textStyle,
+            size: size);
 
   @override
   DecorationElement copy({
@@ -159,25 +178,44 @@ class RoundedDecorationElement extends DecorationElement {
     Color? filledColor,
     Color? focusColor,
     TextStyle? style,
+    Size? size,
   }) {
     return RoundedDecorationElement(
-      radius: radius as BorderRadius? ?? this.radius,
-      filledColor: filledColor ?? this.filledColor,
-      focusColor: focusColor ?? this.focusColor,
-      textStyle: style ?? this.style,
-    );
+        radius: radius as BorderRadius? ?? this.radius,
+        filledColor: filledColor ?? this.filledColor,
+        focusColor: focusColor ?? this.focusColor,
+        textStyle: style ?? this.style,
+        size: size);
   }
 }
 
-///  [shapeButton]           : shape of the Button.                                                             |
+class DecorationLoginForm {
+  final DecorationElement decorationEmailElement;
+  final DecorationElement decorationPasswordElement;
+  final String login;
+  final String? hintLogin;
+  final String password;
+  final String? hintPassword;
+
+  DecorationLoginForm({
+    required this.decorationEmailElement,
+    required this.decorationPasswordElement,
+    this.login = "username or email",
+    this.password = "Password",
+    this.hintLogin,
+    this.hintPassword,
+  });
+}
+
+///  [shapeButton]                : shape of the Button.                                                             |
 ///  [backgroundColorButton]      : background color of the button                                                 |
-///  [widthSubmitButton]          : size width of the button
+///  [size]                       : customize size of the button
 ///  [elevation]                  : elevation of the button(default:2.0)
 class ButtonDecorationElement {
   final ShapeBorder shapeButton;
   final Color? backgroundColorButton;
-  final double widthSubmitButton;
   final double elevation;
+  final Size? size;
 
   const ButtonDecorationElement({
     this.shapeButton = const RoundedRectangleBorder(
@@ -186,7 +224,7 @@ class ButtonDecorationElement {
       ),
     ),
     this.backgroundColorButton,
-    this.widthSubmitButton = 200,
+    this.size = const Size.fromWidth(200),
     this.elevation = 2.0,
   });
 }

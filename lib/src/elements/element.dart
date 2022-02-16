@@ -1,8 +1,9 @@
-import 'package:dynamic_form/dynamic_form.dart';
-import 'package:dynamic_form/src/widgets/decoration_element.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+
+import '../utilities/patterns.dart';
+import '../widgets/decoration_element.dart';
 
 enum TypeInput { Text, Email, Password, Phone, Numeric, Address, multiLine }
 enum CountryTextResult {
@@ -17,7 +18,7 @@ enum DateExpirationEntryMode {
   input,
 }
 
-typedef validation = String? Function(String?);
+typedef Validation = String? Function(String?);
 
 abstract class FormElement {
   final String? id;
@@ -72,7 +73,7 @@ class TextElement extends FormElement {
   final TextStyle? errorStyle;
   final TextStyle? hintStyle;
   final TextStyle? textStyle;
-  final validation? validator;
+  final Validation? validator;
   final EdgeInsets padding;
   final bool? isRequired;
   final bool readOnly;
@@ -195,6 +196,9 @@ class EmailElement extends TextElement {
 
 class PasswordElement extends TextElement {
   final String? initValue;
+  final Widget? prefixWidget;
+  final Widget? showPasswordWidget;
+  final Widget? hidePasswordWidget;
   final String label;
   final String hint;
   final DecorationElement decorationElement;
@@ -215,6 +219,9 @@ class PasswordElement extends TextElement {
   PasswordElement({
     String? id,
     this.initValue,
+    this.prefixWidget,
+    this.showPasswordWidget,
+    this.hidePasswordWidget,
     this.label = " Password ",
     this.hint = "password",
     this.decorationElement = const UnderlineDecorationElement(),
@@ -273,7 +280,7 @@ class PasswordElement extends TextElement {
 class NumberElement extends TextElement {
   final String? initValue;
   final String? label;
-  final validation? validator;
+  final Validation? validator;
   final DecorationElement? decorationElement;
   final String? hint;
   final String? errorMsg;
@@ -443,7 +450,7 @@ class PhoneNumberElement extends TextElement {
   final bool showSuffixFlag;
   final String labelModalSheet;
   final EdgeInsets padding;
-  final validation? validator;
+  final Validation? validator;
   final bool showPrefix;
   final bool readOnly;
 
@@ -502,7 +509,7 @@ class TextAreaElement extends TextElement {
     String? id,
     String label = "Comment",
     String hint = "Comment",
-    validation? validator,
+    Validation? validator,
     DecorationElement decorationElement = const UnderlineDecorationElement(),
     this.maxLines = 3,
     this.showCounter = false,
@@ -612,7 +619,7 @@ class DateInputElement extends TextElement {
   final String? label;
   final bool? isRequired;
   final DecorationElement? decorationElement;
-  final validation? validator;
+  final Validation? validator;
   final String? hint;
   final int? minLength;
   final bool readOnly = false;

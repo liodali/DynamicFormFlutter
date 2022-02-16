@@ -39,6 +39,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
     return ValueListenableBuilder<bool>(
       valueListenable: isObscureNotifier,
       builder: (ctx, isObscure, child) {
+        final suffixWidget =
+            isObscure ? widget.element!.showPasswordWidget : widget.element!.hidePasswordWidget;
         if (widget.errorNotifier != null) {
           return ValueListenableBuilder<String?>(
             valueListenable: widget.errorNotifier!,
@@ -52,12 +54,10 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                 focusNode: widget.currentFocus,
                 style: widget.element!.decorationElement.style,
                 maxLines: 1,
-                textInputAction: widget.nextFocus == null
-                    ? TextInputAction.done
-                    : TextInputAction.next,
+                textInputAction:
+                    widget.nextFocus == null ? TextInputAction.done : TextInputAction.next,
                 onFieldSubmitted: (v) {
-                  Constants.fieldFocusChange(
-                      context, widget.currentFocus, widget.nextFocus);
+                  Constants.fieldFocusChange(context, widget.currentFocus, widget.nextFocus);
                 },
                 decoration: widget.inputDecoration!.copyWith(
                   labelText: widget.element!.label,
@@ -68,13 +68,12 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                           onTap: () {
                             isObscureNotifier.value = !isObscure;
                           },
-                          child: Icon(
-                            isObscure
-                                ? Icons.remove_red_eye
-                                : Icons.visibility_off,
-                            color: Colors.black,
-                            size: 20,
-                          ),
+                          child: suffixWidget ??
+                              Icon(
+                                isObscure ? Icons.remove_red_eye : Icons.visibility_off,
+                                color: Colors.black,
+                                size: 20,
+                              ),
                         )
                       : null,
                 ),
@@ -91,26 +90,25 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           focusNode: widget.currentFocus,
           style: widget.element!.decorationElement.style,
           maxLines: 1,
-          textInputAction: widget.nextFocus == null
-              ? TextInputAction.done
-              : TextInputAction.next,
+          textInputAction: widget.nextFocus == null ? TextInputAction.done : TextInputAction.next,
           onFieldSubmitted: (v) {
-            Constants.fieldFocusChange(
-                context, widget.currentFocus, widget.nextFocus);
+            Constants.fieldFocusChange(context, widget.currentFocus, widget.nextFocus);
           },
           decoration: widget.inputDecoration!.copyWith(
             labelText: widget.element!.label,
             hintText: widget.element!.hint,
+            prefix: widget.element!.prefixWidget,
             suffixIcon: widget.element!.enableShowPassword
                 ? GestureDetector(
                     onTap: () {
                       isObscureNotifier.value = !isObscure;
                     },
-                    child: Icon(
-                      isObscure ? Icons.remove_red_eye : Icons.visibility_off,
-                      color: Colors.black,
-                      size: 20,
-                    ),
+                    child: suffixWidget ??
+                        Icon(
+                          isObscure ? Icons.remove_red_eye : Icons.visibility_off,
+                          color: Colors.black,
+                          size: 20,
+                        ),
                   )
                 : null,
           ),
