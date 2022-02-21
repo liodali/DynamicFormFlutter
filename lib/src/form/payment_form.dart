@@ -6,7 +6,7 @@ import '../elements/element.dart';
 import '../elements/group_elements.dart';
 import '../simple_dynamic_form.dart';
 import '../utilities/constants.dart';
-import '../widgets/decoration_element.dart';
+import '../elements/decoration_element.dart';
 
 /// [PaymentForm] : Widget Form that illustrate payment form
 ///

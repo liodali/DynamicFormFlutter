@@ -2,7 +2,6 @@ import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
 
 import '../utilities/constants.dart';
-import '../utilities/text_controller_format_input.dart';
 
 /// Widget to illustrate card number text field
 ///
@@ -21,6 +20,7 @@ class CardNumberField extends StatelessWidget {
   final FocusNode? currentFocus;
   final FocusNode? nextFocus;
   final ValueNotifier<String?>? errorNotifier;
+  final DecorationElement? commonDecorationElem;
 
   CardNumberField({
     required this.element,
@@ -28,6 +28,7 @@ class CardNumberField extends StatelessWidget {
     this.currentFocus,
     this.nextFocus,
     this.errorNotifier,
+    this.commonDecorationElem,
     Key? key,
   }) : super(key: key);
 
@@ -62,15 +63,13 @@ class CardNumberField extends StatelessWidget {
             maxLength: maxLength,
             buildCounter: buildCounter,
             maxLines: 1,
-            textInputAction:
-                nextFocus == null ? TextInputAction.done : TextInputAction.next,
-            decoration:
-                Constants.setInputBorder(context, element.decorationElement)
-                    .copyWith(
-              labelStyle: element.textStyle ??
-                  Theme.of(context).inputDecorationTheme.labelStyle,
-              errorStyle: element.errorStyle ??
-                  Theme.of(context).inputDecorationTheme.labelStyle,
+            style: element.decorationElement?.style ?? Theme.of(context).textTheme.bodyText1,
+            textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
+            decoration: Constants.setInputBorder(
+              context,
+              element.decorationElement,
+              common: commonDecorationElem,
+            ).copyWith(
               hintText: element.hint,
               labelText: element.label,
               errorText: error,
@@ -96,11 +95,9 @@ class CardNumberField extends StatelessWidget {
               if (number.length < 13) {
                 return element.errorMsg ?? "credit card number is invalid";
               }
-              if ((number.startsWith("4") &&
-                      (number.length != 13 && number.length != 16)) ||
+              if ((number.startsWith("4") && (number.length != 13 && number.length != 16)) ||
                   (number.startsWith("5") && number.length != 16) ||
-                  ((number.startsWith("34") && number.startsWith("37")) &&
-                      number.length != 15) ||
+                  ((number.startsWith("34") && number.startsWith("37")) && number.length != 15) ||
                   (number.startsWith("6") && number.length != 16)) {
                 return element.errorMsg ?? "credit card number is invalid";
               }
@@ -137,14 +134,19 @@ class CardNumberField extends StatelessWidget {
       maxLength: 16,
       buildCounter: buildCounter,
       maxLines: 1,
-      textInputAction:
-          nextFocus == null ? TextInputAction.done : TextInputAction.next,
-      decoration:
-          Constants.setInputBorder(context, element.decorationElement).copyWith(
-        labelStyle: element.textStyle ??
-            Theme.of(context).inputDecorationTheme.labelStyle,
-        errorStyle: element.errorStyle ??
-            Theme.of(context).inputDecorationTheme.labelStyle,
+      style: element.decorationElement?.style ?? Theme.of(context).textTheme.bodyText1,
+      textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
+      decoration: Constants.setInputBorder(
+        context,
+        element.decorationElement,
+        common: commonDecorationElem,
+      ).copyWith(
+        labelStyle:
+            element.decorationElement!.style ?? Theme.of(context).inputDecorationTheme.labelStyle,
+        errorStyle: element.decorationElement!.styleError ??
+            Theme.of(context).inputDecorationTheme.errorStyle,
+        hintStyle: element.decorationElement!.hintStyle ??
+            Theme.of(context).inputDecorationTheme.hintStyle,
         hintText: element.hint,
         labelText: element.label,
         suffixIcon: ValueListenableBuilder<Widget?>(
@@ -169,11 +171,9 @@ class CardNumberField extends StatelessWidget {
         if (number.length < 13) {
           return element.errorMsg ?? "credit card number is invalid";
         }
-        if ((number.startsWith("4") &&
-                (number.length != 13 && number.length != 16)) ||
+        if ((number.startsWith("4") && (number.length != 13 && number.length != 16)) ||
             (number.startsWith("5") && number.length != 16) ||
-            ((number.startsWith("34") && number.startsWith("37")) &&
-                number.length != 15) ||
+            ((number.startsWith("34") && number.startsWith("37")) && number.length != 15) ||
             (number.startsWith("6") && number.length != 16)) {
           return element.errorMsg ?? "credit card number is invalid";
         }

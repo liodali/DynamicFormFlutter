@@ -6,7 +6,6 @@ import '../../dynamic_form.dart';
 
 /// [controller]
 /// [decorationEmailElement] : input decoration of email/username fields of form
-/// [decorationPasswordElement] : input decoration of password fields of form
 /// [directionGroup] : Direction of form (Vertical/Horizontal)
 ///  [paddingFields] : padding between fields
 ///  [onlyEmail] : enable only email type fieldText
@@ -80,6 +79,7 @@ class LoginFormState extends State<LoginForm> {
             0.5,
           ],
           backgroundColor: Colors.transparent,
+          commonDecorationElements: widget.decorationLoginForm.commonDecoration,
           textElements: [
             widget.onlyEmail
                 ? EmailElement(
@@ -88,7 +88,7 @@ class LoginFormState extends State<LoginForm> {
                     isRequired: true,
                     padding: widget.paddingFields,
                     label: widget.decorationLoginForm.login,
-                    hint: widget.decorationLoginForm.hintLogin ?? widget.decorationLoginForm.login,
+                    hint: widget.decorationLoginForm.hintLogin,
                     errorEmailIsRequired: widget.usernameEmailError.requiredErrorMsg,
                     errorEmailPattern: widget.usernameEmailError.patternEmailErrorMsg,
                   )
@@ -96,18 +96,18 @@ class LoginFormState extends State<LoginForm> {
                     id: "email",
                     validator: validatorUsername,
                     padding: widget.paddingFields,
-                    textStyle: widget.decorationLoginForm.decorationEmailElement.style ??
-                        Theme.of(context).textTheme.subtitle1,
                     decorationElement: widget.decorationLoginForm.decorationEmailElement,
                     label: widget.decorationLoginForm.login,
-                    hint: widget.decorationLoginForm.login,
+                    hint: widget.decorationLoginForm.hintLogin,
                   ),
             PasswordElement(
               id: "password",
               label: widget.decorationLoginForm.password,
               errors: widget.passwordError,
-              hint: widget.decorationLoginForm.hintPassword ?? widget.decorationLoginForm.password,
-              decorationElement: widget.decorationLoginForm.decorationPasswordElement,
+              hint: widget.decorationLoginForm.hintPassword,
+              decorationPasswordElement: widget.decorationLoginForm.decorationPasswordElement,
+              enableShowPassword: widget.decorationLoginForm.decorationPasswordElement.enableVisibilityPassword,
+              errorMsg: widget.passwordError.error,
               hasUppercase: widget.passwordControls.hasUppercase,
               isRequired: true,
               hasDigits: widget.passwordControls.hasDigits,

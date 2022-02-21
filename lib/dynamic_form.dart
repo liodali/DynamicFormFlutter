@@ -8,4 +8,4 @@ export 'src/form/login_form.dart' hide LoginFormState;
 export 'src/form/payment_form.dart' hide PaymentFormState;
 export 'src/simple_dynamic_form.dart' hide SimpleDynamicFormState;
 export 'src/utilities/patterns.dart';
-export 'src/widgets/decoration_element.dart';
+export 'src/elements/decoration_element.dart';

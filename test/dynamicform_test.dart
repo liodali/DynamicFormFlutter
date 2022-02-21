@@ -10,30 +10,32 @@ void main() {
         home: Scaffold(
           body: LoginForm(
             controller: controller,
+            decorationLoginForm: DecorationLoginForm(
+              decorationEmailElement: OutlineDecorationElement(
+                filledColor: Colors.white,
+                radius: BorderRadius.only(
+                  topLeft: Radius.circular(5.0),
+                  topRight: Radius.circular(5.0),
+                ),
+                widthSide: 0.6,
+              ),
+              decorationPasswordElement: OutlinePasswordElementDecoration(
+                filledColor: Colors.white,
+                radius: BorderRadius.only(
+                  bottomLeft: Radius.circular(5.0),
+                  bottomRight: Radius.circular(5.0),
+                ),
+                widthSide: 0.6,
+              ),
+              login: "Username",
+              password: "Password",
+            ),
             onlyEmail: false,
-            login: "Username",
-            password: "Password",
             paddingFields: const EdgeInsets.all(0),
             passwordError: PasswordError(minLengthErrorMsg: "min length is 3"),
             passwordControls: PasswordControls.all(
               false,
               passwordMinLength: 3,
-            ),
-            decorationEmailElement: OutlineDecorationElement(
-              filledColor: Colors.white,
-              radius: BorderRadius.only(
-                topLeft: Radius.circular(5.0),
-                topRight: Radius.circular(5.0),
-              ),
-              widthSide: 0.6,
-            ),
-            decorationPasswordElement: OutlineDecorationElement(
-              filledColor: Colors.white,
-              radius: BorderRadius.only(
-                bottomLeft: Radius.circular(5.0),
-                bottomRight: Radius.circular(5.0),
-              ),
-              widthSide: 0.6,
             ),
           ),
         ),
@@ -41,8 +43,7 @@ void main() {
     );
     await tester.pump();
 
-    TextFormField password =
-        tester.widget(find.byType(TextFormField).at(1)) as TextFormField;
+    TextFormField password = tester.widget(find.byType(TextFormField).at(1)) as TextFormField;
 
     String? v = password.validator!("da");
     expect(v, "min length is 3");

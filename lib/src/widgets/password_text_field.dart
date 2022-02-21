@@ -39,8 +39,9 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
     return ValueListenableBuilder<bool>(
       valueListenable: isObscureNotifier,
       builder: (ctx, isObscure, child) {
-        final suffixWidget =
-            isObscure ? widget.element!.showPasswordWidget : widget.element!.hidePasswordWidget;
+        final suffixWidget = isObscure
+            ? widget.element!.decorationPasswordElement.showPasswordWidget
+            : widget.element!.decorationPasswordElement.hidePasswordWidget;
         if (widget.errorNotifier != null) {
           return ValueListenableBuilder<String?>(
             valueListenable: widget.errorNotifier!,
@@ -52,7 +53,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                 readOnly: widget.element!.readOnly,
                 obscureText: isObscure,
                 focusNode: widget.currentFocus,
-                style: widget.element!.decorationElement.style,
+                style: widget.element!.decorationPasswordElement.style,
                 maxLines: 1,
                 textInputAction:
                     widget.nextFocus == null ? TextInputAction.done : TextInputAction.next,
@@ -88,7 +89,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           readOnly: widget.element!.readOnly,
           obscureText: isObscure,
           focusNode: widget.currentFocus,
-          style: widget.element!.decorationElement.style,
+          style: widget.element!.decorationPasswordElement.style,
           maxLines: 1,
           textInputAction: widget.nextFocus == null ? TextInputAction.done : TextInputAction.next,
           onFieldSubmitted: (v) {
@@ -97,8 +98,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           decoration: widget.inputDecoration!.copyWith(
             labelText: widget.element!.label,
             hintText: widget.element!.hint,
-            prefix: widget.element!.prefixWidget,
-            suffixIcon: widget.element!.enableShowPassword
+            suffix: widget.element!.enableShowPassword
                 ? GestureDetector(
                     onTap: () {
                       isObscureNotifier.value = !isObscure;
@@ -107,7 +107,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                         Icon(
                           isObscure ? Icons.remove_red_eye : Icons.visibility_off,
                           color: Colors.black,
-                          size: 20,
+                          size: 24,
                         ),
                   )
                 : null,
