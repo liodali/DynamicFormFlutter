@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     super.initState();
     tabController = TabController(
       length: 3,
-      initialIndex: 2,
+      initialIndex: 1,
       vsync: this,
     );
   }
