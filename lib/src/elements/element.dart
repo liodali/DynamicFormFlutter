@@ -377,8 +377,8 @@ class PhoneNumberElement extends TextElement {
   final String initValue;
   final String initPrefix;
   final DecorationElement decorationElement;
-  final String label;
-  final String hint;
+  final String? label;
+  final String? hint;
   final String errorMsg;
   final bool showPrefixFlag;
   final bool showSuffixFlag;
@@ -392,8 +392,8 @@ class PhoneNumberElement extends TextElement {
     String? id,
     this.initValue = "",
     this.decorationElement = const UnderlineDecorationElement(),
-    this.label = "Phone Number",
-    this.hint = "(+001)XXXXXXXXX",
+    this.label ,
+    this.hint,
     this.errorMsg = "invalid phone number",
     this.labelModalSheet = "select calling code",
     this.validator,

@@ -109,9 +109,9 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
       builder: (ctx, country, child) {
         if (country != null) {
           return Container(
-            width: 48,
+            width: 36,
             child: Align(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.center,
               child: FlagCountry(
                 countryName: country.code2Alpha,
                 width: 32,
@@ -181,8 +181,34 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
       ).copyWith(
         labelText: widget.element.label,
         hintText: widget.element.hint,
-        prefix: prefixWidget,
-        prefixIcon: widget.element.showPrefixFlag ? iconFlag : null,
+        // prefix: widget.element.showPrefixFlag && widget.element.showPrefix
+        //     ? prefixWidget
+        //     : null,
+        prefixIcon: widget.element.showPrefixFlag && widget.element.showPrefix
+            ? Container(
+                width: 96,
+                alignment: Alignment.center,
+                child: Row(
+                  children: [
+                    iconFlag,
+                    if (prefixWidget != null) ...[
+                      Padding(
+                        padding: EdgeInsets.only(left: 5,top: 6),
+                        child: Center(child: prefixWidget,),
+                      )
+                    ],
+                  ],
+                ),
+              )
+            : widget.element.showPrefix
+                ? Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.only(top: 5, left: 5),
+                    child: prefixWidget,
+                    width: 32,
+                    height: 32,
+                  )
+                : null,
         suffixIcon: widget.element.showSuffixFlag ? iconFlag : null,
       ),
     );
@@ -273,7 +299,7 @@ class _PrefixPhoneNumberState extends State<PrefixPhoneNumber> {
             return SizedBox.shrink();
           }
           return SizedBox(
-            width: 55,
+            width: 48,
             height: 25,
             child: Text(country.callingCode.first),
           );
