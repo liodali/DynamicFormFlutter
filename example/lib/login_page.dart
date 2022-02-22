@@ -47,7 +47,6 @@ class _LoginPageState extends State<LoginPage> {
           contentPadding: EdgeInsets.only(
             left: 12.0,
           ),
-          size: Size.fromHeight(32),
           // prefix: Icon(
           //   Icons.person,
           //   size: 20,
@@ -55,7 +54,6 @@ class _LoginPageState extends State<LoginPage> {
         ),
         decorationPasswordElement: OutlinePasswordElementDecoration(
           contentPadding: EdgeInsets.only(left: 8),
-          size: Size.fromHeight(72),
           prefix: Padding(
             padding: EdgeInsets.all(6.0),
             child: Icon(
