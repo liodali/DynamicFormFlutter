@@ -67,7 +67,7 @@ class Constants {
     }
     InputDecoration inputDecoration = InputDecoration(
       fillColor: common?.filledColor,
-      contentPadding: common?.contentPadding,
+      contentPadding: decorationElement?.contentPadding ?? common?.contentPadding,
       filled: common?.filledColor != null ? true : false,
       labelStyle: decorationElement?.style ??
           common?.labelStyle ??
@@ -78,12 +78,6 @@ class Constants {
       hintStyle: decorationElement?.hintStyle ??
           common?.labelStyle ??
           Theme.of(context).inputDecorationTheme.hintStyle,
-      constraints: common != null && common.size != null
-          ? BoxConstraints(
-              maxHeight: common.size?.height ?? MediaQuery.of(context).size.height,
-              maxWidth: common.size?.width ?? MediaQuery.of(context).size.width,
-            )
-          : null,
     );
     if (decorationElement is UnderlinePasswordElementDecoration) {
       inputDecoration = inputDecoration.copyWith(
@@ -306,20 +300,6 @@ class Constants {
       inputDecoration = inputDecoration.copyWith(
         contentPadding:
             decorationElement?.contentPadding ?? common?.contentPadding ?? EdgeInsets.zero,
-      );
-    }
-    if (decorationElement?.size != null) {
-      inputDecoration = inputDecoration.copyWith(
-        constraints: decorationElement?.size != null
-            ? BoxConstraints(
-                maxHeight: decorationElement!.size?.height ??
-                    common?.size?.height ??
-                    MediaQuery.of(context).size.height,
-                maxWidth: decorationElement.size?.width ??
-                    common?.size?.width ??
-                    MediaQuery.of(context).size.width,
-              )
-            : null,
       );
     }
 

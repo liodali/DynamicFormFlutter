@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 ///
 /// [style] : The style on which to base the label, hint, and error styles
 ///
-/// [size]                : set width/height of the Input
 abstract class DecorationElement {
   final BorderRadius? radius;
   final Color? filledColor;
@@ -19,7 +18,6 @@ abstract class DecorationElement {
   final TextStyle? hintStyle;
   final Widget? prefix;
   final Widget? suffix;
-  final Size? size;
   final EdgeInsetsGeometry? contentPadding;
 
   const DecorationElement({
@@ -32,7 +30,6 @@ abstract class DecorationElement {
     this.labelStyle,
     this.prefix,
     this.suffix,
-    this.size,
     this.contentPadding,
   });
 
@@ -44,7 +41,6 @@ abstract class DecorationElement {
     TextStyle? hintStyle,
     TextStyle? labelStyle,
     TextStyle? styleError,
-    Size? size,
     EdgeInsetsGeometry? contentPadding,
     Widget? prefix,
     Widget? suffix,
@@ -71,7 +67,6 @@ class UnderlineDecorationElement extends DecorationElement {
     this.errorBorderColor = Colors.red,
     this.focusBorderColor,
     this.disabledBorderColor,
-    Size? size,
     EdgeInsetsGeometry? contentPadding,
     BorderRadius? radius,
     this.widthSide,
@@ -94,7 +89,6 @@ class UnderlineDecorationElement extends DecorationElement {
           styleError: textErrorStyle,
           prefix: prefix,
           suffix: suffix,
-          size: size,
           contentPadding: contentPadding,
         );
 
@@ -115,7 +109,6 @@ class UnderlineDecorationElement extends DecorationElement {
     TextStyle? styleError,
     Widget? prefix,
     Widget? suffix,
-    Size? size,
     EdgeInsetsGeometry? contentPadding,
   }) {
     return UnderlineDecorationElement(
@@ -131,7 +124,6 @@ class UnderlineDecorationElement extends DecorationElement {
       hintStyle: hintStyle ?? this.labelStyle,
       labelStyle: labelStyle ?? this.hintStyle,
       textErrorStyle: styleError ?? this.styleError,
-      size: size,
       filledColor: filledColor,
       contentPadding: contentPadding,
       prefix: prefix,
@@ -170,7 +162,6 @@ class OutlineDecorationElement extends DecorationElement {
     TextStyle? textErrorStyle,
     Widget? prefix,
     Widget? suffix,
-    Size? size,
     EdgeInsetsGeometry? contentPadding,
   }) : super(
           radius: radius,
@@ -180,7 +171,6 @@ class OutlineDecorationElement extends DecorationElement {
           labelStyle: labelStyle,
           hintStyle: hintStyle,
           styleError: textErrorStyle,
-          size: size,
           contentPadding: contentPadding,
           prefix: prefix,
           suffix: suffix,
@@ -203,7 +193,6 @@ class OutlineDecorationElement extends DecorationElement {
     TextStyle? styleError,
     Widget? prefix,
     Widget? suffix,
-    Size? size,
     EdgeInsetsGeometry? contentPadding,
   }) {
     return OutlineDecorationElement(
@@ -220,7 +209,6 @@ class OutlineDecorationElement extends DecorationElement {
       labelStyle: labelStyle ?? this.labelStyle,
       hintStyle: hintStyle ?? this.hintStyle,
       textErrorStyle: styleError ?? this.styleError,
-      size: size,
       contentPadding: contentPadding,
       prefix: prefix,
       suffix: suffix,
@@ -240,7 +228,6 @@ class RoundedDecorationElement extends DecorationElement {
     TextStyle? styleError,
     Widget? prefix,
     Widget? suffix,
-    Size? size,
     EdgeInsetsGeometry? contentPadding,
   }) : super(
           radius: radius,
@@ -250,7 +237,6 @@ class RoundedDecorationElement extends DecorationElement {
           hintStyle: hintStyle,
           labelStyle: labelStyle,
           styleError: styleError,
-          size: size,
           contentPadding: contentPadding,
           suffix: suffix,
           prefix: prefix,
@@ -267,18 +253,16 @@ class RoundedDecorationElement extends DecorationElement {
     TextStyle? styleError,
     Widget? prefix,
     Widget? suffix,
-    Size? size,
     EdgeInsetsGeometry? contentPadding,
   }) {
     return RoundedDecorationElement(
-      radius: radius as BorderRadius? ?? this.radius,
+      radius: radius  ?? this.radius,
       filledColor: filledColor ?? this.filledColor,
       focusColor: focusColor ?? this.focusColor,
       textStyle: style ?? this.style,
       labelStyle: labelStyle ?? this.labelStyle,
       hintStyle: hintStyle ?? this.hintStyle,
       styleError: styleError ?? this.styleError,
-      size: size,
       contentPadding: contentPadding,
       prefix: prefix,
       suffix: suffix,
@@ -308,7 +292,6 @@ class UnderlinePasswordElementDecoration extends UnderlineDecorationElement
     Color? disabledBorderColor,
     BorderRadius radius = BorderRadius.zero,
     double widthSide = 1,
-    Size? size,
     EdgeInsetsGeometry? contentPadding,
     Color? filledColor,
     Color? focusColor,
@@ -330,7 +313,6 @@ class UnderlinePasswordElementDecoration extends UnderlineDecorationElement
           errorBorderColor: errorBorderColor,
           disabledBorderColor: disabledBorderColor,
           radius: radius,
-          size: size,
           contentPadding: contentPadding,
           suffix: null,
           prefix: prefix,
@@ -352,7 +334,6 @@ final bool enableVisibilityPassword;
     Color? disabledBorderColor,
     BorderRadius? radius,
     double widthSide = 1,
-    Size? size,
     EdgeInsetsGeometry? contentPadding,
     Color? filledColor,
     Color? focusColor,
@@ -374,7 +355,6 @@ final bool enableVisibilityPassword;
           errorBorderColor: errorBorderColor,
           disabledBorderColor: disabledBorderColor,
           radius: radius,
-          size: size,
           contentPadding: contentPadding,
           suffix: null,
           prefix: prefix,
@@ -400,7 +380,6 @@ class RoundedPasswordElementDecoration extends RoundedDecorationElement
     TextStyle? textErrorStyle,
     Widget? prefix,
     Widget? suffix,
-    Size? size,
     EdgeInsetsGeometry? contentPadding,
   }) : super(
           filledColor: filledColor ?? Colors.white,
@@ -409,7 +388,6 @@ class RoundedPasswordElementDecoration extends RoundedDecorationElement
           hintStyle: labelStyle,
           labelStyle: hintStyle,
           styleError: textErrorStyle,
-          size: size,
           contentPadding: contentPadding,
           suffix: suffix,
           prefix: prefix,

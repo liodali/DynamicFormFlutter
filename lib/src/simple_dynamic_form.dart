@@ -208,21 +208,17 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
                           visible: element.visibility,
                           child: Padding(
                             padding: element.padding,
-                            child: SizedBox(
-                              width: element.decorationElement?.size?.width,
-                              height: element.decorationElement?.size?.height ,
-                              child: _GenerateTextField(
-                                errorNotifier: _mapValueNotifierErrorField.containsKey(element.id)
-                                    ? _mapValueNotifierErrorField[element.id!]
-                                    : null,
-                                element: element,
-                                gElement: gelement,
-                                commonDecorationElement: gelement.commonDecorationElements,
-                                groupElements: widget.groupElements,
-                                controllers: _listGTextController,
-                                focusList: focusList,
-                                textElements: gelement.textElements,
-                              ),
+                            child: _GenerateTextField(
+                              errorNotifier: _mapValueNotifierErrorField.containsKey(element.id)
+                                  ? _mapValueNotifierErrorField[element.id!]
+                                  : null,
+                              element: element,
+                              gElement: gelement,
+                              commonDecorationElement: gelement.commonDecorationElements,
+                              groupElements: widget.groupElements,
+                              controllers: _listGTextController,
+                              focusList: focusList,
+                              textElements: gelement.textElements,
                             ),
                           ),
                         ),

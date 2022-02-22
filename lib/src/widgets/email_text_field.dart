@@ -59,6 +59,7 @@ class EmailTextField extends StatelessWidget {
       decoration: inputDecoration!.copyWith(
         hintText: emailElement!.hint,
         labelText: emailElement!.label,
+        errorText: null,
       ),
     );
   }

@@ -45,14 +45,13 @@ class _LoginPageState extends State<LoginPage> {
         commonDecoration: decoration,
         decorationEmailElement: OutlineDecorationElement(
           contentPadding: EdgeInsets.only(
-            top: 8.0,
             left: 12.0,
           ),
-          size: Size.fromHeight(48),
-          prefix: Icon(
-            Icons.person,
-            size: 20,
-          ),
+          size: Size.fromHeight(32),
+          // prefix: Icon(
+          //   Icons.person,
+          //   size: 20,
+          // ),
         ),
         decorationPasswordElement: OutlinePasswordElementDecoration(
           contentPadding: EdgeInsets.only(left: 8),
