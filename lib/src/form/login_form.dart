@@ -6,7 +6,6 @@ import '../../dynamic_form.dart';
 
 /// [controller]
 /// [decorationEmailElement] : input decoration of email/username fields of form
-/// [decorationPasswordElement] : input decoration of password fields of form
 /// [directionGroup] : Direction of form (Vertical/Horizontal)
 ///  [paddingFields] : padding between fields
 ///  [onlyEmail] : enable only email type fieldText
@@ -17,13 +16,10 @@ import '../../dynamic_form.dart';
 
 class LoginForm extends StatefulWidget {
   final LoginFormController controller;
-  final DecorationElement decorationEmailElement;
-  final DecorationElement decorationPasswordElement;
+  final DecorationLoginForm decorationLoginForm;
   final DirectionGroup directionGroup;
   final EdgeInsets paddingFields;
   final bool onlyEmail;
-  final String login;
-  final String password;
   final PasswordControls passwordControls;
   final PasswordError passwordError;
   final UsernameEmailError usernameEmailError;
@@ -32,13 +28,10 @@ class LoginForm extends StatefulWidget {
   LoginForm({
     Key? key,
     required this.controller,
-    this.decorationEmailElement = const UnderlineDecorationElement(),
-    this.decorationPasswordElement = const UnderlineDecorationElement(),
+    required this.decorationLoginForm,
     this.directionGroup = DirectionGroup.Vertical,
     this.paddingFields = const EdgeInsets.all(3.0),
     this.onlyEmail = true,
-    this.login = "username or email",
-    this.password = "Password",
     this.submitLogin,
     this.passwordControls = const PasswordControls.strong(),
     this.passwordError = const PasswordError(),
@@ -46,12 +39,10 @@ class LoginForm extends StatefulWidget {
   }) : super(key: key);
 
   static LoginFormController of(BuildContext context, {bool nullOk = false}) {
-    final LoginForm? result =
-        context.findAncestorWidgetOfExactType<LoginForm>();
+    final LoginForm? result = context.findAncestorWidgetOfExactType<LoginForm>();
     if (nullOk || result != null) return result!.controller;
     throw FlutterError.fromParts(<DiagnosticsNode>[
-      ErrorSummary(
-          'LoginForm.of() called with a context that does not contain an LoginForm.'),
+      ErrorSummary('LoginForm.of() called with a context that does not contain an LoginForm.'),
       ErrorDescription(
           'No LoginForm ancestor could be found starting from the context that was passed to LoginForm.of().'),
       context.describeElement('The context used was')
@@ -88,36 +79,35 @@ class LoginFormState extends State<LoginForm> {
             0.5,
           ],
           backgroundColor: Colors.transparent,
+          commonDecorationElements: widget.decorationLoginForm.commonDecoration,
           textElements: [
             widget.onlyEmail
                 ? EmailElement(
                     id: "email",
-                    decorationElement: widget.decorationEmailElement,
+                    decorationElement: widget.decorationLoginForm.decorationEmailElement,
                     isRequired: true,
                     padding: widget.paddingFields,
-                    label: widget.login,
-                    hint: widget.login,
-                    errorEmailIsRequired:
-                        widget.usernameEmailError.requiredErrorMsg,
-                    errorEmailPattern:
-                        widget.usernameEmailError.patternEmailErrorMsg,
+                    label: widget.decorationLoginForm.login,
+                    hint: widget.decorationLoginForm.hintLogin,
+                    errorEmailIsRequired: widget.usernameEmailError.requiredErrorMsg,
+                    errorEmailPattern: widget.usernameEmailError.patternEmailErrorMsg,
                   )
                 : TextElement(
                     id: "email",
                     validator: validatorUsername,
                     padding: widget.paddingFields,
-                    textStyle: widget.decorationEmailElement.style ??
-                        Theme.of(context).textTheme.subtitle1,
-                    decorationElement: widget.decorationEmailElement,
-                    label: widget.login,
-                    hint: widget.login,
+                    decorationElement: widget.decorationLoginForm.decorationEmailElement,
+                    label: widget.decorationLoginForm.login,
+                    hint: widget.decorationLoginForm.hintLogin,
                   ),
             PasswordElement(
               id: "password",
-              label: widget.password,
+              label: widget.decorationLoginForm.password,
               errors: widget.passwordError,
-              hint: widget.password,
-              decorationElement: widget.decorationPasswordElement,
+              hint: widget.decorationLoginForm.hintPassword,
+              decorationPasswordElement: widget.decorationLoginForm.decorationPasswordElement,
+              enableShowPassword: widget.decorationLoginForm.decorationPasswordElement.enableVisibilityPassword,
+              errorMsg: widget.passwordError.error,
               hasUppercase: widget.passwordControls.hasUppercase,
               isRequired: true,
               hasDigits: widget.passwordControls.hasDigits,
@@ -154,14 +144,12 @@ class LoginFormState extends State<LoginForm> {
     } else {
       if (!widget.onlyEmail) {
         if (!usernameText.contains("@")) {
-          bool usernameValid =
-              RegExp(Patterns.usernamePattern).hasMatch(usernameText);
+          bool usernameValid = RegExp(Patterns.usernamePattern).hasMatch(usernameText);
           if (!usernameValid) {
             return widget.usernameEmailError.patternUsernameErrorMsg;
           }
         } else {
-          bool usernameValid =
-              RegExp(Patterns.emailPattern).hasMatch(usernameText);
+          bool usernameValid = RegExp(Patterns.emailPattern).hasMatch(usernameText);
           if (!usernameValid) {
             return widget.usernameEmailError.patternEmailErrorMsg;
           }

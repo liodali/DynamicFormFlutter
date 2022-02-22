@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
     super.initState();
     tabController = TabController(
       length: 3,
-      initialIndex: 2,
+      initialIndex: 1,
       vsync: this,
     );
   }
@@ -119,8 +119,8 @@ class MyHomePage extends StatelessWidget {
                     directionGroup: DirectionGroup.Vertical,
                     textElements: [
                       PhoneNumberElement(
-                        label: "Phone Number",
-                        hint: "XXXXXXXXX",
+                        //label: "",
+                        hint: "Phone Number",
                         errorMsg: "invalid phone number",
                         initValue: "1234567",
                         showPrefix: true,
@@ -154,6 +154,11 @@ class MyHomePage extends StatelessWidget {
                   ),
                   GroupElement(
                     directionGroup: DirectionGroup.Vertical,
+
+                    commonDecorationElements: UnderlineDecorationElement(
+                        contentPadding: EdgeInsets.only(left: 5,right: 3)
+                    ),
+                    padding: EdgeInsets.symmetric(vertical: 6,horizontal: 8),
                     textElements: [
                       CountryElement(
                         id: "countries",
@@ -165,12 +170,13 @@ class MyHomePage extends StatelessWidget {
                         showFlag: true,
                       ),
                       PhoneNumberElement(
-                          label: "Phone",
-                          showPrefix: true,
-                          showSuffixFlag: true,
-                          showPrefixFlag: false,
-                          hint: "XXXXXXXXXX",
-                          initPrefix: "+216"),
+                        label: "Phone",
+                        showPrefix: true,
+                        showSuffixFlag: true,
+                        showPrefixFlag: false,
+                        hint: "Phone",
+                        initPrefix: "+216",
+                      ),
                       TextAreaElement(
                         maxCharacter: 300,
                         maxLines: 4,

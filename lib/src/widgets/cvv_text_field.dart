@@ -9,6 +9,7 @@ class CvvTextField extends StatelessWidget {
   final FocusNode? currentFocus;
   final FocusNode? nextFocus;
   final ValueNotifier<String?>? errorNotifier;
+  final DecorationElement? commonDecorationElem;
 
   CvvTextField({
     required this.controller,
@@ -16,6 +17,7 @@ class CvvTextField extends StatelessWidget {
     this.currentFocus,
     this.nextFocus,
     this.errorNotifier,
+    this.commonDecorationElem,
     Key? key,
   }) : super(key: key);
 
@@ -38,14 +40,15 @@ class CvvTextField extends StatelessWidget {
             onTap: element.onTap as void Function()?,
             focusNode: currentFocus,
             obscureText: true,
-            textInputAction:
-                nextFocus == null ? TextInputAction.done : TextInputAction.next,
+            textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
             onFieldSubmitted: (v) {
               Constants.fieldFocusChange(context, currentFocus, nextFocus);
             },
-            decoration:
-                Constants.setInputBorder(context, element.decorationElement)
-                    .copyWith(
+            decoration: Constants.setInputBorder(
+              context,
+              element.decorationElement,
+              common: commonDecorationElem,
+            ).copyWith(
               labelText: element.label,
               hintText: element.hint,
               errorText: error,
@@ -67,13 +70,15 @@ class CvvTextField extends StatelessWidget {
       onTap: element.onTap as void Function()?,
       focusNode: currentFocus,
       obscureText: true,
-      textInputAction:
-          nextFocus == null ? TextInputAction.done : TextInputAction.next,
+      textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
       onFieldSubmitted: (v) {
         Constants.fieldFocusChange(context, currentFocus, nextFocus);
       },
-      decoration:
-          Constants.setInputBorder(context, element.decorationElement).copyWith(
+      decoration: Constants.setInputBorder(
+        context,
+        element.decorationElement,
+        common: commonDecorationElem,
+      ).copyWith(
         labelText: element.label,
         hintText: element.hint,
         enabled: true,

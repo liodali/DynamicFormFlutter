@@ -1,6 +1,5 @@
 import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../utilities/constants.dart';
 import '../utilities/text_controller_format_input.dart';
@@ -11,6 +10,7 @@ class DateInputField extends StatelessWidget {
   final FocusNode? currentFocus;
   final FocusNode? nextFocus;
   final ValueNotifier<String?>? errorNotifier;
+  final DecorationElement? commonDecorationElem;
 
   DateInputField({
     required this.element,
@@ -18,6 +18,7 @@ class DateInputField extends StatelessWidget {
     this.currentFocus,
     this.nextFocus,
     this.errorNotifier,
+    this.commonDecorationElem,
     Key? key,
   }) : super(key: key);
 
@@ -51,15 +52,12 @@ class DateInputField extends StatelessWidget {
             keyboardType: TextInputType.datetime,
             focusNode: currentFocus,
             inputFormatters: element.formatters,
-            textInputAction:
-                nextFocus == null ? TextInputAction.done : TextInputAction.next,
-            decoration:
-                Constants.setInputBorder(context, element.decorationElement)
-                    .copyWith(
-              labelStyle: element.textStyle ??
-                  Theme.of(context).inputDecorationTheme.labelStyle,
-              errorStyle: element.errorStyle ??
-                  Theme.of(context).inputDecorationTheme.labelStyle,
+            textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
+            decoration: Constants.setInputBorder(
+              context,
+              element.decorationElement,
+              common: commonDecorationElem,
+            ).copyWith(
               hintText: element.hint,
               labelText: element.label,
             ),
@@ -75,14 +73,18 @@ class DateInputField extends StatelessWidget {
       maxLength: element.minLength,
       buildCounter: buildCounter,
       inputFormatters: element.formatters,
-      textInputAction:
-          nextFocus == null ? TextInputAction.done : TextInputAction.next,
-      decoration:
-          Constants.setInputBorder(context, element.decorationElement).copyWith(
-        labelStyle: element.textStyle ??
+      textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
+      decoration: Constants.setInputBorder(
+        context,
+        element.decorationElement,
+        common: commonDecorationElem,
+      ).copyWith(
+        labelStyle:
+            element.decorationElement!.style ?? Theme.of(context).inputDecorationTheme.labelStyle,
+        errorStyle: element.decorationElement!.styleError ??
             Theme.of(context).inputDecorationTheme.labelStyle,
-        errorStyle: element.errorStyle ??
-            Theme.of(context).inputDecorationTheme.labelStyle,
+        hintStyle: element.decorationElement!.hintStyle ??
+            Theme.of(context).inputDecorationTheme.hintStyle,
         hintText: element.hint,
         labelText: element.label,
       ),

@@ -1,6 +1,8 @@
 import 'package:dynamic_form/src/elements/element.dart';
 import 'package:flutter/material.dart';
 
+import 'decoration_element.dart';
+
 enum DirectionGroup { Vertical, Horizontal }
 
 /// [directionGroup]     : Direction of form (Vertical/Horizontal)
@@ -12,6 +14,7 @@ enum DirectionGroup { Vertical, Horizontal }
 class GroupElement {
   final List<TextElement> textElements;
   final DirectionGroup directionGroup;
+  final DecorationElement? commonDecorationElements;
   final List<double> sizeElements;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
@@ -24,6 +27,7 @@ class GroupElement {
     this.padding,
     this.margin,
     this.decoration,
+    this.commonDecorationElements,
     this.backgroundColor = Colors.white,
     this.sizeElements = const [],
   }) : assert(sizeElements.isEmpty || sizeElements.reduce((a, b) => a + b) <= 1,

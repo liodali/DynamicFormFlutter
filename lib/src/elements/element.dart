@@ -1,8 +1,9 @@
-import 'package:dynamic_form/dynamic_form.dart';
-import 'package:dynamic_form/src/widgets/decoration_element.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+
+import '../utilities/patterns.dart';
+import 'decoration_element.dart';
 
 enum TypeInput { Text, Email, Password, Phone, Numeric, Address, multiLine }
 enum CountryTextResult {
@@ -17,7 +18,7 @@ enum DateExpirationEntryMode {
   input,
 }
 
-typedef validation = String? Function(String?);
+typedef Validation = String? Function(String?);
 
 abstract class FormElement {
   final String? id;
@@ -27,10 +28,6 @@ abstract class FormElement {
   final String? hint;
   final String? error;
   final DecorationElement? decorationElement;
-  final TextStyle? labelStyle;
-  final TextStyle? textStyle;
-  final TextStyle? errorStyle;
-  final TextStyle? hintStyle;
   final bool? readOnly;
   final bool visibility;
 
@@ -42,10 +39,6 @@ abstract class FormElement {
     this.hint = "",
     this.error = "",
     this.decorationElement = const UnderlineDecorationElement(),
-    this.labelStyle,
-    this.hintStyle,
-    this.errorStyle,
-    this.textStyle,
     this.readOnly,
     this.visibility = true,
   });
@@ -68,11 +61,7 @@ class TextElement extends FormElement {
   final String? label;
   final String? hint;
   final String? error;
-  final TextStyle? labelStyle;
-  final TextStyle? errorStyle;
-  final TextStyle? hintStyle;
-  final TextStyle? textStyle;
-  final validation? validator;
+  final Validation? validator;
   final EdgeInsets padding;
   final bool? isRequired;
   final bool readOnly;
@@ -86,10 +75,6 @@ class TextElement extends FormElement {
     this.label = "",
     this.hint = "",
     this.error = "",
-    this.labelStyle,
-    this.hintStyle,
-    this.errorStyle,
-    this.textStyle,
     this.validator,
     this.isRequired = false,
     this.readOnly = false,
@@ -103,10 +88,6 @@ class TextElement extends FormElement {
           label: label,
           hint: hint,
           error: error,
-          textStyle: textStyle,
-          labelStyle: labelStyle,
-          errorStyle: errorStyle,
-          hintStyle: hintStyle,
           readOnly: readOnly,
           visibility: visibility,
         );
@@ -137,15 +118,12 @@ class TextElement extends FormElement {
 /// [readOnly] : (bool) make email text field read only
 class EmailElement extends TextElement {
   final String? initValue;
-  final String label;
-  final String hint;
+  final String? label;
+  final String? hint;
   final DecorationElement decorationElement;
 
   final String errorEmailPattern;
   final String errorEmailIsRequired;
-  final TextStyle? errorStyle;
-  final TextStyle? hintStyle;
-  final TextStyle? labelStyle;
   final EdgeInsets padding;
   final bool isRequired;
   final bool readOnly;
@@ -154,14 +132,11 @@ class EmailElement extends TextElement {
   EmailElement({
     String? id,
     this.initValue,
-    this.label = "Email",
-    this.hint = "example@mail.com",
+    this.label,
+    this.hint,
     this.decorationElement = const UnderlineDecorationElement(),
     this.errorEmailPattern = "invalid email",
     this.errorEmailIsRequired = "email is empty",
-    this.labelStyle,
-    this.hintStyle,
-    this.errorStyle,
     this.isRequired = false,
     this.readOnly = false,
     this.padding = const EdgeInsets.all(2.0),
@@ -195,14 +170,11 @@ class EmailElement extends TextElement {
 
 class PasswordElement extends TextElement {
   final String? initValue;
-  final String label;
-  final String hint;
-  final DecorationElement decorationElement;
+  final String? label;
+  final String? hint;
+  final PasswordElementDecoration decorationPasswordElement;
   final String? errorMsg;
   final bool enableShowPassword;
-  final TextStyle? errorStyle;
-  final TextStyle? hintStyle;
-  final TextStyle? labelStyle;
   final EdgeInsets padding;
   final bool? isRequired;
   final bool? hasUppercase;
@@ -215,13 +187,10 @@ class PasswordElement extends TextElement {
   PasswordElement({
     String? id,
     this.initValue,
-    this.label = " Password ",
-    this.hint = "password",
-    this.decorationElement = const UnderlineDecorationElement(),
+    this.label,
+    this.hint,
+    this.decorationPasswordElement = const UnderlinePasswordElementDecoration(),
     this.errorMsg,
-    this.labelStyle,
-    this.hintStyle,
-    this.errorStyle,
     this.enableShowPassword = true,
     this.isRequired,
     int minLength = 6,
@@ -238,7 +207,6 @@ class PasswordElement extends TextElement {
           label: label,
           hint: hint,
           onTap: null,
-          decorationElement: decorationElement,
           readOnly: readOnly,
           typeInput: TypeInput.Password,
           validator: (password) {
@@ -246,17 +214,13 @@ class PasswordElement extends TextElement {
               if (password.isNotEmpty) {
                 if (password.length < minLength) {
                   return errors!.minLengthErrorMsg;
-                } else if (RegExp(Patterns.upperAlpha).stringMatch(password) ==
-                        null &&
+                } else if (RegExp(Patterns.upperAlpha).stringMatch(password) == null &&
                     hasUppercase!) {
                   return errors!.uppercaseErrorMsg;
-                } else if (RegExp(Patterns.specialChar).stringMatch(password) ==
-                        null &&
+                } else if (RegExp(Patterns.specialChar).stringMatch(password) == null &&
                     hasSpecialCharacter!) {
                   return errors!.specialCharacterErrorMsg;
-                } else if (RegExp(Patterns.digitPattern)
-                            .stringMatch(password) ==
-                        null &&
+                } else if (RegExp(Patterns.digitPattern).stringMatch(password) == null &&
                     hasDigits!) {
                   return errors!.digitsErrorMsg;
                 }
@@ -273,14 +237,10 @@ class PasswordElement extends TextElement {
 class NumberElement extends TextElement {
   final String? initValue;
   final String? label;
-  final validation? validator;
+  final Validation? validator;
   final DecorationElement? decorationElement;
   final String? hint;
   final String? errorMsg;
-  final TextStyle? textStyle;
-  final TextStyle? errorStyle;
-  final TextStyle? hintStyle;
-  final TextStyle? labelStyle;
   final bool isDigits;
   final EdgeInsets padding;
   final bool readOnly;
@@ -295,10 +255,6 @@ class NumberElement extends TextElement {
     this.decorationElement = const UnderlineDecorationElement(),
     this.isDigits = false,
     this.errorMsg,
-    this.textStyle,
-    this.labelStyle,
-    this.hintStyle,
-    this.errorStyle,
     this.padding = const EdgeInsets.all(2.0),
     this.validator,
     this.isRequired = false,
@@ -324,10 +280,6 @@ class CardNumberElement extends NumberElement {
   final DecorationElement? decorationElement;
   final String hint;
   final String? errorMsg;
-  final TextStyle? textStyle;
-  final TextStyle? errorStyle;
-  final TextStyle? hintStyle;
-  final TextStyle? labelStyle;
   final EdgeInsets padding;
 
   CardNumberElement({
@@ -338,10 +290,6 @@ class CardNumberElement extends NumberElement {
     this.decorationElement = const UnderlineDecorationElement(),
     this.errorMsg,
     this.errorIsRequiredMessage = "this Field is required",
-    this.textStyle,
-    this.labelStyle,
-    this.hintStyle,
-    this.errorStyle,
     this.padding = const EdgeInsets.all(2.0),
   }) : super(
           id: id,
@@ -349,9 +297,6 @@ class CardNumberElement extends NumberElement {
           initValue: initValue,
           label: label,
           hint: hint,
-          labelStyle: labelStyle,
-          hintStyle: hintStyle,
-          errorStyle: errorStyle,
           readOnly: false,
           visibility: true,
         );
@@ -365,10 +310,6 @@ class CVVElement extends NumberElement {
     String hint = "",
     decorationElement = const UnderlineDecorationElement(),
     String? error,
-    TextStyle? textStyle,
-    TextStyle? labelStyle,
-    TextStyle? hintStyle,
-    TextStyle? errorStyle,
     EdgeInsets padding = const EdgeInsets.all(2.0),
     validator,
     bool readOnly = false,
@@ -436,14 +377,14 @@ class PhoneNumberElement extends TextElement {
   final String initValue;
   final String initPrefix;
   final DecorationElement decorationElement;
-  final String label;
-  final String hint;
+  final String? label;
+  final String? hint;
   final String errorMsg;
   final bool showPrefixFlag;
   final bool showSuffixFlag;
   final String labelModalSheet;
   final EdgeInsets padding;
-  final validation? validator;
+  final Validation? validator;
   final bool showPrefix;
   final bool readOnly;
 
@@ -451,8 +392,8 @@ class PhoneNumberElement extends TextElement {
     String? id,
     this.initValue = "",
     this.decorationElement = const UnderlineDecorationElement(),
-    this.label = "Phone Number",
-    this.hint = "(+001)XXXXXXXXX",
+    this.label ,
+    this.hint,
     this.errorMsg = "invalid phone number",
     this.labelModalSheet = "select calling code",
     this.validator,
@@ -477,9 +418,7 @@ class PhoneNumberElement extends TextElement {
                 if (phone != null) {
                   if (phone.isEmpty) {
                     return errorMsg;
-                  } else if (RegExp(Patterns.phonePattern)
-                      .allMatches(phone)
-                      .isEmpty) {
+                  } else if (RegExp(Patterns.phonePattern).allMatches(phone).isEmpty) {
                     return errorMsg;
                   }
                 }
@@ -502,7 +441,7 @@ class TextAreaElement extends TextElement {
     String? id,
     String label = "Comment",
     String hint = "Comment",
-    validation? validator,
+    Validation? validator,
     DecorationElement decorationElement = const UnderlineDecorationElement(),
     this.maxLines = 3,
     this.showCounter = false,
@@ -612,7 +551,7 @@ class DateInputElement extends TextElement {
   final String? label;
   final bool? isRequired;
   final DecorationElement? decorationElement;
-  final validation? validator;
+  final Validation? validator;
   final String? hint;
   final int? minLength;
   final bool readOnly = false;
@@ -767,12 +706,9 @@ class PasswordError extends TextFieldError {
   const PasswordError({
     String requiredErrorMsg = "Password is required",
     this.minLengthErrorMsg = "",
-    this.uppercaseErrorMsg =
-        "Password must include at least one uppercase letter ",
-    this.specialCharacterErrorMsg =
-        "Password must include at least one special character",
-    this.digitsErrorMsg =
-        "Password must include at least one digit from 0 to 9",
+    this.uppercaseErrorMsg = "Password must include at least one uppercase letter ",
+    this.specialCharacterErrorMsg = "Password must include at least one special character",
+    this.digitsErrorMsg = "Password must include at least one digit from 0 to 9",
     String? error,
   }) : super(error: error, requiredErrorMsg: requiredErrorMsg);
 }

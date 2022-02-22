@@ -11,14 +11,15 @@ class DateTextField extends StatelessWidget {
   final FocusNode? nextFocus;
   final dateFormat = DateFormat.yMEd();
   final ValueNotifier<String>? errorNotifier;
+  final DecorationElement? commonDecorationElem;
 
-  DateTextField({
-    this.errorNotifier,
-    required this.element,
-    required this.controller,
-    this.currentFocus,
-    this.nextFocus,
-  });
+  DateTextField(
+      {this.errorNotifier,
+      required this.element,
+      required this.controller,
+      this.currentFocus,
+      this.nextFocus,
+      this.commonDecorationElem});
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +29,12 @@ class DateTextField extends StatelessWidget {
         readOnly: element.readOnly,
         keyboardType: Constants.getInput(element.typeInput),
         focusNode: currentFocus,
-        textInputAction:
-            nextFocus == null ? TextInputAction.done : TextInputAction.next,
-        decoration: Constants.setInputBorder(context, element.decorationElement)
-            .copyWith(
-          labelStyle: element.textStyle ??
-              Theme.of(context).inputDecorationTheme.labelStyle,
-          errorStyle: element.errorStyle ??
-              Theme.of(context).inputDecorationTheme.labelStyle,
+        textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
+        decoration: Constants.setInputBorder(
+          context,
+          element.decorationElement,
+          common: commonDecorationElem,
+        ).copyWith(
           hintText: element.hint,
           labelText: element.label,
           suffixIcon: element.suffixIcon,
@@ -61,8 +60,7 @@ class DateTextField extends StatelessWidget {
           if (date == null) {
             controller.text = "";
           } else {
-            controller.text =
-                element.format?.format(date) ?? dateFormat.format(date);
+            controller.text = element.format?.format(date) ?? dateFormat.format(date);
           }
           Constants.fieldFocusChange(context, currentFocus, nextFocus);
         },
@@ -76,15 +74,12 @@ class DateTextField extends StatelessWidget {
           readOnly: element.readOnly,
           keyboardType: Constants.getInput(element.typeInput),
           focusNode: currentFocus,
-          textInputAction:
-              nextFocus == null ? TextInputAction.done : TextInputAction.next,
-          decoration:
-              Constants.setInputBorder(context, element.decorationElement)
-                  .copyWith(
-            labelStyle: element.textStyle ??
-                Theme.of(context).inputDecorationTheme.labelStyle,
-            errorStyle: element.errorStyle ??
-                Theme.of(context).inputDecorationTheme.labelStyle,
+          textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
+          decoration: Constants.setInputBorder(
+            context,
+            element.decorationElement,
+            common: commonDecorationElem,
+          ).copyWith(
             hintText: element.hint,
             labelText: element.label,
             suffixIcon: element.suffixIcon,
@@ -110,8 +105,7 @@ class DateTextField extends StatelessWidget {
             if (date == null) {
               controller.text = "";
             } else {
-              controller.text =
-                  element.format?.format(date) ?? dateFormat.format(date);
+              controller.text = element.format?.format(date) ?? dateFormat.format(date);
             }
             Constants.fieldFocusChange(context, currentFocus, nextFocus);
           },

@@ -9,6 +9,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final controller = LoginFormController();
+
   @override
   Widget build(BuildContext context) {
     final decoration = OutlineDecorationElement(
@@ -18,11 +20,11 @@ class _LoginPageState extends State<LoginPage> {
         topRight: Radius.circular(5.0),
       ),
       widthSide: 0.6,
+      focusWidthSide: 1.0,
     );
-    final controller = LoginFormController();
     return LoginForm(
       controller: controller,
-      directionGroup: DirectionGroup.Horizontal,
+      directionGroup: DirectionGroup.Vertical,
       submitLogin: Container(
         width: 250,
         child: ElevatedButton(
@@ -39,19 +41,42 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       onlyEmail: false,
-      login: "Username",
-      password: "Password",
-      paddingFields: const EdgeInsets.all(2),
+      decorationLoginForm: DecorationLoginForm(
+        commonDecoration: decoration,
+        decorationEmailElement: OutlineDecorationElement(
+          contentPadding: EdgeInsets.only(
+            left: 12.0,
+          ),
+          // prefix: Icon(
+          //   Icons.person,
+          //   size: 20,
+          // ),
+        ),
+        decorationPasswordElement: OutlinePasswordElementDecoration(
+          contentPadding: EdgeInsets.only(left: 8),
+          prefix: Padding(
+            padding: EdgeInsets.all(6.0),
+            child: Icon(
+              Icons.lock,
+              size: 20,
+            ),
+          ),
+          enableVisibilityPassword: false
+          // showPasswordWidget: Icon(
+          //   Icons.remove_red_eye_outlined,
+          // ),
+          // hidePasswordWidget: Icon(
+          //   Icons.visibility_off_outlined,
+          // ),
+        ),
+        // login: "Username",
+        // password: "password",
+        hintPassword: "password",
+      ),
+      paddingFields: const EdgeInsets.all(6),
       passwordControls: PasswordControls.all(
         false,
         passwordMinLength: 3,
-      ),
-      decorationEmailElement: decoration,
-      decorationPasswordElement: decoration.copy(
-        radius: BorderRadius.only(
-          bottomLeft: Radius.circular(5.0),
-          bottomRight: Radius.circular(5.0),
-        ),
       ),
     );
   }
