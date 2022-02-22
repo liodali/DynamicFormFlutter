@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.12.3-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.20.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 
 create your form with easier way
@@ -17,7 +17,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.12.3
+		dynamic_form: ^0.20.0
 
 
 
@@ -126,18 +126,27 @@ controller.validate();
           child: Text("Log In"),
          ),
           onlyEmail: false,
-          labelLogin: "Username",
-          password: "Password",
           textButton: Text("Log IN"),
           paddingFields: const EdgeInsets.all(0),
-          decorationEmailElement: decoration,
-          decorationPasswordElement: decoration.copy(
-            radius: BorderRadius.only(
-              bottomLeft: Radius.circular(5.0),
-              bottomRight: Radius.circular(5.0),
+          decorationLoginForm: DecorationLoginForm(
+            commonDecoration: decoration,
+            decorationEmailElement: OutlineDecorationElement(
+                contentPadding: EdgeInsets.only(
+                left: 12.0,
+              ),
             ),
-          ),
-        )
+            decorationPasswordElement: OutlinePasswordElementDecoration(
+                contentPadding: EdgeInsets.only(left: 8),
+                prefix: Padding(
+                   padding: EdgeInsets.all(6.0),
+                   child: Icon(
+                      Icons.lock,
+                      size: 20,
+                  ),
+            ),
+            enableVisibilityPassword: false
+      ),
+    )
 ```
 
 
@@ -177,13 +186,10 @@ final password = controller.password;
  | Properties                     | Description                                                    |
  | ------------------------------ | -------------------------------------------------------------- |
  | `controller`                   | LoginFormController to validate login form and get data                             |
- | `decorationEmailElement`       | input decoration of email field in form                             |
- | `decorationPasswordElement`    | input decoration of password field in form                             |
+ | `decorationLoginForm`          | (DecorationLoginForm) contain configuration of the inputs decoration of email/password fields in form                             |
  | `directionGroup`               | Direction of form (Vertical/Horizontal)                        |
  | `paddingFields`                | padding between fields                                         |
- | `onlyEmail`                    | enable only email type fieldtext                               |
- | `login`                        | label  of username/email textField                             |
- | `password`                     | label of the passwordField                                     |
+ | `onlyEmail`                    | enable only email type textField                               |
  | `passwordError`                | messages errors to show  when password field not validate      |
  | `usernameEmailError`           | messages errors to show when email/username not validate       |
  | `submitLogin`                  | (Widget) Button of submit form                |

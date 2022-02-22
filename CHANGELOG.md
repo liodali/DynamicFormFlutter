@@ -1,3 +1,10 @@
+## [0.20.0]
+* break changes in LoginForm:
+    * all decorationElement and label,hint moved to new Decoration for Login
+* create new decoration `DecorationLoginForm`
+* add contentPadding to all DecorationElements
+* add common decoration in groupElement
+* improve PhoneTextElement
 ## [0.12.3]
 * change country url images
 ## [0.12.2]
