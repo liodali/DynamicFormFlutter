@@ -154,17 +154,20 @@ class MyHomePage extends StatelessWidget {
                   ),
                   GroupElement(
                     directionGroup: DirectionGroup.Vertical,
-
-                    commonDecorationElements: UnderlineDecorationElement(
-                        contentPadding: EdgeInsets.only(left: 5,right: 3)
+                    commonDecorationElements: OutlineDecorationElement(
+                      contentPadding: EdgeInsets.only(left: 5, right: 3),
+                      radius: BorderRadius.circular(4),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 6,horizontal: 8),
+                    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 8),
                     textElements: [
                       CountryElement(
                         id: "countries",
                         label: "Pays",
                         labelModalSheet: "Pays",
                         labelSearchModalSheet: "search",
+                        // decorationElement: OutlineDecorationElement(
+                        //   radius: BorderRadius.circular(4),
+                        // ),
                         initValue: "",
                         countryTextResult: CountryTextResult.countryCode,
                         showFlag: true,

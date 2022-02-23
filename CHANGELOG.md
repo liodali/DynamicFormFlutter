@@ -1,3 +1,6 @@
+## [0.20.1]:
+* apply commonDecoration for missing elements
+* improve generate inputBorder
 ## [0.20.0]
 * break changes in LoginForm:
     * all decorationElement and label,hint moved to new Decoration for Login
