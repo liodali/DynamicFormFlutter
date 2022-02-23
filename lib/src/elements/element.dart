@@ -120,7 +120,7 @@ class EmailElement extends TextElement {
   final String? initValue;
   final String? label;
   final String? hint;
-  final DecorationElement decorationElement;
+  final DecorationElement? decorationElement;
 
   final String errorEmailPattern;
   final String errorEmailIsRequired;
@@ -134,7 +134,7 @@ class EmailElement extends TextElement {
     this.initValue,
     this.label,
     this.hint,
-    this.decorationElement = const UnderlineDecorationElement(),
+    this.decorationElement,
     this.errorEmailPattern = "invalid email",
     this.errorEmailIsRequired = "email is empty",
     this.isRequired = false,
@@ -172,7 +172,7 @@ class PasswordElement extends TextElement {
   final String? initValue;
   final String? label;
   final String? hint;
-  final PasswordElementDecoration decorationPasswordElement;
+  final PasswordElementDecoration? decorationPasswordElement;
   final String? errorMsg;
   final bool enableShowPassword;
   final EdgeInsets padding;
@@ -189,7 +189,7 @@ class PasswordElement extends TextElement {
     this.initValue,
     this.label,
     this.hint,
-    this.decorationPasswordElement = const UnderlinePasswordElementDecoration(),
+    this.decorationPasswordElement,
     this.errorMsg,
     this.enableShowPassword = true,
     this.isRequired,
@@ -278,16 +278,16 @@ class CardNumberElement extends NumberElement {
   final String? label;
   final String errorIsRequiredMessage;
   final DecorationElement? decorationElement;
-  final String hint;
+  final String? hint;
   final String? errorMsg;
   final EdgeInsets padding;
 
   CardNumberElement({
     String? id,
     this.initValue,
-    this.label = "Credit Card Number",
-    this.hint = "XXXX XXXX XXXX XXXX",
-    this.decorationElement = const UnderlineDecorationElement(),
+    this.label, //= "Credit Card Number",
+    this.hint, //= "XXXX XXXX XXXX XXXX",
+    this.decorationElement,
     this.errorMsg,
     this.errorIsRequiredMessage = "this Field is required",
     this.padding = const EdgeInsets.all(2.0),
@@ -306,8 +306,8 @@ class CVVElement extends NumberElement {
   CVVElement({
     String? id,
     String initValue = "",
-    String label = "",
-    String hint = "",
+    String? label,
+    String? hint,
     decorationElement = const UnderlineDecorationElement(),
     String? error,
     EdgeInsets padding = const EdgeInsets.all(2.0),
@@ -336,9 +336,9 @@ class CVVElement extends NumberElement {
 
 class CountryElement extends TextElement {
   final String? initValue;
-  final DecorationElement decorationElement;
+  final DecorationElement? decorationElement;
   final String? label;
-  final String errorMsg;
+  final String? errorMsg;
   final String labelModalSheet;
   final String labelSearchModalSheet;
   final CountryTextResult countryTextResult;
@@ -348,7 +348,7 @@ class CountryElement extends TextElement {
   CountryElement({
     String? id,
     this.initValue,
-    this.decorationElement = const UnderlineDecorationElement(),
+    this.decorationElement,
     this.label,
     this.errorMsg = "invalid Country",
     this.labelModalSheet = "Pays",
@@ -376,7 +376,7 @@ class CountryElement extends TextElement {
 class PhoneNumberElement extends TextElement {
   final String initValue;
   final String initPrefix;
-  final DecorationElement decorationElement;
+  final DecorationElement? decorationElement;
   final String? label;
   final String? hint;
   final String errorMsg;
@@ -391,8 +391,8 @@ class PhoneNumberElement extends TextElement {
   PhoneNumberElement({
     String? id,
     this.initValue = "",
-    this.decorationElement = const UnderlineDecorationElement(),
-    this.label ,
+    this.decorationElement,
+    this.label,
     this.hint,
     this.errorMsg = "invalid phone number",
     this.labelModalSheet = "select calling code",
@@ -439,10 +439,10 @@ class TextAreaElement extends TextElement {
 
   TextAreaElement({
     String? id,
-    String label = "Comment",
-    String hint = "Comment",
+    String? label, //= "Comment",
+    String? hint, //= "Comment",
     Validation? validator,
-    DecorationElement decorationElement = const UnderlineDecorationElement(),
+    DecorationElement? decorationElement,
     this.maxLines = 3,
     this.showCounter = false,
     this.maxCharacter = 250,

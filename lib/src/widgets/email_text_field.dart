@@ -31,7 +31,7 @@ class EmailTextField extends StatelessWidget {
               validator: emailElement!.validator,
               readOnly: emailElement!.readOnly,
               keyboardType: Constants.getInput(emailElement!.typeInput),
-              style: emailElement!.decorationElement.style,
+              style: emailElement!.decorationElement?.style,
               focusNode: currentFocus,
               textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
               onFieldSubmitted: (v) {
@@ -50,7 +50,7 @@ class EmailTextField extends StatelessWidget {
       validator: emailElement!.validator,
       readOnly: emailElement!.readOnly,
       keyboardType: Constants.getInput(emailElement!.typeInput),
-      style: emailElement!.decorationElement.style,
+      style: emailElement!.decorationElement?.style,
       focusNode: currentFocus,
       textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
       onFieldSubmitted: (v) {

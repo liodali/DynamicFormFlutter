@@ -357,6 +357,7 @@ class _GenerateTextField extends StatelessWidget {
       return CountryTextField(
         textEditingController: controller,
         element: element as CountryElement?,
+        commonDecorationElem: commonDecorationElement,
       );
     } else if (element is EmailElement) {
       return EmailTextField(
@@ -377,6 +378,7 @@ class _GenerateTextField extends StatelessWidget {
         element: element as PhoneNumberElement,
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
+        commonDecorationElem: commonDecorationElement,
       );
     } else if (element is TextAreaElement) {
       return TextAreaFormField(
@@ -390,6 +392,8 @@ class _GenerateTextField extends StatelessWidget {
         element: element as DateElement,
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
+        commonDecorationElem: commonDecorationElement,
+
       );
     } else if (element is DateInputElement) {
       return DateInputField(
@@ -398,6 +402,8 @@ class _GenerateTextField extends StatelessWidget {
         nextFocus: focusNodeNext,
         element: element as DateInputElement,
         errorNotifier: errorNotifier,
+        commonDecorationElem: commonDecorationElement,
+
       );
     }
     if (errorNotifier != null) {

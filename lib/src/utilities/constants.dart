@@ -79,216 +79,179 @@ class Constants {
           common?.labelStyle ??
           Theme.of(context).inputDecorationTheme.hintStyle,
     );
-    if (decorationElement is UnderlinePasswordElementDecoration) {
+    final decoration = decorationElement ?? common;
+    if (decoration != null) {
+      late InputBorder inputBorder,
+          focusInputBorder,
+          errorInputBorder,
+          focusErrorInputBorder,
+          disableInputBorder;
+      switch (decoration.runtimeType) {
+        case UnderlineDecorationElement:case UnderlinePasswordElementDecoration:
+          inputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: (decoration as UnderlineDecorationElement).borderColor ?? Colors.grey,
+              width: decoration.widthSide ?? commonWidthSide,
+            ),
+          );
+          errorInputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: decoration.errorBorderColor,
+              width: decoration.widthSide ?? commonWidthSide,
+            ),
+          );
+          focusErrorInputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: decoration.errorBorderColor,
+              width: decoration.focusWidthSide ?? commonWidthSide,
+            ),
+          );
+          focusInputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: decoration.focusBorderColor ?? Theme.of(context).primaryColor,
+              width: decoration.focusWidthSide ?? commonFocusWidthSide,
+            ),
+          );
+          disableInputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: decoration.disabledBorderColor ?? Theme.of(context).disabledColor,
+              width: decoration.widthSide ?? commonFocusWidthSide,
+            ),
+          );
+          break;
+        case OutlineDecorationElement:case OutlinePasswordElementDecoration:
+          inputBorder = OutlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: (decoration as OutlineDecorationElement).borderColor ?? Colors.grey,
+              width: decoration.widthSide ?? commonWidthSide,
+            ),
+          );
+          focusErrorInputBorder = OutlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: decoration.errorBorderColor,
+              width: decoration.focusWidthSide ?? commonWidthSide,
+            ),
+          );
+          focusInputBorder = OutlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: decoration.focusBorderColor ?? Theme.of(context).primaryColor,
+              width: decoration.focusWidthSide ?? commonFocusWidthSide,
+            ),
+          );
+          disableInputBorder = OutlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: decoration.disabledBorderColor ?? Theme.of(context).disabledColor,
+              width: decoration.widthSide ?? commonWidthSide,
+            ),
+          );
+          errorInputBorder = OutlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: decoration.errorBorderColor,
+              width: decoration.widthSide ?? commonWidthSide,
+            ),
+          );
+          break;
+        case RoundedDecorationElement:case RoundedPasswordElementDecoration:
+          inputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: Colors.transparent,
+              width: 0,
+            ),
+          );
+          focusInputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: Colors.transparent,
+              width: 0,
+            ),
+          );
+          errorInputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: Colors.transparent,
+              width: 0,
+            ),
+          );
+          disableInputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: Colors.transparent,
+              width: 0,
+            ),
+          );
+          focusErrorInputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: Colors.transparent,
+              width: 0,
+            ),
+          );
+          break;
+        default:
+          inputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: (decoration as UnderlineDecorationElement).borderColor ?? Colors.grey,
+              width: decoration.widthSide ?? commonWidthSide,
+            ),
+          );
+          errorInputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: decoration.errorBorderColor,
+              width: decoration.widthSide ?? commonWidthSide,
+            ),
+          );
+          focusErrorInputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: decoration.errorBorderColor,
+              width: decoration.focusWidthSide ?? commonWidthSide,
+            ),
+          );
+          focusInputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: decoration.focusBorderColor ?? Theme.of(context).primaryColor,
+              width: decoration.focusWidthSide ?? commonFocusWidthSide,
+            ),
+          );
+          disableInputBorder = UnderlineInputBorder(
+            borderRadius: decoration.radius ?? commonRadius,
+            borderSide: BorderSide(
+              color: decoration.disabledBorderColor ?? Theme.of(context).disabledColor,
+              width: decoration.widthSide ?? commonFocusWidthSide,
+            ),
+          );
+      }
       inputDecoration = inputDecoration.copyWith(
-        border: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: decorationElement.borderColor ?? Colors.grey,
-            width: decorationElement.widthSide ?? commonWidthSide,
-          ),
-        ),
-        errorBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: decorationElement.errorBorderColor,
-            width: decorationElement.widthSide ?? commonWidthSide,
-          ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: decorationElement.focusBorderColor ?? Theme.of(context).primaryColor,
-            width: decorationElement.focusWidthSide ?? commonFocusWidthSide,
-          ),
-        ),
-        fillColor: decorationElement.filledColor,
-        focusColor: decorationElement.focusColor,
-        filled: decorationElement.filledColor != null ? true : false,
-      );
-    } else if (decorationElement is OutlinePasswordElementDecoration) {
-      inputDecoration = inputDecoration.copyWith(
-        border: OutlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: decorationElement.borderColor ?? Colors.grey,
-            width: decorationElement.widthSide ?? commonWidthSide,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: decorationElement.focusBorderColor ?? Theme.of(context).primaryColor,
-            width: decorationElement.focusWidthSide ?? commonFocusWidthSide,
-          ),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: decorationElement.errorBorderColor,
-            width: decorationElement.widthSide ?? commonWidthSide,
-          ),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: decorationElement.disabledBorderColor ?? Theme.of(context).disabledColor,
-            width: decorationElement.widthSide ?? commonWidthSide,
-          ),
-        ),
-        fillColor: decorationElement.filledColor,
-        focusColor: decorationElement.focusColor,
-        filled: decorationElement.filledColor != null ? true : false,
-      );
-    } else if (decorationElement is RoundedPasswordElementDecoration) {
-      inputDecoration = inputDecoration.copyWith(
-        border: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        focusedErrorBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        errorBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        fillColor: decorationElement.filledColor,
-        filled: decorationElement.filledColor != null ? true : false,
-        focusColor: decorationElement.focusColor,
-      );
-    } else if (decorationElement is UnderlineDecorationElement) {
-      inputDecoration = inputDecoration.copyWith(
-        border: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: decorationElement.borderColor ?? Colors.grey,
-            width: decorationElement.widthSide ?? commonWidthSide,
-          ),
-        ),
-        errorBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: decorationElement.errorBorderColor,
-            width: decorationElement.widthSide ?? commonWidthSide,
-          ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: decorationElement.focusBorderColor ?? Theme.of(context).primaryColor,
-            width: decorationElement.focusWidthSide ?? commonFocusWidthSide,
-          ),
-        ),
-        fillColor: decorationElement.filledColor,
-        focusColor: decorationElement.focusColor,
-        filled: decorationElement.filledColor != null ? true : false,
-      );
-    } else if (decorationElement is OutlineDecorationElement) {
-      inputDecoration = inputDecoration.copyWith(
-        border: OutlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: decorationElement.borderColor ?? Colors.grey,
-            width: decorationElement.widthSide ?? commonWidthSide,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: decorationElement.focusBorderColor ?? Theme.of(context).primaryColor,
-            width: decorationElement.focusWidthSide ?? commonFocusWidthSide,
-          ),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: decorationElement.errorBorderColor,
-            width: decorationElement.widthSide ?? commonWidthSide,
-          ),
-        ),
-        disabledBorder: OutlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: decorationElement.disabledBorderColor ?? Theme.of(context).disabledColor,
-            width: decorationElement.widthSide ?? commonWidthSide,
-          ),
-        ),
-        fillColor: decorationElement.filledColor,
-        focusColor: decorationElement.focusColor,
-        filled: decorationElement.filledColor != null ? true : false,
-      );
-    } else if (decorationElement is RoundedDecorationElement) {
-      inputDecoration = inputDecoration.copyWith(
-        border: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        enabledBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        focusedErrorBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        errorBorder: UnderlineInputBorder(
-          borderRadius: decorationElement.radius ?? commonRadius,
-          borderSide: BorderSide(
-            color: Colors.transparent,
-            width: 0,
-          ),
-        ),
-        fillColor: decorationElement.filledColor,
-        filled: decorationElement.filledColor != null ? true : false,
-        focusColor: decorationElement.focusColor,
+        border: inputBorder,
+        enabledBorder: inputBorder,
+        focusedErrorBorder: focusErrorInputBorder,
+        focusedBorder: focusInputBorder,
+        errorBorder: errorInputBorder,
+        disabledBorder: disableInputBorder,
+        fillColor: decoration.filledColor,
+        filled: decoration.filledColor != null ? true : false,
+        focusColor: decoration.focusColor,
       );
     }
 
     if (decorationElement?.suffix != null) {
       inputDecoration = inputDecoration.copyWith(
-          //suffixIcon: decorationElement?.suffix,
-          );
+        suffixIcon: decorationElement?.suffix,
+      );
     }
 
     if (decorationElement?.prefix != null) {

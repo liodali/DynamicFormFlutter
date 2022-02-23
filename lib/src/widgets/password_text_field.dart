@@ -40,8 +40,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       valueListenable: isObscureNotifier,
       builder: (ctx, isObscure, child) {
         final suffixWidget = isObscure
-            ? widget.element!.decorationPasswordElement.showPasswordWidget
-            : widget.element!.decorationPasswordElement.hidePasswordWidget;
+            ? widget.element!.decorationPasswordElement?.showPasswordWidget
+            : widget.element!.decorationPasswordElement?.hidePasswordWidget ?? null;
         if (widget.errorNotifier != null) {
           return ValueListenableBuilder<String?>(
             valueListenable: widget.errorNotifier!,
@@ -53,7 +53,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                 readOnly: widget.element!.readOnly,
                 obscureText: isObscure,
                 focusNode: widget.currentFocus,
-                style: widget.element!.decorationPasswordElement.style,
+                style: widget.element!.decorationPasswordElement?.style,
                 maxLines: 1,
                 textInputAction:
                     widget.nextFocus == null ? TextInputAction.done : TextInputAction.next,
@@ -89,7 +89,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           readOnly: widget.element!.readOnly,
           obscureText: isObscure,
           focusNode: widget.currentFocus,
-          style: widget.element!.decorationPasswordElement.style,
+          style: widget.element!.decorationPasswordElement?.style,
           maxLines: 1,
           textInputAction: widget.nextFocus == null ? TextInputAction.done : TextInputAction.next,
           onFieldSubmitted: (v) {
