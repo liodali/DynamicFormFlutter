@@ -33,7 +33,9 @@ class EmailTextField extends StatelessWidget {
               keyboardType: Constants.getInput(emailElement!.typeInput),
               style: emailElement!.decorationElement?.style,
               focusNode: currentFocus,
-              textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
+              textInputAction: nextFocus == null
+                  ? TextInputAction.done
+                  : TextInputAction.next,
               onFieldSubmitted: (v) {
                 Constants.fieldFocusChange(context, currentFocus, nextFocus);
               },
@@ -52,7 +54,8 @@ class EmailTextField extends StatelessWidget {
       keyboardType: Constants.getInput(emailElement!.typeInput),
       style: emailElement!.decorationElement?.style,
       focusNode: currentFocus,
-      textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
+      textInputAction:
+          nextFocus == null ? TextInputAction.done : TextInputAction.next,
       onFieldSubmitted: (v) {
         Constants.fieldFocusChange(context, currentFocus, nextFocus);
       },

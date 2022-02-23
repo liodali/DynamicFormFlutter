@@ -71,7 +71,7 @@ class TextElement extends FormElement {
     this.typeInput = TypeInput.Text,
     this.initValue,
     this.onTap,
-    this.decorationElement = const UnderlineDecorationElement(),
+    this.decorationElement,
     this.label = "",
     this.hint = "",
     this.error = "",
@@ -214,13 +214,17 @@ class PasswordElement extends TextElement {
               if (password.isNotEmpty) {
                 if (password.length < minLength) {
                   return errors!.minLengthErrorMsg;
-                } else if (RegExp(Patterns.upperAlpha).stringMatch(password) == null &&
+                } else if (RegExp(Patterns.upperAlpha).stringMatch(password) ==
+                        null &&
                     hasUppercase!) {
                   return errors!.uppercaseErrorMsg;
-                } else if (RegExp(Patterns.specialChar).stringMatch(password) == null &&
+                } else if (RegExp(Patterns.specialChar).stringMatch(password) ==
+                        null &&
                     hasSpecialCharacter!) {
                   return errors!.specialCharacterErrorMsg;
-                } else if (RegExp(Patterns.digitPattern).stringMatch(password) == null &&
+                } else if (RegExp(Patterns.digitPattern)
+                            .stringMatch(password) ==
+                        null &&
                     hasDigits!) {
                   return errors!.digitsErrorMsg;
                 }
@@ -418,7 +422,9 @@ class PhoneNumberElement extends TextElement {
                 if (phone != null) {
                   if (phone.isEmpty) {
                     return errorMsg;
-                  } else if (RegExp(Patterns.phonePattern).allMatches(phone).isEmpty) {
+                  } else if (RegExp(Patterns.phonePattern)
+                      .allMatches(phone)
+                      .isEmpty) {
                     return errorMsg;
                   }
                 }
@@ -706,9 +712,12 @@ class PasswordError extends TextFieldError {
   const PasswordError({
     String requiredErrorMsg = "Password is required",
     this.minLengthErrorMsg = "",
-    this.uppercaseErrorMsg = "Password must include at least one uppercase letter ",
-    this.specialCharacterErrorMsg = "Password must include at least one special character",
-    this.digitsErrorMsg = "Password must include at least one digit from 0 to 9",
+    this.uppercaseErrorMsg =
+        "Password must include at least one uppercase letter ",
+    this.specialCharacterErrorMsg =
+        "Password must include at least one special character",
+    this.digitsErrorMsg =
+        "Password must include at least one digit from 0 to 9",
     String? error,
   }) : super(error: error, requiredErrorMsg: requiredErrorMsg);
 }

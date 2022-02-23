@@ -43,7 +43,8 @@ void main() {
     );
     await tester.pump();
 
-    TextFormField password = tester.widget(find.byType(TextFormField).at(1)) as TextFormField;
+    TextFormField password =
+        tester.widget(find.byType(TextFormField).at(1)) as TextFormField;
 
     String? v = password.validator!("da");
     expect(v, "min length is 3");

@@ -41,7 +41,8 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       builder: (ctx, isObscure, child) {
         final suffixWidget = isObscure
             ? widget.element!.decorationPasswordElement?.showPasswordWidget
-            : widget.element!.decorationPasswordElement?.hidePasswordWidget ?? null;
+            : widget.element!.decorationPasswordElement?.hidePasswordWidget ??
+                null;
         if (widget.errorNotifier != null) {
           return ValueListenableBuilder<String?>(
             valueListenable: widget.errorNotifier!,
@@ -55,10 +56,12 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                 focusNode: widget.currentFocus,
                 style: widget.element!.decorationPasswordElement?.style,
                 maxLines: 1,
-                textInputAction:
-                    widget.nextFocus == null ? TextInputAction.done : TextInputAction.next,
+                textInputAction: widget.nextFocus == null
+                    ? TextInputAction.done
+                    : TextInputAction.next,
                 onFieldSubmitted: (v) {
-                  Constants.fieldFocusChange(context, widget.currentFocus, widget.nextFocus);
+                  Constants.fieldFocusChange(
+                      context, widget.currentFocus, widget.nextFocus);
                 },
                 decoration: widget.inputDecoration!.copyWith(
                   labelText: widget.element!.label,
@@ -71,7 +74,9 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                           },
                           child: suffixWidget ??
                               Icon(
-                                isObscure ? Icons.remove_red_eye : Icons.visibility_off,
+                                isObscure
+                                    ? Icons.remove_red_eye
+                                    : Icons.visibility_off,
                                 color: Colors.black,
                                 size: 20,
                               ),
@@ -91,9 +96,12 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           focusNode: widget.currentFocus,
           style: widget.element!.decorationPasswordElement?.style,
           maxLines: 1,
-          textInputAction: widget.nextFocus == null ? TextInputAction.done : TextInputAction.next,
+          textInputAction: widget.nextFocus == null
+              ? TextInputAction.done
+              : TextInputAction.next,
           onFieldSubmitted: (v) {
-            Constants.fieldFocusChange(context, widget.currentFocus, widget.nextFocus);
+            Constants.fieldFocusChange(
+                context, widget.currentFocus, widget.nextFocus);
           },
           decoration: widget.inputDecoration!.copyWith(
             labelText: widget.element!.label,
@@ -105,7 +113,9 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
                     },
                     child: suffixWidget ??
                         Icon(
-                          isObscure ? Icons.remove_red_eye : Icons.visibility_off,
+                          isObscure
+                              ? Icons.remove_red_eye
+                              : Icons.visibility_off,
                           color: Colors.black,
                           size: 24,
                         ),

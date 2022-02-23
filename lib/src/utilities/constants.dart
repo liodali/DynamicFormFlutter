@@ -56,18 +56,22 @@ class Constants {
     if (common != null) {
       if (common is UnderlineDecorationElement && common.widthSide != null) {
         commonWidthSide = common.widthSide!;
-      } else if (common is OutlineDecorationElement && common.widthSide != null) {
+      } else if (common is OutlineDecorationElement &&
+          common.widthSide != null) {
         commonWidthSide = common.widthSide!;
       }
-      if (common is UnderlineDecorationElement && common.focusWidthSide != null) {
+      if (common is UnderlineDecorationElement &&
+          common.focusWidthSide != null) {
         commonFocusWidthSide = common.focusWidthSide!;
-      } else if (common is OutlineDecorationElement && common.focusWidthSide != null) {
+      } else if (common is OutlineDecorationElement &&
+          common.focusWidthSide != null) {
         commonFocusWidthSide = common.focusWidthSide!;
       }
     }
     InputDecoration inputDecoration = InputDecoration(
       fillColor: common?.filledColor,
-      contentPadding: decorationElement?.contentPadding ?? common?.contentPadding,
+      contentPadding:
+          decorationElement?.contentPadding ?? common?.contentPadding,
       filled: common?.filledColor != null ? true : false,
       labelStyle: decorationElement?.style ??
           common?.labelStyle ??
@@ -87,11 +91,13 @@ class Constants {
           focusErrorInputBorder,
           disableInputBorder;
       switch (decoration.runtimeType) {
-        case UnderlineDecorationElement:case UnderlinePasswordElementDecoration:
+        case UnderlineDecorationElement:
+        case UnderlinePasswordElementDecoration:
           inputBorder = UnderlineInputBorder(
             borderRadius: decoration.radius ?? commonRadius,
             borderSide: BorderSide(
-              color: (decoration as UnderlineDecorationElement).borderColor ?? Colors.grey,
+              color: (decoration as UnderlineDecorationElement).borderColor ??
+                  Colors.grey,
               width: decoration.widthSide ?? commonWidthSide,
             ),
           );
@@ -112,23 +118,27 @@ class Constants {
           focusInputBorder = UnderlineInputBorder(
             borderRadius: decoration.radius ?? commonRadius,
             borderSide: BorderSide(
-              color: decoration.focusBorderColor ?? Theme.of(context).primaryColor,
+              color:
+                  decoration.focusBorderColor ?? Theme.of(context).primaryColor,
               width: decoration.focusWidthSide ?? commonFocusWidthSide,
             ),
           );
           disableInputBorder = UnderlineInputBorder(
             borderRadius: decoration.radius ?? commonRadius,
             borderSide: BorderSide(
-              color: decoration.disabledBorderColor ?? Theme.of(context).disabledColor,
+              color: decoration.disabledBorderColor ??
+                  Theme.of(context).disabledColor,
               width: decoration.widthSide ?? commonFocusWidthSide,
             ),
           );
           break;
-        case OutlineDecorationElement:case OutlinePasswordElementDecoration:
+        case OutlineDecorationElement:
+        case OutlinePasswordElementDecoration:
           inputBorder = OutlineInputBorder(
             borderRadius: decoration.radius ?? commonRadius,
             borderSide: BorderSide(
-              color: (decoration as OutlineDecorationElement).borderColor ?? Colors.grey,
+              color: (decoration as OutlineDecorationElement).borderColor ??
+                  Colors.grey,
               width: decoration.widthSide ?? commonWidthSide,
             ),
           );
@@ -142,14 +152,16 @@ class Constants {
           focusInputBorder = OutlineInputBorder(
             borderRadius: decoration.radius ?? commonRadius,
             borderSide: BorderSide(
-              color: decoration.focusBorderColor ?? Theme.of(context).primaryColor,
+              color:
+                  decoration.focusBorderColor ?? Theme.of(context).primaryColor,
               width: decoration.focusWidthSide ?? commonFocusWidthSide,
             ),
           );
           disableInputBorder = OutlineInputBorder(
             borderRadius: decoration.radius ?? commonRadius,
             borderSide: BorderSide(
-              color: decoration.disabledBorderColor ?? Theme.of(context).disabledColor,
+              color: decoration.disabledBorderColor ??
+                  Theme.of(context).disabledColor,
               width: decoration.widthSide ?? commonWidthSide,
             ),
           );
@@ -161,7 +173,8 @@ class Constants {
             ),
           );
           break;
-        case RoundedDecorationElement:case RoundedPasswordElementDecoration:
+        case RoundedDecorationElement:
+        case RoundedPasswordElementDecoration:
           inputBorder = UnderlineInputBorder(
             borderRadius: decoration.radius ?? commonRadius,
             borderSide: BorderSide(
@@ -202,7 +215,8 @@ class Constants {
           inputBorder = UnderlineInputBorder(
             borderRadius: decoration.radius ?? commonRadius,
             borderSide: BorderSide(
-              color: (decoration as UnderlineDecorationElement).borderColor ?? Colors.grey,
+              color: (decoration as UnderlineDecorationElement).borderColor ??
+                  Colors.grey,
               width: decoration.widthSide ?? commonWidthSide,
             ),
           );
@@ -223,14 +237,16 @@ class Constants {
           focusInputBorder = UnderlineInputBorder(
             borderRadius: decoration.radius ?? commonRadius,
             borderSide: BorderSide(
-              color: decoration.focusBorderColor ?? Theme.of(context).primaryColor,
+              color:
+                  decoration.focusBorderColor ?? Theme.of(context).primaryColor,
               width: decoration.focusWidthSide ?? commonFocusWidthSide,
             ),
           );
           disableInputBorder = UnderlineInputBorder(
             borderRadius: decoration.radius ?? commonRadius,
             borderSide: BorderSide(
-              color: decoration.disabledBorderColor ?? Theme.of(context).disabledColor,
+              color: decoration.disabledBorderColor ??
+                  Theme.of(context).disabledColor,
               width: decoration.widthSide ?? commonFocusWidthSide,
             ),
           );
@@ -261,15 +277,17 @@ class Constants {
     }
     if (decorationElement?.contentPadding != null) {
       inputDecoration = inputDecoration.copyWith(
-        contentPadding:
-            decorationElement?.contentPadding ?? common?.contentPadding ?? EdgeInsets.zero,
+        contentPadding: decorationElement?.contentPadding ??
+            common?.contentPadding ??
+            EdgeInsets.zero,
       );
     }
 
     return inputDecoration;
   }
 
-  static fieldFocusChange(BuildContext context, FocusNode? currentFocus, FocusNode? nextFocus) {
+  static fieldFocusChange(
+      BuildContext context, FocusNode? currentFocus, FocusNode? nextFocus) {
     if (currentFocus != null) currentFocus.unfocus();
     if (nextFocus != null) FocusScope.of(context).requestFocus(nextFocus);
   }

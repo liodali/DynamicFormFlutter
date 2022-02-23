@@ -1,3 +1,5 @@
+## [0.20.1+1]:
+* remove default decoration from TextElement
 ## [0.20.1]:
 * apply commonDecoration for missing elements
 * improve generate inputBorder

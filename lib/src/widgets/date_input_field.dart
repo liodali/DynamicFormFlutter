@@ -52,7 +52,8 @@ class DateInputField extends StatelessWidget {
             keyboardType: TextInputType.datetime,
             focusNode: currentFocus,
             inputFormatters: element.formatters,
-            textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
+            textInputAction:
+                nextFocus == null ? TextInputAction.done : TextInputAction.next,
             decoration: Constants.setInputBorder(
               context,
               element.decorationElement,
@@ -73,14 +74,15 @@ class DateInputField extends StatelessWidget {
       maxLength: element.minLength,
       buildCounter: buildCounter,
       inputFormatters: element.formatters,
-      textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
+      textInputAction:
+          nextFocus == null ? TextInputAction.done : TextInputAction.next,
       decoration: Constants.setInputBorder(
         context,
         element.decorationElement,
         common: commonDecorationElem,
       ).copyWith(
-        labelStyle:
-            element.decorationElement!.style ?? Theme.of(context).inputDecorationTheme.labelStyle,
+        labelStyle: element.decorationElement!.style ??
+            Theme.of(context).inputDecorationTheme.labelStyle,
         errorStyle: element.decorationElement!.styleError ??
             Theme.of(context).inputDecorationTheme.labelStyle,
         hintStyle: element.decorationElement!.hintStyle ??

@@ -53,22 +53,22 @@ class _LoginPageState extends State<LoginPage> {
           // ),
         ),
         decorationPasswordElement: OutlinePasswordElementDecoration(
-          contentPadding: EdgeInsets.only(left: 8),
-          prefix: Padding(
-            padding: EdgeInsets.all(6.0),
-            child: Icon(
-              Icons.lock,
-              size: 20,
+            contentPadding: EdgeInsets.only(left: 8),
+            prefix: Padding(
+              padding: EdgeInsets.all(6.0),
+              child: Icon(
+                Icons.lock,
+                size: 20,
+              ),
             ),
-          ),
-          enableVisibilityPassword: false
-          // showPasswordWidget: Icon(
-          //   Icons.remove_red_eye_outlined,
-          // ),
-          // hidePasswordWidget: Icon(
-          //   Icons.visibility_off_outlined,
-          // ),
-        ),
+            enableVisibilityPassword: false
+            // showPasswordWidget: Icon(
+            //   Icons.remove_red_eye_outlined,
+            // ),
+            // hidePasswordWidget: Icon(
+            //   Icons.visibility_off_outlined,
+            // ),
+            ),
         // login: "Username",
         // password: "password",
         hintPassword: "password",

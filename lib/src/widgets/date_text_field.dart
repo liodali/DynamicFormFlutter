@@ -29,7 +29,8 @@ class DateTextField extends StatelessWidget {
         readOnly: element.readOnly,
         keyboardType: Constants.getInput(element.typeInput),
         focusNode: currentFocus,
-        textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
+        textInputAction:
+            nextFocus == null ? TextInputAction.done : TextInputAction.next,
         decoration: Constants.setInputBorder(
           context,
           element.decorationElement,
@@ -60,7 +61,8 @@ class DateTextField extends StatelessWidget {
           if (date == null) {
             controller.text = "";
           } else {
-            controller.text = element.format?.format(date) ?? dateFormat.format(date);
+            controller.text =
+                element.format?.format(date) ?? dateFormat.format(date);
           }
           Constants.fieldFocusChange(context, currentFocus, nextFocus);
         },
@@ -74,7 +76,8 @@ class DateTextField extends StatelessWidget {
           readOnly: element.readOnly,
           keyboardType: Constants.getInput(element.typeInput),
           focusNode: currentFocus,
-          textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
+          textInputAction:
+              nextFocus == null ? TextInputAction.done : TextInputAction.next,
           decoration: Constants.setInputBorder(
             context,
             element.decorationElement,
@@ -105,7 +108,8 @@ class DateTextField extends StatelessWidget {
             if (date == null) {
               controller.text = "";
             } else {
-              controller.text = element.format?.format(date) ?? dateFormat.format(date);
+              controller.text =
+                  element.format?.format(date) ?? dateFormat.format(date);
             }
             Constants.fieldFocusChange(context, currentFocus, nextFocus);
           },
