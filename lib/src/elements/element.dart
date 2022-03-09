@@ -213,7 +213,7 @@ class PasswordElement extends TextElement {
             if (password != null) {
               if (password.isNotEmpty) {
                 if (password.length < minLength) {
-                  return errors!.minLengthErrorMsg;
+                  return errors?.minLengthErrorMsg;
                 } else if (RegExp(Patterns.upperAlpha).stringMatch(password) ==
                         null &&
                     hasUppercase!) {
@@ -226,10 +226,10 @@ class PasswordElement extends TextElement {
                             .stringMatch(password) ==
                         null &&
                     hasDigits!) {
-                  return errors!.digitsErrorMsg;
+                  return errors?.digitsErrorMsg;
                 }
               } else if (isRequired!) {
-                return errors!.requiredErrorMsg;
+                return errors?.requiredErrorMsg;
               }
             }
             return null;
@@ -256,7 +256,7 @@ class NumberElement extends TextElement {
     this.initValue,
     this.label = "",
     this.hint = "",
-    this.decorationElement = const UnderlineDecorationElement(),
+    this.decorationElement,
     this.isDigits = false,
     this.errorMsg,
     this.padding = const EdgeInsets.all(2.0),
