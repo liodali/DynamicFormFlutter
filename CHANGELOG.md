@@ -1,3 +1,6 @@
+## [0.20.1+2]:
+* fix passwordElement
+* remove default decoration
 ## [0.20.1+1]:
 * remove default decoration from TextElement
 ## [0.20.1]:
