@@ -182,11 +182,13 @@ class PasswordElement extends TextElement {
   final bool? hasDigits;
   final bool readOnly;
   final PasswordError? errors;
+  final Validation? passwordValidator;
 
   //final List<String> suffix;
   PasswordElement({
     String? id,
     this.initValue,
+    this.passwordValidator,
     this.label,
     this.hint,
     this.decorationPasswordElement,
@@ -209,7 +211,7 @@ class PasswordElement extends TextElement {
           onTap: null,
           readOnly: readOnly,
           typeInput: TypeInput.Password,
-          validator: (password) {
+          validator: passwordValidator ?? (password) {
             if (password != null) {
               if (password.isNotEmpty) {
                 if (password.length < minLength) {
@@ -217,19 +219,19 @@ class PasswordElement extends TextElement {
                 } else if (RegExp(Patterns.upperAlpha).stringMatch(password) ==
                         null &&
                     hasUppercase!) {
-                  return errors!.uppercaseErrorMsg;
+                  return errors?.uppercaseErrorMsg ?? "";
                 } else if (RegExp(Patterns.specialChar).stringMatch(password) ==
                         null &&
                     hasSpecialCharacter!) {
-                  return errors!.specialCharacterErrorMsg;
+                  return errors?.specialCharacterErrorMsg ?? "";
                 } else if (RegExp(Patterns.digitPattern)
                             .stringMatch(password) ==
                         null &&
                     hasDigits!) {
-                  return errors?.digitsErrorMsg;
+                  return errors?.digitsErrorMsg ?? "";
                 }
               } else if (isRequired!) {
-                return errors?.requiredErrorMsg;
+                return errors?.requiredErrorMsg ?? "this field is Required";
               }
             }
             return null;

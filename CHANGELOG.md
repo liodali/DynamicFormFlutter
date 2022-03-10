@@ -1,3 +1,6 @@
+## [0.20.1+3]:
+* add optional validator for passwordElement
+* fix default validator for passwordElement
 ## [0.20.1+2]:
 * fix passwordElement
 * remove default decoration
