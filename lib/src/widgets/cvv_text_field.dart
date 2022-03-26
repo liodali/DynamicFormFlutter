@@ -40,7 +40,8 @@ class CvvTextField extends StatelessWidget {
             onTap: element.onTap as void Function()?,
             focusNode: currentFocus,
             obscureText: true,
-            textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
+            textInputAction:
+                nextFocus == null ? TextInputAction.done : TextInputAction.next,
             onFieldSubmitted: (v) {
               Constants.fieldFocusChange(context, currentFocus, nextFocus);
             },
@@ -70,7 +71,8 @@ class CvvTextField extends StatelessWidget {
       onTap: element.onTap as void Function()?,
       focusNode: currentFocus,
       obscureText: true,
-      textInputAction: nextFocus == null ? TextInputAction.done : TextInputAction.next,
+      textInputAction:
+          nextFocus == null ? TextInputAction.done : TextInputAction.next,
       onFieldSubmitted: (v) {
         Constants.fieldFocusChange(context, currentFocus, nextFocus);
       },

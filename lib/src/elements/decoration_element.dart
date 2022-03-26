@@ -256,7 +256,7 @@ class RoundedDecorationElement extends DecorationElement {
     EdgeInsetsGeometry? contentPadding,
   }) {
     return RoundedDecorationElement(
-      radius: radius  ?? this.radius,
+      radius: radius ?? this.radius,
       filledColor: filledColor ?? this.filledColor,
       focusColor: focusColor ?? this.focusColor,
       textStyle: style ?? this.style,
@@ -323,7 +323,7 @@ class OutlinePasswordElementDecoration extends OutlineDecorationElement
     implements PasswordElementDecoration {
   final Widget? showPasswordWidget;
   final Widget? hidePasswordWidget;
-final bool enableVisibilityPassword;
+  final bool enableVisibilityPassword;
   const OutlinePasswordElementDecoration({
     this.showPasswordWidget,
     this.hidePasswordWidget,

@@ -51,7 +51,9 @@ class _TextAreaFormFieldState extends State<TextAreaFormField> {
         labelText: widget.element.label,
         hintText: widget.element.hint,
         enabled: true,
-        counterText: widget.element.showCounter ? "$character/${widget.element.maxCharacter}" : "",
+        counterText: widget.element.showCounter
+            ? "$character/${widget.element.maxCharacter}"
+            : "",
       ),
     );
   }

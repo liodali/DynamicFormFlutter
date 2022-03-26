@@ -53,7 +53,9 @@ class CardExpirationDateField extends StatelessWidget {
                   flex: 2,
                   child: TextFormField(
                     controller: TextEditingController(
-                        text: controller.text.isNotEmpty ? controller.text.split("/").first : ""),
+                        text: controller.text.isNotEmpty
+                            ? controller.text.split("/").first
+                            : ""),
                     maxLength: 2,
                     buildCounter: buildCounter,
                     keyboardType: Constants.getInput(element.typeInput),
@@ -61,11 +63,13 @@ class CardExpirationDateField extends StatelessWidget {
                     enabled: true,
                     //onTap: element.onTap as void Function()?,
                     focusNode: monthFocus,
-                    textInputAction:
-                        nextFocus == null ? TextInputAction.done : TextInputAction.next,
+                    textInputAction: nextFocus == null
+                        ? TextInputAction.done
+                        : TextInputAction.next,
                     onFieldSubmitted: (v) {
                       monthFocus.unfocus();
-                      Constants.fieldFocusChange(context, monthFocus, yearFocus);
+                      Constants.fieldFocusChange(
+                          context, monthFocus, yearFocus);
                     },
                     validator: (month) {
                       if (element.isRequired && month!.isEmpty) {
@@ -100,7 +104,9 @@ class CardExpirationDateField extends StatelessWidget {
                   flex: 3,
                   child: TextFormField(
                     controller: TextEditingController(
-                        text: controller.text.isNotEmpty ? controller.text.split("/").last : ""),
+                        text: controller.text.isNotEmpty
+                            ? controller.text.split("/").last
+                            : ""),
                     maxLength: 4,
                     buildCounter: buildCounter,
                     keyboardType: Constants.getInput(element.typeInput),
@@ -112,17 +118,20 @@ class CardExpirationDateField extends StatelessWidget {
                       controller.text = "$monthValue/$v";
                     },
                     validator: (year) {
-                      final maxYear = element.maxYear ?? DateTime.now().year + 10;
+                      final maxYear =
+                          element.maxYear ?? DateTime.now().year + 10;
                       if (element.isRequired && year!.isEmpty) {
                         return element.requiredErrorMsg;
                       }
-                      if (int.parse(year!) < DateTime.now().year || int.parse(year) > maxYear) {
+                      if (int.parse(year!) < DateTime.now().year ||
+                          int.parse(year) > maxYear) {
                         return element.invalidErrorMsg;
                       }
                     },
                     focusNode: yearFocus,
-                    textInputAction:
-                        nextFocus == null ? TextInputAction.done : TextInputAction.next,
+                    textInputAction: nextFocus == null
+                        ? TextInputAction.done
+                        : TextInputAction.next,
                     onFieldSubmitted: (v) {
                       yearFocus.unfocus();
                       Constants.fieldFocusChange(context, yearFocus, nextFocus);
@@ -238,8 +247,9 @@ class DropdownDateExpiration extends StatelessWidget {
             }
           },
           hint: "YYYY",
-          initValue:
-              List.generate(yearRange, (index) => currentYear + index).indexOf(currentYear) + 1,
+          initValue: List.generate(yearRange, (index) => currentYear + index)
+                  .indexOf(currentYear) +
+              1,
           notifierDisableValues: notifierYYYY,
           notifierError: errorNotifier,
           size: yearRange,
@@ -249,8 +259,8 @@ class DropdownDateExpiration extends StatelessWidget {
               child: Text(
                 "${currentYear + index}",
                 style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                  color: isDisabled ? Colors.grey : null,
-                ),
+                      color: isDisabled ? Colors.grey : null,
+                    ),
               ),
             );
           },
@@ -375,7 +385,9 @@ class _SpinnerWidgetState extends State<_SpinnerWidget> {
         (index) => DropdownMenuItem(
           value: index + 1,
           child: widget.builder(context, index, disabledValues.contains(index)),
-          onTap: disabledValues.contains(index) ? null : () => widget.onTapItem(index),
+          onTap: disabledValues.contains(index)
+              ? null
+              : () => widget.onTapItem(index),
         ),
       ),
     );

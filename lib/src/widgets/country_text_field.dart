@@ -175,8 +175,9 @@ class _CountriesBottomSheetState extends State<_CountriesBottomSheet> {
       if (_list!.isNotEmpty) {
         _notifierShowClose.value = true;
         var newList = _list!
-            .where(
-                (c) => c!.fullName!.toLowerCase().contains(_searchController!.text.toLowerCase()))
+            .where((c) => c!.fullName!
+                .toLowerCase()
+                .contains(_searchController!.text.toLowerCase()))
             .toList();
         _stream = Stream.value(newList);
       } else {

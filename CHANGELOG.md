@@ -1,3 +1,16 @@
+## [0.21.0]:
+* add new methd `setFieldValueById` in FormController to set Field value 
+## [0.20.1+3]:
+* add optional validator for passwordElement
+* fix default validator for passwordElement
+## [0.20.1+2]:
+* fix passwordElement
+* remove default decoration
+## [0.20.1+1]:
+* remove default decoration from TextElement
+## [0.20.1]:
+* apply commonDecoration for missing elements
+* improve generate inputBorder
 ## [0.20.0]
 * break changes in LoginForm:
     * all decorationElement and label,hint moved to new Decoration for Login

@@ -17,6 +17,8 @@ abstract class BaseSimpleFormController extends BaseFormController {
 
   String getValueById(String id);
 
+  void setFieldValueById(String id, String value);
+
   void clearValueById(String id);
 }
 
@@ -49,8 +51,10 @@ class FormController extends BaseSimpleFormController {
   void clearValueById(String id) => _formState.clearValueById(id);
 
   @override
-  void addErrorToField(String id, String error) =>
-      _formState.errorFieldById(id, error);
+  void addErrorToField(String id, String error) => _formState.errorFieldById(id, error);
+
+  @override
+  void setFieldValueById(String id, String value) => _formState.setValueById(id,value);
 }
 
 /// LoginFormController : controller of login form
@@ -102,15 +106,13 @@ class PaymentController extends BaseFormController {
   }
 
   /// get current cardNumber value
-  String get cardNumber =>
-      _state.controller.getValueById(PaymentFormState.idCardNumber);
+  String get cardNumber => _state.controller.getValueById(PaymentFormState.idCardNumber);
 
   /// get current cvv value
   String get cvv => _state.controller.getValueById(PaymentFormState.idCVV);
 
   /// get current date expiration value
-  String get dateExpiration =>
-      _state.controller.getValueById(PaymentFormState.idDateExpiration);
+  String get dateExpiration => _state.controller.getValueById(PaymentFormState.idDateExpiration);
 
   /// show error in cardNumber without validator
   void addCardNumberError(String error) {

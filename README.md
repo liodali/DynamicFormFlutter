@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.20.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.21.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 
 create your form with easier way
@@ -17,7 +17,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.20.0
+		dynamic_form: ^0.21.0
 
 
 
@@ -97,6 +97,13 @@ controller.validate();
 
 ```dart
  controller.getValueById(id);
+```
+### set input value in form :
+
+> you can change field value using id of that field
+
+```dart
+ controller.setFieldValueById(id,value);
 ```
 ### clear  all inputs in form :
 

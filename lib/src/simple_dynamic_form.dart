@@ -1,4 +1,3 @@
-import 'package:dynamic_form/dynamic_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -16,6 +15,7 @@ import './widgets/email_text_field.dart';
 import './widgets/password_text_field.dart';
 import './widgets/phone_text_field.dart';
 import './widgets/text_area_form_field.dart';
+import 'elements/decoration_element.dart';
 
 /// [SimpleDynamicForm]: simple blueprint form generator
 ///
@@ -97,6 +97,9 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
 
   String singleValueById(String id) {
     assert(_mapGTextController.containsKey(id), "id doesn't exist");
+    if(!_mapGTextController.containsKey(id)){
+      throw Exception("you cannot get value of element doesn't exist");
+    }
     return _mapGTextController[id]!.text;
   }
 
@@ -250,6 +253,12 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
     }
     return flex;
   }
+
+  setValueById(String id, String value) {
+    if(_mapGTextController.containsKey(id)){
+      _mapGTextController[id]!.text = value;
+    }
+  }
 }
 
 /// 15/11/2021 : fix text of the textfield reset to initValue when widget rebuild
@@ -357,6 +366,7 @@ class _GenerateTextField extends StatelessWidget {
       return CountryTextField(
         textEditingController: controller,
         element: element as CountryElement?,
+        commonDecorationElem: commonDecorationElement,
       );
     } else if (element is EmailElement) {
       return EmailTextField(
@@ -377,6 +387,7 @@ class _GenerateTextField extends StatelessWidget {
         element: element as PhoneNumberElement,
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
+        commonDecorationElem: commonDecorationElement,
       );
     } else if (element is TextAreaElement) {
       return TextAreaFormField(
@@ -390,6 +401,7 @@ class _GenerateTextField extends StatelessWidget {
         element: element as DateElement,
         currentFocus: focusNodeCurrent,
         nextFocus: focusNodeNext,
+        commonDecorationElem: commonDecorationElement,
       );
     } else if (element is DateInputElement) {
       return DateInputField(
@@ -398,6 +410,7 @@ class _GenerateTextField extends StatelessWidget {
         nextFocus: focusNodeNext,
         element: element as DateInputElement,
         errorNotifier: errorNotifier,
+        commonDecorationElem: commonDecorationElement,
       );
     }
     if (errorNotifier != null) {
