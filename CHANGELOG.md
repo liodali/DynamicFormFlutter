@@ -1,3 +1,5 @@
+## [0.21.0]:
+* add new methd `setFieldValueById` in FormController to set Field value 
 ## [0.20.1+3]:
 * add optional validator for passwordElement
 * fix default validator for passwordElement
