@@ -93,7 +93,8 @@ class TextElement extends FormElement {
         );
 }
 
-/// [EmailElement] : representation of  email text field in form
+/// EmailElement
+/// representation of  email text field inside form
 ///
 /// [initValue] : initialized value of  textFormField
 ///
@@ -211,31 +212,28 @@ class PasswordElement extends TextElement {
           onTap: null,
           readOnly: readOnly,
           typeInput: TypeInput.Password,
-          validator: passwordValidator ?? (password) {
-            if (password != null) {
-              if (password.isNotEmpty) {
-                if (password.length < minLength) {
-                  return errors?.minLengthErrorMsg;
-                } else if (RegExp(Patterns.upperAlpha).stringMatch(password) ==
-                        null &&
-                    hasUppercase!) {
-                  return errors?.uppercaseErrorMsg ?? "";
-                } else if (RegExp(Patterns.specialChar).stringMatch(password) ==
-                        null &&
-                    hasSpecialCharacter!) {
-                  return errors?.specialCharacterErrorMsg ?? "";
-                } else if (RegExp(Patterns.digitPattern)
-                            .stringMatch(password) ==
-                        null &&
-                    hasDigits!) {
-                  return errors?.digitsErrorMsg ?? "";
+          validator: passwordValidator ??
+              (password) {
+                if (password != null) {
+                  if (password.isNotEmpty) {
+                    if (password.length < minLength) {
+                      return errors?.minLengthErrorMsg;
+                    } else if (RegExp(Patterns.upperAlpha).stringMatch(password) == null &&
+                        hasUppercase!) {
+                      return errors?.uppercaseErrorMsg ?? "";
+                    } else if (RegExp(Patterns.specialChar).stringMatch(password) == null &&
+                        hasSpecialCharacter!) {
+                      return errors?.specialCharacterErrorMsg ?? "";
+                    } else if (RegExp(Patterns.digitPattern).stringMatch(password) == null &&
+                        hasDigits!) {
+                      return errors?.digitsErrorMsg ?? "";
+                    }
+                  } else if (isRequired!) {
+                    return errors?.requiredErrorMsg ?? "this field is Required";
+                  }
                 }
-              } else if (isRequired!) {
-                return errors?.requiredErrorMsg ?? "this field is Required";
-              }
-            }
-            return null;
-          },
+                return null;
+              },
           visibility: visibility,
         );
 }
@@ -424,9 +422,7 @@ class PhoneNumberElement extends TextElement {
                 if (phone != null) {
                   if (phone.isEmpty) {
                     return errorMsg;
-                  } else if (RegExp(Patterns.phonePattern)
-                      .allMatches(phone)
-                      .isEmpty) {
+                  } else if (RegExp(Patterns.phonePattern).allMatches(phone).isEmpty) {
                     return errorMsg;
                   }
                 }
@@ -714,12 +710,9 @@ class PasswordError extends TextFieldError {
   const PasswordError({
     String requiredErrorMsg = "Password is required",
     this.minLengthErrorMsg = "",
-    this.uppercaseErrorMsg =
-        "Password must include at least one uppercase letter ",
-    this.specialCharacterErrorMsg =
-        "Password must include at least one special character",
-    this.digitsErrorMsg =
-        "Password must include at least one digit from 0 to 9",
+    this.uppercaseErrorMsg = "Password must include at least one uppercase letter ",
+    this.specialCharacterErrorMsg = "Password must include at least one special character",
+    this.digitsErrorMsg = "Password must include at least one digit from 0 to 9",
     String? error,
   }) : super(error: error, requiredErrorMsg: requiredErrorMsg);
 }
