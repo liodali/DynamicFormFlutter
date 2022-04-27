@@ -1,3 +1,4 @@
+import 'package:dynamic_form/src/widgets/select_choice_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -97,7 +98,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
 
   String singleValueById(String id) {
     assert(_mapGTextController.containsKey(id), "id doesn't exist");
-    if(!_mapGTextController.containsKey(id)){
+    if (!_mapGTextController.containsKey(id)) {
       throw Exception("you cannot get value of element doesn't exist");
     }
     return _mapGTextController[id]!.text;
@@ -255,7 +256,7 @@ class SimpleDynamicFormState extends State<SimpleDynamicForm> {
   }
 
   setValueById(String id, String value) {
-    if(_mapGTextController.containsKey(id)){
+    if (_mapGTextController.containsKey(id)) {
       _mapGTextController[id]!.text = value;
     }
   }
@@ -411,6 +412,16 @@ class _GenerateTextField extends StatelessWidget {
         element: element as DateInputElement,
         errorNotifier: errorNotifier,
         commonDecorationElem: commonDecorationElement,
+      );
+    } else if (element is SelectChoiceElement) {
+      return SelectChoiceField(
+        textEditingController: controller,
+        element: element as SelectChoiceElement,
+        inputDecoration: Constants.setInputBorder(
+          context,
+          element.decorationElement,
+          common: commonDecorationElement,
+        ),
       );
     }
     if (errorNotifier != null) {
