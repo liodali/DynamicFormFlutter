@@ -1,3 +1,7 @@
+## [0.22.0]: add selectChoice field
+* create SelectChoiceElement
+* create Widget associated to SelectChoiceElement
+* add SelectChoiceElement in simpleDynamicForm
 ## [0.21.0]:
 * add new methd `setFieldValueById` in FormController to set Field value 
 ## [0.20.1+3]:
