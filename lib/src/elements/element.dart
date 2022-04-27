@@ -377,6 +377,36 @@ class CountryElement extends TextElement {
         );
 }
 
+class SelectChoiceElement extends TextElement {
+  final String? initValue;
+  final DecorationElement? decorationElement;
+  final String? label;
+  final String? errorMsg;
+  final EdgeInsets padding;
+  final List<String> values;
+
+  SelectChoiceElement({
+    String? id,
+    required this.values,
+    this.initValue,
+    this.decorationElement,
+    this.label,
+    this.padding = const EdgeInsets.all(2.0),
+    bool visibility = true,
+    bool readOnly = false,
+    this.errorMsg,
+  }) : super(
+          id: id,
+          initValue: initValue,
+          decorationElement: decorationElement,
+          label: label,
+          readOnly: readOnly,
+          padding: padding,
+          error: errorMsg,
+          visibility: visibility,
+        );
+}
+
 class PhoneNumberElement extends TextElement {
   final String initValue;
   final String initPrefix;
