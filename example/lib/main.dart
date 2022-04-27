@@ -118,6 +118,13 @@ class MyHomePage extends StatelessWidget {
                   GroupElement(
                     directionGroup: DirectionGroup.Vertical,
                     textElements: [
+                      SelectChoiceElement(
+                        values: ["Male","Female"],
+                        initValue: "Male",
+                        label: "Gender",
+                        id: "gender",
+                        decorationElement: OutlineDecorationElement()
+                      ),
                       PhoneNumberElement(
                         //label: "",
                         hint: "Phone Number",
