@@ -407,41 +407,36 @@ class SelectChoiceElement extends TextElement {
         );
 }
 
-
 class RadioGroupElement extends TextElement {
   final String? initValue;
-  final DecorationElement? decorationElement;
   final String? label;
   final String? errorMsg;
   final EdgeInsets padding;
   final List<String> values;
-  final bool multiOption;
-  final Axis direction;
+  final List<String> valuesLabel;
+  final Function(String)? onSelected;
 
   RadioGroupElement({
     String? id,
-    required this.values,
     this.initValue,
-    this.decorationElement,
+    required this.values,
+    required this.valuesLabel,
     this.label,
     this.padding = const EdgeInsets.all(2.0),
     bool visibility = true,
     bool readOnly = false,
-    this.multiOption = false,
-    this.direction = Axis.vertical,
+    this.onSelected,
     this.errorMsg,
   }) : super(
-    id: id,
-    initValue: initValue,
-    decorationElement: decorationElement,
-    label: label,
-    readOnly: readOnly,
-    padding: padding,
-    error: errorMsg,
-    visibility: visibility,
-  );
+          id: id,
+          initValue: initValue,
+          label: label,
+          readOnly: readOnly,
+          padding: padding,
+          error: errorMsg,
+          visibility: visibility,
+        );
 }
-
 
 class PhoneNumberElement extends TextElement {
   final String initValue;
