@@ -1,3 +1,4 @@
+import 'package:dynamic_form/src/widgets/radio_group_widget.dart';
 import 'package:dynamic_form/src/widgets/select_choice_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -423,7 +424,13 @@ class _GenerateTextField extends StatelessWidget {
           common: commonDecorationElement,
         ),
       );
+    } else if (element is RadioGroupElement) {
+      return RadioGroupWidget(
+        textController: controller,
+        element: element as RadioGroupElement,
+      );
     }
+
     if (errorNotifier != null) {
       return ValueListenableBuilder<String?>(
         valueListenable: errorNotifier!,
