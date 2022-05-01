@@ -410,6 +410,8 @@ class SelectChoiceElement extends TextElement {
 class RadioGroupElement extends TextElement {
   final String? initValue;
   final String? label;
+  final AlignmentGeometry? labelAlignment;
+  final Color? activeSelectedColor;
   final String? errorMsg;
   final EdgeInsets padding;
   final List<String> values;
@@ -422,6 +424,8 @@ class RadioGroupElement extends TextElement {
     required this.values,
     required this.valuesLabel,
     this.label,
+    this.labelAlignment,
+    this.activeSelectedColor,
     this.padding = const EdgeInsets.all(2.0),
     bool visibility = true,
     bool readOnly = false,
