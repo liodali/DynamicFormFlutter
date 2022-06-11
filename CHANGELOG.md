@@ -1,3 +1,7 @@
+## [0.23.0]: add RadioGroup field
+* create RadioGroupElement
+* create Widget `RadioGroupWidget` associated to  RadioGroupElement
+* add RadioGroupElement in simpleDynamicForm
 ## [0.22.0]: add selectChoice field
 * create SelectChoiceElement
 * create Widget associated to SelectChoiceElement

@@ -125,6 +125,17 @@ class MyHomePage extends StatelessWidget {
                         id: "gender",
                         decorationElement: OutlineDecorationElement()
                       ),
+                      RadioGroupElement(
+                        id: "mode",
+                        label: "Mode",
+                        values: ["dark","light"],
+                        valuesLabel: ["Dark Mode","Light Mode"],
+                        initValue: "dark",
+                        activeSelectedColor: Colors.red,
+                        onSelected: (v){
+                          print(v);
+                        }
+                      ),
                       PhoneNumberElement(
                         //label: "",
                         hint: "Phone Number",

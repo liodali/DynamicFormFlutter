@@ -1,5 +1,5 @@
 # dynamicform
-![pub](https://img.shields.io/badge/pub-v0.22.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
+![pub](https://img.shields.io/badge/pub-v0.23.0-orange) ![GitHub](https://img.shields.io/github/license/liodali/checkbox_grouped)
 
 
 create your form with easier way
@@ -17,7 +17,7 @@ create your form with easier way
 Add the following to your `pubspec.yaml` file:
 
     dependencies:
-		dynamic_form: ^0.22.0
+		dynamic_form: ^0.23.0
 
 
 
@@ -485,6 +485,25 @@ final dateExpiration = controller.dateExpiration;
 | `hint`                   | (String) hint text of textField
 | `isRequired`             | (bool) if true,make this field required
 | `errorMsg`               | (String) show error message  when the field isn't validate
+| `padding`                | (EdgeInsets) padding of textField
+
+
+###  `RadioGroupElement`
+
+> Pre-exsiting element for radioGroup field  input
+> Pre-initialized values
+
+| Properties               | Description                                                           |
+| ------------------------ | --------------------------------------------------------------------- |
+| `id`                     | String,should be unique,
+| `initValue`              | (String)  initialized select value of the radio group  field
+| `label`                  | (String) text label of the radio group field
+| `labelAlignment`         | (AlignmentGeometry)  label text alignment
+| `activeSelectedColor`    | (Color) active select radio in the radio group field
+| `decorationElement`      | input decoration of TextField
+| `errorMsg`               | (String) error message that will show when error
+| `values`                 | (List<String>) list of values of each selected item 
+| `valuesLabel`            | (List<String>) list of labels of each item in the radio group
 | `padding`                | (EdgeInsets) padding of textField
 
 

@@ -406,6 +406,41 @@ class SelectChoiceElement extends TextElement {
           visibility: visibility,
         );
 }
+/// RadioGroupElement
+class RadioGroupElement extends TextElement {
+  final String? initValue;
+  final String? label;
+  final AlignmentGeometry? labelAlignment;
+  final Color? activeSelectedColor;
+  final String? errorMsg;
+  final EdgeInsets padding;
+  final List<String> values;
+  final List<String> valuesLabel;
+  final Function(String)? onSelected;
+
+  RadioGroupElement({
+    String? id,
+    this.initValue,
+    required this.values,
+    required this.valuesLabel,
+    this.label,
+    this.labelAlignment,
+    this.activeSelectedColor,
+    this.padding = const EdgeInsets.all(2.0),
+    bool visibility = true,
+    bool readOnly = false,
+    this.onSelected,
+    this.errorMsg,
+  }) : super(
+          id: id,
+          initValue: initValue,
+          label: label,
+          readOnly: readOnly,
+          padding: padding,
+          error: errorMsg,
+          visibility: visibility,
+        );
+}
 
 class PhoneNumberElement extends TextElement {
   final String initValue;
